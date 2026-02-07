@@ -20,7 +20,8 @@ import { Notifications } from "./notifications";
 
 export function Header() {
   const [isSidebarSheetOpen, setIsSidebarSheetOpen] = useState(false);
-
+  const [use12HourFormat, setUse12HourFormat] = useState(true);
+  const [currentDateTime, setCurrentDateTime] = useState("");
   const pathname = usePathname();
   const mobileMode = useIsMobile();
 
@@ -33,7 +34,26 @@ export function Header() {
       setIsSidebarSheetOpen(false);
     });
   }, [pathname]);
+  useEffect(() => {
+    const updateDateTime = () => {
+      const now = new Date();
+      const formatted = now.toLocaleString("en-BD", {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: use12HourFormat,
+        timeZone: "Asia/Dhaka",
+      });
+      setCurrentDateTime(formatted);
+    };
 
+    updateDateTime();
+    const interval = setInterval(updateDateTime, 1000);
+    return () => clearInterval(interval);
+  }, [use12HourFormat]);
   return (
     <header
       className={cn(
@@ -88,6 +108,16 @@ export function Header() {
 
         {/* HeaderTopbar */}
         <div className="flex items-center gap-3">
+          {/* Real-time Date/Time Display */}
+          <div
+            className="hidden md:flex items-center px-3 py-1.5 rounded-md  cursor-pointer"
+            onClick={() => setUse12HourFormat((prev) => !prev)}
+            title="Click to toggle time format"
+          >
+            <span className="text-sm font-medium text-foreground/80">
+              {currentDateTime}
+            </span>
+          </div>
           <Notifications
             trigger={
               <Button
