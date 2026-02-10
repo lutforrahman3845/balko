@@ -14,8 +14,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Craftize - Project Management System",
-  description: "Streamline your projects, manage tasks, and ensure milestones are met with Craftize.",
+  title: "Balko - Project Management System",
+  description: "Streamline your projects, manage tasks, and ensure milestones are met with Balko.",
   icons:{
     icon:"/favicon.svg"
   }

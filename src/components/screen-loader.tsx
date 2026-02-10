@@ -18,7 +18,7 @@ export function ScreenLoader() {
         {/* Branding & Loading State */}
         <div className="mt-4 flex flex-col items-center gap-2">
           <span className="text-foreground font-bold tracking-[0.2em] text-sm uppercase">
-            Craftize
+            Balko
           </span>
           <div className="flex items-center gap-1.5 pt-1">
             <div className="h-1 w-1 rounded-full bg-primary/40 animate-bounce [animation-delay:-0.3s]"></div>
