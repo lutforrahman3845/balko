@@ -65,13 +65,24 @@ export function Header() {
         {/* HeaderLogo - Always present for justify-between to work */}
         <div className="flex items-center gap-2.5">
           <Link href="/" className="shrink-0 lg:hidden">
-            <Image
-              height={200}
-              width={200}
-              src={"/favicon.svg"}
-              className="h-9 w-full"
-              alt="mini-logo"
-            />
+            <div className="dark:hidden flex items-center">
+              <Image
+                width={200}
+                height={200}
+                src="/logo/balcowhite.svg"
+                alt="logo"
+                className="h-9 w-9 transition-transform group-hover:rotate-12"
+              />
+            </div>
+            <div className="hidden dark:flex items-center">
+              <Image
+                width={200}
+                height={200}
+                src="/logo/balcoblack.svg"
+                alt="logo"
+                className="h-9 w-9  transition-transform group-hover:rotate-12"
+              />
+            </div>
           </Link>
           <div className="flex items-center lg:hidden">
             {mobileMode && (

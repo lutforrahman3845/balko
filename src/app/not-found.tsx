@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import Image from "next/image";
 
 export default function NotFound() {
   return (
@@ -16,12 +17,28 @@ export default function NotFound() {
 
       <div className="relative z-10 text-center flex flex-col items-center">
         <div className="mb-6 flex justify-center">
-          <Link href="/" className="inline-flex items-center gap-3 group transition-all">
-            <img
-              src="/favicon.svg"
-              alt="logo"
-              className="h-16 w-16 transition-transform group-hover:rotate-12"
-            />
+          <Link
+            href="/"
+            className="inline-flex items-center gap-3 group transition-all"
+          >
+            <div className="dark:hidden flex items-center">
+              <Image
+                width={200}
+                height={200}
+                src="/logo/balcowhite.svg"
+                alt="logo"
+                className="h-32 w-32 transition-transform group-hover:rotate-12"
+              />
+            </div>
+            <div className="hidden dark:flex items-center">
+              <Image
+                width={200}
+                height={200}
+                src="/logo/balcoblack.svg"
+                alt="logo"
+                className="h-32 w-32 transition-transform group-hover:rotate-12"
+              />
+            </div>
           </Link>
         </div>
 
@@ -30,11 +47,16 @@ export default function NotFound() {
         </h1>
 
         <p className="mt-6 text-lg leading-7 text-muted-foreground max-w-lg mx-auto">
-          Sorry, we couldn’t find the page you’re looking for. It might have been moved or deleted.
+          Sorry, we couldn’t find the page you’re looking for. It might have
+          been moved or deleted.
         </p>
 
         <div className="mt-10 flex items-center justify-center gap-x-6">
-          <Button asChild size="lg" className="rounded-full px-8 shadow-lg shadow-primary/25 transition-all hover:scale-105 active:scale-95">
+          <Button
+            asChild
+            size="lg"
+            className="rounded-full px-8 shadow-lg shadow-primary/25 transition-all hover:scale-105 active:scale-95"
+          >
             <Link href="/">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Dashboard
@@ -44,7 +66,7 @@ export default function NotFound() {
       </div>
 
       {/* Subtle Background Glow */}
-      <div className="absolute left-1/2 top-1/2 -z-10 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 bg-primary/10 blur-[120px] rounded-full"></div>
+      <div className="absolute left-1/2 top-1/2 -z-10 h-100 w-100 -translate-x-1/2 -translate-y-1/2 bg-primary/10 blur-[120px] rounded-full"></div>
     </div>
   );
 }

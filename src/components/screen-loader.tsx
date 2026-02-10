@@ -1,22 +1,35 @@
-'use client';
+"use client";
+
+import Image from "next/image";
 
 export function ScreenLoader() {
   return (
     <div className="fixed inset-0 z-100 flex flex-col items-center justify-center bg-background">
       <div className="relative flex flex-col items-center">
-
-
         {/* Logo with Pulse Effect */}
         <div className="relative animate-pulse">
-          <img
-            className="h-14 w-14 max-w-none drop-shadow-sm"
-            src="/favicon.svg"
-            alt="logo"
-          />
+          <div className="dark:hidden flex items-center">
+            <Image
+              width={200}
+              height={200}
+              src="/logo/balcowhite.svg"
+              alt="logo"
+              className="h-32 w-32 transition-transform group-hover:rotate-12"
+            />
+          </div>
+          <div className="hidden dark:flex items-center">
+            <Image
+              width={200}
+              height={200}
+              src="/logo/balcoblack.svg"
+              alt="logo"
+              className="h-32 w-32 transition-transform group-hover:rotate-12"
+            />
+          </div>
         </div>
 
         {/* Branding & Loading State */}
-        <div className="mt-4 flex flex-col items-center gap-2">
+        <div className="mt-4 flex items-center gap-2">
           <span className="text-foreground font-bold tracking-[0.2em] text-sm uppercase">
             Balko
           </span>

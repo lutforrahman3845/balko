@@ -1,7 +1,8 @@
-import { NavConfig } from '@/@types/NavItem';
-import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
+import { NavConfig } from "@/@types/NavItem";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from "react";
 
-type SidebarTheme = 'dark' | 'light';
+type SidebarTheme = "dark" | "light";
 
 // Define the shape of the layout state
 interface LayoutState {
@@ -24,11 +25,19 @@ interface LayoutProviderProps {
   sidebarNavItems: NavConfig;
 }
 
-export function LayoutProvider({ children, sidebarNavItems, }: LayoutProviderProps) {
-  const [sidebarCollapse, setSidebarCollapse] = useState(false);
-  const [sidebarTheme, setSidebarTheme] = useState<SidebarTheme>('light');
-  const initialPinned = sidebarNavItems
-    .map((item) => item.id);
+export function LayoutProvider({
+  children,
+  sidebarNavItems,
+}: LayoutProviderProps) {
+  const isMobile = useIsMobile();
+  const [sidebarCollapse, setSidebarCollapse] = useState(() => !isMobile);
+
+  useEffect(() => {
+    setSidebarCollapse(!isMobile);
+  }, [isMobile]);
+
+  const [sidebarTheme, setSidebarTheme] = useState<SidebarTheme>("light");
+  const initialPinned = sidebarNavItems.map((item) => item.id);
   const [sidebarPinnedNavItems, setSidebarPinnedNavItems] =
     useState<string[]>(initialPinned);
   const isSidebarNavItemPinned = (id: string) => {
@@ -73,7 +82,7 @@ export function LayoutProvider({ children, sidebarNavItems, }: LayoutProviderPro
 export const useLayout = () => {
   const context = useContext(LayoutContext);
   if (!context) {
-    throw new Error('useLayout must be used within a LayoutProvider');
+    throw new Error("useLayout must be used within a LayoutProvider");
   }
   return context;
 };

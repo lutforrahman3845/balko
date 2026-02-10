@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useLayout } from './context';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export function SidebarHeader() {
   const { sidebarCollapse, setSidebarCollapse } = useLayout();
@@ -12,18 +13,22 @@ export function SidebarHeader() {
   };
 
   return (
-    <div className="sidebar-header hidden lg:flex items-center relative justify-between px-3 lg:px-6 shrink-0 border-b border-border/50">
+    <div className="sidebar-header hidden lg:flex items-center relative justify-between px-3 shrink-0">
       <Link href="/" className="flex items-center">
         <div className="dark:hidden flex items-center">
           {!sidebarCollapse ? (
-            <img
-              src={'/logo/craftize-full.svg'}
-              className="h-7 max-w-none"
+            <Image
+              width={200}
+              height={200}
+              src={'/logo/balcofullwhite.svg'}
+              className="h-12 max-w-none"
               alt="Default Logo"
             />
           ) : (
-            <img
-              src={'/favicon.svg'}
+            <Image
+              width={200}
+              height={200}
+              src={'/logo/balcowhite.svg'}
               className="h-8 w-8 max-w-none transform transition-transform duration-300"
               alt="Mini Logo"
             />
@@ -31,14 +36,18 @@ export function SidebarHeader() {
         </div>
         <div className="hidden dark:flex items-center">
           {!sidebarCollapse ? (
-            <img
-              src={'/logo/craftize-full-dark.svg'}
-              className="h-8 max-w-none"
+            <Image
+              width={200}
+              height={200}
+              src={'/logo/balcofullblack.svg'}
+              className="h-12 max-w-none"
               alt="Default Dark Logo"
             />
           ) : (
-            <img
-              src={'/favicon.svg'}
+            <Image
+              width={200}
+              height={200}
+              src={'/logo/balcoblack.svg'}
               className="h-8 w-8 max-w-none transform transition-transform duration-300"
               alt="Mini Logo"
             />
