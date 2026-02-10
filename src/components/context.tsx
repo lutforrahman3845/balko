@@ -1,6 +1,14 @@
 import { NavConfig } from "@/@types/NavItem";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  startTransition,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 type SidebarTheme = "dark" | "light";
 
@@ -33,7 +41,9 @@ export function LayoutProvider({
   const [sidebarCollapse, setSidebarCollapse] = useState(() => !isMobile);
 
   useEffect(() => {
-    setSidebarCollapse(!isMobile);
+    startTransition(() => {
+      setSidebarCollapse(!isMobile);
+    });
   }, [isMobile]);
 
   const [sidebarTheme, setSidebarTheme] = useState<SidebarTheme>("light");
