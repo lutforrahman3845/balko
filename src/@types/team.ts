@@ -1,9 +1,11 @@
-export interface Role {
+export interface Team {
     id: string;
     name: string;
     displayName: string;
     description: string | null;
-    permissions: string[];
+    teamMembersIds: string[];
+    teamLeaderId: string;
+    projectManagerId: string;
     createdAt: string;
     updatedAt: string;
 }

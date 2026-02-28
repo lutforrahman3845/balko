@@ -1,9 +1,8 @@
-export interface Role {
+export interface Department {
     id: string;
     name: string;
     displayName: string;
     description: string | null;
-    permissions: string[];
     createdAt: string;
     updatedAt: string;
 }

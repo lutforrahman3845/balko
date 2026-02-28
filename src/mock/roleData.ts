@@ -3,80 +3,119 @@ import { Role } from "@/@types/role";
 export const rolesData: Role[] = [
     {
         id: '1',
-        name: 'CEO',
+        name: 'ceo',
+        displayName: 'CEO',
         description: 'Chief Executive Officer - Full organization oversight.',
-        permissions:[]
+        permissions: [],
+        createdAt: '2025-02-05T21:02:53.000Z',
+        updatedAt: '2025-02-05T21:02:53.000Z',
     },
     {
         id: '2',
-        name: 'COO',
+        name: 'coo',
+        displayName: 'COO',
         description: 'Chief Operating Officer - Operational management.',
-        permissions:[]
+        permissions: [],
+        createdAt: '2025-02-05T21:02:53.000Z',
+        updatedAt: '2025-02-05T21:02:53.000Z',
     },
     {
         id: '3',
-        name: 'Project Manager',
+        name: 'project_manager',
+        displayName: 'Project Manager',
         description: 'Oversees project timelines and resource allocation.',
-        permissions:[]
+        permissions: [],
+        createdAt: '2025-02-05T21:02:53.000Z',
+        updatedAt: '2025-02-05T21:02:53.000Z',
     },
     {
         id: '4',
-        name: 'UI/UX Designer',
+        name: 'ui_ux_designer',
+        displayName: 'UI/UX Designer',
         description: 'Responsible for user research and interface design.',
-        permissions:[]
+        permissions: [],
+        createdAt: '2025-02-05T21:02:53.000Z',
+        updatedAt: '2025-02-05T21:02:53.000Z',
     },
     {
         id: '5',
-        name: 'Senior Software Developer',
+        name: 'senior_software_developer',
+        displayName: 'Senior Software Developer',
         description: 'Lead technical implementation and architecture.',
-        permissions:[]
+        permissions: [],
+        createdAt: '2025-02-05T21:02:53.000Z',
+        updatedAt: '2025-02-05T21:02:53.000Z',
     },
     {
         id: '6',
-        name: 'Software Developer',
+        name: 'software_developer',
+        displayName: 'Software Developer',
         description: 'Core implementation and feature development.',
-        permissions:[]
+        permissions: [],
+        createdAt: '2025-02-05T21:02:53.000Z',
+        updatedAt: '2025-02-05T21:02:53.000Z',
     },
     {
         id: '7',
-        name: 'App Developer',
+        name: 'app_developer',
+        displayName: 'App Developer',
         description: 'Specialized in mobile application development.',
-        permissions:[]
+        permissions: [],
+        createdAt: '2025-02-05T21:02:53.000Z',
+        updatedAt: '2025-02-05T21:02:53.000Z',
     },
     {
         id: '8',
-        name: 'Intern Developer',
+        name: 'intern_developer',
+        displayName: 'Intern Developer',
         description: 'Junior level implementation and learning role.',
-        permissions:[]
+        permissions: [],
+        createdAt: '2025-02-05T21:02:53.000Z',
+        updatedAt: '2025-02-05T21:02:53.000Z',
     },
     {
         id: '9',
-        name: 'QA Lead',
+        name: 'qa_lead',
+        displayName: 'QA Lead',
         description: 'Oversees quality assurance testing strategies and standards.',
-        permissions:[]
+        permissions: [],
+        createdAt: '2025-02-05T21:02:53.000Z',
+        updatedAt: '2025-02-05T21:02:53.000Z',
     },
     {
         id: '10',
-        name: 'Quality Engineer',
+        name: 'quality_engineer',
+        displayName: 'Quality Engineer',
         description: 'Performs manual and functional testing of features.',
-        permissions:[]
+        permissions: [],
+        createdAt: '2025-02-05T21:02:53.000Z',
+        updatedAt: '2025-02-05T21:02:53.000Z',
     },
     {
         id: '11',
-        name: 'Automation Engineer',
+        name: 'automation_engineer',
+        displayName: 'Automation Engineer',
         description: 'Develops and maintains automated test suites.',
-        permissions:[]
+        permissions: [],
+        createdAt: '2025-02-05T21:02:53.000Z',
+        updatedAt: '2025-02-05T21:02:53.000Z',
     },
     {
         id: '12',
-        name: 'DevOps Engineer',
+        name: 'devops_engineer',
+        displayName: 'DevOps Engineer',
         description: 'Manages infrastructure, CI/CD, and deployment pipelines.',
-        permissions:[]
+        permissions: [],
+        createdAt: '2025-02-05T21:02:53.000Z',
+        updatedAt: '2025-02-05T21:02:53.000Z',
     },
     {
         id: '13',
-        name: 'Product Owner',
+        name: 'product_owner',
+        displayName: 'Product Owner',
         description: 'Defines product vision and manages the product backlog.',
-        permissions:[]
+        permissions: [],
+        createdAt: '2025-02-05T21:02:53.000Z',
+        updatedAt: '2025-02-05T21:02:53.000Z',
     },
 ];
