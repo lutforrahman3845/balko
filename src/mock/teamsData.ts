@@ -1,81 +1,95 @@
 import { Team } from "@/@types/team";
 
-export const teamsData: Team[] = [
-    {
-        id: '1',
-        name: 'executive_leadership',
-        displayName: 'Executive Leadership',
-        description: 'Core organizational management and strategic planning.',
-        teamMembersIds: ['1', '2'],
-        teamLeaderId: '1',
-        projectManagerId: '1',
-        createdAt: '2025-02-05T21:02:53.000Z',
-        updatedAt: '2025-02-05T21:02:53.000Z',
-    },
-    {
-        id: '2',
-        name: 'frontend_team_alpha',
-        displayName: 'Frontend Team Alpha',
-        description: 'Specialized in building high-performance React applications.',
-        teamMembersIds: ['13', '30', '46', '52', '80'],
-        teamLeaderId: '13',
-        projectManagerId: '3',
-        createdAt: '2025-02-05T21:02:53.000Z',
-        updatedAt: '2025-02-05T21:02:53.000Z',
-    },
-    {
-        id: '3',
-        name: 'backend_core_systems',
-        displayName: 'Backend & Core Systems',
-        description: 'Focuses on microservices, API architecture, and database optimization.',
-        teamMembersIds: ['32', '38', '47', '56', '72'],
-        teamLeaderId: '32',
-        projectManagerId: '5',
-        createdAt: '2025-02-05T21:02:53.000Z',
-        updatedAt: '2025-02-05T21:02:53.000Z',
-    },
-    {
-        id: '4',
-        name: 'mobile_innovations',
-        displayName: 'Mobile Innovations',
-        description: 'Cross-platform and native mobile application development.',
-        teamMembersIds: ['12', '19', '34', '43', '48'],
-        teamLeaderId: '12',
-        projectManagerId: '6',
-        createdAt: '2025-02-05T21:02:53.000Z',
-        updatedAt: '2025-02-05T21:02:53.000Z',
-    },
-    {
-        id: '5',
-        name: 'ui_ux_creative_studio',
-        displayName: 'UI/UX Creative Studio',
-        description: 'Responsible for user research, wireframing, and interactive design.',
-        teamMembersIds: ['25', '4', '15', '22'],
-        teamLeaderId: '25',
-        projectManagerId: '7',
-        createdAt: '2025-02-05T21:02:53.000Z',
-        updatedAt: '2025-02-05T21:02:53.000Z',
-    },
-    {
-        id: '6',
-        name: 'quality_guardians',
-        displayName: 'Quality Guardians',
-        description: 'Ensuring software excellence through automated and manual testing.',
-        teamMembersIds: ['21', '11', '18', '24', '26', '29', '33'],
-        teamLeaderId: '21',
-        projectManagerId: '8',
-        createdAt: '2025-02-05T21:02:53.000Z',
-        updatedAt: '2025-02-05T21:02:53.000Z',
-    },
-    {
-        id: '7',
-        name: 'devops_cloud_operations',
-        displayName: 'DevOps & Cloud Operations',
-        description: 'Scaling infrastructure and managing multi-cloud deployments.',
-        teamMembersIds: ['20', '37', '53', '61'],
-        teamLeaderId: '20',
-        projectManagerId: '9',
-        createdAt: '2025-02-05T21:02:53.000Z',
-        updatedAt: '2025-02-05T21:02:53.000Z',
-    },
+export const teamData: Team[] = [
+  {
+    id: 'team1',
+    name: 'executive_team',
+    displayName: 'Executive Team',
+    description: 'Core leadership team including CEO and COO.',
+    departmentId: '1', // Executive Management
+    teamLeaderId: '',  // Assign CEO
+    createdAt: '2025-02-05T21:02:53.000Z',
+    updatedAt: '2025-02-05T21:02:53.000Z',
+  },
+
+  {
+    id: 'team2',
+    name: 'frontend_team',
+    displayName: 'Frontend Team',
+    description: 'Handles web frontend development.',
+    departmentId: '2', // Engineering
+    teamLeaderId: '',  // Assign Senior Developer
+    createdAt: '2025-02-05T21:02:53.000Z',
+    updatedAt: '2025-02-05T21:02:53.000Z',
+  },
+  {
+    id: 'team3',
+    name: 'backend_team',
+    displayName: 'Backend Team',
+    description: 'Handles server-side development and APIs.',
+    departmentId: '2', // Engineering
+    teamLeaderId: '',  
+    createdAt: '2025-02-05T21:02:53.000Z',
+    updatedAt: '2025-02-05T21:02:53.000Z',
+  },
+  {
+    id: 'team4',
+    name: 'mobile_team',
+    displayName: 'Mobile Team',
+    description: 'Handles mobile app development.',
+    departmentId: '2',
+    teamLeaderId: '',
+    createdAt: '2025-02-05T21:02:53.000Z',
+    updatedAt: '2025-02-05T21:02:53.000Z',
+  },
+  {
+    id: 'team5',
+    name: 'ui_ux_team',
+    displayName: 'UI/UX Team',
+    description: 'Handles all user interface and experience design.',
+    departmentId: '3', // Design
+    teamLeaderId: '',
+    createdAt: '2025-02-05T21:02:53.000Z',
+    updatedAt: '2025-02-05T21:02:53.000Z',
+  },
+  {
+    id: 'team6',
+    name: 'qa_team',
+    displayName: 'QA Team',
+    description: 'Responsible for quality assurance and testing.',
+    departmentId: '4', // QA
+    teamLeaderId: '', // Assign QA Lead
+    createdAt: '2025-02-05T21:02:53.000Z',
+    updatedAt: '2025-02-05T21:02:53.000Z',
+  },
+  {
+    id: 'team7',
+    name: 'product_team',
+    displayName: 'Product Team',
+    description: 'Manages product backlog and roadmap.',
+    departmentId: '5', // Product Management
+    teamLeaderId: '',
+    createdAt: '2025-02-05T21:02:53.000Z',
+    updatedAt: '2025-02-05T21:02:53.000Z',
+  },
+  {
+    id: 'team8',
+    name: 'hr_team',
+    displayName: 'HR Team',
+    description: 'Manages recruitment, employee relations, and HR operations.',
+    departmentId: '6', // HR
+    teamLeaderId: '', 
+    createdAt: '2025-02-05T21:02:53.000Z',
+    updatedAt: '2025-02-05T21:02:53.000Z',
+  },
+  {
+    id: 'team9',
+    name: 'marketing_team',
+    displayName: 'Marketing Team',
+    description: 'Handles marketing, branding, and campaigns.',
+    departmentId: '7', // Marketing
+    teamLeaderId: '', 
+    createdAt: '2025-02-05T21:02:53.000Z',
+    updatedAt: '2025-02-05T21:02:53.000Z',
+  }
 ];

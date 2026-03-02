@@ -3,6 +3,8 @@ export interface Department {
     name: string;
     displayName: string;
     description: string | null;
+    parentDepartmentId?: string | null; 
+    departmentHeadId?: string | null; 
     createdAt: string;
     updatedAt: string;
 }

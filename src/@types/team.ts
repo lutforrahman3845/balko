@@ -3,9 +3,8 @@ export interface Team {
     name: string;
     displayName: string;
     description: string | null;
-    teamMembersIds: string[];
-    teamLeaderId: string;
-    projectManagerId: string;
+    departmentId: string;    
+    teamLeaderId: string;      
     createdAt: string;
     updatedAt: string;
 }
