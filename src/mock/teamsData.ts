@@ -2,7 +2,7 @@ import { Team } from "@/@types/team";
 
 export const teamData: Team[] = [
   {
-    id: 'team1',
+    id: '1',
     name: 'executive_team',
     displayName: 'Executive Team',
     description: 'Core leadership team including CEO and COO.',
@@ -13,7 +13,7 @@ export const teamData: Team[] = [
   },
 
   {
-    id: 'team2',
+    id: '2',
     name: 'frontend_team',
     displayName: 'Frontend Team',
     description: 'Handles web frontend development.',
@@ -23,7 +23,7 @@ export const teamData: Team[] = [
     updatedAt: '2025-02-05T21:02:53.000Z',
   },
   {
-    id: 'team3',
+    id: '3',
     name: 'backend_team',
     displayName: 'Backend Team',
     description: 'Handles server-side development and APIs.',
@@ -33,7 +33,7 @@ export const teamData: Team[] = [
     updatedAt: '2025-02-05T21:02:53.000Z',
   },
   {
-    id: 'team4',
+    id: '4',
     name: 'mobile_team',
     displayName: 'Mobile Team',
     description: 'Handles mobile app development.',
@@ -43,7 +43,7 @@ export const teamData: Team[] = [
     updatedAt: '2025-02-05T21:02:53.000Z',
   },
   {
-    id: 'team5',
+    id: '5',
     name: 'ui_ux_team',
     displayName: 'UI/UX Team',
     description: 'Handles all user interface and experience design.',
@@ -53,7 +53,7 @@ export const teamData: Team[] = [
     updatedAt: '2025-02-05T21:02:53.000Z',
   },
   {
-    id: 'team6',
+    id: '6',
     name: 'qa_team',
     displayName: 'QA Team',
     description: 'Responsible for quality assurance and testing.',
@@ -63,7 +63,7 @@ export const teamData: Team[] = [
     updatedAt: '2025-02-05T21:02:53.000Z',
   },
   {
-    id: 'team7',
+    id: '7',
     name: 'product_team',
     displayName: 'Product Team',
     description: 'Manages product backlog and roadmap.',
@@ -73,7 +73,7 @@ export const teamData: Team[] = [
     updatedAt: '2025-02-05T21:02:53.000Z',
   },
   {
-    id: 'team8',
+    id: '8',
     name: 'hr_team',
     displayName: 'HR Team',
     description: 'Manages recruitment, employee relations, and HR operations.',
@@ -83,7 +83,7 @@ export const teamData: Team[] = [
     updatedAt: '2025-02-05T21:02:53.000Z',
   },
   {
-    id: 'team9',
+    id: '9',
     name: 'marketing_team',
     displayName: 'Marketing Team',
     description: 'Handles marketing, branding, and campaigns.',
