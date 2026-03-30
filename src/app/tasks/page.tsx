@@ -10,7 +10,8 @@ const Page = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
   const [selectedPriorities, setSelectedPriorities] = useState<string[]>([]);
-
+  const [pageIndex, setPageIndex] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(10);
   const navItems = [
     { title: "Today", icon: CalendarCheck, id: "today" },
     { title: "Week", icon: CalendarRange, id: "week" },
@@ -52,7 +53,7 @@ const Page = () => {
       color: "bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-400"
     },
   ];
-
+   
   return (
     <>
       <TaskHeader />
