@@ -33,6 +33,7 @@ interface FilterDropDownProps {
   icon?: LucideIcon;
   placeholder?: string;
   className?: string;
+  setPageIndex: (pageIndex: number) => void;
 }
 
 const FilterDropDown = ({
@@ -43,12 +44,14 @@ const FilterDropDown = ({
   icon: Icon = Filter,
   placeholder,
   className,
+  setPageIndex,
 }: FilterDropDownProps) => {
   const handleToggle = (id: string) => {
     const newValues = selectedValues.includes(id)
       ? selectedValues.filter((v) => v !== id)
       : [...selectedValues, id];
     onSelectedValuesChange(newValues);
+    setPageIndex(1);
   };
 
   return (

@@ -45,7 +45,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
     <>
       {!isMobile && <Sidebar />}
 
-      <div className="flex flex-col grow">
+      <div className="flex flex-col grow" >
         <Header/>
         <main
           className={cn(

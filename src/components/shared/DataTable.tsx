@@ -18,12 +18,19 @@ interface DataTableProps<T> {
 const DataTable = <T,>({ table, loading }: DataTableProps<T>) => {
   return (
     <>
-      <Table>
+      <Table className="border-y">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <TableHead key={header.id} colSpan={header.colSpan}>
+                <TableHead
+                  key={header.id}
+                  colSpan={header.colSpan}
+                  className={cn(
+                    "px-4 py-2 bg-muted/30 last:border-r-0",
+                    header.column.columnDef.header !== "" && "border-r",
+                  )}
+                >
                   {header.isPlaceholder ? null : (
                     <div
                       className={cn(

@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
 
-interface DataGridPaginationProps {
+interface TablePaginationProps {
   sizes?: number[];
   sizesSkeleton?: ReactNode;
   moreLimit?: number;
@@ -38,17 +38,17 @@ const TablePagination = ({
   pageCount = 0,
   recordCount = 0,
   isLoading = false,
-  pageIndex = 0,
-  pageSize = 0,
+  pageIndex = 1,
+  pageSize = 10,
   setPageIndex,
   setPageSize,
-}: DataGridPaginationProps) => {
+}: TablePaginationProps) => {
 
   const btnBaseClasses = 'size-7 p-0 text-sm';
   const btnArrowClasses = btnBaseClasses + ' rtl:transform rtl:rotate-180';
 
-  const from = pageIndex * pageSize + 1;
-  const to = Math.min((pageIndex + 1) * pageSize, recordCount);
+  const from = recordCount === 0 ? 0 : Math.min((pageIndex - 1) * pageSize + 1, recordCount);
+  const to = Math.min(pageIndex * pageSize, recordCount);
 
   // Replace placeholders in paginationInfo
   const paginationInfo = info
@@ -63,16 +63,16 @@ const TablePagination = ({
 
   // Determine the start and end of the pagination group
   const currentGroupStart =
-    Math.floor(pageIndex / paginationMoreLimit) * paginationMoreLimit;
+    Math.floor((pageIndex - 1) / paginationMoreLimit) * paginationMoreLimit + 1;
   const currentGroupEnd = Math.min(
-    currentGroupStart + paginationMoreLimit,
+    currentGroupStart + paginationMoreLimit - 1,
     pageCount,
   );
 
   // Render page buttons based on the current group
   const renderPageButtons = () => {
     const buttons = [];
-    for (let i = currentGroupStart; i < currentGroupEnd; i++) {
+    for (let i = currentGroupStart; i <= currentGroupEnd; i++) {
       buttons.push(
         <Button
           key={i}
@@ -87,7 +87,7 @@ const TablePagination = ({
             }
           }}
         >
-          {i + 1}
+          {i}
         </Button>,
       );
     }
@@ -96,7 +96,7 @@ const TablePagination = ({
 
   // Render a "previous" ellipsis button if there are previous pages to show
   const renderEllipsisPrevButton = () => {
-    if (currentGroupStart > 0) {
+    if (currentGroupStart > 1) {
       return (
         <Button
           size="sm"
@@ -119,7 +119,7 @@ const TablePagination = ({
           className={btnBaseClasses}
           variant="ghost"
           size="sm"
-          onClick={() => setPageIndex(currentGroupEnd)}
+          onClick={() => setPageIndex(currentGroupEnd + 1)}
         >
           ...
         </Button>
@@ -131,7 +131,7 @@ const TablePagination = ({
   return (
     <div
       className={cn(
-        'flex flex-wrap flex-col sm:flex-row justify-between items-center gap-2.5 py-2.5 sm:py-0 grow',
+        'flex flex-wrap flex-col sm:flex-row justify-between items-center gap-2.5 py-2.5 sm:py-0 grow px-6 mb-4',
         className,
       )}
     >
@@ -146,6 +146,7 @@ const TablePagination = ({
               onValueChange={(value) => {
                 const newPageSize = Number(value);
                 setPageSize(newPageSize);
+                setPageIndex(1);
               }}
             >
               <SelectTrigger className="w-fit" size="sm">
@@ -177,7 +178,7 @@ const TablePagination = ({
                   variant="ghost"
                   className={btnArrowClasses}
                   onClick={() => setPageIndex(pageIndex - 1)}
-                  disabled={pageIndex === 0}
+                  disabled={pageIndex <= 1}
                 >
                   <span className="sr-only">Go to previous page</span>
                   <ChevronLeftIcon className="size-4" />
@@ -194,7 +195,7 @@ const TablePagination = ({
                   variant="ghost"
                   className={btnArrowClasses}
                   onClick={() => setPageIndex(pageIndex + 1)}
-                  disabled={pageIndex >= pageCount - 1}
+                  disabled={pageIndex >= pageCount}
                 >
                   <span className="sr-only">Go to next page</span>
                   <ChevronRightIcon className="size-4" />
