@@ -147,15 +147,15 @@
   .demo1 {
     --sidebar-transition-duration: 0.3s;
     --sidebar-transition-timing: ease;
-    --sidebar-width: 280px;
-    --sidebar-width-collapse: 80px;
-    --sidebar-default-width: 280px;
+    --sidebar-width: 260px;
+    --sidebar-width-collapse: 65px;
+    --sidebar-default-width: 260px;
     --header-height: 70px;
   }
 
   @media (max-width: theme(--breakpoint-lg)) {
     .demo1 {
-      --sidebar-width: 280px;
+      --sidebar-width: 260px;
       --header-height: 60px;
     }
   }
