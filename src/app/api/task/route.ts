@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
 import { tasksData } from "@/mock/taskData";
 import { employeeData } from "@/mock/employeeData";
-import { mockContacts } from "@/mock/contacts";
-import { COMPANIES } from "@/mock/companies";
-import { mockDeals } from "@/mock/deals";
 
 export async function GET(req: Request) {
   try {
@@ -87,23 +84,12 @@ export async function GET(req: Request) {
         employeeData.find((emp) => emp.id === task.createdBy) || null;
       const assignedContacts =
         task.assignedContactIds
-          ?.map((id) => mockContacts.find((c) => c.id === id))
+          ?.map((id) => employeeData.find((c) => c.id === id))
           .filter(Boolean) || [];
-      const companies =
-        task.companyIds
-          ?.map((id) => COMPANIES.find((c) => c.id === id))
-          .filter(Boolean) || [];
-      const deals =
-        task.dealIds
-          ?.map((id) => mockDeals.find((d) => d.id === id))
-          .filter(Boolean) || [];
-
       return {
         ...task,
         creator,
         assignedContacts,
-        companies,
-        deals,
       };
     });
 

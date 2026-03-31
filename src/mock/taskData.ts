@@ -12,7 +12,6 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-10T09:00:00.000Z',
     updatedAt: '2024-01-10T09:00:00.000Z',
     assignedContactIds: ['1', '4'],
-    companyIds: ['1'],
   },
   {
     id: '2',
@@ -26,7 +25,6 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-12T11:00:00.000Z',
     updatedAt: '2024-01-13T15:30:00.000Z',
     assignedContactIds: ['2', '3'],
-    dealIds: ['1'],
   },
   {
     id: '3',
@@ -41,7 +39,6 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-08T10:00:00.000Z',
     updatedAt: '2024-01-12T16:30:00.000Z',
     assignedContactIds: ['1', '3'],
-    companyIds: ['2'],
   },
   {
     id: '4',
@@ -80,7 +77,6 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-11T14:00:00.000Z',
     updatedAt: '2024-01-14T10:15:00.000Z',
     assignedContactIds: ['5', '6'],
-    companyIds: ['3'],
   },
   {
     id: '7',
@@ -106,7 +102,6 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-13T12:00:00.000Z',
     updatedAt: '2024-01-13T12:00:00.000Z',
     assignedContactIds: ['8', '9'],
-    dealIds: ['2'],
   },
   {
     id: '9',
@@ -135,7 +130,6 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-07T09:00:00.000Z',
     updatedAt: '2024-01-10T14:45:00.000Z',
     assignedContactIds: ['3', '2'],
-    companyIds: ['4'],
   },
   {
     id: '11',
@@ -162,7 +156,6 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-14T13:00:00.000Z',
     updatedAt: '2024-01-15T09:30:00.000Z',
     assignedContactIds: ['1', '4'],
-    dealIds: ['3', '4'],
   },
   {
     id: '13',
@@ -176,7 +169,6 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-13T15:00:00.000Z',
     updatedAt: '2024-01-13T15:00:00.000Z',
     assignedContactIds: ['17', '18'],
-    companyIds: ['5'],
   },
   {
     id: '14',
@@ -227,7 +219,6 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-14T10:00:00.000Z',
     updatedAt: '2024-01-15T09:15:00.000Z',
     assignedContactIds: ['1', '4'],
-    companyIds: ['1'],
   },
   {
     id: '18',
@@ -240,7 +231,6 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-15T07:30:00.000Z',
     updatedAt: '2024-01-15T07:30:00.000Z',
     assignedContactIds: ['7', '6'],
-    dealIds: ['1'],
   },
   {
     id: '19',
@@ -290,7 +280,6 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-14T16:00:00.000Z',
     updatedAt: '2024-01-14T16:00:00.000Z',
     assignedContactIds: ['6', '1'],
-    companyIds: ['2'],
   },
   {
     id: '23',

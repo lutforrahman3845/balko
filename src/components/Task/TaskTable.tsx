@@ -105,7 +105,7 @@ const TaskTable = ({
                 className={cn(
                   "font-medium truncate text-sm leading-tight",
                   task.status === "completed" &&
-                    "line-through text-muted-foreground",
+                  "line-through text-muted-foreground",
                 )}
               >
                 {task.title}
@@ -127,9 +127,9 @@ const TaskTable = ({
         id: "assigned",
         header: "Assigned",
         cell: ({ row }) => {
-          const contacts = row.original.assignedContacts || [];
+          const employee = row.original.assignedContacts || [];
 
-          if (contacts.length === 0) {
+          if (employee.length === 0) {
             return (
               <span className="text-xs text-muted-foreground italic">
                 Unassigned
@@ -140,36 +140,38 @@ const TaskTable = ({
           return (
             <div className="flex items-center gap-2 group">
               <div className="flex -space-x-1 transition-all">
-                {contacts.slice(0, 3).map((contact) => (
-                  <Tooltip key={contact.id}>
+                {employee.slice(0, 3).map((emp) => (
+                  <Tooltip key={emp.id}>
                     <TooltipTrigger>
                       <Avatar
                         className="size-8 border-2 shadow-sm shrink-0"
                       >
-                        <AvatarImage src={contact.avatar} alt={contact.name} />
+                        <AvatarImage src={emp?.avatar ?? undefined} alt={emp.name} />
                         <AvatarFallback className="text-[10px] font-bold bg-muted text-muted-foreground">
-                          {contact.name.charAt(0)}
+                          {emp.name.charAt(0)}
                         </AvatarFallback>
                       </Avatar>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>{contact.name}</p>
+                      <p>{emp.name}</p>
+                      <span className="text-xs text-muted-foreground">{emp?.designation ?? ""}</span>
                     </TooltipContent>
                   </Tooltip>
                 ))}
-                {contacts.length > 3 && (
+                {employee.length > 3 && (
                   <div className="size-6 rounded-full bg-muted border-2 border-background ring-1 ring-border flex items-center justify-center text-[10px] font-bold text-muted-foreground z-10 shadow-sm shrink-0">
-                    +{contacts.length - 3}
+                    +{employee.length - 3}
                   </div>
                 )}
               </div>
               <div className="flex flex-col min-w-0">
                 <span className="text-xs font-medium truncate group-hover:text-primary transition-colors">
-                  {contacts[0].name}
+                  {employee[0].name}
                 </span>
-                {contacts.length > 1 && (
+                <span className="text-xs text-muted-foreground">{employee[0]?.designation ?? ""}</span>
+                {employee.length > 1 && (
                   <span className="text-[10px] text-muted-foreground leading-tight">
-                    +{contacts.length - 1} others
+                    +{employee.length - 1} others
                   </span>
                 )}
               </div>

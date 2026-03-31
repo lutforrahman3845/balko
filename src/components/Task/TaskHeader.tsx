@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  CheckSquare,
-  Download,
-  DownloadIcon,
-  Plus,
-  Share,
-} from "lucide-react";
+import { CheckSquare, Download, DownloadIcon, Plus, Share } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -15,46 +9,55 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import ContentHeader from "@/components/ContentHeader";
+import { useState } from "react";
+import TaskForm from "./TaskForm";
 
 export function TaskHeader() {
+  const [taskFormOpen, setTaskFormOpen] = useState(false);
+
   return (
-    <ContentHeader>
-      <div className="flex flex-col items-start">
-        <h1 className="inline-flex items-center gap-2.5 font-semibold">
-          <CheckSquare className="size-4 text-primary" /> Tasks
-        </h1>
-        <p className="text-sm text-muted-foreground">
-          Manage your tasks and track your progress
-        </p>
-      </div>
+    <>
+      <ContentHeader>
+        <div className="flex flex-col items-start">
+          <h1 className="inline-flex items-center gap-2.5 font-semibold">
+            <CheckSquare className="size-4 text-primary" /> Tasks
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            Manage your tasks and track your progress
+          </p>
+        </div>
 
-      <div className="flex items-center gap-2.5">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button size="sm" variant="outline">
-              <DownloadIcon />
-              Download
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-57.5">
-            {/* Export CSV */}
-            <DropdownMenuItem className="gap-2">
-              <Download />
-              <span>Export view as CSV</span>
-            </DropdownMenuItem>
+        <div className="flex items-center gap-2.5">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button size="sm" variant="outline">
+                <DownloadIcon />
+                Download
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-57.5">
+              {/* Export CSV */}
+              <DropdownMenuItem className="gap-2">
+                <Download />
+                <span>Export view as CSV</span>
+              </DropdownMenuItem>
 
-            {/* Export Excel */}
-            <DropdownMenuItem className="gap-2">
-              <Share />
-              <span>Export view as Excel</span>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+              {/* Export Excel */}
+              <DropdownMenuItem className="gap-2">
+                <Share />
+                <span>Export view as Excel</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
-        <Button size="sm">
-          <Plus /> New Task
-        </Button>
-      </div>
-    </ContentHeader>
+          <Button size="sm" onClick={() => setTaskFormOpen(true)}>
+            <Plus /> New Task
+          </Button>
+        </div>
+      </ContentHeader>
+
+      <TaskForm open={taskFormOpen} onOpenChange={setTaskFormOpen} />
+    </>
   );
 }
+
