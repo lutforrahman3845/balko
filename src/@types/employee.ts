@@ -1,3 +1,5 @@
+import { Department } from "./department";
+
 export interface Employee {
     id: string;
     name: string;
@@ -12,4 +14,16 @@ export interface Employee {
     createdAt: string;
     updatedAt: string;
     
+}
+
+export  interface ExpandedEmployee extends Employee {
+   department: Department;
+}
+
+export interface GetEmployee {
+    data: ExpandedEmployee[];
+    total: number;
+    totalPages: number;
+    pageIndex: number;
+    pageSize: number;
 }

@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import ContentHeader from "@/components/ContentHeader";
 import { useState } from "react";
-import TaskForm from "./TaskForm";
+import TaskFormModal from "./TaskFormModal";
 
 export function TaskHeader() {
   const [taskFormOpen, setTaskFormOpen] = useState(false);
@@ -56,7 +56,7 @@ export function TaskHeader() {
         </div>
       </ContentHeader>
 
-      <TaskForm open={taskFormOpen} onOpenChange={setTaskFormOpen} />
+      <TaskFormModal open={taskFormOpen} onOpenChange={setTaskFormOpen} />
     </>
   );
 }

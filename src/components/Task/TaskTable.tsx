@@ -74,7 +74,6 @@ const TaskTable = ({
   setPageSize,
   loading,
 }: TaskTableProps) => {
-  console.log(data?.data);
   const columns = useMemo<ColumnDef<ExpandedTask>[]>(
     () => [
       {

@@ -21,6 +21,8 @@ export const metadata: Metadata = {
   }
 };
 
+import QueryProvider from "@/providers/QueryProvider";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,21 +33,23 @@ export default function RootLayout({
       <body
         className={`${inter.variable} antialiased overflow-x-hidden`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          storageKey="nextjs-theme"
-          enableSystem
-          disableTransitionOnChange
-          enableColorScheme
-        >
-          <TooltipProvider delayDuration={0}>
-            <Suspense>
-              <Layout>{children}  </Layout>
-            </Suspense>
-            <Toaster />
-          </TooltipProvider>
-        </ThemeProvider>
+        <QueryProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            storageKey="nextjs-theme"
+            enableSystem
+            disableTransitionOnChange
+            enableColorScheme
+          >
+            <TooltipProvider delayDuration={0}>
+              <Suspense>
+                <Layout>{children}  </Layout>
+              </Suspense>
+              <Toaster />
+            </TooltipProvider>
+          </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   );

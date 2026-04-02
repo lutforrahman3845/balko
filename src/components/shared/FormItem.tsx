@@ -69,9 +69,8 @@ const FormItem = ({
       {textarea ? (
         <textarea
           placeholder={placeholder}
-          className={`w-full  shadow-none placeholder:text-gray-400 placeholder:font-semibold placeholder:capitalize focus:outline-0 focus:border focus:border-primary/50 px-3 ${
-            isInvalid ? "border-red-500" : ""
-          } pt-3 pb-12 rounded-md border border-primary/30`}
+          className={`w-full  shadow-none placeholder:capitalize placeholder:italic placeholder:text-muted-foreground focus:outline-0 focus:border focus:border-primary/50 px-3 ${isInvalid ? "border-red-500" : ""
+            } pt-3 pb-12 rounded-md border border-primary/30`}
           onChange={handleChange}
           {...props}
         />
@@ -80,9 +79,8 @@ const FormItem = ({
           <Input
             type={inputType}
             placeholder={placeholder}
-            className={`w-full  shadow-none  placeholder:text-gray-400 placeholder:font-semibold placeholder:capitalize focus:outline-0 focus:border focus:border-primary/50 ${
-              isInvalid ? "border-red-500" : ""
-            } ${suffixButton && "pr-24"}`}
+            className={`w-full  shadow-none placeholder:capitalize placeholder:italic placeholder:text-muted-foreground focus:outline-0 focus:border focus:border-primary/50 ${isInvalid ? "border-red-500" : ""
+              } ${suffixButton && "pr-24"}`}
             onChange={handleChange}
             onKeyDown={(e) => {
               if (inputType === "number" && e.key === "-") {

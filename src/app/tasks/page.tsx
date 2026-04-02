@@ -1,4 +1,5 @@
 "use client";
+import React, { useState } from "react";
 import { TaskHeader } from "@/components/Task/TaskHeader";
 import {
   AlertCircle,
@@ -6,13 +7,13 @@ import {
   CalendarDays,
   CalendarRange,
 } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import FilterSearch from "@/components/shared/FilterSearch";
 import FilterDropDown from "@/components/shared/FilterDropDown";
-import { toast } from "sonner";
 import { GetTask } from "@/@types/tassk";
 import TaskTable from "@/components/Task/TaskTable";
+import { ErrorState } from "@/components/shared/ErrorState";
 const Page = () => {
   const [active, setActive] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -20,8 +21,6 @@ const Page = () => {
   const [selectedPriorities, setSelectedPriorities] = useState<string[]>([]);
   const [pageIndex, setPageIndex] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(10);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [tasks, setTasks] = useState<GetTask | null>(null);
   const navItems = [
     { title: "All", icon: CalendarDays, id: "all" },
     { title: "Today", icon: CalendarCheck, id: "today" },
@@ -68,9 +67,17 @@ const Page = () => {
     },
   ];
 
-  const fetchTasks = async () => {
-    setLoading(true);
-    try {
+  const { data: tasks, isLoading: loading, isError, refetch } = useQuery<GetTask>({
+    queryKey: [
+      "tasks",
+      active,
+      searchQuery,
+      selectedStatuses,
+      selectedPriorities,
+      pageIndex,
+      pageSize,
+    ],
+    queryFn: async () => {
       const params = new URLSearchParams({
         active,
         searchQuery,
@@ -82,29 +89,12 @@ const Page = () => {
 
       const response = await fetch(`/api/task?${params.toString()}`);
       if (!response.ok) {
-        toast.error("Failed to fetch tasks");
+        throw new Error("Failed to fetch tasks");
       }
-      const data = await response.json();
-      setTasks(data);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      toast.error(error?.message || "Error loading tasks");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchTasks();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    active,
-    searchQuery,
-    selectedStatuses,
-    selectedPriorities,
-    pageIndex,
-    pageSize,
-  ]);
+      return response.json();
+    },
+    placeholderData: keepPreviousData,
+  });
 
   return (
     <>
@@ -149,14 +139,20 @@ const Page = () => {
           />
         </div>
       </section>
-      <TaskTable
-        data={tasks}
-        loading={loading}
-        pageIndex={pageIndex}
-        pageSize={pageSize}
-        setPageIndex={setPageIndex}
-        setPageSize={setPageSize}
-      />
+      {isError ? (
+        <div className="px-6 py-4">
+          <ErrorState onRetry={() => refetch()} />
+        </div>
+      ) : (
+        <TaskTable
+          data={tasks || null}
+          loading={loading}
+          pageIndex={pageIndex}
+          pageSize={pageSize}
+          setPageIndex={setPageIndex}
+          setPageSize={setPageSize}
+        />
+      )}
     </>
   );
 };
