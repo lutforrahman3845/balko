@@ -9,30 +9,36 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { TaskFormValues } from "@/@types/tassk";
 export const PriorityOptions = [
   {
-    value: "high",
-    label: "High",
+    value: 'high',
+    label: 'High',
+    state: 'bg-red-500',
   },
   {
-    value: "medium",
-    label: "Medium",
+    value: 'medium',
+    label: 'Medium',
+    state: 'bg-yellow-500',
   },
   {
-    value: "low",
-    label: "Low",
+    value: 'low',
+    label: 'Low',
+    state: 'bg-green-500',
   },
 ];
 export const StatusOptions = [
   {
-    value: "pending",
-    label: "Pending",
+    value: 'pending',
+    label: 'Pending',
+    state: 'bg-yellow-500',
   },
   {
-    value: "in_progress",
-    label: "In Progress",
+    value: 'in_progress',
+    label: 'In Progress',
+    state: 'bg-blue-500',
   },
   {
-    value: "completed",
-    label: "Completed",
+    value: 'completed',
+    label: 'Completed',
+    state: 'bg-green-500',
   },
 ];
 const TaskForm = ({
@@ -67,57 +73,64 @@ const TaskForm = ({
   });
 
   const employeeOptions = useMemo(() => {
-    const options =
-      employees?.data?.map((emp: ExpandedEmployee) => ({
-        value: emp.id.toString(),
-        searchText: emp.name,
-        label: (
-          <div className="flex items-center gap-3 w-full">
-            <Avatar className="size-8 shrink-0">
-              <AvatarImage src={emp.avatar || undefined} />
-              <AvatarFallback>{emp.name.charAt(0)}</AvatarFallback>
-            </Avatar>
-            <div className="flex flex-col min-w-0 flex-1">
-              <p className="text-sm font-medium text-foreground truncate leading-tight">
-                {emp.name}
-              </p>
-              <p className="text-xs text-muted-foreground truncate">
-                {emp.designation}
-              </p>
-            </div>
-          </div>
-        ),
-      })) || [];
+    const options: { value: string, searchText: string, label: React.ReactNode }[] = [];
+
+    // In Edit Add currently assigned employees to the top 
     if (isEdit && data && Array.isArray(data)) {
       data.forEach((emp: Employee) => {
-        if (
-          !options.some(
-            (opt: { value: string }) => opt.value === emp.id.toString(),
-          )
-        ) {
-          options.push({
-            value: emp.id.toString(),
-            searchText: emp.name,
-            label: (
-              <div className="flex items-center gap-3 w-full">
-                <Avatar className="size-8 shrink-0">
-                  <AvatarImage src={emp.avatar || undefined} />
-                  <AvatarFallback>{emp.name.charAt(0)}</AvatarFallback>
-                </Avatar>
-                <div className="flex flex-col min-w-0 flex-1">
-                  <p className="text-sm font-medium text-foreground truncate leading-tight">
-                    {emp.name}
-                  </p>
-                  <p className="text-xs text-muted-foreground truncate">
-                    {emp.designation}
-                  </p>
-                </div>
+        options.push({
+          value: emp.id.toString(),
+          searchText: emp.name,
+          label: (
+            <div className="flex items-center gap-3 w-full">
+              <Avatar className="size-8 shrink-0">
+                <AvatarImage src={emp.avatar || undefined} />
+                <AvatarFallback>{emp.name.charAt(0)}</AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col min-w-0 flex-1">
+                <p className="text-sm font-medium text-foreground truncate leading-tight">
+                  {emp.name}
+                </p>
+                <p className="text-xs text-muted-foreground truncate">
+                  {emp.designation}
+                </p>
               </div>
-            ),
-          });
-        }
+            </div>
+          ),
+        });
       });
     }
+
+    // Add fetched employee options
+    employees?.data?.forEach((emp: ExpandedEmployee) => {
+      if (
+        !options.some(
+          (opt: { value: string }) => opt.value === emp.id.toString(),
+        )
+      ) {
+        options.push({
+          value: emp.id.toString(),
+          searchText: emp.name,
+          label: (
+            <div className="flex items-center gap-3 w-full">
+              <Avatar className="size-8 shrink-0">
+                <AvatarImage src={emp.avatar || undefined} />
+                <AvatarFallback>{emp.name.charAt(0)}</AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col min-w-0 flex-1">
+                <p className="text-sm font-medium text-foreground truncate leading-tight">
+                  {emp.name}
+                </p>
+                <p className="text-xs text-muted-foreground truncate">
+                  {emp.designation}
+                </p>
+              </div>
+            </div>
+          ),
+        });
+      }
+    });
+
     return options;
   }, [employees, data, isEdit]);
   return (
@@ -141,9 +154,9 @@ const TaskForm = ({
         control={control}
         render={({ field }) => (
           <FormItem
-            label={"Content (Description)"}
+            label={"Description (optional)"}
             inputType="text"
-            placeholder={"Enter task content"}
+            placeholder={"Enter task description"}
             invalid={Boolean(errors.content)}
             errorMessage={errors.content?.message}
             textarea={true}
@@ -231,6 +244,17 @@ const TaskForm = ({
             invalid={Boolean(errors.dueAt)}
             errorMessage={errors.dueAt?.message}
             {...field}
+            value={
+              field.value
+                ? (() => {
+                  const d = new Date(field.value);
+                  const offset = d.getTimezoneOffset() * 60000;
+                  return new Date(d.getTime() - offset)
+                    .toISOString()
+                    .slice(0, 16);
+                })()
+                : ""
+            }
           />
         )}
       />

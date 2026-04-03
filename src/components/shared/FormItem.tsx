@@ -70,7 +70,7 @@ const FormItem = ({
         <textarea
           placeholder={placeholder}
           className={`w-full  shadow-none placeholder:capitalize placeholder:italic placeholder:text-muted-foreground focus:outline-0 focus:border focus:border-primary/50 px-3 ${isInvalid ? "border-red-500" : ""
-            } pt-3 pb-12 rounded-md border border-primary/30`}
+            } pt-3 pb-12 rounded-md border border-primary/30 text-sm`}
           onChange={handleChange}
           {...props}
         />

@@ -1,5 +1,5 @@
 import { ExpandedTask, GetTask } from "@/@types/tassk";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   ColumnDef,
   getCoreRowModel,
@@ -17,7 +17,12 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
+} from "@/components/ui/tooltip";
+import Link from "next/link";
+import { TbEdit, TbEye, TbTrash } from "react-icons/tb";
+import ConfirmDialog from "../shared/ConfirmDialog";
+import { toast } from "sonner";
+import TaskFormModal from "./TaskFormModal";
 
 interface TaskTableProps {
   data: GetTask | null;
@@ -74,6 +79,18 @@ const TaskTable = ({
   setPageSize,
   loading,
 }: TaskTableProps) => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [taskFormOpen, setTaskFormOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<ExpandedTask | null>(null);
+  const handleDialogOpen = (id: string) => {
+    setDialogOpen(true);
+    setSelectedId(id);
+  };
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+    setSelectedId(null);
+  };
   const columns = useMemo<ColumnDef<ExpandedTask>[]>(
     () => [
       {
@@ -104,7 +121,7 @@ const TaskTable = ({
                 className={cn(
                   "font-medium truncate text-sm leading-tight",
                   task.status === "completed" &&
-                  "line-through text-muted-foreground",
+                    "line-through text-muted-foreground",
                 )}
               >
                 {task.title}
@@ -142,10 +159,11 @@ const TaskTable = ({
                 {employee.slice(0, 3).map((emp) => (
                   <Tooltip key={emp.id}>
                     <TooltipTrigger>
-                      <Avatar
-                        className="size-8 border-2 shadow-sm shrink-0"
-                      >
-                        <AvatarImage src={emp?.avatar ?? undefined} alt={emp.name} />
+                      <Avatar className="size-8 border-2 shadow-sm shrink-0">
+                        <AvatarImage
+                          src={emp?.avatar ?? undefined}
+                          alt={emp.name}
+                        />
                         <AvatarFallback className="text-[10px] font-bold bg-muted text-muted-foreground">
                           {emp.name.charAt(0)}
                         </AvatarFallback>
@@ -153,7 +171,9 @@ const TaskTable = ({
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>{emp.name}</p>
-                      <span className="text-xs text-muted-foreground">{emp?.designation ?? ""}</span>
+                      <span className="text-xs text-muted-foreground">
+                        {emp?.designation ?? ""}
+                      </span>
                     </TooltipContent>
                   </Tooltip>
                 ))}
@@ -167,7 +187,9 @@ const TaskTable = ({
                 <span className="text-xs font-medium truncate group-hover:text-primary transition-colors">
                   {employee[0].name}
                 </span>
-                <span className="text-xs text-muted-foreground">{employee[0]?.designation ?? ""}</span>
+                <span className="text-xs text-muted-foreground">
+                  {employee[0]?.designation ?? ""}
+                </span>
                 {employee.length > 1 && (
                   <span className="text-[10px] text-muted-foreground leading-tight">
                     +{employee.length - 1} others
@@ -258,6 +280,68 @@ const TaskTable = ({
         enableHiding: true,
         enableResizing: true,
       },
+      {
+        header: "Actions",
+        id: "actions",
+        cell: ({ row }) => (
+          <div className="flex items-center justify-start text-muted-foreground">
+            <div className="flex items-center gap-3">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div
+                    className="text-xl cursor-pointer"
+                    role="button"
+                    onClick={() => {
+                      const id = row?.original?.id;
+                      if (id) setSelectedId(id);
+                      const task = row?.original;
+                      setSelectedTask(task);
+                      setTaskFormOpen(true);
+                    }}
+                  >
+                    <TbEdit />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Edit</p>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href={`/tasks/${row.original.id}`} target="_blank">
+                    <div className="text-xl cursor-pointer" role="button">
+                      <TbEye />
+                    </div>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Details</p>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div
+                    className="text-xl cursor-pointer"
+                    role="button"
+                    onClick={() => {
+                      const id = row?.original?.id;
+                      if (id) handleDialogOpen(id);
+                    }}
+                  >
+                    <TbTrash className="hover:text-red-500" />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Delete</p>
+                </TooltipContent>
+              </Tooltip>
+            </div>
+          </div>
+        ),
+        enableSorting: false,
+        enableHiding: true,
+        enableResizing: true,
+      },
     ],
     [],
   );
@@ -271,20 +355,49 @@ const TaskTable = ({
   });
 
   return (
-    <div className="flex flex-col gap-4">
-      <DataTable table={table} loading={loading} />
-      {data && (
-        <TablePagination
-          pageIndex={pageIndex}
-          setPageIndex={setPageIndex}
-          pageSize={pageSize}
-          setPageSize={setPageSize}
-          isLoading={loading}
-          pageCount={data?.totalPages || 0}
-          recordCount={data?.total || 0}
-        />
+    <>
+      <div className="flex flex-col gap-4">
+        <DataTable table={table} loading={loading} />
+        {data && (
+          <TablePagination
+            pageIndex={pageIndex}
+            setPageIndex={setPageIndex}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            isLoading={loading}
+            pageCount={data?.totalPages || 0}
+            recordCount={data?.total || 0}
+          />
+        )}
+      </div>
+      {dialogOpen && (
+        <ConfirmDialog
+          isOpen={dialogOpen}
+          type="danger"
+          title={"Delete Task"}
+          onClose={handleDialogClose}
+          onCancel={handleDialogClose}
+          confirmButtonType={"destructive"}
+          onConfirm={() => {
+            toast.success("Task deleted successfully");
+            console.log(selectedId);
+            handleDialogClose();
+          }}
+        >
+          <span>
+            Are you sure you want to delete this task? You can not undo this
+            action.
+          </span>
+        </ConfirmDialog>
       )}
-    </div>
+      <TaskFormModal
+        open={taskFormOpen}
+        onOpenChange={setTaskFormOpen}
+        isEdit={true}
+        data={selectedTask || null}
+        selectedId={selectedId}
+      />
+    </>
   );
 };
 

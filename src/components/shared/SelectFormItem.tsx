@@ -16,6 +16,7 @@ export type SelectOption = {
   dialCode?: string;
   short?: string;
   disabled?: boolean;
+  state?: string;
 };
 
 type SelectFormItemProps = {
@@ -83,7 +84,7 @@ const SelectFormItem = forwardRef<HTMLButtonElement, SelectFormItemProps>(
     return (
       <div className={cn("flex flex-col gap-2 w-full", className)}>
         {label && (
-          <Label className= "font-semibold capitalize">{label}</Label>
+          <Label className="font-semibold capitalize">{label}</Label>
         )}
         <Select
           onValueChange={handleValueChange}
@@ -94,17 +95,15 @@ const SelectFormItem = forwardRef<HTMLButtonElement, SelectFormItemProps>(
           <SelectTrigger
             ref={ref}
             onBlur={onBlur}
-            className={`w-full h-12 py-4.5  shadow-none  placeholder:text-gray-400 placeholder:font-semibold  placeholder:capitalize focus:border focus:border-primary/50 text-sm ${
-              isInvalid ? "border-red-500" : ""
-            }`}
+            className={`w-full h-12 py-4.5  shadow-none  placeholder:text-gray-400 placeholder:font-semibold  placeholder:capitalize focus:border focus:border-primary/50 text-sm ${isInvalid ? "border-red-500" : ""
+              }`}
           >
             <SelectValue placeholder={placeholder} />
           </SelectTrigger>
           <SelectContent>
             {options.map((option: SelectOption) => {
-              const uniqueKey = `${option.value}-${
-                option.short ?? option.label
-              }`;
+              const uniqueKey = `${option.value}-${option.short ?? option.label
+                }`;
               const selectValue = dialCode
                 ? `${option.dialCode}-${option.value}`
                 : option.value;
@@ -115,6 +114,9 @@ const SelectFormItem = forwardRef<HTMLButtonElement, SelectFormItemProps>(
                   value={selectValue}
                   disabled={option.disabled}
                 >
+                  {option.state && (
+                    <span className={`w-2 h-2 rounded-full ${option.state}`} />
+                  )}
                   {flags && (
                     <Avatar>
                       <AvatarImage

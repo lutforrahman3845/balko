@@ -1,6 +1,7 @@
 "use client";
 
-import { TaskFormSchema, TaskFormValues } from "@/@types/tassk";
+import { useEffect } from "react";
+import { ExpandedTask, TaskFormSchema, TaskFormValues } from "@/@types/tassk";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
@@ -11,7 +12,7 @@ import {
   SheetBody,
   SheetFooter,
 } from "@/components/ui/sheet";
-import { CheckSquare } from "lucide-react";
+import { CheckSquare, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
@@ -19,14 +20,24 @@ import TaskForm from "./TaskForm";
 interface TaskFormProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  isEdit?: boolean;
+  data?: ExpandedTask | null;
+  selectedId?: string | null;
 }
 
-const TaskFormModal = ({ open, onOpenChange }: TaskFormProps) => {
+const TaskFormModal = ({
+  open,
+  onOpenChange,
+  isEdit = false,
+  data = null,
+  selectedId = null,
+}: TaskFormProps) => {
   // Form State
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    reset,
+    formState: { errors, isSubmitting, isDirty },
   } = useForm<TaskFormValues>({
     resolver: zodResolver(TaskFormSchema),
     defaultValues: {
@@ -38,8 +49,47 @@ const TaskFormModal = ({ open, onOpenChange }: TaskFormProps) => {
       dueAt: "",
     },
   });
+
+  useEffect(() => {
+    if (data && isEdit) {
+      reset({
+        title: data.title,
+        content: data.content || "",
+        assignedContactIds: data.assignedContactIds || [],
+        status: data.status,
+        priority: data.priority,
+        dueAt: data.dueAt,
+      });
+    } else {
+      reset({
+        title: "",
+        content: "",
+        assignedContactIds: [],
+        status: "pending",
+        priority: "medium",
+        dueAt: "",
+      });
+    }
+  }, [data, isEdit, reset]);
   const onSubmit = (data: TaskFormValues) => {
-    console.log(data);
+    try {
+      console.log(data);
+      if (!isEdit) {
+        console.log("Edit id :", selectedId);
+        toast.success("Task created successfully!");
+      } else {
+        toast.success("Task updated successfully!");
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      toast.error(
+        error?.data?.message ??
+          (isEdit ? "Failed to update task" : "Failed to create task"),
+      );
+    } finally {
+      reset();
+      onOpenChange(false);
+    }
   };
   const handleFormError = () => {
     toast.error("Please fix the errors in the form before submitting.");
@@ -58,7 +108,12 @@ const TaskFormModal = ({ open, onOpenChange }: TaskFormProps) => {
         <form onSubmit={handleSubmit(onSubmit, handleFormError)}>
           <SheetBody className="grow p-0">
             <ScrollArea className="h-[calc(100vh-10.5rem)]">
-              <TaskForm control={control} errors={errors} />
+              <TaskForm
+                control={control}
+                errors={errors}
+                isEdit={isEdit}
+                data={data?.assignedContacts || []}
+              />
             </ScrollArea>
           </SheetBody>
           <SheetFooter className="p-5">
@@ -67,7 +122,10 @@ const TaskFormModal = ({ open, onOpenChange }: TaskFormProps) => {
                 type="button"
                 variant="ghost"
                 size="sm"
-                onClick={() => onOpenChange(false)}
+                onClick={() => {
+                  onOpenChange(false);
+                  reset();
+                }}
               >
                 Cancel
               </Button>
@@ -75,8 +133,15 @@ const TaskFormModal = ({ open, onOpenChange }: TaskFormProps) => {
                 type="submit"
                 size="sm"
                 className="bg-blue-600 hover:bg-blue-700 text-white border-0 px-4"
+                disabled={isSubmitting || !isDirty}
               >
-                Save Task
+                {isSubmitting ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : isEdit ? (
+                  "Update Task"
+                ) : (
+                  "Save Task"
+                )}
               </Button>
             </div>
           </SheetFooter>
