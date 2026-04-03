@@ -18,11 +18,11 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import Link from "next/link";
 import { TbEdit, TbEye, TbTrash } from "react-icons/tb";
 import ConfirmDialog from "../shared/ConfirmDialog";
 import { toast } from "sonner";
 import TaskFormModal from "./TaskFormModal";
+import TaskDetalisModal from "./TaskDetalisModal";
 
 interface TaskTableProps {
   data: GetTask | null;
@@ -82,6 +82,7 @@ const TaskTable = ({
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [taskFormOpen, setTaskFormOpen] = useState(false);
+  const [taskDetalisOpen, setTaskDetalisOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<ExpandedTask | null>(null);
   const handleDialogOpen = (id: string) => {
     setDialogOpen(true);
@@ -121,7 +122,7 @@ const TaskTable = ({
                 className={cn(
                   "font-medium truncate text-sm leading-tight",
                   task.status === "completed" &&
-                    "line-through text-muted-foreground",
+                  "line-through text-muted-foreground",
                 )}
               >
                 {task.title}
@@ -308,11 +309,13 @@ const TaskTable = ({
               </Tooltip>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Link href={`/tasks/${row.original.id}`} target="_blank">
-                    <div className="text-xl cursor-pointer" role="button">
-                      <TbEye />
-                    </div>
-                  </Link>
+                  <div className="text-xl cursor-pointer" onClick={() => {
+                    const id = row?.original?.id;
+                    if (id) setSelectedId(id);
+                    setTaskDetalisOpen(true);
+                  }}>
+                    <TbEye />
+                  </div>
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>Details</p>
@@ -395,6 +398,11 @@ const TaskTable = ({
         onOpenChange={setTaskFormOpen}
         isEdit={true}
         data={selectedTask || null}
+        selectedId={selectedId}
+      />
+      <TaskDetalisModal
+        open={taskDetalisOpen}
+        onOpenChange={setTaskDetalisOpen}
         selectedId={selectedId}
       />
     </>

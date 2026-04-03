@@ -22,7 +22,7 @@ export function ErrorState({
 }: ErrorStateProps) {
   return (
     <div className={cn(
-      "flex min-h-[400px] flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center animate-in fade-in zoom-in duration-500",
+      "flex min-h-100 flex-col items-center justify-center rounded-lg  text-center animate-in fade-in zoom-in duration-500",
       className
     )}>
       <div className="flex h-20 w-20 items-center justify-center rounded-full bg-red-50 dark:bg-red-950/20 mb-6">
@@ -32,7 +32,7 @@ export function ErrorState({
       <h3 className="text-xl font-semibold text-foreground tracking-tight mb-2">
         {title}
       </h3>
-      <p className="max-w-[400px] text-sm text-muted-foreground leading-relaxed mb-8">
+      <p className="max-w-100 text-sm text-muted-foreground leading-relaxed mb-8">
         {message}
       </p>
 
