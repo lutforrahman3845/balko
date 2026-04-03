@@ -11,9 +11,36 @@ import {
 import ContentHeader from "@/components/ContentHeader";
 import { useState } from "react";
 import TaskFormModal from "./TaskFormModal";
+import { ExpandedTask } from "@/@types/tassk";
+import * as XLSX from "xlsx";
 
-export function TaskHeader() {
+export function TaskHeader({ data }: { data: ExpandedTask[] }) {
   const [taskFormOpen, setTaskFormOpen] = useState(false);
+
+  const exportToFormat = (format: "csv" | "xlsx") => {
+    if (!data || data.length === 0) return;
+
+    const exportData = data.map((task) => ({
+      Title: task.title,
+      Content: task.content || "",
+      Creator: task.creator?.name || "N/A",
+      Assigned: task.assignedContacts.map((c) => c.name).join(", "),
+      Status: task.status || "pending",
+      Priority: task.priority || "medium",
+      "Due Date": task.dueAt ? new Date(task.dueAt).toLocaleDateString() : "",
+      "Created At": task.createdAt
+        ? new Date(task.createdAt).toLocaleDateString()
+        : "",
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(exportData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Tasks");
+
+    XLSX.writeFile(workbook, `tasks_${new Date().toISOString().slice(0, 10)}.${format}`, {
+      bookType: format,
+    });
+  };
 
   return (
     <>
@@ -37,13 +64,19 @@ export function TaskHeader() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-57.5">
               {/* Export CSV */}
-              <DropdownMenuItem className="gap-2">
+              <DropdownMenuItem
+                className="gap-2"
+                onClick={() => exportToFormat("csv")}
+              >
                 <Download />
                 <span>Export view as CSV</span>
               </DropdownMenuItem>
 
               {/* Export Excel */}
-              <DropdownMenuItem className="gap-2">
+              <DropdownMenuItem
+                className="gap-2"
+                onClick={() => exportToFormat("xlsx")}
+              >
                 <Share />
                 <span>Export view as Excel</span>
               </DropdownMenuItem>

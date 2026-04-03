@@ -98,7 +98,7 @@ const Page = () => {
 
   return (
     <>
-      <TaskHeader />
+      <TaskHeader data={tasks?.data || []} />
       <section>
         <div className="flex flex-wrap gap-4 pt-2 border-b px-6">
           {navItems.map((item) => (
