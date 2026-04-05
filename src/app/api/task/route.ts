@@ -27,7 +27,12 @@ export async function GET(req: Request) {
         (task) =>
           task.title?.toLowerCase().includes(searchQuery) ||
           task.content?.toLowerCase().includes(searchQuery) ||
-          task.id?.includes(searchQuery),
+          task.assignedEmployeeIds?.some((id) =>
+            employeeData
+              .find((emp) => emp.id === id)
+              ?.name.toLowerCase()
+              .includes(searchQuery),
+          ),
       );
     }
 

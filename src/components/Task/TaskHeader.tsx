@@ -57,7 +57,7 @@ export function TaskHeader({ data }: { data: ExpandedTask[] }) {
         <div className="flex items-center gap-2.5">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button size="sm" variant="outline">
+              <Button size="sm" variant="outline" disabled={data.length === 0}>
                 <DownloadIcon />
                 Download
               </Button>

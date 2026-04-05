@@ -31,6 +31,12 @@ interface TaskTableProps {
   setPageIndex: (index: number) => void;
   setPageSize: (size: number) => void;
   loading: boolean;
+  rowSelection: { [key: string]: boolean };
+  setRowSelection: (
+    value:
+      | Record<string, boolean>
+      | ((prev: Record<string, boolean>) => Record<string, boolean>)
+  ) => void;
 }
 
 const getStatusBadge = (status: string) => {
@@ -78,6 +84,8 @@ const TaskTable = ({
   setPageIndex,
   setPageSize,
   loading,
+  rowSelection,
+  setRowSelection,
 }: TaskTableProps) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -102,7 +110,11 @@ const TaskTable = ({
           const task = row.original;
           return (
             <div className="flex items-center justify-center ps-2.5">
-              <Checkbox id={task.id} />
+              <Checkbox id={task.id}
+                checked={row.getIsSelected()}
+                disabled={!row.getCanSelect()}
+                onCheckedChange={(value) => row.toggleSelected(!!value)}
+                aria-label={"selectRow"} />
             </div>
           );
         },
@@ -358,6 +370,15 @@ const TaskTable = ({
   const table = useReactTable<ExpandedTask>({
     data: data?.data || [],
     columns,
+    state: {
+      rowSelection,
+    },
+    getRowId: (row) => String(row.id),
+    onRowSelectionChange: (updater) => {
+      const newRowSelection =
+        typeof updater === "function" ? updater(rowSelection) : updater;
+      setRowSelection(newRowSelection);
+    },
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
@@ -366,7 +387,7 @@ const TaskTable = ({
     <>
       <div className="flex flex-col gap-4">
         <DataTable table={table} loading={loading} />
-        {data && (
+        {data && data?.data?.length > 0 && (
           <TablePagination
             pageIndex={pageIndex}
             setPageIndex={setPageIndex}
@@ -388,7 +409,6 @@ const TaskTable = ({
           confirmButtonType={"destructive"}
           onConfirm={() => {
             toast.success("Task deleted successfully");
-            console.log(selectedId);
             handleDialogClose();
           }}
         >

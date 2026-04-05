@@ -6,12 +6,10 @@ export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const searchQuery = searchParams.get("searchQuery")?.toLowerCase() || "";
-    const statusParam = searchParams.get("status");
+    const statuses = searchParams.get("status");
     const positionParam = searchParams.get("position");
     const lastContactedParam = searchParams.get("lastContacted");
-    const statuses = statusParam
-      ? statusParam.split(",").filter(Boolean)
-      : [];
+
     const positions = positionParam
       ? positionParam.split(",").filter(Boolean)
       : [];
@@ -37,38 +35,51 @@ export async function GET(req: Request) {
     }
 
     // Statuses
-    if (statuses.length > 0) {
-      filtered = filtered.filter(
-        (contact) => contact.status && statuses.includes(contact.status),
-      );
+    if (statuses === "leads") {
+      filtered = filtered.filter((contact) => contact.status === "leads");
+    } else if (statuses === "follow-ups") {
+      filtered = filtered.filter((contact) => contact.status === "follow-ups");
+    } else if (statuses === "pipeline") {
+      filtered = filtered.filter((contact) => contact.status === "pipeline");
     }
-   // position
+    // position 
     if (positions.length > 0) {
       filtered = filtered.filter(
-        (contact) => contact.position && positions.includes(contact.position),
+        (contact) =>
+          contact.position && positions.includes(contact.position.toLowerCase()),
       );
     }
 
-    //oldest to newest last contacted
-    if (lastContacted.length > 0) {
-      filtered = filtered.filter(
-        (contact) => contact.lastContacted && lastContacted.includes(contact.lastContacted),
+    // lastContacted is now used for sorting
+    if (lastContactedParam === "asc") {
+      filtered.sort(
+        (a, b) =>
+          new Date(a.lastContacted).getTime() -
+          new Date(b.lastContacted).getTime(),
+      );
+    } else if (lastContactedParam === "desc") {
+      filtered.sort(
+        (a, b) =>
+          new Date(b.lastContacted).getTime() -
+          new Date(a.lastContacted).getTime(),
+      );
+    } else {
+      // Default Sort by newest created
+      filtered.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
       );
     }
-
-    // Sort by newest created
-    filtered.sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-    );
 
     const total = filtered.length;
     const totalPages = Math.ceil(total / pageSize);
     const startIdx = (pageIndex - 1) * pageSize;
-    const data = filtered.slice(startIdx, startIdx + pageSize).map((contact) => ({
-      ...contact,
-      company: COMPANIES.find((c) => c.id === contact.companyId) || null,
-    }));
+    const data = filtered
+      .slice(startIdx, startIdx + pageSize)
+      .map((contact) => ({
+        ...contact,
+        company: COMPANIES.find((c) => c.id === contact.companyId) || null,
+      }));
 
     return NextResponse.json({
       data,

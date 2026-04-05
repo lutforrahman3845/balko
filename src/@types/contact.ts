@@ -1,3 +1,5 @@
+import { Company } from "./company";
+
 export interface Contact {
   id: string;
   avatar: string;
@@ -19,4 +21,16 @@ export interface Contact {
   createdAt: string;
   updatedAt: string;
   lastContacted: string;
+}
+
+export interface ExpandedContact extends Contact {
+  company: Company | null;
+}
+
+export interface GetContacts {
+  data: ExpandedContact[];
+  pageIndex: number;
+  pageSize: number;
+  total: number;
+  totalPages: number;
 }

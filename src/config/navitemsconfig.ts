@@ -1,6 +1,6 @@
 import { NavConfig } from "@/@types/NavItem";
 import { CheckSquare, LayoutGrid } from "lucide-react";
-import { LuContact } from "react-icons/lu";
+import { RiContactsBook3Line } from "react-icons/ri";
 
 export const MAIN_NAV: NavConfig = [
   {
@@ -16,7 +16,7 @@ export const MAIN_NAV: NavConfig = [
     id: "tasks",
   },
   {
-    icon: LuContact,
+    icon: RiContactsBook3Line,
     title: "Contacts",
     path: "/contacts",
     id: "contacts",
