@@ -122,7 +122,7 @@ const TaskTable = ({
                 className={cn(
                   "font-medium truncate text-sm leading-tight",
                   task.status === "completed" &&
-                  "line-through text-muted-foreground",
+                    "line-through text-muted-foreground",
                 )}
               >
                 {task.title}
@@ -287,33 +287,38 @@ const TaskTable = ({
         cell: ({ row }) => (
           <div className="flex items-center justify-start text-muted-foreground">
             <div className="flex items-center gap-3">
+              {row.original.status !== "completed" && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <div
+                      className="text-xl cursor-pointer"
+                      role="button"
+                      onClick={() => {
+                        const id = row?.original?.id;
+                        if (id) setSelectedId(id);
+                        const task = row?.original;
+                        setSelectedTask(task);
+                        setTaskFormOpen(true);
+                      }}
+                    >
+                      <TbEdit />
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Edit</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
               <Tooltip>
                 <TooltipTrigger asChild>
                   <div
                     className="text-xl cursor-pointer"
-                    role="button"
                     onClick={() => {
                       const id = row?.original?.id;
                       if (id) setSelectedId(id);
-                      const task = row?.original;
-                      setSelectedTask(task);
-                      setTaskFormOpen(true);
+                      setTaskDetalisOpen(true);
                     }}
                   >
-                    <TbEdit />
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Edit</p>
-                </TooltipContent>
-              </Tooltip>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div className="text-xl cursor-pointer" onClick={() => {
-                    const id = row?.original?.id;
-                    if (id) setSelectedId(id);
-                    setTaskDetalisOpen(true);
-                  }}>
                     <TbEye />
                   </div>
                 </TooltipTrigger>

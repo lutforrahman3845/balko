@@ -52,7 +52,7 @@ export function UserDropdownMenu({ trigger }: { trigger: ReactNode }) {
                 href={`mailto:sean@kt.com`}
                 className="text-xs text-muted-foreground hover:text-primary"
               >
-                ceo@craftaize.com
+                ceo@balko.com
               </a>
             </div>
           </div>

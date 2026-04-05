@@ -14,7 +14,7 @@ import { SidebarMenu } from "./sidebar-menu";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useScrollPosition } from "@/hooks/use-scroll-position";
-import { UserDropdownMenu } from "./user-dropdown-menu";
+import { UserDropdownMenu } from "./UserDropdownMenu";
 import Image from "next/image";
 import { Notifications } from "./notifications";
 

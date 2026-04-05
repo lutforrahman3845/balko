@@ -34,7 +34,7 @@ export const TaskFormSchema = z.object({
   title: z.string().min(1, "Title is required"),
   content: z.string().optional(),
   assignedContactIds: z.array(z.string()).optional(),
-  status: z.enum(["pending", "in_progress", "completed", "blocked"]).optional(),
+  status: z.enum(["pending", "in_progress", "completed"]).optional(),
   priority: z.enum(["high", "medium", "low"]).optional(),
   dueAt: z.string().optional(),
 });

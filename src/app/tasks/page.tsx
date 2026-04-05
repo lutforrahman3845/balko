@@ -45,6 +45,12 @@ const Page = () => {
       color:
         "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400",
     },
+    {
+      id: "blocked",
+      name: "Blocked",
+      color:
+        "bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-400",
+    },
   ];
 
   const priorityOptions = [
