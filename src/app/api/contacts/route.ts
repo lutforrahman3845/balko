@@ -13,9 +13,6 @@ export async function GET(req: Request) {
     const positions = positionParam
       ? positionParam.split(",").filter(Boolean)
       : [];
-    const lastContacted = lastContactedParam
-      ? lastContactedParam.split(",").filter(Boolean)
-      : [];
     const pageIndex = parseInt(searchParams.get("pageIndex") || "1", 10);
     const pageSize = parseInt(searchParams.get("pageSize") || "10", 10);
 

@@ -14,15 +14,8 @@ import ContactTable from "@/components/Contacts/ContactTable";
 import { Button } from "@/components/ui/button";
 import ConfirmDialog from "@/components/shared/ConfirmDialog";
 import { toast } from "sonner";
-import { Trash2, X, ArrowUpDown } from "lucide-react";
+import { Trash2, X,} from "lucide-react";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import FilterSort from "@/components/shared/FilterSort";
 
 const stausItems = [
