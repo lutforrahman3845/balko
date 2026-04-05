@@ -10,7 +10,7 @@ import {
   SheetHeader,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { SidebarMenu } from "./sidebar-menu";
+import { SidebarMenu } from "./SidebarMenu";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useScrollPosition } from "@/hooks/use-scroll-position";

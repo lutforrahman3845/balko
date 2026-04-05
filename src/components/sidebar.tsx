@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
-import { SidebarHeader } from './sidebar-header';
-import { SidebarMenu } from './sidebar-menu';
+import { SidebarHeader } from './SidebarHeader';
+import { SidebarMenu } from './SidebarMenu';
 import { usePathname } from 'next/navigation';
 import { useLayout } from './context';
 

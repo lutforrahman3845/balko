@@ -54,7 +54,7 @@ function NavItem({ item }: { item: NavItem }) {
                   size="icon"
                 >
                   <Link href={item.new.path}>
-                    <Plus className="size-4 text-white " />
+                    <Plus className="size-4 dark:text-white " />
                   </Link>
                 </Button>
               </TooltipTrigger>

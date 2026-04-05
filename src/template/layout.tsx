@@ -3,7 +3,7 @@
 import { LayoutProvider } from '@/components/context';
 import { DashboardLayout } from './DashboardLayout';
 import { useEffect, useState } from 'react';
-import { ScreenLoader } from '@/components/screen-loader';
+import { ScreenLoader } from '@/components/ScreenLoader';
 import { MAIN_NAV } from '@/config/navitemsconfig';
 
 
