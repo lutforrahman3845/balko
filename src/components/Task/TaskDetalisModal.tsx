@@ -303,13 +303,13 @@ const TaskDetalisModal = ({
                           Assignees
                         </div>
                         <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-tighter bg-muted px-2 py-0.5 rounded-full">
-                          {task.assignedContacts?.length || 0} Members
+                          {task.assignedEmployees?.length || 0} Members
                         </span>
                       </div>
 
                       <div className="grid grid-cols-1 gap-2">
-                        {task.assignedContacts?.length > 0 ? (
-                          task.assignedContacts.map((emp) => (
+                        {task.assignedEmployees?.length > 0 ? (
+                          task.assignedEmployees.map((emp) => (
                             <div
                               key={emp.id}
                               className="flex items-center p-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors group rounded-md cursor-pointer"

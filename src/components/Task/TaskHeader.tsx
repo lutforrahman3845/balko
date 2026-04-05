@@ -24,7 +24,7 @@ export function TaskHeader({ data }: { data: ExpandedTask[] }) {
       Title: task.title,
       Content: task.content || "",
       Creator: task.creator?.name || "N/A",
-      Assigned: task.assignedContacts.map((c) => c.name).join(", "),
+      Assigned: task.assignedEmployees.map((c) => c.name).join(", "),
       Status: task.status || "pending",
       Priority: task.priority || "medium",
       "Due Date": task.dueAt ? new Date(task.dueAt).toLocaleDateString() : "",

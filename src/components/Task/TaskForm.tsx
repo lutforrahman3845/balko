@@ -40,6 +40,11 @@ export const StatusOptions = [
     label: 'Completed',
     state: 'bg-green-500',
   },
+  {
+    value: 'blocked',
+    label: 'Blocked',
+    state: 'bg-red-500',
+  },
 ];
 const TaskForm = ({
   control,
@@ -165,7 +170,7 @@ const TaskForm = ({
         )}
       />
       <Controller
-        name="assignedContactIds"
+        name="assignedEmployeeIds"
         control={control}
         render={({ field }) => (
           <CustomeSelect
@@ -176,8 +181,8 @@ const TaskForm = ({
             onChange={(vals) => field.onChange(vals as string[])}
             onSearch={setSearchEmployee}
             error={
-              typeof errors?.assignedContactIds?.message === "string"
-                ? errors?.assignedContactIds?.message
+              typeof errors?.assignedEmployeeIds?.message === "string"
+                ? errors?.assignedEmployeeIds?.message
                 : undefined
             }
             options={employeeOptions}

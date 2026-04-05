@@ -5,18 +5,18 @@ export interface Task {
   content: string;
   createdBy: string;
   completedBy?: string;
-  assignedContactIds?: string[];
-  status?: "pending" | "completed" | "in_progress" | "blocked";
+  assignedEmployeeIds?: string[];
+  status: "pending" | "completed" | "in_progress" | "blocked";
   priority?: "high" | "medium" | "low";
   dueAt: string;
-  completedAt?: string; 
+  completedAt?: string;
   createdAt: string;
   updatedAt: string;
 }
 
 export interface ExpandedTask extends Task {
   creator: Employee | null;
-  assignedContacts: Employee[];
+  assignedEmployees: Employee[];
 }
 
 export interface GetTask {
@@ -33,10 +33,10 @@ import { z } from "zod";
 export const TaskFormSchema = z.object({
   title: z.string().min(1, "Title is required"),
   content: z.string().optional(),
-  assignedContactIds: z.array(z.string()).optional(),
-  status: z.enum(["pending", "in_progress", "completed"]).optional(),
+  assignedEmployeeIds: z.array(z.string()).min(1, "Assigned employee is required"),
+  status: z.enum(["pending", "in_progress", "completed", "blocked"]).optional(),
   priority: z.enum(["high", "medium", "low"]).optional(),
-  dueAt: z.string().optional(),
+  dueAt: z.string().min(1, "Due date is required"),
 });
 
 export type TaskFormValues = z.infer<typeof TaskFormSchema>;

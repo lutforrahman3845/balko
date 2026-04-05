@@ -122,7 +122,7 @@ const TaskTable = ({
                 className={cn(
                   "font-medium truncate text-sm leading-tight",
                   task.status === "completed" &&
-                    "line-through text-muted-foreground",
+                  "line-through text-muted-foreground",
                 )}
               >
                 {task.title}
@@ -140,11 +140,11 @@ const TaskTable = ({
         enableResizing: true,
       },
       {
-        accessorKey: "assignedContacts",
+        accessorKey: "assignedEmployees",
         id: "assigned",
         header: "Assigned",
         cell: ({ row }) => {
-          const employee = row.original.assignedContacts || [];
+          const employee = row.original.assignedEmployees || [];
 
           if (employee.length === 0) {
             return (

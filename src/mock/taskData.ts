@@ -11,7 +11,7 @@ export const tasksData: Task[] = [
     status: 'pending',
     createdAt: '2024-01-10T09:00:00.000Z',
     updatedAt: '2024-01-10T09:00:00.000Z',
-    assignedContactIds: ['1', '4'],
+    assignedEmployeeIds: ['1', '4'],
   },
   {
     id: '2',
@@ -24,7 +24,7 @@ export const tasksData: Task[] = [
     status: 'in_progress',
     createdAt: '2024-01-12T11:00:00.000Z',
     updatedAt: '2024-01-13T15:30:00.000Z',
-    assignedContactIds: ['2', '3'],
+    assignedEmployeeIds: ['2', '3'],
   },
   {
     id: '3',
@@ -38,7 +38,7 @@ export const tasksData: Task[] = [
     status: 'completed',
     createdAt: '2024-01-08T10:00:00.000Z',
     updatedAt: '2024-01-12T16:30:00.000Z',
-    assignedContactIds: ['1', '3'],
+    assignedEmployeeIds: ['1', '3'],
   },
   {
     id: '4',
@@ -51,7 +51,7 @@ export const tasksData: Task[] = [
     status: 'blocked',
     createdAt: '2024-01-14T08:00:00.000Z',
     updatedAt: '2024-01-14T08:00:00.000Z',
-    assignedContactIds: ['4'],
+    assignedEmployeeIds: ['4'],
   },
   {
     id: '5',
@@ -63,7 +63,7 @@ export const tasksData: Task[] = [
     status: 'completed',
     createdAt: '2026-02-24T17:20:51.000Z',
     updatedAt: '2026-02-24T17:20:51.000Z',
-    assignedContactIds: ['2', '3'],
+    assignedEmployeeIds: ['2', '3'],
   },
   {
     id: '6',
@@ -76,7 +76,7 @@ export const tasksData: Task[] = [
     status: 'in_progress',
     createdAt: '2024-01-11T14:00:00.000Z',
     updatedAt: '2024-01-14T10:15:00.000Z',
-    assignedContactIds: ['5', '6'],
+    assignedEmployeeIds: ['5', '6'],
   },
   {
     id: '7',
@@ -89,7 +89,7 @@ export const tasksData: Task[] = [
     status: 'pending',
     createdAt: '2024-01-05T16:00:00.000Z',
     updatedAt: '2024-01-05T16:00:00.000Z',
-    assignedContactIds: ['7'],
+    assignedEmployeeIds: ['7'],
   },
   {
     id: '8',
@@ -101,7 +101,7 @@ export const tasksData: Task[] = [
     status: 'pending',
     createdAt: '2024-01-13T12:00:00.000Z',
     updatedAt: '2024-01-13T12:00:00.000Z',
-    assignedContactIds: ['8', '9'],
+    assignedEmployeeIds: ['8', '9'],
   },
   {
     id: '9',
@@ -114,7 +114,7 @@ export const tasksData: Task[] = [
     status: 'in_progress',
     createdAt: '2024-01-09T08:30:00.000Z',
     updatedAt: '2024-01-15T11:20:00.000Z',
-    assignedContactIds: ['11', '12'],
+    assignedEmployeeIds: ['11', '12'],
   },
   {
     id: '10',
@@ -129,7 +129,7 @@ export const tasksData: Task[] = [
     status: 'completed',
     createdAt: '2024-01-07T09:00:00.000Z',
     updatedAt: '2024-01-10T14:45:00.000Z',
-    assignedContactIds: ['3', '2'],
+    assignedEmployeeIds: ['3', '2'],
   },
   {
     id: '11',
@@ -142,7 +142,7 @@ export const tasksData: Task[] = [
     status: 'pending',
     createdAt: '2024-01-12T10:00:00.000Z',
     updatedAt: '2024-01-12T10:00:00.000Z',
-    assignedContactIds: ['14', '15'],
+    assignedEmployeeIds: ['14', '15'],
   },
   {
     id: '12',
@@ -155,7 +155,7 @@ export const tasksData: Task[] = [
     status: 'in_progress',
     createdAt: '2024-01-14T13:00:00.000Z',
     updatedAt: '2024-01-15T09:30:00.000Z',
-    assignedContactIds: ['1', '4'],
+    assignedEmployeeIds: ['1', '4'],
   },
   {
     id: '13',
@@ -168,7 +168,7 @@ export const tasksData: Task[] = [
     status: 'blocked',
     createdAt: '2024-01-13T15:00:00.000Z',
     updatedAt: '2024-01-13T15:00:00.000Z',
-    assignedContactIds: ['17', '18'],
+    assignedEmployeeIds: ['17', '18'],
   },
   {
     id: '14',
@@ -182,7 +182,7 @@ export const tasksData: Task[] = [
     status: 'completed',
     createdAt: '2024-01-06T11:00:00.000Z',
     updatedAt: '2024-01-08T15:30:00.000Z',
-    assignedContactIds: ['20'],
+    assignedEmployeeIds: ['20'],
   },
   {
     id: '15',
@@ -194,7 +194,7 @@ export const tasksData: Task[] = [
     status: 'pending',
     createdAt: '2024-01-14T16:00:00.000Z',
     updatedAt: '2024-01-14T16:00:00.000Z',
-    assignedContactIds: ['1', '2'],
+    assignedEmployeeIds: ['1', '2'],
   },
   {
     id: '16',
@@ -206,7 +206,7 @@ export const tasksData: Task[] = [
     status: 'pending',
     createdAt: '2024-01-15T08:00:00.000Z',
     updatedAt: '2024-01-15T08:00:00.000Z',
-    assignedContactIds: ['1', '3'],
+    assignedEmployeeIds: ['1', '3'],
   },
   {
     id: '17',
@@ -218,7 +218,7 @@ export const tasksData: Task[] = [
     status: 'in_progress',
     createdAt: '2024-01-14T10:00:00.000Z',
     updatedAt: '2024-01-15T09:15:00.000Z',
-    assignedContactIds: ['1', '4'],
+    assignedEmployeeIds: ['1', '4'],
   },
   {
     id: '18',
@@ -230,7 +230,7 @@ export const tasksData: Task[] = [
     status: 'pending',
     createdAt: '2024-01-15T07:30:00.000Z',
     updatedAt: '2024-01-15T07:30:00.000Z',
-    assignedContactIds: ['7', '6'],
+    assignedEmployeeIds: ['7', '6'],
   },
   {
     id: '19',
@@ -242,7 +242,7 @@ export const tasksData: Task[] = [
     status: 'pending',
     createdAt: '2024-01-15T06:00:00.000Z',
     updatedAt: '2024-01-15T06:00:00.000Z',
-    assignedContactIds: ['8'],
+    assignedEmployeeIds: ['8'],
   },
   {
     id: '20',
@@ -254,7 +254,7 @@ export const tasksData: Task[] = [
     status: 'pending',
     createdAt: '2024-01-15T05:00:00.000Z',
     updatedAt: '2024-01-15T05:00:00.000Z',
-    assignedContactIds: ['3', '9'],
+    assignedEmployeeIds: ['3', '9'],
   },
   {
     id: '21',
@@ -267,7 +267,7 @@ export const tasksData: Task[] = [
     status: 'in_progress',
     createdAt: '2024-01-15T08:30:00.000Z',
     updatedAt: '2024-01-15T10:00:00.000Z',
-    assignedContactIds: ['12', '19'],
+    assignedEmployeeIds: ['12', '19'],
   },
   {
     id: '22',
@@ -279,7 +279,7 @@ export const tasksData: Task[] = [
     status: 'pending',
     createdAt: '2024-01-14T16:00:00.000Z',
     updatedAt: '2024-01-14T16:00:00.000Z',
-    assignedContactIds: ['6', '1'],
+    assignedEmployeeIds: ['6', '1'],
   },
   {
     id: '23',
@@ -291,6 +291,6 @@ export const tasksData: Task[] = [
     status: 'blocked',
     createdAt: '2024-01-15T09:00:00.000Z',
     updatedAt: '2024-01-15T09:00:00.000Z',
-    assignedContactIds: ['2', '17'],
+    assignedEmployeeIds: ['2', '17'],
   },
 ];

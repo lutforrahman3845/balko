@@ -1,35 +1,26 @@
 export interface Company {
   id: string;
-  logo?: string;
+  logo: string | null;
   name: string;
-  domain?: string;
-  email?: string;
-  phone?: string;
-  description?: string;
-  categoryIds?: string[];
-  contactIds?: string[];
-  address?: string;
-  state?: string;
-  city?: string;
-  zip?: string;
-  country?: string;
-  angelList?: string;
-  linkedin?: string;
-  connectionStrength?: string;
-  x?: string;
-  instagram?: string;
-  facebook?: string;
-  telegram?: string;
+  domain: string | null;
+  email: string | null;
+  phone: string | null;
+  description: string | null;
+  categoryIds: string[] | null;
+  contactIds: string[] | null;
+  address: string | null;
+  state: string | null;
+  city: string | null;
+  zip: string | null;
+  country: string | null;
+  socialLinks: {
+    [key: string]: string;
+  };
+  connectionStrength: string | null;
+  note: string | null;
+  estimatedArr: string | null;
+  employeeRange: string | null;
   createdAt: string;
   updatedAt: string;
-  foundedAt?: string;
-  estimatedArr?: string;
-  employeeRange?: string;
-  lastInteractionAt?: string;
-  lastContacted?: string;
-  teamId?: string;
-  badge?: {
-    name: string;
-    state: string;
-  };
+  lastInteractionAt: string | null;
 }

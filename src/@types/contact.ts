@@ -1,28 +1,22 @@
 export interface Contact {
   id: string;
   avatar: string;
-  initials?: string;
   name: string;
-  email?: string;
-  phone?: string;
-  position?: string;
-  company?: string;
-  address?: string;
-  state?: string;
-  city?: string;
-  zip?: string;
-  country?: string;
-  socialLinks?: {
-    linkedin?: string;
-    twitter?: string;
-    github?: string;
-    instagram?: string;
-    facebook?: string;
-    youtube?: string;
-    medium?: string;
-    stackoverflow?: string;
+  email: string;
+  phone: string;
+  position: string;
+  companyId: string | null;
+  address: string;
+  state: string;
+  city: string;
+  zip: string;
+  country: string;
+  status: string;
+  note: string | null;
+  socialLinks: {
+    [key: string]: string;
   };
   createdAt: string;
   updatedAt: string;
-  logo?: string;
+  lastContacted: string;
 }

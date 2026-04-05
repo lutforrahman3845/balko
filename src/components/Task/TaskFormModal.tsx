@@ -43,7 +43,7 @@ const TaskFormModal = ({
     defaultValues: {
       title: "",
       content: "",
-      assignedContactIds: [],
+      assignedEmployeeIds: [],
       status: "pending",
       priority: "medium",
       dueAt: "",
@@ -55,16 +55,16 @@ const TaskFormModal = ({
       reset({
         title: data.title,
         content: data.content || "",
-        assignedContactIds: data.assignedContactIds || [],
-        status: data.status,
-        priority: data.priority,
-        dueAt: data.dueAt,
+        assignedEmployeeIds: data.assignedEmployeeIds || [],
+        status: data?.status || "pending",
+        priority: data?.priority,
+        dueAt: data?.dueAt,
       });
     } else {
       reset({
         title: "",
         content: "",
-        assignedContactIds: [],
+        assignedEmployeeIds: [],
         status: "pending",
         priority: "medium",
         dueAt: "",
@@ -83,8 +83,8 @@ const TaskFormModal = ({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(
-        error?.data?.message ??
-          (isEdit ? "Failed to update task" : "Failed to create task"),
+        error?.message ??
+        (isEdit ? "Failed to update task" : "Failed to create task"),
       );
     } finally {
       reset();
@@ -112,7 +112,7 @@ const TaskFormModal = ({
                 control={control}
                 errors={errors}
                 isEdit={isEdit}
-                data={data?.assignedContacts || []}
+                data={data?.assignedEmployees || []}
               />
             </ScrollArea>
           </SheetBody>

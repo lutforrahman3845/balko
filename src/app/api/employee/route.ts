@@ -98,7 +98,7 @@ export async function GET(req: Request) {
   } catch (error) {
     console.error("Error fetching employees:", error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: { message: "Internal Server Error" } },
       { status: 500 }
     );
   }

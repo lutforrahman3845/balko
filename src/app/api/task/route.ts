@@ -82,14 +82,14 @@ export async function GET(req: Request) {
     const expandedTasks = paginatedTasks.map((task) => {
       const creator =
         employeeData.find((emp) => emp.id === task.createdBy) || null;
-      const assignedContacts =
-        task.assignedContactIds
+      const assignedEmployees =
+        task.assignedEmployeeIds
           ?.map((id) => employeeData.find((c) => c.id === id))
           .filter(Boolean) || [];
       return {
         ...task,
         creator,
-        assignedContacts,
+        assignedEmployees,
       };
     });
 
@@ -104,7 +104,7 @@ export async function GET(req: Request) {
   } catch (error) {
     console.error("Error fetching tasks:", error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: { message: "Internal Server Error" } },
       { status: 500 },
     );
   }

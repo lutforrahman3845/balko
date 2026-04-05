@@ -15,15 +15,15 @@ export async function GET(
     }
     const creator =
       employeeData.find((emp) => emp.id === task.createdBy) || null;
-    const assignedContacts =
-      task.assignedContactIds
+    const assignedEmployees =
+      task.assignedEmployeeIds
         ?.map((id) => employeeData.find((c) => c.id === id))
         .filter(Boolean) || [];
-    return NextResponse.json({ ...task, creator, assignedContacts });
+    return NextResponse.json({ ...task, creator, assignedEmployees });
   } catch (error) {
     console.error("Error fetching task:", error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: { message: "Internal Server Error" } },
       { status: 500 },
     );
   }
