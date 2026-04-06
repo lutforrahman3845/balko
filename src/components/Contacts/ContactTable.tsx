@@ -55,6 +55,12 @@ import {
   SiProducthunt,
   SiFigma,
 } from "react-icons/si";
+import { TbEdit, TbEye, TbTrash } from "react-icons/tb";
+import { BiMessageAltDots } from "react-icons/bi";
+import { useState } from "react";
+import ConfirmDialog from "../shared/ConfirmDialog";
+import { toast } from "sonner";
+import ContactFollowUpModal from "./ContactFollowUpModal";
 interface ContactTableProps {
   data: GetContacts | null;
   loading: boolean;
@@ -70,6 +76,48 @@ interface ContactTableProps {
   ) => void;
 }
 
+const getStatusBadge = (status: string) => {
+  switch (status.toLowerCase()) {
+    case "leads":
+      return (
+        <Badge
+          variant="secondary"
+          className="bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-200 border-blue-200/50"
+        >
+          Leads
+        </Badge>
+      );
+    case "follow-ups":
+      return (
+        <Badge
+          variant="secondary"
+          className="bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-200 border-amber-200/50"
+        >
+          Follow-ups
+        </Badge>
+      );
+    case "pipeline":
+      return (
+        <Badge
+          variant="secondary"
+          className="bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-200 border-emerald-200/50"
+        >
+          Pipeline
+        </Badge>
+      );
+    case "client":
+      return (
+        <Badge
+          variant="secondary"
+          className="bg-green-50 text-green-700 dark:bg-green-950/50 dark:text-green-200 border-green-200/50"
+        >
+          Client
+        </Badge>
+      );
+    default:
+      return <Badge variant="outline">{status}</Badge>;
+  }
+};
 const ContactTable = ({
   data,
   loading,
@@ -80,38 +128,17 @@ const ContactTable = ({
   rowSelection,
   setRowSelection,
 }: ContactTableProps) => {
-  const getStatusBadge = (status: string) => {
-    switch (status.toLowerCase()) {
-      case "leads":
-        return (
-          <Badge
-            variant="secondary"
-            className="bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-200 border-blue-200/50"
-          >
-            Leads
-          </Badge>
-        );
-      case "follow-ups":
-        return (
-          <Badge
-            variant="secondary"
-            className="bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-200 border-amber-200/50"
-          >
-            Follow-ups
-          </Badge>
-        );
-      case "pipeline":
-        return (
-          <Badge
-            variant="secondary"
-            className="bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-200 border-emerald-200/50"
-          >
-            Pipeline
-          </Badge>
-        );
-      default:
-        return <Badge variant="outline">{status}</Badge>;
-    }
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [follwUpModalOpen , setFollwUpModalOpen] = useState(false);
+  const [contactData , setContactData] = useState<ExpandedContact | null>(null);
+  const handleDialogOpen = (id: string) => {
+    setDialogOpen(true);
+    setSelectedId(id);
+  };
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+    setSelectedId(null);
   };
   const columns: ColumnDef<ExpandedContact>[] = [
     {
@@ -234,7 +261,7 @@ const ContactTable = ({
         return (
           <div className="flex flex-wrap gap-2.5">
             {activeLinks.length > 0 ? (
-              activeLinks.map(({ key, icon: Icon }) => (
+              activeLinks.slice(0, 4).map(({ key, icon: Icon }) => (
                 <Tooltip key={key}>
                   <TooltipTrigger asChild>
                     <Link
@@ -275,9 +302,12 @@ const ContactTable = ({
       header: "Company",
       size: 150,
       cell: ({ row }) => {
+        const website = row.original.company?.website;
         return (
           <Link
-            href={`#`}
+            href={website || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
             className="group flex items-center gap-1.5 cursor-pointer"
           >
             <Avatar className="flex items-center justify-center size-5 border border-border rounded-full">
@@ -320,6 +350,77 @@ const ContactTable = ({
       enableSorting: true,
       enableHiding: true,
       enableResizing: true,
+    }, {
+      header: "Actions",
+      id: "actions",
+      cell: ({ row }) => (
+        <div className="flex items-center justify-start text-muted-foreground">
+          <div className="flex items-center gap-3">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div
+                    className="text-xl cursor-pointer"
+                    role="button"
+                    onClick={() => {
+                      setFollwUpModalOpen(true);
+                      setContactData(row.original);
+                    }}
+                  >
+                    <BiMessageAltDots />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Follow Up</p>
+                </TooltipContent>
+              </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div
+                  className="text-xl cursor-pointer"
+                  role="button"
+                >
+                  <TbEdit />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Edit</p>
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div
+                  className="text-xl cursor-pointer"
+                >
+                  <TbEye />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Details</p>
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div
+                  className="text-xl cursor-pointer"
+                  role="button"
+                  onClick={() => {
+                    const id = row?.original?.id;
+                    if (id) handleDialogOpen(id);
+                  }}
+                >
+                  <TbTrash className="hover:text-red-500" />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Delete</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
+        </div>
+      ),
+      enableSorting: false,
+      enableHiding: true,
+      enableResizing: true,
     },
   ];
   // eslint-disable-next-line react-hooks/incompatible-library
@@ -355,6 +456,32 @@ const ContactTable = ({
           />
         )}
       </div>
+      {dialogOpen && (
+        <ConfirmDialog
+          isOpen={dialogOpen}
+          type="danger"
+          title={"Delete Contact"}
+          onClose={handleDialogClose}
+          onCancel={handleDialogClose}
+          confirmButtonType={"destructive"}
+          onConfirm={() => {
+            toast.success("Contact deleted successfully");
+            console.log(selectedId);
+            handleDialogClose();
+          }}
+        >
+          <span>
+            Are you sure you want to delete this Contact? You can not undo this
+            action.
+          </span>
+        </ConfirmDialog>
+      )}
+      <ContactFollowUpModal
+        open={follwUpModalOpen}
+        onOpenChange={setFollwUpModalOpen}
+        data={contactData || null}
+        selectedId={selectedId}
+      />
     </>
   );
 };

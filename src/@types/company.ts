@@ -13,6 +13,7 @@ export interface Company {
   city: string | null;
   zip: string | null;
   country: string | null;
+  website: string ;
   socialLinks: {
     [key: string]: string;
   };

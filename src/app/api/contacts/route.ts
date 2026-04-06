@@ -38,6 +38,8 @@ export async function GET(req: Request) {
       filtered = filtered.filter((contact) => contact.status === "follow-ups");
     } else if (statuses === "pipeline") {
       filtered = filtered.filter((contact) => contact.status === "pipeline");
+    } else if (statuses === "client") {
+      filtered = filtered.filter((contact) => contact.status === "client");
     }
     // position 
     if (positions.length > 0) {

@@ -17,12 +17,14 @@ import { toast } from "sonner";
 import { Trash2, X,} from "lucide-react";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import FilterSort from "@/components/shared/FilterSort";
+import { TiUserOutline } from "react-icons/ti";
 
 const stausItems = [
   { title: "all", icon: MdOutlineContacts, id: "all" },
   { title: "Leads", icon: Target, id: "leads" },
   { title: "Follow-ups", icon: Clock, id: "follow-ups" },
   { title: "Pipeline", icon: Workflow, id: "pipeline" },
+  { title: "Client", icon: TiUserOutline, id: "client" },
 ];
 
 const Page = () => {

@@ -40,7 +40,7 @@ function getRandomSocialLinks(): Record<string, string> {
   ];
   const selected = new Set<string>();
 
-  while (selected.size < 4) {
+  while (selected.size < 7) {
     const randomIndex = Math.floor(Math.random() * platforms.length);
     selected.add(platforms[randomIndex]);
   }
@@ -172,7 +172,7 @@ export const mockContacts: Contact[] = [
     createdAt: "2026-02-24T15:15:00.000Z",
     updatedAt: "2026-02-24T15:15:00.000Z",
     lastContacted: "2026-02-24T15:15:00.000Z",
-    status: "pipeline",
+    status: "client",
     note: "Needs approval from board.",
   },
   {
@@ -272,7 +272,7 @@ export const mockContacts: Contact[] = [
     createdAt: "2026-02-24T15:15:00.000Z",
     updatedAt: "2026-02-24T15:15:00.000Z",
     lastContacted: "2026-02-24T15:15:00.000Z",
-    status: "follow-ups",
+    status: "client",
     note: null,
   },
   {
@@ -432,7 +432,7 @@ export const mockContacts: Contact[] = [
     createdAt: "2026-02-24T15:15:00.000Z",
     updatedAt: "2026-02-24T15:15:00.000Z",
     lastContacted: "2026-02-24T15:15:00.000Z",
-    status: "leads",
+    status: "client",
     note: null,
   },
   {
@@ -532,7 +532,7 @@ export const mockContacts: Contact[] = [
     createdAt: "2026-02-24T15:15:00.000Z",
     updatedAt: "2026-02-24T15:15:00.000Z",
     lastContacted: "2026-02-24T15:15:00.000Z",
-    status: "pipeline",
+    status: "client",
     note: "Final contract negotiation phase.",
   },
 ].map((c, i) => ({

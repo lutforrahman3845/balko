@@ -34,3 +34,14 @@ export interface GetContacts {
   total: number;
   totalPages: number;
 }
+
+// Follow ups Form Schema
+import { z } from "zod";
+
+export const ContactsFollowUpFormSchema = z.object({
+  status: z.string().min(1, "Status is required"),
+  lastContacted: z.string().min(1, "Last contacted is required"),
+  note: z.string().min(1, "Note or last contacted recap is required"),
+});
+
+export type ContactsFollowUpFormValues = z.infer<typeof ContactsFollowUpFormSchema>;
