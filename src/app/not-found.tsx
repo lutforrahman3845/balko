@@ -19,7 +19,7 @@ export default function NotFound() {
     >
       {/* Decorative Background Elements */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none opacity-[0.03] dark:opacity-[0.05]">
-        <h1 className="text-[20rem] font-black tracking-tighter sm:text-[30rem]">
+        <h1 className="text-[11rem] font-black tracking-tighter sm:text-[15rem] md:text-[20rem] lg:text-[25rem]">
           404
         </h1>
       </div>

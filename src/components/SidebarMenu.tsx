@@ -48,15 +48,15 @@ function NavItem({ item }: { item: NavItem }) {
           {item.new && (
             <Tooltip delayDuration={500}>
               <TooltipTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="size-6 hover:bg-input"
-                  size="icon"
-                >
-                  <Link href={item.new.path}>
+                <Link href={item.new.path}>
+                  <Button
+                    variant="ghost"
+                    className="size-6 hover:bg-input"
+                    size="icon"
+                  >
                     <Plus className="size-4 dark:text-white " />
-                  </Link>
-                </Button>
+                  </Button>
+                </Link>
               </TooltipTrigger>
               <TooltipContent align="center" side="right" sideOffset={2}>
                 {item.new.tooltip}
@@ -70,21 +70,22 @@ function NavItem({ item }: { item: NavItem }) {
 }
 
 function NavItemCollapsed({ item }: { item: NavItem }) {
-
   return (
     <Tooltip delayDuration={0}>
       <TooltipTrigger asChild>
-        <div className="flex items-center justify-center w-full">
-          {item.path ? (
-            <Link href={item.path} className="flex items-center justify-center size-9 rounded-md transition-colors hover:bg-accent group-data-[active=true]:bg-accent">
+        {item.path ? (
+          <Link href={item.path} className="flex items-center justify-center w-full">
+            <div className="flex items-center justify-center size-9 rounded-md transition-colors hover:bg-accent group-data-[active=true]:bg-accent">
               {item.icon && <item.icon className="size-5" />}
-            </Link>
-          ) : (
+            </div>
+          </Link>
+        ) : (
+          <div className="flex items-center justify-center w-full">
             <div className="flex items-center justify-center size-9 rounded-md">
               {item.icon && <item.icon className="size-5" />}
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </TooltipTrigger>
       <TooltipContent align="center" side="right" sideOffset={14}>
         {item.title}

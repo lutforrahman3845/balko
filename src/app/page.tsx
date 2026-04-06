@@ -1,7 +1,7 @@
 import { Rocket, Zap, ShieldCheck, LayoutDashboard } from "lucide-react";
 const DashboardPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[85vh] px-6 text-center animate-in fade-in slide-in-from-bottom-4 duration-1000">
+    <div className="flex flex-col items-center justify-center min-h-[85vh] px-6 text-center animate-in fade-in slide-in-from-bottom-4 duration-1000 mt-12">
       {/* Visual Identity */}
       <div className="relative mb-10 group">
         <div className="absolute -inset-6 bg-blue-500/15 rounded-full blur-3xl animate-pulse group-hover:bg-blue-500/25 transition-all duration-700" />
