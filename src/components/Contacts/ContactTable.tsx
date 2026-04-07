@@ -61,6 +61,7 @@ import { useState } from "react";
 import ConfirmDialog from "../shared/ConfirmDialog";
 import { toast } from "sonner";
 import ContactFollowUpModal from "./ContactFollowUpModal";
+import ContactDetails from "./ContactDetails";
 interface ContactTableProps {
   data: GetContacts | null;
   loading: boolean;
@@ -130,8 +131,9 @@ const ContactTable = ({
 }: ContactTableProps) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [follwUpModalOpen , setFollwUpModalOpen] = useState(false);
-  const [contactData , setContactData] = useState<ExpandedContact | null>(null);
+  const [follwUpModalOpen, setFollwUpModalOpen] = useState(false);
+  const [contactData, setContactData] = useState<ExpandedContact | null>(null);
+  const [contactDetailsOpen, setContactDetailsOpen] = useState(false);
   const handleDialogOpen = (id: string) => {
     setDialogOpen(true);
     setSelectedId(id);
@@ -350,35 +352,33 @@ const ContactTable = ({
       enableSorting: true,
       enableHiding: true,
       enableResizing: true,
-    }, {
+    },
+    {
       header: "Actions",
       id: "actions",
       cell: ({ row }) => (
         <div className="flex items-center justify-start text-muted-foreground">
           <div className="flex items-center gap-3">
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div
-                    className="text-xl cursor-pointer"
-                    role="button"
-                    onClick={() => {
-                      setFollwUpModalOpen(true);
-                      setContactData(row.original);
-                    }}
-                  >
-                    <BiMessageAltDots />
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Follow Up</p>
-                </TooltipContent>
-              </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
                 <div
                   className="text-xl cursor-pointer"
                   role="button"
+                  onClick={() => {
+                    setFollwUpModalOpen(true);
+                    setContactData(row.original);
+                  }}
                 >
+                  <BiMessageAltDots />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Follow Up</p>
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className="text-xl cursor-pointer" role="button">
                   <TbEdit />
                 </div>
               </TooltipTrigger>
@@ -390,6 +390,11 @@ const ContactTable = ({
               <TooltipTrigger asChild>
                 <div
                   className="text-xl cursor-pointer"
+                  onClick={() => {
+                    const id = row?.original?.id;
+                    if (id) setSelectedId(id);
+                    setContactDetailsOpen(true);
+                  }}
                 >
                   <TbEye />
                 </div>
@@ -480,6 +485,11 @@ const ContactTable = ({
         open={follwUpModalOpen}
         onOpenChange={setFollwUpModalOpen}
         data={contactData || null}
+        selectedId={selectedId}
+      />
+      <ContactDetails
+        open={contactDetailsOpen}
+        onOpenChange={setContactDetailsOpen}
         selectedId={selectedId}
       />
     </>
