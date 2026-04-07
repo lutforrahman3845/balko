@@ -47,7 +47,7 @@ export function TaskHeader({ data }: { data: ExpandedTask[] }) {
       <ContentHeader>
         <div className="flex flex-col items-start">
           <h1 className="inline-flex items-center gap-2.5 font-semibold">
-            <CheckSquare className="size-4 text-primary" /> Tasks
+            <CheckSquare className="size-6 text-primary" /> Tasks
           </h1>
           <p className="text-sm text-muted-foreground">
             Manage your tasks and track your progress

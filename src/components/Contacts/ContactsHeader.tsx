@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Download, DownloadIcon, Plus, Share } from "lucide-react";
 import { RiContactsBook3Line } from "react-icons/ri";
 import * as XLSX from "xlsx";
+import Link from "next/link";
 
 const ContactsHeader = ({ data }: { data: ExpandedContact[] }) => {
   const exportToFormat = (format: "csv" | "xlsx") => {
@@ -60,7 +61,7 @@ const ContactsHeader = ({ data }: { data: ExpandedContact[] }) => {
       <ContentHeader>
         <div className="flex flex-col items-start">
           <h1 className="inline-flex items-center gap-2.5 font-semibold">
-            <RiContactsBook3Line className="size-4 text-primary" /> Contacts
+            <RiContactsBook3Line className="size-6 text-primary" /> Contacts
           </h1>
           <p className="text-sm text-muted-foreground">
             Manage your contacts and track your contacts interactions
@@ -95,10 +96,11 @@ const ContactsHeader = ({ data }: { data: ExpandedContact[] }) => {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-
-          <Button size="sm">
-            <Plus /> New Contact
-          </Button>
+          <Link href="/contacts/new">
+            <Button size="sm">
+              <Plus /> New Contact
+            </Button>
+          </Link>
         </div>
       </ContentHeader>
     </>
