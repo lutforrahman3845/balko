@@ -3,7 +3,7 @@ import Image from "next/image";
 import { startTransition, useEffect, useRef, useState } from "react";
 import { Control, Controller, FieldErrors, useWatch } from "react-hook-form";
 import { AiOutlineUser } from "react-icons/ai";
-import { PiCameraPlusLight } from "react-icons/pi";
+import { PiCameraPlusDuotone,} from "react-icons/pi";
 
 const ContactAvatar = ({
     control,
@@ -56,9 +56,9 @@ const ContactAvatar = ({
                         <AiOutlineUser className="text-gray-400 size-20" />
                     )}
 
-                    {/* Plus Icon */}
-                    <div className="absolute bottom-1 right-1 w-8 h-8 rounded-fullflex items-center justify-center">
-                        <PiCameraPlusLight className="text-gray-600 size-8" />
+                    {/* Camera Action Button */}
+                    <div className="absolute bottom-1 right-1 size-9 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-md border-2 border-white dark:border-gray-900 transition-all duration-300 group-hover:scale-110 group-hover:bg-primary group-hover:border-primary shadow-black/5">
+                        <PiCameraPlusDuotone className="text-gray-600 dark:text-gray-300 size-5 group-hover:text-white transition-colors" />
                     </div>
 
                     {/* Hover Overlay */}

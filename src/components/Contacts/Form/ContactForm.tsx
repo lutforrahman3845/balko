@@ -44,6 +44,7 @@ const ContactForm = ({
                   errorMessage={errors.name?.message}
                   maxLength={50}
                   {...field}
+                  value={field.value || ""}
                 />
               )}
             />
@@ -58,6 +59,7 @@ const ContactForm = ({
                   invalid={Boolean(errors.email)}
                   errorMessage={errors.email?.message}
                   {...field}
+                  value={field.value || ""}
                 />
               )}
             />
@@ -72,6 +74,7 @@ const ContactForm = ({
                   invalid={Boolean(errors.phone)}
                   errorMessage={errors.phone?.message}
                   {...field}
+                  value={field.value || ""}
                   onChange={(e) => {
                     const val = e.target.value.replace(/[^0-9+\- ]/g, "");
                     field.onChange(val);
@@ -90,6 +93,7 @@ const ContactForm = ({
                   invalid={Boolean(errors.position)}
                   errorMessage={errors.position?.message}
                   {...field}
+                  value={field.value || ""}
                 />
               )}
             />

@@ -118,6 +118,7 @@ const CompanyForm = ({
                   invalid={Boolean(errors.company?.name)}
                   errorMessage={errors.company?.name?.message}
                   {...field}
+                  value={field.value || ""}
                 />
               )}
             />
@@ -132,6 +133,7 @@ const CompanyForm = ({
                   invalid={Boolean(errors.company?.domain)}
                   errorMessage={errors.company?.domain?.message}
                   {...field}
+                  value={field.value || ""}
                 />
               )}
             />

@@ -62,6 +62,7 @@ import ConfirmDialog from "../shared/ConfirmDialog";
 import { toast } from "sonner";
 import ContactFollowUpModal from "./ContactFollowUpModal";
 import ContactDetails from "./ContactDetails";
+import { useRouter } from "next/navigation";
 interface ContactTableProps {
   data: GetContacts | null;
   loading: boolean;
@@ -134,6 +135,7 @@ const ContactTable = ({
   const [follwUpModalOpen, setFollwUpModalOpen] = useState(false);
   const [contactData, setContactData] = useState<ExpandedContact | null>(null);
   const [contactDetailsOpen, setContactDetailsOpen] = useState(false);
+  const router = useRouter();
   const handleDialogOpen = (id: string) => {
     setDialogOpen(true);
     setSelectedId(id);
@@ -378,7 +380,7 @@ const ContactTable = ({
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
-                <div className="text-xl cursor-pointer" role="button">
+                <div className="text-xl cursor-pointer" role="button" onClick={() => router.push(`/contacts/${row.original.id}/edit`)}>
                   <TbEdit />
                 </div>
               </TooltipTrigger>

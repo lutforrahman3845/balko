@@ -11,8 +11,10 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import ContactForm from "@/components/Contacts/Form/ContactForm";
+import { useRouter } from "next/router";
 
 const Page = () => {
+  const router = useRouter();
   const {
     control,
     handleSubmit,
@@ -49,9 +51,10 @@ const Page = () => {
     const payload = {
       ...data,
       companyId,
-      company: companyId ? undefined : data.company
-    }
+      company: companyId ? undefined : data.company,
+    };
     console.log("Form submitted with data:", payload);
+    toast.success("Contact updated successfully");
   };
   const handleFormError = () => {
     toast.error("Please fix the errors in the form before submitting.");
@@ -76,6 +79,7 @@ const Page = () => {
               size="sm"
               onClick={() => {
                 reset();
+                router.push(`/contacts`);
               }}
             >
               Cancel
@@ -96,9 +100,13 @@ const Page = () => {
         </ContentHeader>
         <div className="px-2 md:px-4 lg:px-6  py-4">
           <div className="space-y-4">
-            <ContactForm control={control} errors={errors} setValue={setValue} unregister={unregister} />
+            <ContactForm
+              control={control}
+              errors={errors}
+              setValue={setValue}
+              unregister={unregister}
+            />
           </div>
-
         </div>
       </form>
     </>
