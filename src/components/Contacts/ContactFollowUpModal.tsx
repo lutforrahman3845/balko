@@ -23,7 +23,7 @@ import { BiMessageAltDots } from "react-icons/bi";
 import Link from "next/link";
 import { LuBuilding2, LuPhone, LuMail, LuBriefcase } from "react-icons/lu";
 
-export const StatusOptions = [
+export const ContactStatusOptions = [
     {
         value: 'leads',
         label: 'Leads',
@@ -156,7 +156,7 @@ const ContactFollowUpModal = ({
                                                             <div className="size-7 rounded-md bg-background border border-border/60 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary shadow-sm transition-all duration-300">
                                                                 <LuMail className="size-3.5" />
                                                             </div>
-                                                            <span className="truncate max-w-[200px]">{data.email}</span>
+                                                            <span className="truncate max-w-50">{data.email}</span>
                                                         </a>
                                                     )}
                                                     {data?.phone && (
@@ -213,7 +213,7 @@ const ContactFollowUpModal = ({
                                             placeholder={"Select task status"}
                                             invalid={Boolean(errors.status)}
                                             errorMessage={errors.status?.message}
-                                            options={StatusOptions}
+                                            options={ContactStatusOptions}
                                             name={field.name}
                                             value={field.value}
                                             ref={field.ref}

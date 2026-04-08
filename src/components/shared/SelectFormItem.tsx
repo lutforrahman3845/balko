@@ -120,7 +120,7 @@ const SelectFormItem = forwardRef<HTMLButtonElement, SelectFormItemProps>(
                   {flags && (
                     <Avatar>
                       <AvatarImage
-                        src={`/img/countries/${option.short}.png`}
+                        src={`/countries/${option.short}.png`}
                         alt={option.value}
                       />
                       <AvatarFallback>{option.short}</AvatarFallback>
