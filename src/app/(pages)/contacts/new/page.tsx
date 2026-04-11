@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import ContactForm from "@/components/Contacts/Form/ContactForm";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const router = useRouter();

@@ -7,7 +7,7 @@ import FilterDropDown from "@/components/shared/FilterDropDown";
 import FilterSearch from "@/components/shared/FilterSearch";
 import { cn } from "@/lib/utils";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
-import { Briefcase, Clock, Target, Workflow } from "lucide-react";
+import { Briefcase, Workflow } from "lucide-react";
 import { useMemo, useState } from "react";
 import { MdOutlineContacts } from "react-icons/md";
 import ContactTable from "@/components/Contacts/ContactTable";
@@ -17,12 +17,13 @@ import { toast } from "sonner";
 import { Trash2, X,} from "lucide-react";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import FilterSort from "@/components/shared/FilterSort";
-import { TiUserOutline } from "react-icons/ti";
+import { TiUserAddOutline, TiUserOutline } from "react-icons/ti";
+import { LuTarget } from "react-icons/lu";
 
 const stausItems = [
   { title: "all", icon: MdOutlineContacts, id: "all" },
-  { title: "Leads", icon: Target, id: "leads" },
-  { title: "Follow-ups", icon: Clock, id: "follow-ups" },
+  { title: "Leads", icon: TiUserAddOutline, id: "leads" },
+  { title: "Follow-ups", icon: LuTarget, id: "follow-ups" },
   { title: "Pipeline", icon: Workflow, id: "pipeline" },
   { title: "Client", icon: TiUserOutline, id: "client" },
 ];

@@ -63,6 +63,8 @@ import { toast } from "sonner";
 import ContactFollowUpModal from "./ContactFollowUpModal";
 import ContactDetails from "./ContactDetails";
 import { useRouter } from "next/navigation";
+import { LuTarget } from "react-icons/lu";
+import ConatctedHistory from "./ConatctedHistory";
 interface ContactTableProps {
   data: GetContacts | null;
   loading: boolean;
@@ -133,6 +135,7 @@ const ContactTable = ({
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [follwUpModalOpen, setFollwUpModalOpen] = useState(false);
+  const [contactedHistoryOpen, setContactedHistoryOpen] = useState(false);
   const [contactData, setContactData] = useState<ExpandedContact | null>(null);
   const [contactDetailsOpen, setContactDetailsOpen] = useState(false);
   const router = useRouter();
@@ -367,11 +370,29 @@ const ContactTable = ({
                   className="text-xl cursor-pointer"
                   role="button"
                   onClick={() => {
-                    setFollwUpModalOpen(true);
+                    setContactedHistoryOpen(true);
+                    setSelectedId(row.original.id);
                     setContactData(row.original);
                   }}
                 >
                   <BiMessageAltDots />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Contact History</p>
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div
+                  className="text-xl cursor-pointer"
+                  role="button"
+                  onClick={() => {
+                    setFollwUpModalOpen(true);
+                    setContactData(row.original);
+                  }}
+                >
+                  <LuTarget />
                 </div>
               </TooltipTrigger>
               <TooltipContent>
@@ -380,7 +401,13 @@ const ContactTable = ({
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
-                <div className="text-xl cursor-pointer" role="button" onClick={() => router.push(`/contacts/${row.original.id}/edit`)}>
+                <div
+                  className="text-xl cursor-pointer"
+                  role="button"
+                  onClick={() =>
+                    router.push(`/contacts/${row.original.id}/edit`)
+                  }
+                >
                   <TbEdit />
                 </div>
               </TooltipTrigger>
@@ -483,6 +510,12 @@ const ContactTable = ({
           </span>
         </ConfirmDialog>
       )}
+      <ConatctedHistory
+        open={contactedHistoryOpen}
+        onOpenChange={setContactedHistoryOpen}
+        data={contactData || null}
+        selectedId={selectedId}
+      />
       <ContactFollowUpModal
         open={follwUpModalOpen}
         onOpenChange={setFollwUpModalOpen}

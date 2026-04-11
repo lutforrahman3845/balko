@@ -19,9 +19,8 @@ import { ContactsFollowUpFormSchema, ContactsFollowUpFormValues, ExpandedContact
 import SelectFormItem from "../shared/SelectFormItem";
 import FormItem from "../shared/FormItem";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { BiMessageAltDots } from "react-icons/bi";
 import Link from "next/link";
-import { LuBuilding2, LuPhone, LuMail, LuBriefcase } from "react-icons/lu";
+import { LuBuilding2, LuPhone, LuMail, LuBriefcase, LuTarget } from "react-icons/lu";
 
 export const ContactStatusOptions = [
     {
@@ -116,7 +115,7 @@ const ContactFollowUpModal = ({
             <SheetContent className="gap-0 sm:w-150 inset-5 start-auto h-auto rounded-lg p-0 sm:max-w-none ">
                 <SheetHeader className="mb-0">
                     <SheetTitle className="p-3 flex items-center gap-2.5">
-                        <BiMessageAltDots className="size-5 text-blue-500" />
+                        <LuTarget className="size-5 text-blue-500" />
                         Update Follow Up Information
                     </SheetTitle>
                 </SheetHeader>
