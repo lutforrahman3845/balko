@@ -1,3 +1,6 @@
+import { Category } from "./category";
+import { Contact } from "./contact";
+
 export interface Company {
   id: string;
   logo: string | null;
@@ -25,3 +28,16 @@ export interface Company {
   updatedAt: string;
   lastInteractionAt: string | null;
 }
+
+export interface ExpandedCompany extends Company {
+  categories: Category[];
+  contacts: Contact[];
+}
+export interface GetCompaniesResponse {
+  data: ExpandedCompany[];
+  total: number;
+  totalPages: number;
+  pageIndex: number;
+  pageSize: number;
+}
+

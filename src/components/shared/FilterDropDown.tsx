@@ -17,6 +17,7 @@ import { Filter, LucideIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
+import { IconType } from "react-icons/lib";
 
 export interface FilterOption {
   id: string;
@@ -30,7 +31,7 @@ interface FilterDropDownProps {
   options: FilterOption[];
   selectedValues: string[];
   onSelectedValuesChange: (values: string[]) => void;
-  icon?: LucideIcon;
+  icon?: LucideIcon | IconType;
   placeholder?: string;
   className?: string;
   setPageIndex: (pageIndex: number) => void;
@@ -59,7 +60,7 @@ const FilterDropDown = ({
       <Popover>
         <PopoverTrigger asChild>
           <Button size="sm" variant="outline" className="h-9 px-3 gap-2">
-            <Icon className="size-3.5" />
+            <Icon className="size-4" />
             {label}
             {selectedValues.length > 0 && (
               <>
