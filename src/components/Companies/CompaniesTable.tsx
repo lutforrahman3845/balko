@@ -189,6 +189,54 @@ const CompaniesTable = ({
       cell: ({ row }) => getConnectionStrengthBadge(row.original.connectionStrength),
     },
     {
+      accessorKey: "contacts",
+      header: "Contacts",
+      size: 180,
+      cell: ({ row }) => {
+        const contacts = row.original.contacts || [];
+        const maxDisplayed = 4;
+        const displayedContacts = contacts.slice(0, maxDisplayed);
+        const remainingCount = contacts.length - maxDisplayed;
+
+        return (
+          <div className="flex items-center -space-x-2 overflow-hidden">
+            {displayedContacts.map((contact) => (
+              <Tooltip key={contact.id}>
+                <TooltipTrigger asChild>
+                  <Avatar className="size-8 border-2 border-background shrink-0 transition-transform hover:z-10 hover:scale-110 cursor-pointer">
+                    <AvatarImage src={contact.avatar} alt={contact.name} />
+                    <AvatarFallback className="text-[10px] font-bold bg-muted">
+                      {contact.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")
+                        .toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                </TooltipTrigger>
+                <TooltipContent side="top">
+                  <div className="flex flex-col gap-0.5">
+                    <p className="text-xs font-semibold">{contact.name}</p>
+                    <p className="text-[10px] text-muted-foreground">
+                      {contact.position}
+                    </p>
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+            ))}
+            {remainingCount > 0 && (
+              <div className="size-8 rounded-full bg-muted border-2 border-background flex items-center justify-center text-[10px] font-bold text-muted-foreground shrink-0 z-0">
+                +{remainingCount}
+              </div>
+            )}
+            {contacts.length === 0 && (
+              <span className="text-muted-foreground text-xs ps-2">-</span>
+            )}
+          </div>
+        );
+      },
+    },
+    {
       accessorKey: "estimatedArr",
       header: "ARR",
       size: 120,
