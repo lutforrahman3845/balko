@@ -30,6 +30,7 @@ import { useState } from "react";
 import ConfirmDialog from "../shared/ConfirmDialog";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import CompaniesDetails from "./CompaniesDetails";
 
 interface CompaniesTableProps {
   data: GetCompaniesResponse | null;
@@ -48,7 +49,7 @@ interface CompaniesTableProps {
 
 const getConnectionStrengthBadge = (strength: string | null) => {
   if (!strength) return <Badge variant="outline">-</Badge>;
-  
+
   switch (strength.toLowerCase()) {
     case "weak":
       return (
@@ -107,6 +108,7 @@ const CompaniesTable = ({
 }: CompaniesTableProps) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [detailsOpen, setDetailsOpen] = useState(false);
   const router = useRouter();
 
   const handleDialogOpen = (id: string) => {
@@ -331,7 +333,10 @@ const CompaniesTable = ({
             <TooltipTrigger asChild>
               <div
                 className="text-lg cursor-pointer hover:text-primary transition-colors"
-                onClick={() => router.push(`/companies/${row.original.id}`)}
+                onClick={() => {
+                  setSelectedId(row.original.id);
+                  setDetailsOpen(true);
+                }}
               >
                 <TbEye />
               </div>
@@ -412,6 +417,11 @@ const CompaniesTable = ({
           </span>
         </ConfirmDialog>
       )}
+      <CompaniesDetails
+        open={detailsOpen}
+        onOpenChange={setDetailsOpen}
+        selectedId={selectedId}
+      />
     </>
   );
 };
