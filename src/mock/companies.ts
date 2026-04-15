@@ -84,7 +84,7 @@ export const COMPANIES: Company[] = [
     city: 'San Francisco',
     state: 'CA',
     zip: '94101',
-    country: 'USA',
+    country: 'United States',
     socialLinks: {
       x: 'https://x.com/tbg',
       linkedin: 'https://linkedin.com/company/tbg',
@@ -113,7 +113,7 @@ export const COMPANIES: Company[] = [
     city: 'New York',
     state: 'NY',
     zip: '10001',
-    country: 'USA',
+    country: 'United States',
     socialLinks: {
       x: 'https://x.com/globex',
       linkedin: 'https://linkedin.com/company/globex',
@@ -142,7 +142,7 @@ export const COMPANIES: Company[] = [
     city: 'Austin',
     state: 'TX',
     zip: '73301',
-    country: 'USA',
+    country: 'United States',
     socialLinks: {
       x: 'https://x.com/initech',
       linkedin: 'https://linkedin.com/company/initech',
@@ -171,7 +171,7 @@ export const COMPANIES: Company[] = [
     city: 'Chicago',
     state: 'IL',
     zip: '60601',
-    country: 'USA',
+    country: 'United States',
     socialLinks: {
       x: 'https://x.com/umbrella',
       linkedin: 'https://linkedin.com/company/umbrella',
@@ -200,7 +200,7 @@ export const COMPANIES: Company[] = [
     city: 'Palo Alto',
     state: 'CA',
     zip: '94301',
-    country: 'USA',
+    country: 'United States',
     socialLinks: {
       x: 'https://x.com/hooli',
       linkedin: 'https://linkedin.com/company/hooli',
@@ -229,7 +229,7 @@ export const COMPANIES: Company[] = [
     city: 'Malibu',
     state: 'CA',
     zip: '90265',
-    country: 'USA',
+    country: 'United States',
     socialLinks: {
       x: 'https://x.com/starkindustries',
       linkedin: 'https://linkedin.com/company/starkindustries',
@@ -258,7 +258,7 @@ export const COMPANIES: Company[] = [
     city: 'Gotham',
     state: 'NJ',
     zip: '07001',
-    country: 'USA',
+    country: 'United States',
     socialLinks: {
       x: 'https://x.com/wayneenterprises',
       linkedin: 'https://linkedin.com/company/wayneenterprises',
@@ -287,7 +287,7 @@ export const COMPANIES: Company[] = [
     city: 'New York',
     state: 'NY',
     zip: '10166',
-    country: 'USA',
+    country: 'United States',
     socialLinks: {
       x: 'https://x.com/oscorp',
       linkedin: 'https://linkedin.com/company/oscorp',
@@ -316,7 +316,7 @@ export const COMPANIES: Company[] = [
     city: 'Metropolis',
     state: 'IL',
     zip: '62960',
-    country: 'USA',
+    country: 'United States',
     socialLinks: {
       x: 'https://x.com/lexcorp',
       linkedin: 'https://linkedin.com/company/lexcorp',
@@ -345,7 +345,7 @@ export const COMPANIES: Company[] = [
     city: 'Metropolis',
     state: 'IL',
     zip: '62960',
-    country: 'USA',
+    country: 'United States',
     socialLinks: {
       x: 'https://x.com/dailyplanet',
       linkedin: 'https://linkedin.com/company/dailyplanet',
@@ -374,7 +374,7 @@ export const COMPANIES: Company[] = [
     city: 'Palo Alto',
     state: 'CA',
     zip: '94301',
-    country: 'USA',
+    country: 'United States',
     socialLinks: {
       github: 'https://github.com/piedpiper',
       x: 'https://x.com/piedpiper',
@@ -402,7 +402,7 @@ export const COMPANIES: Company[] = [
     city: 'Seattle',
     state: 'WA',
     zip: '98101',
-    country: 'USA',
+    country: 'United States',
     socialLinks: {
       x: 'https://x.com/monarchsolutions',
       linkedin: 'https://linkedin.com/company/monarchsolutions',
@@ -429,7 +429,7 @@ export const COMPANIES: Company[] = [
     city: 'Boston',
     state: 'MA',
     zip: '02101',
-    country: 'USA',
+    country: 'United States',
     socialLinks: {
       x: 'https://x.com/massivedynamic',
       linkedin: 'https://linkedin.com/company/massivedynamic',
@@ -456,7 +456,7 @@ export const COMPANIES: Company[] = [
     city: 'San Jose',
     state: 'CA',
     zip: '95112',
-    country: 'USA',
+    country: 'United States',
     socialLinks: {
       x: 'https://x.com/cyberdyne',
       linkedin: 'https://linkedin.com/company/cyberdyne',
@@ -483,7 +483,7 @@ export const COMPANIES: Company[] = [
     city: 'Miami',
     state: 'FL',
     zip: '33101',
-    country: 'USA',
+    country: 'United States',
     socialLinks: {
       x: 'https://x.com/vandelay',
       linkedin: 'https://linkedin.com/company/vandelay',
@@ -510,7 +510,7 @@ export const COMPANIES: Company[] = [
     city: 'Los Angeles',
     state: 'CA',
     zip: '90001',
-    country: 'USA',
+    country: 'United States',
     socialLinks: {
       x: 'https://x.com/soylent',
       linkedin: 'https://linkedin.com/company/soylent',
@@ -537,7 +537,7 @@ export const COMPANIES: Company[] = [
     city: 'Los Angeles',
     state: 'CA',
     zip: '90012',
-    country: 'USA',
+    country: 'United States',
     socialLinks: {
       x: 'https://x.com/tyrell',
       linkedin: 'https://linkedin.com/company/tyrell',
@@ -564,7 +564,7 @@ export const COMPANIES: Company[] = [
     city: 'Hershey',
     state: 'PA',
     zip: '17033',
-    country: 'USA',
+    country: 'United States',
     socialLinks: {
       x: 'https://x.com/wonka',
       linkedin: 'https://linkedin.com/company/wonka',
@@ -591,7 +591,7 @@ export const COMPANIES: Company[] = [
     city: 'Newport Beach',
     state: 'CA',
     zip: '92660',
-    country: 'USA',
+    country: 'United States',
     socialLinks: {
       x: 'https://x.com/bluthcompany',
       linkedin: 'https://linkedin.com/company/bluthcompany',
@@ -618,7 +618,7 @@ export const COMPANIES: Company[] = [
     city: 'Santa Barbara',
     state: 'CA',
     zip: '93101',
-    country: 'USA',
+    country: 'United States',
     socialLinks: {
       x: 'https://x.com/prestigeworldwide',
       linkedin: 'https://linkedin.com/company/prestigeworldwide',

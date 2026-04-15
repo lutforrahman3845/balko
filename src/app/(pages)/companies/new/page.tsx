@@ -68,7 +68,7 @@ const Page = () => {
               size="sm"
               onClick={() => {
                 reset();
-                router.push(`/contacts`);
+                router.push(`/companies`);
               }}
             >
               Cancel
