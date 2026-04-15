@@ -195,6 +195,7 @@ const Page = () => {
                 errors={errors}
                 setValue={setValue}
                 unregister={unregister}
+                companyId={contact?.company?.id || undefined}
               />
             </div>
           )}

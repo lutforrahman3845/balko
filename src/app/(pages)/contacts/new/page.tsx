@@ -11,10 +11,12 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import ContactForm from "@/components/Contacts/Form/ContactForm";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const Page = () => {
   const router = useRouter();
+  const serchParams = useSearchParams();
+  const companyId = serchParams.get("companyId") || undefined;
   const {
     control,
     handleSubmit,
@@ -105,6 +107,7 @@ const Page = () => {
               errors={errors}
               setValue={setValue}
               unregister={unregister}
+              companyId={companyId}
             />
           </div>
         </div>

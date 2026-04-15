@@ -19,12 +19,14 @@ const ContactForm = ({
   errors,
   setValue,
   unregister,
+  companyId
 }: {
   control: Control<ContactsCreateFormValues>;
   errors: FieldErrors<ContactsCreateFormValues>;
   setValue: UseFormSetValue<ContactsCreateFormValues>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   unregister: (name: any) => void;
+  companyId?: string | undefined;
 }) => {
   return (
     <>
@@ -103,6 +105,7 @@ const ContactForm = ({
                 control={control}
                 errors={errors}
                 setValue={setValue}
+                companyId={companyId}
               />
             </div>
 

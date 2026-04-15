@@ -1,7 +1,6 @@
 import { ContactsCreateFormValues } from "@/@types/contact";
 import CustomeSelect from "@/components/shared/CustomeSelect";
 import FormItem from "@/components/shared/FormItem";
-import { COMPANIES } from "@/mock/companies";
 import {
   Control,
   Controller,
@@ -9,21 +8,59 @@ import {
   UseFormSetValue,
 } from "react-hook-form";
 import CompanyLogo from "./CompanyLogo";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { LuBuilding2 } from "react-icons/lu";
 import Image from "next/image";
+import { useQuery } from "@tanstack/react-query";
+import { Company } from "@/@types/company";
 
 const CompanyForm = ({
   control,
   errors,
   setValue,
+  companyId,
 }: {
   control: Control<ContactsCreateFormValues>;
   errors: FieldErrors<ContactsCreateFormValues>;
   setValue: UseFormSetValue<ContactsCreateFormValues>;
+  companyId?: string | undefined;
 }) => {
+  const [searchCompany, setSearchCompany] = useState("");
+  // Fetch companies list from API
+  const { data: companiesData } = useQuery<{ data: Company[] }>({
+    queryKey: ["companies-list", searchCompany],
+    queryFn: async () => {
+      const res = await fetch(`/api/companies?pageSize=100${searchCompany ? `&search=${searchCompany}` : ""}`);
+      if (!res.ok) throw new Error("Failed to fetch companies");
+      return res.json();
+    },
+    staleTime: 60_000,
+  });
+
+  const companies = useMemo(() => companiesData?.data ?? [], [companiesData]);
+
+  const { data: preSelectedCompany } = useQuery<Company>({
+    queryKey: ["company-detail", companyId],
+    queryFn: async () => {
+      const res = await fetch(`/api/companies/${companyId}`);
+      if (!res.ok) throw new Error("Failed to fetch company details");
+      return res.json();
+    },
+    enabled: !!companyId,
+    staleTime: 60_000,
+  });
+
+  useEffect(() => {
+    if (preSelectedCompany) {
+      setValue("company.id", preSelectedCompany.id, { shouldDirty: true, shouldValidate: true });
+      setValue("company.name", preSelectedCompany.name, { shouldDirty: true, shouldValidate: true });
+      setValue("company.domain", preSelectedCompany.domain ?? "", { shouldDirty: true, shouldValidate: true });
+      setValue("company.logo", preSelectedCompany.logo ?? undefined, { shouldDirty: true, shouldValidate: true });
+    }
+  }, [preSelectedCompany, setValue]);
+
   const companyOptions = useMemo(() => {
-    return COMPANIES.map((c) => ({
+    return companies.map((c) => ({
       value: c.id,
       label: (
         <div className="flex items-center gap-3 py-0.5">
@@ -50,28 +87,16 @@ const CompanyForm = ({
       ),
       searchText: c.name,
     }));
-  }, []);
+  }, [companies]);
 
   const handleCompanySelect = (id: string | string[]) => {
-    const companyId = Array.isArray(id) ? id[0] : id;
-    const company = COMPANIES.find((c) => c.id === companyId);
+    const selectedId = Array.isArray(id) ? id[0] : id;
+    const company = companies.find((c) => c.id === selectedId);
     if (company) {
-      setValue("company.id", company.id, {
-        shouldDirty: true,
-        shouldValidate: true,
-      });
-      setValue("company.name", company.name, {
-        shouldDirty: true,
-        shouldValidate: true,
-      });
-      setValue("company.domain", company.domain ?? "", {
-        shouldDirty: true,
-        shouldValidate: true,
-      });
-      setValue("company.logo", company.logo ?? undefined, {
-        shouldDirty: true,
-        shouldValidate: true,
-      });
+      setValue("company.id", company.id, { shouldDirty: true, shouldValidate: true });
+      setValue("company.name", company.name, { shouldDirty: true, shouldValidate: true });
+      setValue("company.domain", company.domain ?? "", { shouldDirty: true, shouldValidate: true });
+      setValue("company.logo", company.logo ?? undefined, { shouldDirty: true, shouldValidate: true });
     }
   };
 
@@ -100,6 +125,7 @@ const CompanyForm = ({
               name="search-company"
               options={companyOptions}
               multiple={false}
+              onSearch={setSearchCompany}
               onChange={handleCompanySelect}
               className="bg-white dark:bg-gray-800"
               labelClass="text-xs uppercase tracking-widest text-muted-foreground font-bold mb-2 ml-1"

@@ -31,6 +31,7 @@ import ConfirmDialog from "../shared/ConfirmDialog";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import CompaniesDetails from "./CompaniesDetails";
+import { TiUserAddOutline } from "react-icons/ti";
 
 interface CompaniesTableProps {
   data: GetCompaniesResponse | null;
@@ -313,6 +314,22 @@ const CompaniesTable = ({
       id: "actions",
       cell: ({ row }) => (
         <div className="flex items-center gap-2 text-muted-foreground">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div
+                className="text-lg cursor-pointer hover:text-primary transition-colors"
+                role="button"
+                onClick={() =>
+                  router.push(`/contacts/new?companyId=${row.original.id}`)
+                }
+              >
+                <TiUserAddOutline />
+              </div>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Add New Contact</p>
+            </TooltipContent>
+          </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
               <div
