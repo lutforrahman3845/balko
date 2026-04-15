@@ -1311,7 +1311,7 @@ export const countryList = [
         label: 'United Kingdom',
         value: 'United Kingdom',
         dialCode: '+44',
-        short: 'GB',
+        short: 'UK',
     },
     {
         label: 'United States',

@@ -54,7 +54,7 @@ const CompanyForm = ({
     if (preSelectedCompany) {
       setValue("company.id", preSelectedCompany.id, { shouldDirty: true, shouldValidate: true });
       setValue("company.name", preSelectedCompany.name, { shouldDirty: true, shouldValidate: true });
-      setValue("company.domain", preSelectedCompany.domain ?? "", { shouldDirty: true, shouldValidate: true });
+      setValue("company.website", preSelectedCompany.website ?? "", { shouldDirty: true, shouldValidate: true });
       setValue("company.logo", preSelectedCompany.logo ?? undefined, { shouldDirty: true, shouldValidate: true });
     }
   }, [preSelectedCompany, setValue]);
@@ -80,7 +80,7 @@ const CompanyForm = ({
           <div className="flex flex-col">
             <span className="font-medium text-sm">{c.name}</span>
             <span className="text-[10px] text-muted-foreground lowercase italic leading-none">
-              {c.domain}
+              {c.website}
             </span>
           </div>
         </div>
@@ -95,13 +95,13 @@ const CompanyForm = ({
     if (company) {
       setValue("company.id", company.id, { shouldDirty: true, shouldValidate: true });
       setValue("company.name", company.name, { shouldDirty: true, shouldValidate: true });
-      setValue("company.domain", company.domain ?? "", { shouldDirty: true, shouldValidate: true });
+      setValue("company.website", company.website ?? "", { shouldDirty: true, shouldValidate: true });
       setValue("company.logo", company.logo ?? undefined, { shouldDirty: true, shouldValidate: true });
     }
   };
 
   return (
-    <div className="bg-linear-to-br from-gray-50/80 to-white dark:from-gray-900/50 dark:to-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl p-6 shadow-sm">
+    <div >
       <div className="flex items-center gap-2 mb-6 text-primary">
         <LuBuilding2 className="size-5" />
         <h3 className="text-sm font-bold uppercase tracking-widest italic pt-0.5">
@@ -109,7 +109,7 @@ const CompanyForm = ({
         </h3>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-start px-4 md:px-8">
         <div className="flex flex-col items-center justify-center p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-[0_4px_12px_-4px_rgba(0,0,0,0.05)]">
           <CompanyLogo control={control} errors={errors} />
           <p className="text-[10px] text-muted-foreground mt-4 uppercase tracking-[0.2em] font-bold">
@@ -149,15 +149,15 @@ const CompanyForm = ({
               )}
             />
             <Controller
-              name="company.domain"
+              name="company.website"
               control={control}
               render={({ field }) => (
                 <FormItem
-                  label="Company Domain URL"
+                  label="Company Website URL"
                   inputType="text"
                   placeholder="e.g. initech.io"
-                  invalid={Boolean(errors.company?.domain)}
-                  errorMessage={errors.company?.domain?.message}
+                  invalid={Boolean(errors.company?.website)}
+                  errorMessage={errors.company?.website?.message}
                   {...field}
                   value={field.value || ""}
                 />

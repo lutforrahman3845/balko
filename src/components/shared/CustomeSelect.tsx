@@ -35,7 +35,7 @@ interface CustomeSelectProps {
   loading?: boolean;
 }
 
-const CustomeSelect: React.FC<CustomeSelectProps> = ({
+const CustomeSelect = ({
   label,
   className,
   placeholder,
@@ -49,7 +49,7 @@ const CustomeSelect: React.FC<CustomeSelectProps> = ({
   onSearch,
   options,
   loading = false,
-}) => {
+}: CustomeSelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -212,7 +212,10 @@ const CustomeSelect: React.FC<CustomeSelectProps> = ({
               {loading ? (
                 <div className="p-1 space-y-2">
                   {[1, 2, 3, 4, 5].map((i) => (
-                    <div key={i} className="flex items-center gap-3 px-2 py-1.5 opacity-60">
+                    <div
+                      key={i}
+                      className="flex items-center gap-3 px-2 py-1.5 opacity-60"
+                    >
                       <Skeleton className="size-8 rounded-full shrink-0" />
                       <div className="space-y-2 flex-1">
                         <Skeleton className="h-4 w-3/4" />

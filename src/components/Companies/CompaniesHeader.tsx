@@ -18,7 +18,6 @@ const CompaniesHeader = ({ data }: { data: ExpandedCompany[] }) => {
 
     const exportData = data.map((company) => ({
       Name: company.name,
-      Domain: company.domain,
       Email: company.email,
       Phone: company.phone,
       Website: company.website,

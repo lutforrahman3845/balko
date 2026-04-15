@@ -10,6 +10,7 @@ const FormItem = ({
   suffixButton,
   textarea = false,
   onChange,
+  required = false,
   ...props
 }: {
   label?: React.ReactNode;
@@ -23,6 +24,7 @@ const FormItem = ({
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
   [key: string]: unknown;
+  required?: boolean;
 }) => {
   const [showError, setShowError] = useState(false);
 
@@ -65,7 +67,9 @@ const FormItem = ({
 
   return (
     <div className="flex flex-col gap-2">
-      {label && <Label>{label}</Label>}
+      {label && <Label>{label}
+        {required && <span className="text-red-500 ml-1">*</span>}
+      </Label>}
       {textarea ? (
         <textarea
           placeholder={placeholder}

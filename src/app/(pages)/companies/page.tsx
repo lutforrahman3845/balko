@@ -121,7 +121,7 @@ const Page = () => {
               <FilterSearch
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
-                placeholder="Search company by Name, Email, domain"
+                placeholder="Search company by Name, Email, website"
               />
               <FilterDropDown
                 label="Category"

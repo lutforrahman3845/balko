@@ -281,9 +281,9 @@ const ContactDetails = ({
                               {contact.company.name || "—"}
                               <ExternalLink className="size-3 opacity-0 group-hover:opacity-60 transition-opacity" />
                             </span>
-                            {contact.company.domain && (
+                            {contact.company.website && (
                               <span className="text-[11px] text-muted-foreground/70 mt-0.5">
-                                {contact.company.domain}
+                                {contact.company.website}
                               </span>
                             )}
                           </div>

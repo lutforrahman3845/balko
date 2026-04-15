@@ -69,8 +69,8 @@ export const ContactsCreateFormSchema = z
           .union([z.instanceof(File), z.string()])
           .optional()
           .nullable(),
-        name: z.string().min(1, "Company name is required"),
-        domain: z.string().min(1, "Company domain is required"),
+        name: z.string().optional(),
+        website: z.string().optional(),
       })
       .optional(),
     address: z.string().optional(),

@@ -135,6 +135,7 @@ const SocialLinksForm = ({ control, errors, setValue, unregister }: SocialLinksF
                     <LuGlobe className="size-4" />
                     <h3 className="text-[10px] font-bold uppercase tracking-[0.2em]">
                         Social Profiles
+                        <span className="text-red-500 ml-1 text-xs">*</span>
                     </h3>
                 </div>
                 {availablePlatforms.length > 0 && (
@@ -151,7 +152,7 @@ const SocialLinksForm = ({ control, errors, setValue, unregister }: SocialLinksF
                 )}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 bg-gray-50/50 dark:bg-gray-800/50 p-2 md:p-6 rounded-2xl border border-gray-100 dark:border-gray-700 min-h-25">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 gap-x-6 gap-y-4 bg-gray-50/50 dark:bg-gray-800/50 p-2 md:p-6 rounded-2xl border border-gray-100 dark:border-gray-700 min-h-25">
                 {activePlatforms.length > 0 ? (
                     activePlatforms.map((platform) => (
                         <div key={platform.key} className="relative group">
@@ -199,6 +200,10 @@ const SocialLinksForm = ({ control, errors, setValue, unregister }: SocialLinksF
                     </div>
                 )}
             </div>
+            {errors.socialLinks && typeof errors.socialLinks === "object" && "message" in errors.socialLinks && (
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                <p className="text-red-500 text-sm mt-1">{(errors.socialLinks as any).message}</p>
+            )}
         </div>
     );
 };

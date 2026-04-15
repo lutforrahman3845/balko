@@ -12,6 +12,7 @@ import CompanyForm from "./CompanyForm";
 import { LuMapPin } from "react-icons/lu";
 import { ContactStatusOptions } from "../ContactFollowUpModal";
 import { countryList } from "@/config/countryList";
+import CountrySelect from "@/components/shared/CountrySelect";
 import SocialLinksForm from "./SocialLinksForm";
 
 const ContactForm = ({
@@ -30,8 +31,8 @@ const ContactForm = ({
 }) => {
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div className="col-span-1 md:col-span-2 pr-6 border-r border-primary/30">
+      <div className="grid grid-cols-1  lg:grid-cols-3 gap-4">
+        <div className="col-span-1 lg:col-span-2 pr-6 lg:border-r lg:border-primary/30">
           <ContactAvatar control={control} errors={errors} />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Controller
@@ -47,6 +48,7 @@ const ContactForm = ({
                   maxLength={50}
                   {...field}
                   value={field.value || ""}
+                  required
                 />
               )}
             />
@@ -62,6 +64,7 @@ const ContactForm = ({
                   errorMessage={errors.email?.message}
                   {...field}
                   value={field.value || ""}
+                  required
                 />
               )}
             />
@@ -96,11 +99,12 @@ const ContactForm = ({
                   errorMessage={errors.position?.message}
                   {...field}
                   value={field.value || ""}
+                  required
                 />
               )}
             />
 
-            <div className="md:col-span-2 mt-4">
+            <div className="md:col-span-2 mt-2">
               <CompanyForm
                 control={control}
                 errors={errors}
@@ -109,16 +113,16 @@ const ContactForm = ({
               />
             </div>
 
-            <div className="md:col-span-2 space-y-4 mt-8">
+            <div className="md:col-span-2 space-y-4 mt-2">
               <div className="flex items-center gap-2 text-primary">
                 <LuMapPin className="size-4" />
-                <h3 className="text-[10px] font-bold uppercase tracking-[0.2em]">
+                <h3 className="text-sm font-bold uppercase tracking-[0.2em]">
                   Location & Status
                 </h3>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-4 bg-white/50 dark:bg-gray-800/30 p-5 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm transition-all duration-300 hover:shadow-md">
-                <div className="md:col-span-12 lg:col-span-4 transition-all duration-200">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-4  transition-all duration-300  px-4 md:px-8">
+                <div className="md:col-span-8 transition-all duration-200">
                   <Controller
                     name="address"
                     control={control}
@@ -136,7 +140,7 @@ const ContactForm = ({
                     )}
                   />
                 </div>
-                <div className="md:col-span-6 lg:col-span-2 transition-all duration-200">
+                <div className="md:col-span-4 transition-all duration-200">
                   <Controller
                     name="city"
                     control={control}
@@ -154,7 +158,7 @@ const ContactForm = ({
                     )}
                   />
                 </div>
-                <div className="md:col-span-3 lg:col-span-1 transition-all duration-200">
+                <div className="md:col-span-3 transition-all duration-200">
                   <Controller
                     name="state"
                     control={control}
@@ -172,7 +176,7 @@ const ContactForm = ({
                     )}
                   />
                 </div>
-                <div className="md:col-span-3 lg:col-span-2 transition-all duration-200">
+                <div className="md:col-span-3 transition-all duration-200">
                   <Controller
                     name="zip"
                     control={control}
@@ -190,25 +194,21 @@ const ContactForm = ({
                     )}
                   />
                 </div>
-                <div className="md:col-span-12 lg:col-span-3 transition-all duration-200">
+                <div className="md:col-span-6 transition-all duration-200">
                   <Controller
                     name="country"
                     control={control}
                     render={({ field }) => (
-                      <SelectFormItem
-                        onChange={(value: string) => field.onChange(value)}
+                      <CountrySelect
+                        onChange={(value: string | string[]) => field.onChange(value)}
                         label={"Country"}
                         dialCode={false}
                         placeholder={"Select Country"}
-                        invalid={Boolean(errors.country?.message)}
-                        errorMessage={errors.country?.message}
+                        error={errors.country?.message}
                         options={countryList}
                         flags={true}
                         name={field.name}
-                        value={field.value}
-                        ref={field.ref}
-                        onBlur={field.onBlur}
-                        key={field.value}
+                        value={field.value || ""}
                         className="bg-white/80 dark:bg-gray-900/80"
                       />
                     )}
@@ -239,6 +239,7 @@ const ContactForm = ({
                 dialCode={false}
                 flags={false}
                 key={field.value}
+                required
               />
             )}
           />

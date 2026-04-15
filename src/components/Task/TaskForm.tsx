@@ -9,41 +9,41 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { TaskFormValues } from "@/@types/tassk";
 export const PriorityOptions = [
   {
-    value: 'high',
-    label: 'High',
-    state: 'bg-red-500',
+    value: "high",
+    label: "High",
+    state: "bg-red-500",
   },
   {
-    value: 'medium',
-    label: 'Medium',
-    state: 'bg-yellow-500',
+    value: "medium",
+    label: "Medium",
+    state: "bg-yellow-500",
   },
   {
-    value: 'low',
-    label: 'Low',
-    state: 'bg-green-500',
+    value: "low",
+    label: "Low",
+    state: "bg-green-500",
   },
 ];
 export const StatusOptions = [
   {
-    value: 'pending',
-    label: 'Pending',
-    state: 'bg-yellow-500',
+    value: "pending",
+    label: "Pending",
+    state: "bg-yellow-500",
   },
   {
-    value: 'in_progress',
-    label: 'In Progress',
-    state: 'bg-blue-500',
+    value: "in_progress",
+    label: "In Progress",
+    state: "bg-blue-500",
   },
   {
-    value: 'completed',
-    label: 'Completed',
-    state: 'bg-green-500',
+    value: "completed",
+    label: "Completed",
+    state: "bg-green-500",
   },
   {
-    value: 'blocked',
-    label: 'Blocked',
-    state: 'bg-red-500',
+    value: "blocked",
+    label: "Blocked",
+    state: "bg-red-500",
   },
 ];
 const TaskForm = ({
@@ -78,9 +78,13 @@ const TaskForm = ({
   });
 
   const employeeOptions = useMemo(() => {
-    const options: { value: string, searchText: string, label: React.ReactNode }[] = [];
+    const options: {
+      value: string;
+      searchText: string;
+      label: React.ReactNode;
+    }[] = [];
 
-    // In Edit Add currently assigned employees to the top 
+    // In Edit Add currently assigned employees to the top
     if (isEdit && data && Array.isArray(data)) {
       data.forEach((emp: Employee) => {
         options.push({
@@ -151,6 +155,7 @@ const TaskForm = ({
             invalid={Boolean(errors.title)}
             errorMessage={errors.title?.message}
             {...field}
+            required
           />
         )}
       />
@@ -189,6 +194,7 @@ const TaskForm = ({
             multiple={true}
             className="w-full"
             loading={loading}
+            required
           />
         )}
       />
@@ -212,6 +218,7 @@ const TaskForm = ({
             dialCode={false}
             flags={false}
             key={field.value}
+            required
           />
         )}
       />
@@ -235,6 +242,7 @@ const TaskForm = ({
             dialCode={false}
             flags={false}
             key={field.value}
+            required
           />
         )}
       />
@@ -252,14 +260,15 @@ const TaskForm = ({
             value={
               field.value
                 ? (() => {
-                  const d = new Date(field.value);
-                  const offset = d.getTimezoneOffset() * 60000;
-                  return new Date(d.getTime() - offset)
-                    .toISOString()
-                    .slice(0, 16);
-                })()
+                    const d = new Date(field.value);
+                    const offset = d.getTimezoneOffset() * 60000;
+                    return new Date(d.getTime() - offset)
+                      .toISOString()
+                      .slice(0, 16);
+                  })()
                 : ""
             }
+            required
           />
         )}
       />

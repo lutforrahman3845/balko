@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -13,15 +12,11 @@ import React, { useEffect, useState, forwardRef, startTransition } from "react";
 export type SelectOption = {
   value: string;
   label: string;
-  dialCode?: string;
-  short?: string;
   disabled?: boolean;
   state?: string;
 };
 
 type SelectFormItemProps = {
-  flags?: boolean;
-  dialCode?: boolean;
   label?: React.ReactNode;
   placeholder?: string;
   invalid?: boolean;
@@ -39,8 +34,6 @@ type SelectFormItemProps = {
 const SelectFormItem = forwardRef<HTMLButtonElement, SelectFormItemProps>(
   (
     {
-      dialCode = false,
-      flags = false,
       label,
       placeholder,
       invalid,
@@ -83,9 +76,7 @@ const SelectFormItem = forwardRef<HTMLButtonElement, SelectFormItemProps>(
 
     return (
       <div className={cn("flex flex-col gap-2 w-full", className)}>
-        {label && (
-          <Label className="font-semibold capitalize">{label}</Label>
-        )}
+        {label && <Label className="font-semibold capitalize">{label}</Label>}
         <Select
           onValueChange={handleValueChange}
           disabled={props.disabled as boolean}
@@ -95,18 +86,16 @@ const SelectFormItem = forwardRef<HTMLButtonElement, SelectFormItemProps>(
           <SelectTrigger
             ref={ref}
             onBlur={onBlur}
-            className={`w-full h-12 py-4.5  shadow-none  placeholder:text-gray-400 placeholder:font-semibold  placeholder:capitalize focus:border focus:border-primary/50 text-sm ${isInvalid ? "border-red-500" : ""
-              }`}
+            className={`w-full h-12 py-4.5  shadow-none  placeholder:text-gray-400 placeholder:font-semibold  placeholder:capitalize focus:border focus:border-primary/50 text-sm ${
+              isInvalid ? "border-red-500" : ""
+            }`}
           >
             <SelectValue placeholder={placeholder} />
           </SelectTrigger>
           <SelectContent>
             {options.map((option: SelectOption) => {
-              const uniqueKey = `${option.value}-${option.short ?? option.label
-                }`;
-              const selectValue = dialCode
-                ? `${option.dialCode}-${option.value}`
-                : option.value;
+              const uniqueKey = `${option.value}-${option.label}`;
+              const selectValue = option.value;
 
               return (
                 <SelectItem
@@ -117,16 +106,7 @@ const SelectFormItem = forwardRef<HTMLButtonElement, SelectFormItemProps>(
                   {option.state && (
                     <span className={`w-2 h-2 rounded-full ${option.state}`} />
                   )}
-                  {flags && (
-                    <Avatar>
-                      <AvatarImage
-                        src={`/countries/${option.short}.png`}
-                        alt={option.value}
-                      />
-                      <AvatarFallback>{option.short}</AvatarFallback>
-                    </Avatar>
-                  )}
-                  {dialCode ? option.dialCode : option.label}
+                  {option.label}
                 </SelectItem>
               );
             })}

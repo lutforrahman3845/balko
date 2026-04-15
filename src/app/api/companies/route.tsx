@@ -24,7 +24,7 @@ export async function GET(req: Request) {
         if (searchQuery) {
             filtered = filtered.filter((company) =>
                 company.name.toLowerCase().includes(searchQuery) ||
-                (company.domain && company.domain.toLowerCase().includes(searchQuery)) ||
+                (company.website && company.website.toLowerCase().includes(searchQuery)) ||
                 (company.email && company.email.toLowerCase().includes(searchQuery))
             );
         }

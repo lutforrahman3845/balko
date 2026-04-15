@@ -23,7 +23,27 @@ import {
   FaInstagram,
   FaFacebook,
   FaYoutube,
+  FaMedium,
+  FaStackOverflow,
   FaXTwitter,
+  FaTiktok,
+  FaReddit,
+  FaWhatsapp,
+  FaTelegram,
+  FaDiscord,
+  FaPinterest,
+  FaSnapchat,
+  FaTwitch,
+  FaSlack,
+  FaDribbble,
+  FaBehance,
+  FaSpotify,
+  FaSoundcloud,
+  FaPatreon,
+  FaThreads,
+  FaMastodon,
+  FaTumblr,
+  FaQuora,
 } from "react-icons/fa6";
 import { TbEdit, TbEye, TbTrash } from "react-icons/tb";
 import { useState } from "react";
@@ -32,6 +52,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import CompaniesDetails from "./CompaniesDetails";
 import { TiUserAddOutline } from "react-icons/ti";
+import { SiBluesky, SiFigma, SiKakaotalk, SiLine, SiProducthunt, SiSignal, SiViber, SiWechat } from "react-icons/si";
 
 interface CompaniesTableProps {
   data: GetCompaniesResponse | null;
@@ -76,7 +97,7 @@ const getConnectionStrengthBadge = (strength: string | null) => {
           Strong
         </Badge>
       );
-    case "very strong":
+    case "very_strong":
       return (
         <Badge
           className="bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-200 border-blue-200/50"
@@ -84,7 +105,7 @@ const getConnectionStrengthBadge = (strength: string | null) => {
           Very Strong
         </Badge>
       );
-    case "extremely strong":
+    case "extremely_strong":
       return (
         <Badge
           className="bg-purple-50 text-purple-700 dark:bg-purple-950/50 dark:text-purple-200 border-purple-200/50"
@@ -159,9 +180,6 @@ const CompaniesTable = ({
           <div className="flex flex-col">
             <span className="font-medium text-foreground">
               {row.original.name}
-            </span>
-            <span className="text-[11px] text-muted-foreground">
-              {row.original.domain || row.original.website}
             </span>
           </div>
         </div>
@@ -264,6 +282,34 @@ const CompaniesTable = ({
           { key: "instagram", icon: FaInstagram },
           { key: "facebook", icon: FaFacebook },
           { key: "youtube", icon: FaYoutube },
+          { key: "tiktok", icon: FaTiktok },
+          { key: "reddit", icon: FaReddit },
+          { key: "threads", icon: FaThreads },
+          { key: "whatsapp", icon: FaWhatsapp },
+          { key: "telegram", icon: FaTelegram },
+          { key: "discord", icon: FaDiscord },
+          { key: "medium", icon: FaMedium },
+          { key: "stackoverflow", icon: FaStackOverflow },
+          { key: "bluesky", icon: SiBluesky },
+          { key: "pinterest", icon: FaPinterest },
+          { key: "snapchat", icon: FaSnapchat },
+          { key: "twitch", icon: FaTwitch },
+          { key: "slack", icon: FaSlack },
+          { key: "dribbble", icon: FaDribbble },
+          { key: "behance", icon: FaBehance },
+          { key: "spotify", icon: FaSpotify },
+          { key: "soundcloud", icon: FaSoundcloud },
+          { key: "patreon", icon: FaPatreon },
+          { key: "mastodon", icon: FaMastodon },
+          { key: "tumblr", icon: FaTumblr },
+          { key: "quora", icon: FaQuora },
+          { key: "signal", icon: SiSignal },
+          { key: "viber", icon: SiViber },
+          { key: "line", icon: SiLine },
+          { key: "wechat", icon: SiWechat },
+          { key: "kakaotalk", icon: SiKakaotalk },
+          { key: "producthunt", icon: SiProducthunt },
+          { key: "figma", icon: SiFigma },
         ];
 
         const activeLinks = platforms.filter((p) => socialLinks[p.key]);
