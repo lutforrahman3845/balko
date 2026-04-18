@@ -149,7 +149,7 @@ const Page = () => {
                 </div>
               ))}
             </div>
-            <div className="flex items-center  gap-4 p-4">
+            <div className="flex flex-wrap items-center  gap-4 p-4">
               <FilterSearch
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
