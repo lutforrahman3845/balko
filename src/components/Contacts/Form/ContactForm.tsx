@@ -10,10 +10,10 @@ import {
 import ContactAvatar from "./ContactAvatar";
 import CompanyForm from "./CompanyForm";
 import { LuMapPin } from "react-icons/lu";
-import { ContactStatusOptions } from "../ContactFollowUpModal";
 import { countryList } from "@/config/countryList";
 import CountrySelect from "@/components/shared/CountrySelect";
 import SocialLinksForm from "./SocialLinksForm";
+import { ContactStatusOptions } from "@/lib/ContactStatusBadge";
 
 const ContactForm = ({
   control,

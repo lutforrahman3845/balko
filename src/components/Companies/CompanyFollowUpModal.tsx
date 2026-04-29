@@ -11,105 +11,107 @@ import {
     SheetBody,
     SheetFooter,
 } from "@/components/ui/sheet";
-import { Loader2 } from "lucide-react";
+import { Loader2, Globe, Mail, Phone, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
-import { ContactsFollowUpFormSchema, ContactsFollowUpFormValues, ExpandedContact } from "@/@types/contact";
+import { CompaniesFollowUpFormSchema, CompaniesFollowUpFormValues, ExpandedCompany } from "@/@types/company";
 import SelectFormItem from "../shared/SelectFormItem";
 import FormItem from "../shared/FormItem";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Link from "next/link";
-import { LuBuilding2, LuPhone, LuMail, LuBriefcase, LuTarget } from "react-icons/lu";
-import { ContactStatusOptions } from "@/lib/ContactStatusBadge";
+import { LuTarget } from "react-icons/lu";
+import { ConnectionStrengthOptions } from "@/lib/CompanyConnectionBadge";
 
-
-
-interface ContactFollowUpModalProps {
+interface CompanyFollowUpModalProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
-    data?: ExpandedContact | null;
+    data?: ExpandedCompany | null;
     selectedId?: string | null;
 }
 
-const ContactFollowUpModal = ({
+const CompanyFollowUpModal = ({
     open,
     onOpenChange,
     data = null,
     selectedId = null,
-}: ContactFollowUpModalProps) => {
+}: CompanyFollowUpModalProps) => {
     // Form State
     const {
         control,
         handleSubmit,
         reset,
         formState: { errors, isSubmitting, isDirty },
-    } = useForm<ContactsFollowUpFormValues>({
-        resolver: zodResolver(ContactsFollowUpFormSchema),
+    } = useForm<CompaniesFollowUpFormValues>({
+        resolver: zodResolver(CompaniesFollowUpFormSchema),
         defaultValues: {
-            status: "",
-            lastContacted: "",
+            connectionStrength: "",
+            lastInteractionAt: "",
             note: "",
         },
     });
+
     useEffect(() => {
         if (data) {
             reset({
-                status: data.status,
-                lastContacted: data.lastContacted || "",
+                connectionStrength: (data.connectionStrength?.toLowerCase()
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    .replace(/\s+/g, "_")  as any) || undefined,
+                lastInteractionAt: data.lastInteractionAt || "",
                 note: data.note || "",
             });
         } else {
             reset({
-                status: "",
-                lastContacted: "",
+                connectionStrength: "",
+                lastInteractionAt: "",
                 note: "",
             });
         }
     }, [data, reset]);
-    const onSubmit = (data: ContactsFollowUpFormValues) => {
+
+    const onSubmit = (formData: CompaniesFollowUpFormValues) => {
         try {
-            console.log(data);
-            if (!data?.status || !data?.lastContacted || !data?.note) {
+            console.log(formData);
+            if (selectedId) {
                 console.log("Edit id :", selectedId);
-                toast.success("Follow up created successfully!");
+                toast.success("Company follow up updated successfully!");
             } else {
-                toast.success("Follow up updated successfully!");
+                toast.success("Company follow up created successfully!");
             }
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             toast.error(
-                error?.message ??
-                ((!data?.status || !data?.lastContacted || !data?.note) ? "Failed to update follow up" : "Failed to create follow up"),
+                error?.message ?? "Failed to save follow up information",
             );
         } finally {
             reset();
             onOpenChange(false);
         }
     };
+
     const handleFormError = () => {
         toast.error("Please fix the errors in the form before submitting.");
     };
+
     return (
         <Sheet open={open} onOpenChange={onOpenChange}>
-            <SheetContent className="gap-0 sm:w-150 inset-5 start-auto h-auto rounded-lg p-0 sm:max-w-none ">
+            <SheetContent className="gap-0 sm:w-150 inset-5 start-auto h-auto rounded-lg p-0 sm:max-w-none">
                 <SheetHeader className="mb-0">
                     <SheetTitle className="p-3 flex items-center gap-2.5">
                         <LuTarget className="size-5 text-blue-500" />
-                        Update Follow Up Information
+                        Update Company Follow Up
                     </SheetTitle>
                 </SheetHeader>
                 <form onSubmit={handleSubmit(onSubmit, handleFormError)}>
                     <SheetBody className="grow p-0">
                         <ScrollArea className="h-[calc(100vh-10.5rem)]">
                             <div className="flex flex-col px-6 py-3 space-y-6">
+                                {/* Company Preview */}
                                 <div className="flex flex-col gap-4 relative overflow-hidden">
                                     <div className="flex items-start gap-4 sm:gap-5 relative z-10 w-full">
-                                        <Avatar className="size-16 sm:size-20 border-[3px] border-background shadow-md">
-                                            {data?.avatar ? (
-                                                <AvatarImage className="object-cover" src={data.avatar} alt={data.name} />
+                                        <Avatar className="size-16 sm:size-20 border-[3px] border-background shadow-md rounded-xl">
+                                            {data?.logo ? (
+                                                <AvatarImage className="object-cover" src={data.logo} alt={data.name} />
                                             ) : (
-                                                <AvatarFallback className="text-xl sm:text-2xl bg-primary/10 text-primary font-semibold">
+                                                <AvatarFallback className="text-xl sm:text-2xl bg-primary/10 text-primary font-semibold rounded-xl">
                                                     {data?.name
                                                         ? data.name.split(" ").map((n) => n[0]).join("")
                                                         : "?"}
@@ -118,81 +120,55 @@ const ContactFollowUpModal = ({
                                         </Avatar>
                                         <div className="flex flex-col flex-1 pt-0.5 min-w-0">
                                             <h3 className="text-lg sm:text-lg font-bold text-foreground tracking-tight mb-1 truncate pr-4">
-                                                {data?.name || "Unknown Contact"}
+                                                {data?.name || "Unknown Company"}
                                             </h3>
 
-                                            {data?.position && (
-                                                <span className="text-sm font-medium text-primary flex items-center gap-1.5 mb-3 w-fit bg-primary/10 px-2 py-0.5 rounded-md">
-                                                    <LuBriefcase className="size-3.5" />
-                                                    <span className="truncate">{data.position}</span>
-                                                </span>
-                                            )}
-
                                             <div className="flex flex-col gap-3 mt-1">
-                                                <div className="flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-6">
-                                                    {data?.email && (
-                                                        <a href={`mailto:${data.email}`} className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-2.5 transition-all group w-fit">
+                                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                                                    {data?.website && (
+                                                        <div className="text-sm text-muted-foreground flex items-center gap-2.5 transition-all group w-fit">
                                                             <div className="size-7 rounded-md bg-background border border-border/60 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary shadow-sm transition-all duration-300">
-                                                                <LuMail className="size-3.5" />
+                                                                <Globe className="size-3.5" />
                                                             </div>
-                                                            <span className="truncate max-w-50">{data.email}</span>
-                                                        </a>
+                                                            <span className="truncate max-w-[150px]">{data.website.replace(/^https?:\/\//, '')}</span>
+                                                        </div>
+                                                    )}
+                                                    {data?.email && (
+                                                        <div className="text-sm text-muted-foreground flex items-center gap-2.5 transition-all group w-fit">
+                                                            <div className="size-7 rounded-md bg-background border border-border/60 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary shadow-sm transition-all duration-300">
+                                                                <Mail className="size-3.5" />
+                                                            </div>
+                                                            <span className="truncate max-w-[150px]">{data.email}</span>
+                                                        </div>
                                                     )}
                                                     {data?.phone && (
-                                                        <a href={`tel:${data.phone}`} className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-2.5 transition-all group w-fit">
+                                                        <div className="text-sm text-muted-foreground flex items-center gap-2.5 transition-all group w-fit">
                                                             <div className="size-7 rounded-md bg-background border border-border/60 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary shadow-sm transition-all duration-300">
-                                                                <LuPhone className="size-3.5" />
+                                                                <Phone className="size-3.5" />
                                                             </div>
                                                             <span className="truncate">{data.phone}</span>
-                                                        </a>
+                                                        </div>
                                                     )}
                                                 </div>
-
-                                                {data?.companyId && data?.company && (
-                                                    <div className="pt-3 mt-2 border-t border-border/60">
-                                                        <Link
-                                                            href={data.company.website || "#"}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            className="flex items-center gap-3 group w-fit"
-                                                        >
-                                                            <Avatar className="size-8 rounded-md border border-border shadow-sm group-hover:border-primary/50 transition-colors">
-                                                                <AvatarImage
-                                                                    className="object-cover"
-                                                                    src={data.company.logo ?? undefined}
-                                                                    alt={data.company.name || "Company"}
-                                                                />
-                                                                <AvatarFallback className="rounded-md bg-muted text-muted-foreground">
-                                                                    <LuBuilding2 className="size-4" />
-                                                                </AvatarFallback>
-                                                            </Avatar>
-                                                            <div className="flex flex-col">
-                                                                <span className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider mb-0.5">Company</span>
-                                                                <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors leading-none">
-                                                                    {data.company.name || "-"}
-                                                                </span>
-                                                            </div>
-                                                        </Link>
-                                                    </div>
-                                                )}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
+                                {/* Form Fields */}
                                 <Controller
-                                    name="status"
+                                    name="connectionStrength"
                                     control={control}
                                     render={({ field }) => (
                                         <SelectFormItem
                                             onChange={(value: string) => {
                                                 field.onChange(value);
                                             }}
-                                            label={"Status"}
-                                            placeholder={"Select task status"}
-                                            invalid={Boolean(errors.status)}
-                                            errorMessage={errors.status?.message}
-                                            options={ContactStatusOptions}
+                                            label={"Connection Strength"}
+                                            placeholder={"Select connection strength"}
+                                            invalid={Boolean(errors.connectionStrength)}
+                                            errorMessage={errors.connectionStrength?.message}
+                                            options={ConnectionStrengthOptions}
                                             name={field.name}
                                             value={field.value}
                                             ref={field.ref}
@@ -204,15 +180,15 @@ const ContactFollowUpModal = ({
                                     )}
                                 />
                                 <Controller
-                                    name="lastContacted"
+                                    name="lastInteractionAt"
                                     control={control}
                                     render={({ field }) => (
                                         <FormItem
-                                            label={"Last Contacted"}
+                                            label={"Last Interaction Date"}
                                             inputType="datetime-local"
-                                            placeholder={"Select last contacted date"}
-                                            invalid={Boolean(errors.lastContacted)}
-                                            errorMessage={errors.lastContacted?.message}
+                                            placeholder={"Select last interaction date"}
+                                            invalid={Boolean(errors.lastInteractionAt)}
+                                            errorMessage={errors.lastInteractionAt?.message}
                                             {...field}
                                             value={
                                                 field.value
@@ -233,9 +209,9 @@ const ContactFollowUpModal = ({
                                     control={control}
                                     render={({ field }) => (
                                         <FormItem
-                                            label={"Note"}
+                                            label={"Interaction Note"}
                                             inputType="text"
-                                            placeholder={"Type your last message or interaction note"}
+                                            placeholder={"Describe the latest interaction or next steps"}
                                             invalid={Boolean(errors.note)}
                                             errorMessage={errors.note?.message}
                                             textarea={true}
@@ -279,4 +255,4 @@ const ContactFollowUpModal = ({
     )
 }
 
-export default ContactFollowUpModal
+export default CompanyFollowUpModal;

@@ -53,6 +53,9 @@ import { useRouter } from "next/navigation";
 import CompaniesDetails from "./CompaniesDetails";
 import { TiUserAddOutline } from "react-icons/ti";
 import { SiBluesky, SiFigma, SiKakaotalk, SiLine, SiProducthunt, SiSignal, SiViber, SiWechat } from "react-icons/si";
+import { LuTarget } from "react-icons/lu";
+import { getConnectionStrengthBadge } from "@/lib/CompanyConnectionBadge";
+import CompanyFollowUpModal from "./CompanyFollowUpModal";
 
 interface CompaniesTableProps {
   data: GetCompaniesResponse | null;
@@ -69,54 +72,7 @@ interface CompaniesTableProps {
   ) => void;
 }
 
-const getConnectionStrengthBadge = (strength: string | null) => {
-  if (!strength) return <Badge variant="outline">-</Badge>;
 
-  switch (strength.toLowerCase()) {
-    case "weak":
-      return (
-        <Badge
-          className="bg-red-50 text-red-700 dark:bg-red-950/50 dark:text-red-200 border-red-200/50"
-        >
-          Weak
-        </Badge>
-      );
-    case "medium":
-      return (
-        <Badge
-          className="bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-200 border-amber-200/50"
-        >
-          Medium
-        </Badge>
-      );
-    case "strong":
-      return (
-        <Badge
-          className="bg-green-50 text-green-700 dark:bg-green-950/50 dark:text-green-200 border-green-200/50"
-        >
-          Strong
-        </Badge>
-      );
-    case "very_strong":
-      return (
-        <Badge
-          className="bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-200 border-blue-200/50"
-        >
-          Very Strong
-        </Badge>
-      );
-    case "extremely_strong":
-      return (
-        <Badge
-          className="bg-purple-50 text-purple-700 dark:bg-purple-950/50 dark:text-purple-200 border-purple-200/50"
-        >
-          Extremely Strong
-        </Badge>
-      );
-    default:
-      return <Badge variant="outline">{strength}</Badge>;
-  }
-};
 
 const CompaniesTable = ({
   data,
@@ -131,6 +87,8 @@ const CompaniesTable = ({
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
+  const [follwUpModalOpen, setFollwUpModalOpen] = useState(false);
+  const [companyData, setCompanyData] = useState<ExpandedCompany | null>(null);
   const router = useRouter();
 
   const handleDialogOpen = (id: string) => {
@@ -363,6 +321,24 @@ const CompaniesTable = ({
           <Tooltip>
             <TooltipTrigger asChild>
               <div
+                className="text-xl cursor-pointer"
+                role="button"
+                onClick={() => {
+                  setFollwUpModalOpen(true);
+                  setCompanyData(row.original);
+                  setSelectedId(row.original.id);
+                }}
+              >
+                <LuTarget />
+              </div>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Follow Up</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div
                 className="text-lg cursor-pointer hover:text-primary transition-colors"
                 role="button"
                 onClick={() =>
@@ -483,6 +459,12 @@ const CompaniesTable = ({
       <CompaniesDetails
         open={detailsOpen}
         onOpenChange={setDetailsOpen}
+        selectedId={selectedId}
+      />
+      <CompanyFollowUpModal
+        open={follwUpModalOpen}
+        onOpenChange={setFollwUpModalOpen}
+        data={companyData || null}
         selectedId={selectedId}
       />
     </>

@@ -74,3 +74,14 @@ export const CompanyFormSchema = z
   });
 
 export type CompanyCreateFormValues = z.infer<typeof CompanyFormSchema>;
+
+// Company Follow Up Schema
+export const CompaniesFollowUpFormSchema = z.object({
+  connectionStrength: z.string().min(1, "Connection strength is required"),
+  lastInteractionAt: z.string().min(1, "Last interaction date is required"),
+  note: z.string().min(1, "Note or interaction recap is required"),
+});
+
+export type CompaniesFollowUpFormValues = z.infer<
+  typeof CompaniesFollowUpFormSchema
+>;

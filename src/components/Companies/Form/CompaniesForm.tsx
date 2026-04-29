@@ -16,33 +16,8 @@ import CountrySelect from "@/components/shared/CountrySelect";
 import { useMemo } from "react";
 import { countryList } from "@/config/countryList";
 import { LuMapPin } from "react-icons/lu";
-export const ConnectionStrengthOptions = [
-  {
-    value: "weak",
-    label: "Weak",
-    state: "bg-red-500",
-  },
-  {
-    value: "medium",
-    label: "Medium",
-    state: "bg-amber-500",
-  },
-  {
-    value: "strong",
-    label: "Strong",
-    state: "bg-emerald-500",
-  },
-  {
-    value: "very_strong",
-    label: "Very Strong",
-    state: "bg-blue-500",
-  },
-  {
-    value: "extremely_strong",
-    label: "Extremely Strong",
-    state: "bg-purple-500",
-  },
-];
+import { ConnectionStrengthOptions } from "@/lib/CompanyConnectionBadge";
+
 
 const CompaniesForm = ({
   control,

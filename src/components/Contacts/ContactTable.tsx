@@ -65,6 +65,7 @@ import ContactDetails from "./ContactDetails";
 import { useRouter } from "next/navigation";
 import { LuTarget } from "react-icons/lu";
 import ConatctedHistory from "./ConatctedHistory";
+import { getStatusBadge } from "@/lib/ContactStatusBadge";
 interface ContactTableProps {
   data: GetContacts | null;
   loading: boolean;
@@ -80,48 +81,7 @@ interface ContactTableProps {
   ) => void;
 }
 
-const getStatusBadge = (status: string) => {
-  switch (status.toLowerCase()) {
-    case "leads":
-      return (
-        <Badge
-          variant="secondary"
-          className="bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-200 border-blue-200/50"
-        >
-          Leads
-        </Badge>
-      );
-    case "follow-ups":
-      return (
-        <Badge
-          variant="secondary"
-          className="bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-200 border-amber-200/50"
-        >
-          Follow-ups
-        </Badge>
-      );
-    case "pipeline":
-      return (
-        <Badge
-          variant="secondary"
-          className="bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-200 border-emerald-200/50"
-        >
-          Pipeline
-        </Badge>
-      );
-    case "client":
-      return (
-        <Badge
-          variant="secondary"
-          className="bg-green-50 text-green-700 dark:bg-green-950/50 dark:text-green-200 border-green-200/50"
-        >
-          Client
-        </Badge>
-      );
-    default:
-      return <Badge variant="outline">{status}</Badge>;
-  }
-};
+
 const ContactTable = ({
   data,
   loading,
@@ -390,6 +350,7 @@ const ContactTable = ({
                   onClick={() => {
                     setFollwUpModalOpen(true);
                     setContactData(row.original);
+                    setSelectedId(row.original.id);
                   }}
                 >
                   <LuTarget />

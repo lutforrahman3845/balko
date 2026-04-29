@@ -48,42 +48,9 @@ import {
 } from "react-icons/fa6";
 import { RiBuilding2Line } from "react-icons/ri";
 import { SiBluesky, SiFigma, SiKakaotalk, SiLine, SiProducthunt, SiSignal, SiViber, SiWechat } from "react-icons/si";
+import { getConnectionStrengthBadge } from "@/lib/CompanyConnectionBadge";
 
-const getConnectionStrengthBadge = (strength: string | null) => {
-  if (!strength) return <Badge variant="outline" className="border-border/50 text-muted-foreground/50">-</Badge>;
 
-  const strengthMap: Record<string, { className: string; label: string }> = {
-    weak: {
-      className: "bg-red-50 text-red-700 dark:bg-red-950/50 dark:text-red-200 border-red-200/50",
-      label: "Weak",
-    },
-    medium: {
-      className: "bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-200 border-amber-200/50",
-      label: "Medium",
-    },
-    strong: {
-      className: "bg-green-50 text-green-700 dark:bg-green-950/50 dark:text-green-200 border-green-200/50",
-      label: "Strong",
-    },
-    "very strong": {
-      className: "bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-200 border-blue-200/50",
-      label: "Very Strong",
-    },
-    "extremely strong": {
-      className: "bg-purple-50 text-purple-700 dark:bg-purple-950/50 dark:text-purple-200 border-purple-200/50",
-      label: "Extremely Strong",
-    },
-  };
-
-  const key = strength.toLowerCase();
-  const config = strengthMap[key] || { className: "bg-zinc-100 text-zinc-700", label: strength };
-
-  return (
-    <Badge className={cn("px-2.5 py-0.5 text-xs font-medium border shadow-sm", config.className)}>
-      {config.label}
-    </Badge>
-  );
-};
 
 const platforms = [
   { key: "linkedin", icon: FaLinkedin },
