@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useLayout } from "@/components/context";
+import { useLayout } from "@/config/context";
 import { Sidebar } from "@/components/sidebar";
 import { cn } from "@/lib/utils";
 import { Header } from "@/components/header";
@@ -46,13 +46,13 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       {!isMobile && <Sidebar />}
 
       <div className="flex flex-col grow" >
-        <Header/>
+        <Header />
         <main
           className={cn(
             "grow  transition-all duration-300 ease-in-out",
             "min-h-[calc(100vh-70px)] mt-14",
             sidebarCollapse
-              ? "lg:ml-16 lg:w-[calc(100vw-67px)]" 
+              ? "lg:ml-16 lg:w-[calc(100vw-67px)]"
               : "lg:ml-65 lg:w-[calc(100vw-267px)]"
           )}
           role="content"

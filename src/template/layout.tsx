@@ -1,6 +1,6 @@
 'use client';
 
-import { LayoutProvider } from '@/components/context';
+import { LayoutProvider } from '@/config/context';
 import { DashboardLayout } from './DashboardLayout';
 import { useEffect, useState } from 'react';
 import { ScreenLoader } from '@/components/ScreenLoader';

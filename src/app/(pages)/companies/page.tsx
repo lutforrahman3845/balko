@@ -176,7 +176,7 @@ const Page = () => {
                   <div className="flex flex-col">
                     <span className="text-[13px] sm:text-sm font-semibold whitespace-nowrap leading-none">
                       {selectedIds.length}{" "}
-                      {selectedIds.length === 1 ? "Contact" : "Contacts"}
+                      {selectedIds.length === 1 ? "Company" : "Companies"}
                     </span>
                     <span className="text-[10px] sm:text-[11px] text-muted-foreground mt-1 uppercase tracking-wider font-bold hidden xs:inline-block">
                       Selected

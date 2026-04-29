@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import { SidebarHeader } from './SidebarHeader';
 import { SidebarMenu } from './SidebarMenu';
 import { usePathname } from 'next/navigation';
-import { useLayout } from './context';
+import { useLayout } from '../config/context';
 
 export function Sidebar() {
 

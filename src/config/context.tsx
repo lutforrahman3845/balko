@@ -38,11 +38,11 @@ export function LayoutProvider({
   sidebarNavItems,
 }: LayoutProviderProps) {
   const isMobile = useIsMobile();
-  const [sidebarCollapse, setSidebarCollapse] = useState(() => !isMobile);
+  const [sidebarCollapse, setSidebarCollapse] = useState(() => !!isMobile);
 
   useEffect(() => {
     startTransition(() => {
-      setSidebarCollapse(!isMobile);
+      setSidebarCollapse(!!isMobile);
     });
   }, [isMobile]);
 

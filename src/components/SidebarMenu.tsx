@@ -12,7 +12,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { useLayout } from './context';
+import { useLayout } from '../config/context';
 import type { NavItem } from '@/@types/NavItem';
 import { cn } from '@/lib/utils';
 
