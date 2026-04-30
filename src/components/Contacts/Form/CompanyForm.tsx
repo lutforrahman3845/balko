@@ -38,10 +38,10 @@ const CompanyForm = ({
 
   useEffect(() => {
     if (preSelectedCompany) {
-      setValue("company.id", preSelectedCompany?.data?.id, { shouldDirty: true, shouldValidate: true });
-      setValue("company.name", preSelectedCompany?.data?.name, { shouldDirty: true, shouldValidate: true });
-      setValue("company.website", preSelectedCompany?.data?.website ?? "", { shouldDirty: true, shouldValidate: true });
-      setValue("company.logo", preSelectedCompany?.data?.logo ?? undefined, { shouldDirty: true, shouldValidate: true });
+      setValue("company.id", preSelectedCompany?.id, { shouldDirty: true, shouldValidate: true });
+      setValue("company.name", preSelectedCompany?.name, { shouldDirty: true, shouldValidate: true });
+      setValue("company.website", preSelectedCompany?.website ?? "", { shouldDirty: true, shouldValidate: true });
+      setValue("company.logo", preSelectedCompany?.logo ?? undefined, { shouldDirty: true, shouldValidate: true });
     }
   }, [preSelectedCompany, setValue]);
 

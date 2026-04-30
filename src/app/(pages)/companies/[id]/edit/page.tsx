@@ -29,7 +29,7 @@ const Page = () => {
     error,
     refetch,
   } = useGetCompanyDetailsQuery(id, { skip: !id });
-  const company = data?.data as ExpandedCompany;
+  const company = data as ExpandedCompany;
   const {
     control,
     handleSubmit,

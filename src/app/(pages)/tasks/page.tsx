@@ -87,6 +87,7 @@ const Page = () => {
     pageSize,
     status: selectedStatuses.join(","),
     priority: selectedPriorities.join(","),
+    timeFrame: active === "all" ? "" : active,
     searchQuery,
   });
   const selectedIds = useMemo(() => {

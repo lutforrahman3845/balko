@@ -17,7 +17,7 @@ const companiesApiSlice = apiSlice.injectEndpoints({
             }),
             providesTags: ["company"],
         }),
-        getCompanyDetails: builder.query<{ data: ExpandedCompany }, string>({
+        getCompanyDetails: builder.query<ExpandedCompany, string>({
             query: (id) => `/companies/${id}`,
             providesTags: (_result, _error, id) => [{ type: "company", id: String(id) }],
         }),

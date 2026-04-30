@@ -28,3 +28,33 @@ export async function GET(
     );
   }
 }
+
+export async function PATCH(
+  req: Request,
+  { params }: { params: Promise<{ id: string }> },
+) {
+  try {
+    const { id } = await params;
+    const { status, notes } = await req.json();
+
+    const taskIndex = tasksData.findIndex((t) => t.id === id);
+    if (taskIndex === -1) {
+      return NextResponse.json({ error: "Task not found" }, { status: 404 });
+    }
+
+    // Update the mock data
+    tasksData[taskIndex] = {
+      ...tasksData[taskIndex],
+      status: status || tasksData[taskIndex].status,
+      // In a real app we would save notes too
+    };
+
+    return NextResponse.json({ success: true, data: tasksData[taskIndex] });
+  } catch (error) {
+    console.error("Error updating task:", error);
+    return NextResponse.json(
+      { error: { message: "Internal Server Error" } },
+      { status: 500 },
+    );
+  }
+}

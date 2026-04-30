@@ -5,15 +5,15 @@ import { employeeData } from "@/mock/employeeData";
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-    const active = searchParams.get("active");
     const searchQuery = searchParams.get("searchQuery")?.toLowerCase() || "";
-    const statusesParam = searchParams.get("statuses");
-    const statuses = statusesParam
-      ? statusesParam.split(",").filter(Boolean)
+    const statusParam = searchParams.get("status");
+    const timeFrameParam = searchParams.get("timeFrame");
+    const statuses = statusParam
+      ? statusParam.split(",").filter(Boolean)
       : [];
-    const prioritiesParam = searchParams.get("priorities");
-    const priorities = prioritiesParam
-      ? prioritiesParam.split(",").filter(Boolean)
+    const priorityParam = searchParams.get("priority");
+    const priorities = priorityParam
+      ? priorityParam.split(",").filter(Boolean)
       : [];
     const pageIndex = parseInt(searchParams.get("pageIndex") || "1", 10);
     const pageSize = parseInt(searchParams.get("pageSize") || "10", 10);
@@ -37,7 +37,7 @@ export async function GET(req: Request) {
     }
 
     const now = new Date();
-    if (active === "today") {
+    if (timeFrameParam === "today") {
       filtered = filtered.filter((task) => {
         const date = new Date(task.createdAt);
         return (
@@ -46,7 +46,7 @@ export async function GET(req: Request) {
           date.getFullYear() === now.getFullYear()
         );
       });
-    } else if (active === "week") {
+    } else if (timeFrameParam === "week") {
       const oneWeekAgo = new Date(now);
       oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
       filtered = filtered.filter((task) => {

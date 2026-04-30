@@ -152,7 +152,7 @@ const SocialLinksForm = ({ control, errors, setValue, unregister }: SocialLinksF
                 )}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 gap-x-6 gap-y-4 bg-gray-50/50 dark:bg-gray-800/50 p-2 md:p-6 rounded-2xl border border-gray-100 dark:border-gray-700 min-h-25">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 gap-3 rounded-xl  min-h-25">
                 {activePlatforms.length > 0 ? (
                     activePlatforms.map((platform) => (
                         <div key={platform.key} className="relative group">

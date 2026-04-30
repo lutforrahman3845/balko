@@ -17,6 +17,7 @@ import { ErrorState } from "../shared/ErrorState";
 import { getStatusBadge } from "@/lib/ContactStatusBadge";
 import { useGetContactHistoryQuery } from "@/redux/apis/ConatctAPis";
 import { ContactHistory } from "@/@types/contactdHistory";
+import { useEffect, useRef, useState } from "react";
 
 interface ConatctedHistoryProps {
     open: boolean;
@@ -31,11 +32,46 @@ const ConatctedHistory = ({
     selectedId,
     data = null,
 }: ConatctedHistoryProps) => {
-    const { data: history, isLoading, isError, refetch } = useGetContactHistoryQuery({ id: selectedId || "", pageIndex: 1, pageSize: 10 }, {
+    const [limit, setLimit] = useState(20);
+    const [historyData, setHistoryData] = useState<ContactHistory[]>([])
+    const { data: history, isLoading, isFetching, isError, refetch } = useGetContactHistoryQuery({ id: selectedId || "", pageIndex: 1, pageSize: limit }, {
         skip: !selectedId
     });
-    const historyData = history?.data as ContactHistory[]
+    const hasMore = history?.total ? historyData.length < history.total : false;
+    const observerRef = useRef<HTMLDivElement | null>(null);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        setLimit(20);
+    }, [selectedId]);
+
+    useEffect(() => {
+        if (history?.data) {
+            setHistoryData(history?.data);
+        }
+    }, [history]);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const first = entries[0];
+                if (first.isIntersecting && hasMore && !isFetching && !isLoading) {
+                    setLimit((prev) => prev + 20);
+                }
+            },
+            { threshold: 0.1 },
+        );
+
+        const current = observerRef.current;
+        if (current) {
+            observer.observe(current);
+        }
+        return () => {
+            if (current) {
+                observer.unobserve(current);
+            }
+        };
+    }, [hasMore, isFetching, isLoading]);
     return (
         <Sheet open={open} onOpenChange={onOpenChange}>
             <SheetContent className="gap-0 sm:w-125 inset-5 inset-s-auto h-auto rounded-xl p-0 sm:max-w-none shadow-2xl border-l-0">
@@ -186,6 +222,14 @@ const ConatctedHistory = ({
                                             </div>
                                         </div>
                                     ))}
+                                    <div ref={observerRef} className="h-10 w-full flex items-center justify-center">
+                                        {isFetching && (
+                                            <div className="flex items-center gap-2 text-muted-foreground text-xs font-medium">
+                                                <div className="size-3 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+                                                Loading more...
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             ) : (
                                 <div className="flex flex-col items-center justify-center py-20 bg-muted/20 rounded-2xl border border-dashed border-border">

@@ -107,7 +107,7 @@ const CompaniesDetails = ({
   } = useGetCompanyDetailsQuery(selectedId as string, {
     skip: !selectedId || !open,
   });
-  const company = data?.data as ExpandedCompany;
+  const company = data;
   const socialEntries = company?.socialLinks
     ? Object.entries(company.socialLinks).filter(([url]) => !!url)
     : [];

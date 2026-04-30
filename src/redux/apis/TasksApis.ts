@@ -9,6 +9,7 @@ const tasksApiSlice = apiSlice.injectEndpoints({
             status?: string;
             priority?: string;
             searchQuery?: string;
+            timeFrame?: string;
         }>({
             query: (params) => ({
                 url: "/tasks",
@@ -22,7 +23,7 @@ const tasksApiSlice = apiSlice.injectEndpoints({
         }),
         updateTaskStatus: builder.mutation<{ success: boolean }, { id: string; status: string; notes?: string }>({
             query: ({ id, ...body }) => ({
-                url: `/task/${id}`,
+                url: `/tasks/${id}`,
                 method: "PATCH",
                 body,
             }),
