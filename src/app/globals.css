@@ -136,10 +136,14 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring/50 transition-colors duration-300 ease-in-out;
   }
   body {
-    @apply bg-background text-foreground font-inter;
+    @apply bg-background text-foreground font-inter transition-all duration-300 ease-in-out;
+  }
+
+  *:focus-visible {
+    @apply outline-ring rounded-xs shadow-none outline-2 outline-offset-3 transition-none!;
   }
 }
 @layer components {
@@ -274,16 +278,7 @@
       var(--sidebar-transition-timing);
   }
 }
-/** Global Styles **/
-@layer base {
-  * {
-    @apply border-border;
-  }
 
-  *:focus-visible {
-    @apply outline-ring rounded-xs shadow-none outline-2 outline-offset-3 transition-none!;
-  }
-}
 
 /** Custom Scrollbar **/
 @layer base {

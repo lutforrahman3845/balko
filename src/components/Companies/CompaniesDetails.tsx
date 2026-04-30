@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/sheet";
 import { User, MapPin, Clock, Layout, Globe, ExternalLink, Mail, Phone, GlobeIcon, Briefcase, CalendarClock, StickyNote } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useQuery } from "@tanstack/react-query";
 import { ExpandedCompany } from "@/@types/company";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
@@ -89,6 +88,8 @@ const platforms = [
   { key: "figma", icon: SiFigma },
 ];
 
+import { useGetCompanyDetailsQuery } from "@/redux/apis/CompaniesApis";
+
 const CompaniesDetails = ({
   open,
   onOpenChange,
@@ -99,27 +100,21 @@ const CompaniesDetails = ({
   selectedId: string | null;
 }) => {
   const {
-    data: company,
+    data,
     isLoading,
     error,
     refetch,
-  } = useQuery<ExpandedCompany>({
-    queryKey: ["companyDetails", selectedId],
-    queryFn: async () => {
-      const res = await fetch(`/api/companies/${selectedId}`);
-      if (!res.ok) throw new Error("Failed to fetch company details");
-      return res.json();
-    },
-    enabled: !!selectedId && open,
+  } = useGetCompanyDetailsQuery(selectedId as string, {
+    skip: !selectedId || !open,
   });
-
+  const company = data?.data as ExpandedCompany;
   const socialEntries = company?.socialLinks
     ? Object.entries(company.socialLinks).filter(([url]) => !!url)
     : [];
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent className="gap-0 sm:w-140 inset-5 start-auto h-auto rounded-xl p-0 sm:max-w-none shadow-2xl border-l-0">
+      <SheetContent className="gap-0 sm:w-140 inset-5 inset-s-auto h-auto rounded-xl p-0 sm:max-w-none shadow-2xl border-l-0">
         <SheetHeader className="border-b bg-muted/30 p-4">
           <SheetTitle className="flex items-start gap-1 text-lg font-semibold">
             <RiBuilding2Line className="size-5 text-blue-500 mt-1" />

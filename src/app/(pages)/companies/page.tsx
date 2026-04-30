@@ -10,12 +10,13 @@ import FilterDropDown, {
 import FilterSearch from "@/components/shared/FilterSearch";
 import FilterSort from "@/components/shared/FilterSort";
 import { Button } from "@/components/ui/button";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { Trash2, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import { RiShakeHandsLine } from "react-icons/ri";
 import { toast } from "sonner";
+import { useGetCompaniesQuery } from "@/redux/apis/CompaniesApis";
+import { useGetCategoryOptionsQuery } from "@/redux/apis/CategoryApis";
 
 const connectionStrengthOptions = [
   {
@@ -55,48 +56,22 @@ const Page = () => {
   const [category, setCategory] = useState<string[]>([]);
   const [connectionStrength, setConnectionStrength] = useState<string[]>([]);
   const [lastContacted, setLastContacted] = useState<string>("");
-   const [isDialogOpen, setIsDialogOpen] = useState(false);
-   
-  const { data: categoryOptions } = useQuery<FilterOption[]>({
-    queryKey: ["categoryOptions"],
-    queryFn: async () => {
-      const response = await fetch("/api/category/getCategoryOption");
-      if (!response.ok) throw new Error("Failed to fetch category options");
-      return response.json();
-    },
-  });
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const { data: categoryOptions } = useGetCategoryOptionsQuery(undefined);
+
   const {
     data: companies,
     isLoading: loading,
     isError,
     refetch,
-  } = useQuery<GetCompaniesResponse>({
-    queryKey: [
-      "companies",
-      category,
-      connectionStrength,
-      lastContacted,
-      searchQuery,
-      pageIndex,
-      pageSize,
-    ],
-    queryFn: async () => {
-      const params = new URLSearchParams({
-        category: category.join(","),
-        connectionStrength: connectionStrength.join(","),
-        lastContacted,
-        searchQuery,
-        pageIndex: pageIndex.toString(),
-        pageSize: pageSize.toString(),
-      });
-
-      const response = await fetch(`/api/companies?${params.toString()}`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch companies");
-      }
-      return response.json();
-    },
-    placeholderData: keepPreviousData,
+  } = useGetCompaniesQuery({
+    category: category.join(","),
+    connectionStrength: connectionStrength.join(","),
+    lastContacted,
+    searchQuery,
+    pageIndex,
+    pageSize,
   });
   const selectedIds = useMemo(() => {
     const dataIds = new Set(companies?.data.map((item: ExpandedCompany) => String(item.id)));

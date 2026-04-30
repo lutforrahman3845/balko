@@ -11,32 +11,25 @@ import { ErrorState } from "@/components/shared/ErrorState";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { LuBuilding2 } from "react-icons/lu";
 import { toast } from "sonner";
+import { useGetCompanyDetailsQuery } from "@/redux/apis/CompaniesApis";
 
 const Page = () => {
   const params = useParams();
   const router = useRouter();
-  const id = params.id;
+  const id = params.id as string;
   const {
-    data: company,
+    data,
     isLoading,
     error,
     refetch,
-  } = useQuery<ExpandedCompany>({
-    queryKey: ["companyDetails", id],
-    queryFn: async () => {
-      const res = await fetch(`/api/companies/${id}`);
-      if (!res.ok) throw new Error("Failed to fetch company details");
-      return res.json();
-    },
-    enabled: !!id,
-  });
+  } = useGetCompanyDetailsQuery(id, { skip: !id });
+  const company = data?.data as ExpandedCompany;
   const {
     control,
     handleSubmit,

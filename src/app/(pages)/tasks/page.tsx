@@ -7,19 +7,19 @@ import {
   CalendarCheck,
   CalendarDays,
   CalendarRange,
+  Trash2,
+  X
 } from "lucide-react";
-import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import FilterSearch from "@/components/shared/FilterSearch";
 import FilterDropDown from "@/components/shared/FilterDropDown";
-import { GetTask } from "@/@types/tassk";
 import TaskTable from "@/components/Task/TaskTable";
 import { ErrorState } from "@/components/shared/ErrorState";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 import ConfirmDialog from "@/components/shared/ConfirmDialog";
 import { toast } from "sonner";
-import { Trash2, X } from "lucide-react";
+import { useGetTasksQuery } from "@/redux/apis/TasksApis";
 
 const Page = () => {
   const [active, setActive] = useState<string>("all");
@@ -82,33 +82,12 @@ const Page = () => {
     },
   ];
 
-  const { data: tasks, isLoading: loading, isError, refetch } = useQuery<GetTask>({
-    queryKey: [
-      "tasks",
-      active,
-      searchQuery,
-      selectedStatuses,
-      selectedPriorities,
-      pageIndex,
-      pageSize,
-    ],
-    queryFn: async () => {
-      const params = new URLSearchParams({
-        active,
-        searchQuery,
-        statuses: selectedStatuses.join(","),
-        priorities: selectedPriorities.join(","),
-        pageIndex: pageIndex.toString(),
-        pageSize: pageSize.toString(),
-      });
-
-      const response = await fetch(`/api/task?${params.toString()}`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch tasks");
-      }
-      return response.json();
-    },
-    placeholderData: keepPreviousData,
+  const { data: tasks, isLoading: loading, isError, refetch } = useGetTasksQuery({
+    pageIndex,
+    pageSize,
+    status: selectedStatuses.join(","),
+    priority: selectedPriorities.join(","),
+    searchQuery,
   });
   const selectedIds = useMemo(() => {
     const dataIds = new Set(tasks?.data.map((item: any) => String(item.id)));

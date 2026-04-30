@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/sheet";
 import { User, MapPin, Clock, Layout, Globe, ExternalLink } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useQuery } from "@tanstack/react-query";
 import { ExpandedContact } from "@/@types/contact";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
@@ -95,6 +94,8 @@ const platforms = [
   { key: "figma", icon: SiFigma },
 ];
 
+import { useGetContactDetailsQuery } from "@/redux/apis/ConatctAPis";
+
 const ContactDetails = ({
   open,
   onOpenChange,
@@ -105,14 +106,8 @@ const ContactDetails = ({
     isLoading,
     error,
     refetch,
-  } = useQuery<ExpandedContact>({
-    queryKey: ["contactDetails", selectedId],
-    queryFn: async () => {
-      const res = await fetch(`/api/contacts/${selectedId}`);
-      if (!res.ok) throw new Error("Failed to fetch contact details");
-      return res.json();
-    },
-    enabled: !!selectedId && open,
+  } = useGetContactDetailsQuery(selectedId as string, {
+    skip: !selectedId || !open,
   });
 
   const socialEntries = contact?.socialLinks
@@ -121,7 +116,7 @@ const ContactDetails = ({
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent className="gap-0 sm:w-125 inset-5 start-auto h-auto rounded-xl p-0 sm:max-w-none shadow-2xl border-l-0">
+      <SheetContent className="gap-0 sm:w-125 inset-5 inset-s-auto h-auto rounded-xl p-0 sm:max-w-none shadow-2xl border-l-0">
         <SheetHeader className="border-b bg-muted/30 p-4">
           <SheetTitle className="flex items-start gap-1 text-lg font-semibold">
             <RiContactsLine className="size-5 text-blue-500 mt-1" />
@@ -258,25 +253,25 @@ const ContactDetails = ({
 
                         {(contact.company.employeeRange ||
                           contact.company.estimatedArr) && (
-                          <div className="flex flex-wrap gap-2">
-                            {contact.company.employeeRange && (
-                              <Badge
-                                variant="secondary"
-                                className="text-[10px] px-1.5 py-0 bg-secondary/40 text-secondary-foreground/80 font-medium border-0"
-                              >
-                                {contact.company.employeeRange} emps
-                              </Badge>
-                            )}
-                            {contact.company.estimatedArr && (
-                              <Badge
-                                variant="secondary"
-                                className="text-[10px] px-1.5 py-0 bg-secondary/40 text-secondary-foreground/80 font-medium border-0"
-                              >
-                                {contact.company.estimatedArr} ARR
-                              </Badge>
-                            )}
-                          </div>
-                        )}
+                            <div className="flex flex-wrap gap-2">
+                              {contact.company.employeeRange && (
+                                <Badge
+                                  variant="secondary"
+                                  className="text-[10px] px-1.5 py-0 bg-secondary/40 text-secondary-foreground/80 font-medium border-0"
+                                >
+                                  {contact.company.employeeRange} emps
+                                </Badge>
+                              )}
+                              {contact.company.estimatedArr && (
+                                <Badge
+                                  variant="secondary"
+                                  className="text-[10px] px-1.5 py-0 bg-secondary/40 text-secondary-foreground/80 font-medium border-0"
+                                >
+                                  {contact.company.estimatedArr} ARR
+                                </Badge>
+                              )}
+                            </div>
+                          )}
 
                         {contact.company.description && (
                           <p className="text-xs text-muted-foreground/80 leading-relaxed italic line-clamp-3">

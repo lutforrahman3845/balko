@@ -8,17 +8,16 @@ import {
     SheetBody,
 } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
 import { BiMessageAltDots } from "react-icons/bi";
 import { ExpandedContact } from "@/@types/contact";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LuBriefcase, LuBuilding2, LuMail, LuPhone } from "react-icons/lu";
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import { ContactHistory } from "@/@types/contactdHistory";
 import { ErrorState } from "../shared/ErrorState";
 import { getStatusBadge } from "@/lib/ContactStatusBadge";
+import { useGetContactHistoryQuery } from "@/redux/apis/ConatctAPis";
+import { ContactHistory } from "@/@types/contactdHistory";
+
 interface ConatctedHistoryProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
@@ -26,33 +25,20 @@ interface ConatctedHistoryProps {
     data?: ExpandedContact | null;
 }
 
-
-
 const ConatctedHistory = ({
     open,
     onOpenChange,
     selectedId,
     data = null,
 }: ConatctedHistoryProps) => {
-    const {
-        data: historyData,
-        isLoading,
-        error,
-        refetch,
-    } = useQuery<ContactHistory[]>({
-        queryKey: ["contactHistory", selectedId],
-        queryFn: async () => {
-            const res = await fetch(`/api/contactHistroy/${selectedId}`);
-            if (!res.ok) throw new Error("Failed to fetch contact history");
-            return res.json();
-        },
-        enabled: !!selectedId && open,
+    const { data: history, isLoading, isError, refetch } = useGetContactHistoryQuery({ id: selectedId || "", pageIndex: 1, pageSize: 10 }, {
+        skip: !selectedId
     });
+    const historyData = history?.data as ContactHistory[]
 
- console.log(historyData)
     return (
         <Sheet open={open} onOpenChange={onOpenChange}>
-            <SheetContent className="gap-0 sm:w-125 inset-5 start-auto h-auto rounded-xl p-0 sm:max-w-none shadow-2xl border-l-0">
+            <SheetContent className="gap-0 sm:w-125 inset-5 inset-s-auto h-auto rounded-xl p-0 sm:max-w-none shadow-2xl border-l-0">
                 <SheetHeader className="border-b bg-muted/30 p-4">
                     <SheetTitle className="flex items-start gap-1 text-lg font-semibold">
                         <BiMessageAltDots className="size-5 text-blue-500 mt-1" />
@@ -158,7 +144,7 @@ const ConatctedHistory = ({
                                         </div>
                                     ))}
                                 </div>
-                            ) : error ? (
+                            ) : isError ? (
                                 <ErrorState
                                     onRetry={() => refetch()}
                                     title="Failed to Load History"
@@ -166,9 +152,9 @@ const ConatctedHistory = ({
                                 />
                             ) : historyData && historyData.length > 0 ? (
                                 <div className="flex flex-col gap-2.5">
-                                    {historyData.sort((a, b) => new Date(b.lastContacted).getTime() - new Date(a.lastContacted).getTime()).map((history) => (
-                                        <div 
-                                            key={history.id} 
+                                    {historyData.map((history) => (
+                                        <div
+                                            key={history.id}
                                             className="group bg-background rounded-lg border border-border/40 p-3 transition-all duration-200 hover:bg-muted/30 hover:border-primary/20 cursor-default"
                                         >
                                             <div className="flex flex-col gap-2">
@@ -193,7 +179,7 @@ const ConatctedHistory = ({
                                                         {getStatusBadge(history.status)}
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div className="text-[13px] text-muted-foreground/80 leading-normal font-medium border-l border-primary/20 pl-3 py-0.5 mt-0.5">
                                                     {history.note || "No notes available for this interaction."}
                                                 </div>

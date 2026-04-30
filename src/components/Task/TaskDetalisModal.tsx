@@ -15,8 +15,6 @@ import {
 } from "lucide-react";
 import { BiMessageSquare } from "react-icons/bi";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useQuery } from "@tanstack/react-query";
-import { ExpandedTask } from "@/@types/tassk";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -42,7 +40,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useGetTaskDetailsQuery, useUpdateTaskStatusMutation } from "@/redux/apis/TasksApis";
 
 interface TaskDetalisModalProps {
   open: boolean;
@@ -60,20 +58,13 @@ const TaskDetalisModal = ({
     isLoading,
     error,
     refetch,
-  } = useQuery<ExpandedTask>({
-    queryKey: ["taskDetails", selectedId],
-    queryFn: async () => {
-      const res = await fetch(`/api/task/${selectedId}`);
-      if (!res.ok) throw new Error("Failed to fetch task details");
-      return res.json();
-    },
-    enabled: !!selectedId && open,
+  } = useGetTaskDetailsQuery(selectedId as string, {
+    skip: !selectedId || !open,
   });
 
   const [openModal, setOpenModal] = useState(false);
   const [newStatus, setNewStatus] = useState<string>("");
   const [notes, setNotes] = useState("");
-  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (task?.status) {
@@ -83,40 +74,23 @@ const TaskDetalisModal = ({
     }
   }, [task?.status, openModal]);
 
-  const updateStatusMutation = useMutation({
-    mutationFn: async (data: { status: string; notes?: string }) => {
-      const res = await fetch(`/api/task/${selectedId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+  const [updateStatus, { isLoading: isUpdating }] = useUpdateTaskStatusMutation();
 
-      if (!res.ok) {
-        console.warn("PATCH not implemented, simulating success");
-        return { success: true };
-      }
-      return res.json();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["taskDetails", selectedId] });
-      queryClient.invalidateQueries({ queryKey: ["tasks"] });
-      toast.success("Task status updated");
-      setOpenModal(false);
-      setNotes("");
-    },
-    onError: (error) => {
-      toast.error(
-        error instanceof Error ? error.message : "Failed to update status",
-      );
-    },
-  });
-
-  const handleUpdateStatus = () => {
+  const handleUpdateStatus = async () => {
     if (!newStatus) {
       toast.error("Please select a status");
       return;
     }
-    updateStatusMutation.mutate({ status: newStatus, notes });
+    try {
+      await updateStatus({ id: selectedId as string, status: newStatus, notes }).unwrap();
+      toast.success("Task status updated");
+      setOpenModal(false);
+      setNotes("");
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "Failed to update status",
+      );
+    }
   };
 
   const getStatusBadge = (status: string) => {
@@ -176,7 +150,7 @@ const TaskDetalisModal = ({
   return (
     <>
       <Sheet open={open} onOpenChange={onOpenChange}>
-        <SheetContent className="gap-0 sm:w-125 inset-5 start-auto h-auto rounded-xl p-0 sm:max-w-none shadow-2xl border-l-0">
+        <SheetContent className="gap-0 sm:w-125 inset-5 inset-s-auto h-auto rounded-xl p-0 sm:max-w-none shadow-2xl border-l-0">
           <SheetHeader className="border-b bg-muted/30 p-4">
             <SheetTitle className="flex items-start gap-1 text-lg font-semibold">
               <div className="size-5 rounded border border-blue-500/50 flex items-center justify-center bg-blue-500/10 mt-1">
@@ -447,10 +421,10 @@ const TaskDetalisModal = ({
             </Button>
             <Button
               onClick={handleUpdateStatus}
-              disabled={updateStatusMutation.isPending}
+              disabled={isUpdating}
               className="flex-1 sm:flex-none px-8 font-bold shadow-lg shadow-primary/20 transition-all active:scale-[0.98]"
             >
-              {updateStatusMutation.isPending ? (
+              {isUpdating ? (
                 <div className="flex items-center gap-2">
                   <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
                   Updating...

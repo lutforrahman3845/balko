@@ -2,7 +2,6 @@ import { Control, Controller, FieldErrors } from "react-hook-form";
 import FormItem from "@/components/shared/FormItem";
 import SelectFormItem from "@/components/shared/SelectFormItem";
 import CustomeSelect from "@/components/shared/CustomeSelect";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { Employee, ExpandedEmployee, GetEmployee } from "@/@types/employee";
 import { useMemo, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -46,6 +45,8 @@ export const StatusOptions = [
     state: "bg-red-500",
   },
 ];
+import { useGetEmployeesQuery } from "@/redux/apis/EmployeesApis";
+
 const TaskForm = ({
   control,
   errors,
@@ -59,22 +60,10 @@ const TaskForm = ({
 }) => {
   const [searchEmployee, setSearchEmployee] = useState("");
 
-  const { data: employees, isLoading: loading } = useQuery<GetEmployee>({
-    queryKey: ["employee", searchEmployee],
-    queryFn: async () => {
-      const params = new URLSearchParams({
-        searchQuery: searchEmployee,
-        pageIndex: "1",
-        pageSize: "20",
-      });
-
-      const response = await fetch(`/api/employee?${params.toString()}`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch emplyee");
-      }
-      return response.json();
-    },
-    placeholderData: keepPreviousData,
+  const { data: employees, isLoading: loading } = useGetEmployeesQuery({
+    searchQuery: searchEmployee,
+    pageIndex: 1,
+    pageSize: 20,
   });
 
   const employeeOptions = useMemo(() => {

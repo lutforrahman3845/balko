@@ -6,7 +6,7 @@ import { ErrorState } from "@/components/shared/ErrorState";
 import FilterDropDown from "@/components/shared/FilterDropDown";
 import FilterSearch from "@/components/shared/FilterSearch";
 import { cn } from "@/lib/utils";
-import { useQuery, keepPreviousData } from "@tanstack/react-query";
+
 import { Briefcase, Workflow } from "lucide-react";
 import { useMemo, useState } from "react";
 import { MdOutlineContacts } from "react-icons/md";
@@ -19,6 +19,7 @@ import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import FilterSort from "@/components/shared/FilterSort";
 import { TiUserAddOutline, TiUserOutline } from "react-icons/ti";
 import { LuTarget } from "react-icons/lu";
+import { useGetContactsQuery, useGetPositionsQuery } from "@/redux/apis/ConatctAPis";
 
 const stausItems = [
   { title: "all", icon: MdOutlineContacts, id: "all" },
@@ -37,47 +38,21 @@ const Page = () => {
   const [pageSize, setPageSize] = useState<number>(10);
   const [rowSelection, setRowSelection] = useState({});
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const { data: positionOptions } = useQuery<{ id: string; name: string }[]>({
-    queryKey: ["positions"],
-    queryFn: async () => {
-      const response = await fetch("/api/getPositions");
-      if (!response.ok) throw new Error("Failed to fetch positions");
-      return response.json();
-    },
-  });
+
+  const { data: positionOptions } = useGetPositionsQuery();
 
   const {
     data: contacts,
     isLoading: loading,
     isError,
     refetch,
-  } = useQuery<GetContacts>({
-    queryKey: [
-      "contacts",
-      status,
-      selectedPositions,
-      lastContacted,
-      searchQuery,
-      pageIndex,
-      pageSize,
-    ],
-    queryFn: async () => {
-      const params = new URLSearchParams({
-        status,
-        position: selectedPositions.join(","),
-        lastContacted,
-        searchQuery,
-        pageIndex: pageIndex.toString(),
-        pageSize: pageSize.toString(),
-      });
-
-      const response = await fetch(`/api/contacts?${params.toString()}`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch contacts");
-      }
-      return response.json();
-    },
-    placeholderData: keepPreviousData,
+  } = useGetContactsQuery({
+    status,
+    position: selectedPositions.join(","),
+    lastContacted,
+    searchQuery,
+    pageIndex,
+    pageSize,
   });
   const selectedIds = useMemo(() => {
     const dataIds = new Set(contacts?.data.map((item: any) => String(item.id)));

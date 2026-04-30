@@ -20,8 +20,7 @@ export const metadata: Metadata = {
     icon:"/favicon.svg"
   }
 };
-
-import QueryProvider from "@/providers/QueryProvider";
+import StoreProvider from "@/providers/StoreProvider";
 
 export default function RootLayout({
   children,
@@ -33,23 +32,23 @@ export default function RootLayout({
       <body
         className={`${inter.variable} antialiased overflow-x-hidden`}
       >
-        <QueryProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            storageKey="nextjs-theme"
-            enableSystem
-            disableTransitionOnChange
-            enableColorScheme
-          >
-            <TooltipProvider delayDuration={0}>
-              <Suspense>
-                <Layout>{children}  </Layout>
-              </Suspense>
-              <Toaster />
-            </TooltipProvider>
-          </ThemeProvider>
-        </QueryProvider>
+        <StoreProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              storageKey="nextjs-theme"
+              enableSystem
+              disableTransitionOnChange
+              enableColorScheme
+            >
+              <TooltipProvider delayDuration={0}>
+                <Suspense>
+                  <Layout>{children}  </Layout>
+                </Suspense>
+                <Toaster />
+              </TooltipProvider>
+            </ThemeProvider>
+        </StoreProvider>
       </body>
     </html>
   );

@@ -1,11 +1,8 @@
 import { NavConfig } from "@/@types/NavItem";
-import { useIsMobile } from "@/hooks/use-mobile";
 import {
   createContext,
   ReactNode,
-  startTransition,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -37,14 +34,8 @@ export function LayoutProvider({
   children,
   sidebarNavItems,
 }: LayoutProviderProps) {
-  const isMobile = useIsMobile();
-  const [sidebarCollapse, setSidebarCollapse] = useState(() => !!isMobile);
+  const [sidebarCollapse, setSidebarCollapse] = useState(false);
 
-  useEffect(() => {
-    startTransition(() => {
-      setSidebarCollapse(!!isMobile);
-    });
-  }, [isMobile]);
 
   const [sidebarTheme, setSidebarTheme] = useState<SidebarTheme>("light");
   const initialPinned = sidebarNavItems.map((item) => item.id);

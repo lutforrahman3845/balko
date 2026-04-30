@@ -15,7 +15,7 @@ export interface Company {
   city: string | null;
   zip: string | null;
   country: string | null;
-  website: string ;
+  website: string;
   socialLinks: {
     [key: string]: string;
   };
@@ -85,3 +85,11 @@ export const CompaniesFollowUpFormSchema = z.object({
 export type CompaniesFollowUpFormValues = z.infer<
   typeof CompaniesFollowUpFormSchema
 >;
+
+export interface CompaniesContactHistory {
+  id: string;
+  companyId: string;
+  connectionStrength: "weak" | "medium" | "strong" | "very_strong" | "extremely_strong";
+  lastContacted: string;
+  note: string;
+}

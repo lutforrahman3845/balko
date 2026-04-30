@@ -9,7 +9,6 @@ import {
 import CompaniesLogo from "./CompaniesLogo";
 import CompaniesSocialLinks from "./CompaniesSocialLinks";
 import SelectFormItem from "@/components/shared/SelectFormItem";
-import { useQuery } from "@tanstack/react-query";
 import { FilterOption } from "@/components/shared/FilterDropDown";
 import CustomeSelect from "@/components/shared/CustomeSelect";
 import CountrySelect from "@/components/shared/CountrySelect";
@@ -17,7 +16,7 @@ import { useMemo } from "react";
 import { countryList } from "@/config/countryList";
 import { LuMapPin } from "react-icons/lu";
 import { ConnectionStrengthOptions } from "@/lib/CompanyConnectionBadge";
-
+import { useGetCategoryOptionsQuery } from "@/redux/apis/CategoryApis";
 
 const CompaniesForm = ({
   control,
@@ -31,17 +30,10 @@ const CompaniesForm = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   unregister: (name: any) => void;
 }) => {
-  const { data: categorys, isLoading: loading } = useQuery<FilterOption[]>({
-    queryKey: ["categoryOptions"],
-    queryFn: async () => {
-      const response = await fetch("/api/category/getCategoryOption");
-      if (!response.ok) throw new Error("Failed to fetch category options");
-      return response.json();
-    },
-  });
+  const { data: categorys, isLoading: loading } = useGetCategoryOptionsQuery(undefined);
 
   const categoryOptions = useMemo(() => {
-    return categorys?.map((category) => ({
+    return categorys?.map((category:FilterOption) => ({
       value: category.id,
       label: category.name,
       color: category.color,

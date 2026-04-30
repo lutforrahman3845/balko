@@ -93,7 +93,7 @@ const CompanyFollowUpModal = ({
 
     return (
         <Sheet open={open} onOpenChange={onOpenChange}>
-            <SheetContent className="gap-0 sm:w-150 inset-5 start-auto h-auto rounded-lg p-0 sm:max-w-none">
+            <SheetContent className="gap-0 sm:w-150 inset-5 inset-s-auto h-auto rounded-lg p-0 sm:max-w-none">
                 <SheetHeader className="mb-0">
                     <SheetTitle className="p-3 flex items-center gap-2.5">
                         <LuTarget className="size-5 text-blue-500" />

@@ -14,29 +14,22 @@ import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import ContactForm from "@/components/Contacts/Form/ContactForm";
 import { useParams, useRouter } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ErrorState } from "@/components/shared/ErrorState";
+
+import { useGetContactDetailsQuery } from "@/redux/apis/ConatctAPis";
 
 const Page = () => {
   const params = useParams();
   const router = useRouter();
-  const id = params.id;
+  const id = params.id as string;
 
   const {
     data: contact,
     isLoading,
     error,
     refetch,
-  } = useQuery<ExpandedContact>({
-    queryKey: ["contactDetails", id],
-    queryFn: async () => {
-      const res = await fetch(`/api/contacts/${id}`);
-      if (!res.ok) throw new Error("Failed to fetch contact details");
-      return res.json();
-    },
-    enabled: !!id,
-  });
+  } = useGetContactDetailsQuery(id, { skip: !id });
 
   const {
     control,
