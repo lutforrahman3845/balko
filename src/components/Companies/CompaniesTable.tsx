@@ -56,6 +56,8 @@ import { SiBluesky, SiFigma, SiKakaotalk, SiLine, SiProducthunt, SiSignal, SiVib
 import { LuTarget } from "react-icons/lu";
 import { getConnectionStrengthBadge } from "@/lib/CompanyConnectionBadge";
 import CompanyFollowUpModal from "./CompanyFollowUpModal";
+import { BiMessageAltDots } from "react-icons/bi";
+import CompaniesContcatedHistory from "./CompaniesContcatedHistory";
 
 interface CompaniesTableProps {
   data: GetCompaniesResponse | null;
@@ -90,6 +92,7 @@ const CompaniesTable = ({
   const [follwUpModalOpen, setFollwUpModalOpen] = useState(false);
   const [companyData, setCompanyData] = useState<ExpandedCompany | null>(null);
   const router = useRouter();
+  const [historyOpen, setHistoryOpen] = useState(false);
 
   const handleDialogOpen = (id: string) => {
     setDialogOpen(true);
@@ -324,6 +327,24 @@ const CompaniesTable = ({
                 className="text-xl cursor-pointer"
                 role="button"
                 onClick={() => {
+                  setHistoryOpen(true);
+                  setSelectedId(row.original.id);
+                  setCompanyData(row.original);
+                }}
+              >
+                <BiMessageAltDots />
+              </div>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Contact History</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div
+                className="text-xl cursor-pointer"
+                role="button"
+                onClick={() => {
                   setFollwUpModalOpen(true);
                   setCompanyData(row.original);
                   setSelectedId(row.original.id);
@@ -456,6 +477,12 @@ const CompaniesTable = ({
           </span>
         </ConfirmDialog>
       )}
+      <CompaniesContcatedHistory
+        open={historyOpen}
+        onOpenChange={setHistoryOpen}
+        data={companyData || null}
+        selectedId={selectedId}
+      />
       <CompaniesDetails
         open={detailsOpen}
         onOpenChange={setDetailsOpen}

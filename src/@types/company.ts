@@ -90,6 +90,35 @@ export interface CompaniesContactHistory {
   id: string;
   companyId: string;
   connectionStrength: "weak" | "medium" | "strong" | "very_strong" | "extremely_strong";
+  lastInteractionAt: string;
+  note: string;
+}
+
+export interface ContactInteraction {
+  id: string;
+  contactId: string;
+  status: string;
   lastContacted: string;
   note: string;
+  contact: {
+    id: string;
+    name: string;
+    avatar: string;
+    email: string;
+    phone: string | null;
+    position: string;
+  } | null;
+}
+
+export interface ContactHistoryResponse {
+  companyConatact: CompaniesContactHistory[];
+  conatactsHistory: ContactInteraction[];
+}
+
+export interface GetCompanyContactHistoryResponse {
+  data: ContactHistoryResponse;
+  total: number;
+  totalPages: number;
+  pageIndex: number;
+  pageSize: number;
 }

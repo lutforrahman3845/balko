@@ -78,7 +78,7 @@ const ConatctedHistory = ({
                 <SheetHeader className="border-b bg-muted/30 p-4">
                     <SheetTitle className="flex items-start gap-1 text-lg font-semibold">
                         <BiMessageAltDots className="size-5 text-blue-500 mt-1" />
-                        <span>Contacted History </span>
+                        <span>{data?.name} — Interaction History </span>
                     </SheetTitle>
                 </SheetHeader>
 
@@ -188,22 +188,27 @@ const ConatctedHistory = ({
                                 />
                             ) : historyData && historyData.length > 0 ? (
                                 <div className="flex flex-col gap-2.5">
-                                    {historyData.map((history) => (
-                                        <div
-                                            key={history.id}
-                                            className="group bg-background rounded-lg border border-border/40 p-3 transition-all duration-200 hover:bg-muted/30 hover:border-primary/20 cursor-default"
-                                        >
-                                            <div className="flex flex-col gap-2">
-                                                <div className="flex items-center justify-between">
+                                    {historyData.map((history, idx) => (
+                                        <div key={history.id} className="relative flex flex-col gap-3">
+                                            {/* Connector line for multiple interactions */}
+                                            {idx < historyData.length - 1 && (
+                                                <div className="absolute left-[11px] top-6 bottom-[-24px] w-[2px] bg-border/40" />
+                                            )}
+
+                                            <div className="flex items-center justify-between relative">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="size-[24px] rounded-full bg-muted/30 border border-border/60 flex items-center justify-center z-10">
+                                                        <div className="size-1.5 rounded-full bg-primary/60" />
+                                                    </div>
                                                     <div className="flex flex-col">
-                                                        <span className="text-[13px] font-bold text-foreground/90 tracking-tight leading-none">
+                                                        <span className="text-[12px] font-bold text-foreground/80 tracking-tight leading-none">
                                                             {new Date(history.lastContacted).toLocaleDateString('en-US', {
                                                                 month: 'short',
                                                                 day: 'numeric',
                                                                 year: 'numeric'
                                                             })}
                                                         </span>
-                                                        <span className="text-[9px] text-muted-foreground font-semibold uppercase tracking-widest mt-1 opacity-70">
+                                                        <span className="text-[9px] text-muted-foreground font-semibold uppercase tracking-widest mt-1 opacity-60">
                                                             {new Date(history.lastContacted).toLocaleTimeString('en-US', {
                                                                 hour: '2-digit',
                                                                 minute: '2-digit',
@@ -211,14 +216,14 @@ const ConatctedHistory = ({
                                                             })}
                                                         </span>
                                                     </div>
-                                                    <div className="scale-90 origin-right">
-                                                        {getStatusBadge(history.status)}
-                                                    </div>
                                                 </div>
+                                                <div className="scale-75 origin-right">
+                                                    {getStatusBadge(history.status)}
+                                                </div>
+                                            </div>
 
-                                                <div className="text-[13px] text-muted-foreground/80 leading-normal font-medium border-l border-primary/20 pl-3 py-0.5 mt-0.5">
-                                                    {history.note || "No notes available for this interaction."}
-                                                </div>
+                                            <div className="text-[13px] text-muted-foreground leading-normal font-medium ml-9 ">
+                                                {history.note || "No notes available for this interaction."}
                                             </div>
                                         </div>
                                     ))}
