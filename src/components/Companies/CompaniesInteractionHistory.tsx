@@ -1,5 +1,5 @@
-import { ContactHistoryResponse, ExpandedCompany } from "@/@types/company";
-import { useGetCompanyContactHistoryQuery } from "@/redux/apis/CompaniesApis";
+import { CompanyInteractionHistoryResponse, ExpandedCompany } from "@/@types/company";
+import { useGetCompanyInteractionHistoryQuery } from "@/redux/apis/CompaniesApis";
 import { useEffect, useRef, useState } from "react";
 import {
     Sheet,
@@ -17,21 +17,21 @@ import { getStatusBadge } from "@/lib/ContactStatusBadge";
 import { getConnectionStrengthBadge } from "@/lib/CompanyConnectionBadge";
 import { LuBriefcase, LuMail, LuPhone } from "react-icons/lu";
 
-interface CompaniesContcatedHistoryProps {
+interface CompaniesInteractionHistoryProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
     selectedId?: string | null;
     data?: ExpandedCompany | null;
 }
 
-const CompaniesContcatedHistory = ({
+const CompaniesInteractionHistory = ({
     open,
     onOpenChange,
     selectedId,
-    data = null }: CompaniesContcatedHistoryProps) => {
+    data = null }: CompaniesInteractionHistoryProps) => {
     const [limit, setLimit] = useState(20);
-    const [historyData, setHistoryData] = useState<ContactHistoryResponse | null>(null)
-    const { data: history, isLoading, error, isFetching } = useGetCompanyContactHistoryQuery({
+    const [historyData, setHistoryData] = useState<CompanyInteractionHistoryResponse | null>(null)
+    const { data: history, isLoading, error, isFetching } = useGetCompanyInteractionHistoryQuery({
         id: selectedId || "",
         pageIndex: 1,
         pageSize: limit,
@@ -349,4 +349,4 @@ const CompaniesContcatedHistory = ({
         </Sheet>
     );
 };
-export default CompaniesContcatedHistory;
+export default CompaniesInteractionHistory;

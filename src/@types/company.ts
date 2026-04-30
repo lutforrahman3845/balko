@@ -86,7 +86,7 @@ export type CompaniesFollowUpFormValues = z.infer<
   typeof CompaniesFollowUpFormSchema
 >;
 
-export interface CompaniesContactHistory {
+export interface CompaniesInteractionHistory {
   id: string;
   companyId: string;
   connectionStrength: "weak" | "medium" | "strong" | "very_strong" | "extremely_strong";
@@ -110,13 +110,13 @@ export interface ContactInteraction {
   } | null;
 }
 
-export interface ContactHistoryResponse {
-  companyConatact: CompaniesContactHistory[];
+export interface CompanyInteractionHistoryResponse {
+  companyConatact: CompaniesInteractionHistory[];
   conatactsHistory: ContactInteraction[];
 }
 
-export interface GetCompanyContactHistoryResponse {
-  data: ContactHistoryResponse;
+export interface GetCompanyInteractionHistoryResponse {
+  data: CompanyInteractionHistoryResponse;
   total: number;
   totalPages: number;
   pageIndex: number;

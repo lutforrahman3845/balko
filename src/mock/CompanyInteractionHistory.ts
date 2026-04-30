@@ -1,6 +1,6 @@
-import { CompaniesContactHistory } from "@/@types/company";
+import { CompaniesInteractionHistory } from "@/@types/company";
 
-export const CompanyContactHistory: CompaniesContactHistory[] = [
+export const CompanyInteractionHistory: CompaniesInteractionHistory[] = [
   // Company 1 (TBG Corporation)
   {
     id: "1",

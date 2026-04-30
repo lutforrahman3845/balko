@@ -57,7 +57,7 @@ import { LuTarget } from "react-icons/lu";
 import { getConnectionStrengthBadge } from "@/lib/CompanyConnectionBadge";
 import CompanyFollowUpModal from "./CompanyFollowUpModal";
 import { BiMessageAltDots } from "react-icons/bi";
-import CompaniesContcatedHistory from "./CompaniesContcatedHistory";
+import CompaniesInteractionHistory from "./CompaniesInteractionHistory";
 
 interface CompaniesTableProps {
   data: GetCompaniesResponse | null;
@@ -477,7 +477,7 @@ const CompaniesTable = ({
           </span>
         </ConfirmDialog>
       )}
-      <CompaniesContcatedHistory
+      <CompaniesInteractionHistory
         open={historyOpen}
         onOpenChange={setHistoryOpen}
         data={companyData || null}

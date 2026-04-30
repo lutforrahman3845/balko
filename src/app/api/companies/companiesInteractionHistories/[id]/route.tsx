@@ -1,4 +1,4 @@
-import { CompanyContactHistory } from "@/mock/CompanyContactHistory";
+import { CompanyInteractionHistory } from "@/mock/CompanyInteractionHistory";
 import { contactHistory } from "@/mock/contactHistory";
 import { COMPANIES } from "@/mock/companies";
 import { mockContacts } from "@/mock/contacts";
@@ -16,7 +16,7 @@ export async function GET(
         const company = COMPANIES.find((c) => c.id === id);
         const companyContactIds = company?.contactIds || [];
 
-        const companyHistory = CompanyContactHistory.filter((history) => history.companyId === id);
+        const companyHistory = CompanyInteractionHistory.filter((history) => history.companyId === id);
 
         const contactInteractionHistory = contactHistory
             .filter((h) => companyContactIds.includes(h.contactId))

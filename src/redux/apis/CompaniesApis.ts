@@ -21,13 +21,13 @@ const companiesApiSlice = apiSlice.injectEndpoints({
             query: (id) => `/companies/${id}`,
             providesTags: (_result, _error, id) => [{ type: "company", id: String(id) }],
         }),
-        getCompanyContactHistory: builder.query({
+        getCompanyInteractionHistory: builder.query({
             query: ({ id, pageIndex, pageSize }: { id: string, pageIndex?: number, pageSize?: number }) => {
                 const params = new URLSearchParams();
                 if (pageIndex) params.set("pageIndex", pageIndex.toString());
                 if (pageSize) params.set("pageSize", pageSize.toString());
                 return {
-                    url: `/companies/CompaniesContactHistory/${id}${params.toString() ? `?${params.toString()}` : ``}`,
+                    url: `/companies/companiesInteractionHistories/${id}${params.toString() ? `?${params.toString()}` : ``}`,
                     method: "GET",
                 }
             },
@@ -39,5 +39,5 @@ const companiesApiSlice = apiSlice.injectEndpoints({
 export const {
     useGetCompaniesQuery,
     useGetCompanyDetailsQuery,
-    useGetCompanyContactHistoryQuery,
+    useGetCompanyInteractionHistoryQuery,
 } = companiesApiSlice;
