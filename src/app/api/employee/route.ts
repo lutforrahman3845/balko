@@ -90,11 +90,14 @@ export async function GET(req: Request) {
     // Return final response
     return NextResponse.json({
       data: expandedEmployees,
-      total,
-      totalPages,
-      pageIndex,
-      pageSize,
+      meta: {
+        pageIndex,
+        pageSize,
+        total,
+        totalPages,
+      },
     });
+
   } catch (error) {
     console.error("Error fetching employees:", error);
     return NextResponse.json(

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { ExpandedTask, TaskFormSchema, TaskFormValues } from "@/@types/tassk";
+import { ExpandedDepartment, DepartmentFormSchema, DepartmentFormValues } from "@/@types/department";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
@@ -12,107 +12,104 @@ import {
   SheetBody,
   SheetFooter,
 } from "@/components/ui/sheet";
-import { CheckSquare, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
-import TaskForm from "./TaskForm";
-interface TaskFormProps {
+import DepartmentForm from "./DepartmentForm";
+import { HiOutlineFolderAdd } from "react-icons/hi";
+
+interface DepartmentFormModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   isEdit?: boolean;
-  data?: ExpandedTask | null;
+  data?: ExpandedDepartment | null;
   selectedId?: string | null;
 }
 
-const TaskFormModal = ({
+const DepartmentFormModal = ({
   open,
   onOpenChange,
   isEdit = false,
   data = null,
   selectedId = null,
-}: TaskFormProps) => {
+}: DepartmentFormModalProps) => {
   // Form State
   const {
     control,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting, isDirty },
-  } = useForm<TaskFormValues>({
-    resolver: zodResolver(TaskFormSchema),
+  } = useForm<DepartmentFormValues>({
+    resolver: zodResolver(DepartmentFormSchema),
     defaultValues: {
-      title: "",
-      content: "",
-      assignedEmployeeIds: [],
-      status: "pending",
-      priority: "medium",
-      dueAt: "",
+      displayName: "",
+      description: "",
+      parentDepartmentId: null,
+      departmentHeadId: null,
     },
   });
 
   useEffect(() => {
     if (data && isEdit) {
       reset({
-        title: data.title,
-        content: data.content || "",
-        assignedEmployeeIds: data.assignedEmployeeIds || [],
-        status: data?.status || "pending",
-        priority: data?.priority,
-        dueAt: data?.dueAt,
+        displayName: data.displayName,
+        description: data.description || "",
+        parentDepartmentId: data.parentDepartmentId || null,
+        departmentHeadId: data.departmentHeadId?.toString() || null,
       });
     } else {
       reset({
-        title: "",
-        content: "",
-        assignedEmployeeIds: [],
-        status: "pending",
-        priority: "medium",
-        dueAt: "",
+        displayName: "",
+        description: "",
+        parentDepartmentId: null,
+        departmentHeadId: null,
       });
     }
   }, [data, isEdit, reset]);
-  const onSubmit = (data: TaskFormValues) => {
+
+  const onSubmit = (data: DepartmentFormValues) => {
     try {
       console.log(data);
       if (!isEdit) {
-        console.log("Edit id :", selectedId);
-        toast.success("Task created successfully!");
+        toast.success("Department created successfully!");
       } else {
-        toast.success("Task updated successfully!");
+        console.log("Edit id :", selectedId);
+        toast.success("Department updated successfully!");
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(
         error?.message ??
-        (isEdit ? "Failed to update task" : "Failed to create task"),
+        (isEdit ? "Failed to update department" : "Failed to create department"),
       );
     } finally {
       reset();
       onOpenChange(false);
     }
   };
+
   const handleFormError = () => {
     toast.error("Please fix the errors in the form before submitting.");
   };
+
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent className="gap-0 sm:w-150 inset-5 inset-s-auto h-auto rounded-lg p-0 sm:max-w-none ">
         <SheetHeader className="mb-0">
           <SheetTitle className="p-3 flex items-center gap-2.5">
-            <div className="size-5 rounded border border-blue-500/50 flex items-center justify-center bg-blue-500/10">
-              <CheckSquare className="size-3.5 text-blue-500" />
-            </div>
-             {isEdit ? "Update Task" : "New Task"}
+            <HiOutlineFolderAdd className="size-5 text-blue-500" />
+            {isEdit ? "Update Department" : "New Department"}
           </SheetTitle>
         </SheetHeader>
         <form onSubmit={handleSubmit(onSubmit, handleFormError)}>
           <SheetBody className="grow p-0">
             <ScrollArea className="h-[calc(100vh-10.5rem)]">
-              <TaskForm
+              <DepartmentForm
                 control={control}
                 errors={errors}
                 isEdit={isEdit}
-                data={data?.assignedEmployees || []}
+                data={data}
               />
             </ScrollArea>
           </SheetBody>
@@ -138,9 +135,9 @@ const TaskFormModal = ({
                 {isSubmitting ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : isEdit ? (
-                  "Update Task"
+                  "Update Department"
                 ) : (
-                  "Save Task"
+                  "Save Department"
                 )}
               </Button>
             </div>
@@ -151,4 +148,5 @@ const TaskFormModal = ({
   );
 };
 
-export default TaskFormModal;
+export default DepartmentFormModal;
+

@@ -32,13 +32,13 @@ export interface ExpandedCompany extends Company {
   categories: Category[];
   contacts: Contact[];
 }
+import { PaginationMeta } from "./pagination";
+
 export interface GetCompaniesResponse {
   data: ExpandedCompany[];
-  total: number;
-  totalPages: number;
-  pageIndex: number;
-  pageSize: number;
+  meta: PaginationMeta;
 }
+
 
 import { z } from "zod";
 
@@ -117,8 +117,6 @@ export interface CompanyInteractionHistoryResponse {
 
 export interface GetCompanyInteractionHistoryResponse {
   data: CompanyInteractionHistoryResponse;
-  total: number;
-  totalPages: number;
-  pageIndex: number;
-  pageSize: number;
+  meta: PaginationMeta;
 }
+

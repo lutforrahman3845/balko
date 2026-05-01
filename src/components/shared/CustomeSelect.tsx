@@ -91,12 +91,22 @@ const CustomeSelect = ({
     });
   }, [selectedIds, options, labelCache]);
 
-  const filteredOptions = options.filter((opt) => {
-    const searchStr =
-      opt.searchText || (typeof opt.label === "string" ? opt.label : "");
-    return searchStr.toLowerCase().includes(searchTerm.toLowerCase());
-  });
+  const sortedAndFilteredOptions = useMemo(() => {
+    // 1. Filter by search term
+    const filtered = options.filter((opt: Option) =>
+      opt.searchText || (typeof opt.label === "string" ? opt.label : "").includes(searchTerm.toLowerCase())
+    );
 
+    // 2. Sort: Selected options always at the top
+    return [...filtered].sort((a, b) => {
+      const aSelected = selectedIds.includes(a.value);
+      const bSelected = selectedIds.includes(b.value);
+      if (aSelected && !bSelected) return -1;
+      if (!aSelected && bSelected) return 1;
+      return 0;
+    });
+  }, [options, searchTerm, selectedIds]);
+  
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -164,7 +174,7 @@ const CustomeSelect = ({
           className={cn(
             "min-h-10.5 w-full px-3 py-2 rounded-md border border-input bg-background text-sm ring-offset-background transition-all focus-within:ring  focus-within:ring-offset hover:bg-accent/10 flex items-center justify-between cursor-pointer text-left",
             actualError &&
-              "border-destructive ring-destructive/20 focus-within:ring-destructive",
+            "border-destructive ring-destructive/20 focus-within:ring-destructive",
             className,
           )}
         >
@@ -246,8 +256,8 @@ const CustomeSelect = ({
                     </div>
                   )}
                   <div className="max-h-60 overflow-y-auto custom-scrollbar p-1">
-                    {filteredOptions.length > 0 ? (
-                      filteredOptions.map((option) => (
+                    {sortedAndFilteredOptions.length > 0 ? (
+                      sortedAndFilteredOptions.map((option) => (
                         <button
                           key={option.value}
                           type="button"

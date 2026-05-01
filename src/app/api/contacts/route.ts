@@ -82,11 +82,14 @@ export async function GET(req: Request) {
 
     return NextResponse.json({
       data,
-      total,
-      totalPages,
-      pageIndex,
-      pageSize,
+      meta: {
+        pageIndex,
+        pageSize,
+        total,
+        totalPages,
+      },
     });
+
   } catch (error) {
     console.error("Error fetching contacts:", error);
     return NextResponse.json(

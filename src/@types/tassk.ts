@@ -19,13 +19,13 @@ export interface ExpandedTask extends Task {
   assignedEmployees: Employee[];
 }
 
+import { PaginationMeta } from "./pagination";
+
 export interface GetTask {
   data: ExpandedTask[];
-  pageIndex: number;
-  pageSize: number;
-  total: number;
-  totalPages: number;
+  meta: PaginationMeta;
 }
+
 
 // Form Schema
 import { z } from "zod";

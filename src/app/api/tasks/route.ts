@@ -101,11 +101,14 @@ export async function GET(req: Request) {
     // Return the required structure
     return NextResponse.json({
       data: expandedTasks,
-      total,
-      totalPages,
-      pageIndex,
-      pageSize,
+      meta: {
+        pageIndex,
+        pageSize,
+        total,
+        totalPages,
+      }
     });
+
   } catch (error) {
     console.error("Error fetching tasks:", error);
     return NextResponse.json(

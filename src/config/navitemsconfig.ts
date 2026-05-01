@@ -1,6 +1,7 @@
 import { NavConfig } from "@/@types/NavItem";
 import { CheckSquare, LayoutGrid } from "lucide-react";
 import { LuBuilding2 } from "react-icons/lu";
+import { PiFolderOpenDuotone } from "react-icons/pi";
 import { RiContactsBook3Line } from "react-icons/ri";
 
 export const MAIN_NAV: NavConfig = [
@@ -35,5 +36,11 @@ export const MAIN_NAV: NavConfig = [
       tooltip: "New Company",
       path: "/companies/new",
     },
+  },
+  {
+    icon: PiFolderOpenDuotone,
+    title: "Department",
+    path: "/department",
+    id: "department",
   },
 ];

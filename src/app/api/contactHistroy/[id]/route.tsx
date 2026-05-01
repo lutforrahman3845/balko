@@ -33,11 +33,14 @@ export async function GET(
         }
         return NextResponse.json({
             data,
-            total,
-            totalPages,
-            pageIndex,
-            pageSize,
+            meta: {
+                pageIndex,
+                pageSize,
+                total,
+                totalPages,
+            },
         });
+
     } catch (error) {
         console.error("Error fetching contact:", error);
         return NextResponse.json(

@@ -27,13 +27,13 @@ export interface ExpandedContact extends Contact {
   company: Company | null;
 }
 
+import { PaginationMeta } from "./pagination";
+
 export interface GetContacts {
   data: ExpandedContact[];
-  pageIndex: number;
-  pageSize: number;
-  total: number;
-  totalPages: number;
+  meta: PaginationMeta;
 }
+
 
 // Follow ups Form Schema
 import { z } from "zod";
