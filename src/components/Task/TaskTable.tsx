@@ -394,8 +394,8 @@ const TaskTable = ({
             pageSize={pageSize}
             setPageSize={setPageSize}
             isLoading={loading}
-            pageCount={data?.totalPages || 0}
-            recordCount={data?.total || 0}
+            pageCount={data?.meta?.totalPages || 0}
+            recordCount={data?.meta?.total || 0}
           />
         )}
       </div>

@@ -10,7 +10,7 @@ export const employeeData: Employee[] = [
         designation: 'Chief Executive Officer',
         employeeType: 'full_time',
         departmentId: '1',
-        avatar: '/avatars/300-1.png',
+        avatar: '/avatars/300-24.png',
         status: 'active',
         createdAt: '2023-01-15T09:00:00Z',
         updatedAt: '2025-02-05T21:02:53Z',

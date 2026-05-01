@@ -447,8 +447,8 @@ const CompaniesTable = ({
         <DataTable table={table} loading={loading} />
         {data && data?.data?.length > 0 && (
           <TablePagination
-            recordCount={data.total}
-            pageCount={data.totalPages}
+            recordCount={data?.meta?.total || 0}
+            pageCount={data?.meta?.totalPages || 0}
             isLoading={loading}
             pageIndex={pageIndex}
             pageSize={pageSize}

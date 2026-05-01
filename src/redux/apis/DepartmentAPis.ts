@@ -1,4 +1,4 @@
-import { GetAllDepartmentResponse } from "@/@types/department";
+import { ExpandedDepartment, GetAllDepartmentResponse } from "@/@types/department";
 import { apiSlice } from "../apiSlice";
 
 interface GetDepartmentParams {
@@ -20,8 +20,15 @@ const departmentApis = apiSlice.injectEndpoints({
                 }
             }),
             providesTags: ["department"],
+        }),
+        getDepartmentById: builder.query<ExpandedDepartment, string>({
+            query: (id: string) => ({
+                url: `/department/${id}`,
+                method: "GET",
+            }),
+            providesTags: (result, error, id) => [{ type: "department", id }],
         })
     })
 })
 
-export const { useGetDepartmentQuery } = departmentApis;
+export const { useGetDepartmentQuery, useGetDepartmentByIdQuery } = departmentApis;
