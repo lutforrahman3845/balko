@@ -37,7 +37,7 @@ export function Notifications({ trigger }: { trigger: ReactNode }) {
   return (
     <Sheet>
       <SheetTrigger asChild>{trigger}</SheetTrigger>
-      <SheetContent className="gap-0 sm:w-125 inset-5 start-auto h-auto rounded-lg p-0 sm:max-w-none">
+      <SheetContent className="gap-0 sm:w-125 inset-5 inset-s-auto h-auto rounded-lg p-0 sm:max-w-none">
         <SheetHeader className="mb-0">
           <SheetTitle className="p-3">Notifications</SheetTitle>
         </SheetHeader>

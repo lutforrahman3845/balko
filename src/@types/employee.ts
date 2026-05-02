@@ -10,6 +10,7 @@ export interface Employee {
     employeeType: 'full_time' | 'part_time' | 'contractor' | 'intern';
     departmentId: string;
     avatar: string | null;
+    roleId:string
     status: 'active' | 'inactive';
     createdAt: string;
     updatedAt: string;
