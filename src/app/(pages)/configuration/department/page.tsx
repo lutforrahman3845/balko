@@ -48,7 +48,7 @@ const Page = () => {
                         <div className="flex flex-wrap items-center  gap-4 p-4">
                             <FilterSearch
                                 searchQuery={searchQuery}
-                                setSearchQuery={setSearchQuery}
+                                setSearchQuery={(query) => { if (query.trim() !== searchQuery.trim()) { setPageIndex(1); setSearchQuery(query.trim()) } }}
                                 placeholder="Search department by Name..."
                             />
                         </div>

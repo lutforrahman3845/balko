@@ -14,7 +14,7 @@ import ContactTable from "@/components/Contacts/ContactTable";
 import { Button } from "@/components/ui/button";
 import ConfirmDialog from "@/components/shared/ConfirmDialog";
 import { toast } from "sonner";
-import { Trash2, X,} from "lucide-react";
+import { Trash2, X, } from "lucide-react";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import FilterSort from "@/components/shared/FilterSort";
 import { TiUserAddOutline, TiUserOutline } from "react-icons/ti";
@@ -95,7 +95,8 @@ const Page = () => {
             <div className="flex flex-wrap  items-center  gap-4 p-4">
               <FilterSearch
                 searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
+                setSearchQuery={(query) => { if (query.trim() !== searchQuery.trim()) { setPageIndex(1); setSearchQuery(query.trim()) } }}
+
                 placeholder="Search Contacts by Name, Email, Position, Company"
               />
               <FilterDropDown

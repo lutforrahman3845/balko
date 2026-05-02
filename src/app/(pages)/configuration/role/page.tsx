@@ -17,7 +17,7 @@ const Page = () => {
     const [pageSize, setPageSize] = useState<number>(10);
     const [rowSelection, setRowSelection] = useState({});
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-    
+
     const {
         data: roles,
         isLoading: loading,
@@ -51,7 +51,7 @@ const Page = () => {
                         <div className="flex flex-wrap items-center gap-4 p-4">
                             <FilterSearch
                                 searchQuery={searchQuery}
-                                setSearchQuery={setSearchQuery}
+                                setSearchQuery={(query) => { if (query.trim() !== searchQuery.trim()) { setPageIndex(1); setSearchQuery(query.trim()) } }}
                                 placeholder="Search role by Name..."
                             />
                         </div>
