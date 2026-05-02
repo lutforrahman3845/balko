@@ -46,11 +46,11 @@ export const MAIN_NAV: NavConfig = [
     submenu: [
       {
         title: "Department",
-        path: "/department",
+        path: "/configuration/department",
       },
       {
         title: "Role",
-        path: "/role",
+        path: "/configuration/role",
       },
     ]
   },

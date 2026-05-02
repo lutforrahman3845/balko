@@ -236,7 +236,6 @@ function AccordionMenuItem({
             if (onClick) {
               onClick(e);
             }
-            e.preventDefault();
           }}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
