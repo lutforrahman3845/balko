@@ -22,6 +22,7 @@ import { TbEdit, TbEye, TbTrash } from "react-icons/tb";
 import ConfirmDialog from "../shared/ConfirmDialog";
 import { toast } from "sonner";
 import EmployeeFormModal from "./EmployeeFormModal";
+import EmployeeDetails from "./EmployeeDetails";
 
 interface EmployeeTableProps {
   data: GetEmployee | null;
@@ -67,6 +68,7 @@ const EmployeeTable = ({
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [employeeFormOpen, setEmployeeFormOpen] = useState(false);
+  const [employeeDetailsOpen, setEmployeeDetailsOpen] = useState(false);
   const handleDialogOpen = (id: string) => {
     setDialogOpen(true);
     setSelectedId(id);
@@ -202,6 +204,11 @@ const EmployeeTable = ({
                 <TooltipTrigger asChild>
                   <div
                     className="text-xl cursor-pointer"
+                    role="button"
+                    onClick={() => {
+                      setSelectedId(row.original.id);
+                      setEmployeeDetailsOpen(true);
+                    }}
                   >
                     <TbEye />
                   </div>
@@ -290,6 +297,11 @@ const EmployeeTable = ({
         open={employeeFormOpen}
         onOpenChange={setEmployeeFormOpen}
         isEdit={true}
+        selectedId={selectedId}
+      />
+      <EmployeeDetails
+        open={employeeDetailsOpen}
+        onOpenChange={setEmployeeDetailsOpen}
         selectedId={selectedId}
       />
     </>
