@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { ExpandedDepartment, DepartmentFormSchema, DepartmentFormValues } from "@/@types/department";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
@@ -12,70 +11,87 @@ import {
   SheetBody,
   SheetFooter,
 } from "@/components/ui/sheet";
-import { Loader2 } from "lucide-react";
+import { CheckSquare, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
-import DepartmentForm from "./DepartmentForm";
-import { HiOutlineFolderAdd } from "react-icons/hi";
-
-interface DepartmentFormModalProps {
+import { EmployeeFormSchema, EmployeeFormValues, ExpandedSingleEmployee } from "@/@types/employee";
+import { TiUserAdd } from "react-icons/ti";
+import EmployeeForm from "./EmployeeForm";
+interface EmployeeFormModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   isEdit?: boolean;
-  data?: ExpandedDepartment | null;
+  data?: ExpandedSingleEmployee | null;
   selectedId?: string | null;
 }
 
-const DepartmentFormModal = ({
+const EmployeeFormModal = ({
   open,
   onOpenChange,
   isEdit = false,
   data = null,
   selectedId = null,
-}: DepartmentFormModalProps) => {
+}: EmployeeFormModalProps) => {
   // Form State
   const {
     control,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting, isDirty },
-  } = useForm<DepartmentFormValues>({
-    resolver: zodResolver(DepartmentFormSchema),
+  } = useForm<EmployeeFormValues>({
+    resolver: zodResolver(EmployeeFormSchema),
     defaultValues: {
-      displayName: "",
-      description: "",
-      parentDepartmentId: null,
-      departmentHeadId: null,
+      avatar: null,
+      name: "",
+      email: "",
+      phone: "",
+      address: "",
+      designation: "",
+      employeeType: "full_time",
+      departmentId: "",
+      roleId: "",
+      teamIds: null,
     },
   });
 
   useEffect(() => {
     if (data && isEdit) {
       reset({
-        displayName: data.displayName,
-        description: data.description || "",
-        parentDepartmentId: data.parentDepartmentId || null,
-        departmentHeadId: data.departmentHeadId?.toString() || null,
+        avatar: data.avatar || null,
+        name: data.name,
+        email: data.email || "",
+        phone: data.phone || "",
+        address: data.address || "",
+        designation: data.designation || "",
+        employeeType: data.employeeType || "full_time",
+        departmentId: data.departmentId || "",
+        roleId: data.roleId || "",
+        teamIds: data?.teams?.map((team) => team.id) || null,
       });
     } else {
       reset({
-        displayName: "",
-        description: "",
-        parentDepartmentId: null,
-        departmentHeadId: null,
+        avatar: null,
+        name: "",
+        email: "",
+        phone: "",
+        address: "",
+        designation: "",
+        employeeType: "full_time",
+        departmentId: "",
+        roleId: "",
+        teamIds: null,
       });
     }
   }, [data, isEdit, reset]);
-
-  const onSubmit = (data: DepartmentFormValues) => {
+  const onSubmit = (data: EmployeeFormValues) => {
     try {
       console.log(data);
       if (!isEdit) {
-        toast.success("Department created successfully!");
-      } else {
         console.log("Edit id :", selectedId);
-        toast.success("Department updated successfully!");
+        toast.success("Employee created successfully!");
+      } else {
+        toast.success("Employee updated successfully!");
       }
       reset();
       onOpenChange(false);
@@ -83,32 +99,30 @@ const DepartmentFormModal = ({
     } catch (error: any) {
       toast.error(
         error?.message ??
-        (isEdit ? "Failed to update department" : "Failed to create department"),
+        (isEdit ? "Failed to update employee" : "Failed to create employee"),
       );
     }
   };
-
   const handleFormError = () => {
     toast.error("Please fix the errors in the form before submitting.");
   };
-
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent className="gap-0 sm:w-150 inset-5 inset-s-auto h-auto rounded-lg p-0 sm:max-w-none ">
         <SheetHeader className="mb-0">
           <SheetTitle className="p-3 flex items-center gap-2.5">
-            <HiOutlineFolderAdd className="size-5 text-blue-500" />
-            {isEdit ? "Update Department" : "New Department"}
+            <TiUserAdd className="size-6 text-blue-500" />
+            {isEdit ? "Update Employee" : "New Employee"}
           </SheetTitle>
         </SheetHeader>
         <form onSubmit={handleSubmit(onSubmit, handleFormError)}>
           <SheetBody className="grow p-0">
             <ScrollArea className="h-[calc(100vh-10.5rem)]">
-              <DepartmentForm
+              <EmployeeForm
                 control={control}
                 errors={errors}
-                isEdit={isEdit}
                 data={data}
+                isEdit={isEdit}
               />
             </ScrollArea>
           </SheetBody>
@@ -134,9 +148,9 @@ const DepartmentFormModal = ({
                 {isSubmitting ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : isEdit ? (
-                  "Update Department"
+                  "Update Employee"
                 ) : (
-                  "Save Department"
+                  "Save Employee"
                 )}
               </Button>
             </div>
@@ -147,5 +161,4 @@ const DepartmentFormModal = ({
   );
 };
 
-export default DepartmentFormModal;
-
+export default EmployeeFormModal;

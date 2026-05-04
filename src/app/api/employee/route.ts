@@ -1,23 +1,22 @@
 import { NextResponse } from "next/server";
 import { employeeData } from "@/mock/employeeData";
 import { departmentData } from "@/mock/departmentData";
+import { rolesData } from "@/mock/roleData";
 
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-    
-    // Extract parameters
+    const pageIndex = parseInt(searchParams.get("pageIndex") || "1", 10);
+    const pageSize = parseInt(searchParams.get("pageSize") || "10", 10);
     const searchQuery = searchParams.get("searchQuery")?.toLowerCase() || "";
     const statusesParam = searchParams.get("status");
     const departmentsParam = searchParams.get("departmentId");
+    const rolesParam = searchParams.get("roleId");
     const employeeTypesParam = searchParams.get("employeeType");
-    const pageIndex = parseInt(searchParams.get("pageIndex") || "1", 10);
-    const pageSize = parseInt(searchParams.get("pageSize") || "10", 10);
-    const sortBy = searchParams.get("sortBy") || "createdAt";
-    const sortOrder = searchParams.get("sortOrder") || "desc";
 
     const statuses = statusesParam ? statusesParam.split(",").filter(Boolean) : [];
     const departmentIds = departmentsParam ? departmentsParam.split(",").filter(Boolean) : [];
+    const roleIds = rolesParam ? rolesParam.split(",").filter(Boolean) : [];
     const employeeTypes = employeeTypesParam ? employeeTypesParam.split(",").filter(Boolean) : [];
 
     // 1. Filter Employees
@@ -29,8 +28,7 @@ export async function GET(req: Request) {
         (emp) =>
           emp.name?.toLowerCase().includes(searchQuery) ||
           emp.email?.toLowerCase().includes(searchQuery) ||
-          emp.designation?.toLowerCase().includes(searchQuery) ||
-          emp.id?.includes(searchQuery)
+          emp.designation?.toLowerCase().includes(searchQuery)
       );
     }
 
@@ -44,30 +42,15 @@ export async function GET(req: Request) {
       filtered = filtered.filter((emp) => emp.departmentId && departmentIds.includes(emp.departmentId));
     }
 
+    // Role Filter
+    if (roleIds.length > 0) {
+      filtered = filtered.filter((emp) => emp.roleId && roleIds.includes(emp.roleId));
+    }
+
     // Employee Type Filter
     if (employeeTypes.length > 0) {
       filtered = filtered.filter((emp) => emp.employeeType && employeeTypes.includes(emp.employeeType));
     }
-
-     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    filtered.sort((a: any, b: any) => {
-      const valA = a[sortBy];
-      const valB = b[sortBy];
-      
-      if (sortBy === "createdAt" || sortBy === "updatedAt") {
-        const timeA = new Date(valA).getTime();
-        const timeB = new Date(valB).getTime();
-        return sortOrder === "desc" ? timeB - timeA : timeA - timeB;
-      }
-      
-      if (typeof valA === "string" && typeof valB === "string") {
-        return sortOrder === "desc" 
-          ? valB.localeCompare(valA) 
-          : valA.localeCompare(valB);
-      }
-      
-      return 0;
-    });
 
     // 3. Pagination Math
     const total = filtered.length;
@@ -77,15 +60,21 @@ export async function GET(req: Request) {
 
     const paginatedEmployees = filtered.slice(startIdx, endIdx);
 
-    // 4. Expand Related Data (Department)
+    // 4. Expand Related Data (Department, Role, Teams)
     const expandedEmployees = paginatedEmployees.map((emp) => {
       const department =
         departmentData.find((dept) => dept.id === emp.departmentId) || null;
+      const role = rolesData.find((r) => r.id === emp.roleId) || null;
+      
+
+
       return {
         ...emp,
         department,
+        role
       };
     });
+
 
     // Return final response
     return NextResponse.json({
@@ -106,3 +95,4 @@ export async function GET(req: Request) {
     );
   }
 }
+

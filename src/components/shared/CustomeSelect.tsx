@@ -11,7 +11,7 @@ import { FieldError } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 
-interface Option {
+export interface CustomeOption {
   value: string;
   label: React.ReactNode;
   searchText?: string;
@@ -27,7 +27,7 @@ interface CustomeSelectProps {
   name: string;
   value?: string | string[];
   onChange?: (value: string | string[]) => void;
-  options: Option[];
+  options: CustomeOption[];
   required?: boolean;
   searchable?: boolean;
   multiple?: boolean;
@@ -93,7 +93,7 @@ const CustomeSelect = ({
 
   const sortedAndFilteredOptions = useMemo(() => {
     // 1. Filter by search term
-    const filtered = options.filter((opt: Option) =>
+    const filtered = options.filter((opt: CustomeOption) =>
       opt.searchText || (typeof opt.label === "string" ? opt.label : "").includes(searchTerm.toLowerCase())
     );
 

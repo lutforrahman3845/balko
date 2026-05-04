@@ -80,15 +80,14 @@ const TaskFormModal = ({
       } else {
         toast.success("Task updated successfully!");
       }
+      reset();
+      onOpenChange(false);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(
         error?.message ??
         (isEdit ? "Failed to update task" : "Failed to create task"),
       );
-    } finally {
-      reset();
-      onOpenChange(false);
     }
   };
   const handleFormError = () => {
@@ -102,7 +101,7 @@ const TaskFormModal = ({
             <div className="size-5 rounded border border-blue-500/50 flex items-center justify-center bg-blue-500/10">
               <CheckSquare className="size-3.5 text-blue-500" />
             </div>
-             {isEdit ? "Update Task" : "New Task"}
+            {isEdit ? "Update Task" : "New Task"}
           </SheetTitle>
         </SheetHeader>
         <form onSubmit={handleSubmit(onSubmit, handleFormError)}>

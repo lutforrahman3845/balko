@@ -2,7 +2,7 @@ import { NavConfig } from "@/@types/NavItem";
 import { CheckSquare, LayoutGrid } from "lucide-react";
 import { IoSettingsOutline } from "react-icons/io5";
 import { LuBuilding2 } from "react-icons/lu";
-import { PiFolderOpenDuotone } from "react-icons/pi";
+import { LiaUserTieSolid } from "react-icons/lia";
 import { RiContactsBook3Line } from "react-icons/ri";
 
 export const MAIN_NAV: NavConfig = [
@@ -36,6 +36,12 @@ export const MAIN_NAV: NavConfig = [
       tooltip: "New Company",
       path: "/companies/new",
     },
+    haveSubmenu: false,
+  },
+  {
+    icon: LiaUserTieSolid,
+    title: "Employees",
+    path: "/employees",
     haveSubmenu: false,
   },
   {

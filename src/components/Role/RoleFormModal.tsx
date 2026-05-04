@@ -71,15 +71,14 @@ const RoleFormModal = ({
                 console.log("Edit id :", selectedId);
                 toast.success("Role updated successfully!");
             }
+            reset();
+            onOpenChange(false);
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             toast.error(
                 error?.message ??
                 (isEdit ? "Failed to update role" : "Failed to create role"),
             );
-        } finally {
-            reset();
-            onOpenChange(false);
         }
     };
 

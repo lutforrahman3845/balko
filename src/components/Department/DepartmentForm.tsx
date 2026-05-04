@@ -1,7 +1,7 @@
 import { Control, Controller, FieldErrors } from "react-hook-form";
 import FormItem from "@/components/shared/FormItem";
 import CustomeSelect from "@/components/shared/CustomeSelect";
-import { Employee, ExpandedEmployee } from "@/@types/employee";
+import { ExpandedEmployee } from "@/@types/employee";
 import { ExpandedDepartment, DepartmentFormValues } from "@/@types/department";
 import { useMemo, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";

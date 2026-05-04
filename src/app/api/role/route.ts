@@ -6,6 +6,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
 
     const searchQuery = searchParams.get('searchQuery') || '';
+
     const pageIndex = parseInt(searchParams.get('pageIndex') || '1');
     const pageSize = parseInt(searchParams.get('pageSize') || '10');
 
