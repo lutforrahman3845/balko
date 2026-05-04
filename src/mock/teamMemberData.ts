@@ -240,5 +240,13 @@ export const teamMemberData: TeamMember[] = [
         roleId: "12",
         joinedAt: "2025-01-01T10:00:00Z",
         leftAt: null
-    }
+    },
+    {
+        id: "31",
+        userId: "6",
+        teamId: "3",
+        roleId: "7",
+        joinedAt: "2025-06-15T09:00:00Z",
+        leftAt: null
+    },
 ];

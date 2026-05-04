@@ -21,7 +21,7 @@ import {
 import { TbEdit, TbEye, TbTrash } from "react-icons/tb";
 import ConfirmDialog from "../shared/ConfirmDialog";
 import { toast } from "sonner";
-import { Button } from "../ui/button";
+import EmployeeFormModal from "./EmployeeFormModal";
 
 interface EmployeeTableProps {
   data: GetEmployee | null;
@@ -66,11 +66,12 @@ const EmployeeTable = ({
 }: EmployeeTableProps) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-
+  const [employeeFormOpen, setEmployeeFormOpen] = useState(false);
   const handleDialogOpen = (id: string) => {
     setDialogOpen(true);
     setSelectedId(id);
   };
+
   const handleDialogClose = () => {
     setDialogOpen(false);
     setSelectedId(null);
@@ -183,10 +184,15 @@ const EmployeeTable = ({
                   <div
                     className="text-xl cursor-pointer"
                     role="button"
+                    onClick={() => {
+                      setSelectedId(row.original.id);
+                      setEmployeeFormOpen(true);
+                    }}
                   >
                     <TbEdit />
                   </div>
                 </TooltipTrigger>
+
                 <TooltipContent>
                   <p>Edit Employee</p>
                 </TooltipContent>
@@ -280,8 +286,15 @@ const EmployeeTable = ({
           </span>
         </ConfirmDialog>
       )}
+      <EmployeeFormModal
+        open={employeeFormOpen}
+        onOpenChange={setEmployeeFormOpen}
+        isEdit={true}
+        selectedId={selectedId}
+      />
     </>
   );
 };
+
 
 export default EmployeeTable;

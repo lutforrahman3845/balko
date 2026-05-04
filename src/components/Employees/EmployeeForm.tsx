@@ -145,25 +145,22 @@ const EmployeeForm = ({
           label: (
             <div className="flex flex-col gap-2">
               <span className="text-sm font-medium">{team.displayName}</span>
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-muted-foreground">Team Leader :</span>
-                {team.teamLeader && (
-                  <div className="flex items-center gap-3">
-                    <Avatar className="size-8 shrink-0">
-                      <AvatarImage src={team.teamLeader.avatar || undefined} />
-                      <AvatarFallback>{team.teamLeader.name.charAt(0)}</AvatarFallback>
-                    </Avatar>
-                    <div className="flex flex-col min-w-0 flex-1">
-                      <p className="text-sm font-medium text-foreground truncate leading-tight">
-                        {team.teamLeader.name}
-                      </p>
-                      <p className="text-xs text-muted-foreground truncate">
-                        {team.teamLeader.designation}
-                      </p>
-                    </div>
+              {team.teamLeader && (
+                <div className="flex items-center gap-3">
+                  <Avatar className="size-8 shrink-0">
+                    <AvatarImage src={team.teamLeader.avatar || undefined} />
+                    <AvatarFallback>{team.teamLeader.name.charAt(0)}</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col min-w-0 flex-1">
+                    <p className="text-sm font-medium text-foreground truncate leading-tight">
+                      {team.teamLeader.name}
+                    </p>
+                    <p className="text-xs text-muted-foreground truncate">
+                      {team.teamLeader.designation}
+                    </p>
                   </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           ),
         });

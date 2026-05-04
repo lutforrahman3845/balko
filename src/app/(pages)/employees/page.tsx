@@ -72,6 +72,8 @@ const Page = () => {
             (id) => (rowSelection as any)[id] && dataIds.has(id)
         );
     }, [employees, rowSelection]);
+
+
     return (
         <div className="flex flex-col min-h-full bg-zinc-50/50 dark:bg-zinc-950/50">
             <EmployeeHeader data={employees?.data || []} />
@@ -86,12 +88,11 @@ const Page = () => {
                         <div className="flex flex-wrap items-center  gap-4 p-4">
                             <FilterSearch
                                 searchQuery={searchQuery}
-                                setSearchQuery={(query) => {
-                                    setSearchQuery(query);
-                                    setPageIndex(1);
-                                }}
+                                setSearchQuery={(q) => { const val = q.trimStart().replace(/\s\s+/g, " "); setSearchQuery(val); if (val.trim() !== searchQuery.trim()) setPageIndex(1) }}
                                 placeholder="Search by name, email, or designation..."
                             />
+
+
                             <FilterDropDown
                                 label="Status"
                                 options={statusOptions}

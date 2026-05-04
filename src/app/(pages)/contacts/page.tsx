@@ -95,7 +95,8 @@ const Page = () => {
             <div className="flex flex-wrap  items-center  gap-4 p-4">
               <FilterSearch
                 searchQuery={searchQuery}
-                setSearchQuery={(query) => { if (query.trim() !== searchQuery.trim()) { setPageIndex(1); setSearchQuery(query.trim()) } }}
+                setSearchQuery={(q) => { const val = q.trimStart().replace(/\s\s+/g, " "); setSearchQuery(val); if (val.trim() !== searchQuery.trim()) setPageIndex(1) }}
+
 
                 placeholder="Search Contacts by Name, Email, Position, Company"
               />

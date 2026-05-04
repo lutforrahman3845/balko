@@ -18,11 +18,11 @@ import { toast } from "sonner";
 import { EmployeeFormSchema, EmployeeFormValues, ExpandedSingleEmployee } from "@/@types/employee";
 import { TiUserAdd } from "react-icons/ti";
 import EmployeeForm from "./EmployeeForm";
+import { useGetEmployeeByIdQuery } from "@/redux/apis/EmployeesApis";
 interface EmployeeFormModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   isEdit?: boolean;
-  data?: ExpandedSingleEmployee | null;
   selectedId?: string | null;
 }
 
@@ -30,9 +30,11 @@ const EmployeeFormModal = ({
   open,
   onOpenChange,
   isEdit = false,
-  data = null,
   selectedId = null,
 }: EmployeeFormModalProps) => {
+
+  const { data: employeeData, isLoading: employeeDataLoading } = useGetEmployeeByIdQuery(selectedId as string, { skip: !open || !isEdit && !selectedId })
+  const data = employeeData?.data as ExpandedSingleEmployee;
   // Form State
   const {
     control,

@@ -27,6 +27,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
                     displayName: team?.displayName,
                     description: team?.description,
                     joinedAt: tm.joinedAt,
+                    teamMemberId: tm.id,
                     teamLeader: employeeData.find(e => e.id === team?.teamLeaderId),
                     createdAt: team?.createdAt,
                     updatedAt: team?.updatedAt,

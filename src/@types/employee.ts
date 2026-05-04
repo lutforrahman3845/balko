@@ -37,6 +37,7 @@ export interface ExpandedSingleEmployee extends ExpandedEmployee {
     displayName: string;
     description: string | null;
     joinedAt?: string;
+    teamMemberId: string;
     teamLeader?: Employee | null;
     createdAt: string;
     updatedAt: string;
