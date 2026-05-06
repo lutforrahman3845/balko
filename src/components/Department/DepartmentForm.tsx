@@ -155,6 +155,7 @@ const DepartmentForm = ({
                         placeholder={"Enter department name"}
                         invalid={Boolean(errors.displayName)}
                         errorMessage={errors.displayName?.message}
+                        maxLength={100}
                         {...field}
                         required
                     />

@@ -216,6 +216,7 @@ const EmployeeForm = ({
               placeholder={"Enter full name"}
               invalid={Boolean(errors.name)}
               errorMessage={errors.name?.message}
+              maxLength={100}
               {...field}
               required
             />

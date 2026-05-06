@@ -20,7 +20,7 @@ export interface GetAllRoleResponse {
 }
 
 export const RoleFormSchema = z.object({
-    displayName: z.string().min(1, "Display Name is required"),
+    displayName: z.string().min(1, "Role Name is required").max(100, "Name must be less than 100 characters"),
     description: z.string().optional(),
 });
 

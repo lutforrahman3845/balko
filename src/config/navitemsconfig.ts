@@ -1,6 +1,6 @@
 import { NavConfig } from "@/@types/NavItem";
 import { CheckSquare, LayoutGrid } from "lucide-react";
-import { IoSettingsOutline } from "react-icons/io5";
+import { IoPeopleCircle, IoSettingsOutline } from "react-icons/io5";
 import { LuBuilding2 } from "react-icons/lu";
 import { LiaUserTieSolid } from "react-icons/lia";
 import { RiContactsBook3Line } from "react-icons/ri";
@@ -42,6 +42,12 @@ export const MAIN_NAV: NavConfig = [
     icon: LiaUserTieSolid,
     title: "Employees",
     path: "/employees",
+    haveSubmenu: false,
+  },
+  {
+    icon: IoPeopleCircle,
+    title: "Teams",
+    path: "/teams",
     haveSubmenu: false,
   },
   {

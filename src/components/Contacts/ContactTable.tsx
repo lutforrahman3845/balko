@@ -373,7 +373,7 @@ const ContactTable = ({
                 </div>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Edit</p>
+                <p>Edit Contact</p>
               </TooltipContent>
             </Tooltip>
             <Tooltip>
@@ -390,7 +390,7 @@ const ContactTable = ({
                 </div>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Details</p>
+                <p>Contact Details</p>
               </TooltipContent>
             </Tooltip>
             <Tooltip>
@@ -407,7 +407,7 @@ const ContactTable = ({
                 </div>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Delete</p>
+                <p>Delete Contact</p>
               </TooltipContent>
             </Tooltip>
           </div>

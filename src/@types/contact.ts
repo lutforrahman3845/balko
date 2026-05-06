@@ -51,7 +51,7 @@ export type ContactsFollowUpFormValues = z.infer<
 // Conatct create Form Schema
 export const ContactsCreateFormSchema = z
   .object({
-    name: z.string().min(1, "Name is required").max(50, "Name must be less than 50 characters"),
+    name: z.string().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
     avatar: z
       .union([z.instanceof(File), z.string()])
       .optional()

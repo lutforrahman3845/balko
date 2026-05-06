@@ -8,12 +8,18 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
 
     const searchQuery = searchParams.get('searchQuery') || '';
+    const departmentsParam = searchParams.get('departmentId') || '';
+
 
     const pageIndex = parseInt(searchParams.get('pageIndex') || '1');
     const pageSize = parseInt(searchParams.get('pageSize') || '10');
-
+    const departmentIds = departmentsParam ? departmentsParam.split(",").filter(Boolean) : [];
     let filteredTeams = [...teamData];
-
+    // Department Filter
+    if (departmentIds.length > 0) {
+        filteredTeams = filteredTeams.filter((team) => team.departmentId && departmentIds.includes(team.departmentId));
+    }
+    // Search Filter
     if (searchQuery) {
         filteredTeams = filteredTeams.filter(team =>
             team.displayName.toLowerCase().includes(searchQuery.toLowerCase()) ||

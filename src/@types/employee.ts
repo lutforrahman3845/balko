@@ -55,7 +55,7 @@ export const EmployeeFormSchema = z.object({
     .union([z.instanceof(File), z.string()])
     .optional()
     .nullable(),
-  name: z.string().min(1, "Name is required"),
+  name: z.string().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
   email: z.string().email("Invalid email"),
   phone: z.string().optional(),
   address: z.string().optional(),

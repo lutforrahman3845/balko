@@ -27,11 +27,11 @@ export interface GetAllDepartmentResponse {
 import { z } from "zod";
 
 export const DepartmentFormSchema = z.object({
-    displayName: z.string().min(1, "Department name is required"),
+    displayName: z.string().min(1, "Department name is required").max(100, "Department name must be less than 100 characters"),
     description: z.string().optional(),
     parentDepartmentId: z.string().nullable().optional(),
     departmentHeadId: z.string().nullable().optional(),
 });
 
 export type DepartmentFormValues = z.infer<typeof DepartmentFormSchema>;
-
+

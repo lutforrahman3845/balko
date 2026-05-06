@@ -317,7 +317,7 @@ const TaskTable = ({
                     </div>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Edit</p>
+                    <p>Edit Task</p>
                   </TooltipContent>
                 </Tooltip>
               )}
@@ -335,7 +335,7 @@ const TaskTable = ({
                   </div>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Details</p>
+                  <p>Task Details</p>
                 </TooltipContent>
               </Tooltip>
               <Tooltip>
@@ -352,7 +352,7 @@ const TaskTable = ({
                   </div>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Delete</p>
+                  <p>Delete Task</p>
                 </TooltipContent>
               </Tooltip>
             </div>

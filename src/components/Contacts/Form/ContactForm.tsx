@@ -45,7 +45,7 @@ const ContactForm = ({
                   placeholder={"Enter contact name"}
                   invalid={Boolean(errors.name)}
                   errorMessage={errors.name?.message}
-                  maxLength={50}
+                  maxLength={100}
                   {...field}
                   value={field.value || ""}
                   required

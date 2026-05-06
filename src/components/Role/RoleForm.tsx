@@ -25,6 +25,7 @@ const RoleForm = ({
                         placeholder={"Enter role display name (e.g. Project Manager)"}
                         invalid={Boolean(errors.displayName)}
                         errorMessage={errors.displayName?.message}
+                        maxLength={100}
                         {...field}
                         required
                     />

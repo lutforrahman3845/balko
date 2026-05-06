@@ -386,7 +386,7 @@ const CompaniesTable = ({
               </div>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Edit</p>
+              <p>Edit Company</p>
             </TooltipContent>
           </Tooltip>
           <Tooltip>
@@ -402,7 +402,7 @@ const CompaniesTable = ({
               </div>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Details</p>
+              <p>Company Details</p>
             </TooltipContent>
           </Tooltip>
           <Tooltip>
@@ -416,7 +416,7 @@ const CompaniesTable = ({
               </div>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Delete</p>
+              <p>Delete Company</p>
             </TooltipContent>
           </Tooltip>
         </div>

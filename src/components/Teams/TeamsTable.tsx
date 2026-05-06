@@ -1,3 +1,5 @@
+"use client";
+import { ExpandedTeam, GetAllTeamResponse } from "@/@types/team";
 import { useMemo, useState } from "react";
 import {
     ColumnDef,
@@ -9,6 +11,8 @@ import { Checkbox } from "../ui/checkbox";
 import { format } from "date-fns";
 import DataTable from "../shared/DataTable";
 import TablePagination from "../shared/TablePagination";
+import { cn } from "@/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
     Tooltip,
     TooltipContent,
@@ -17,13 +21,11 @@ import {
 import { TbEdit, TbEye, TbTrash } from "react-icons/tb";
 import ConfirmDialog from "../shared/ConfirmDialog";
 import { toast } from "sonner";
-import { Role, GetAllRoleResponse } from "@/@types/role";
-import RoleFormModal from "./RoleFormModal";
-import RoleDeatils from "./RoleDeatils";
-import { Badge } from "../ui/badge";
+import TeamsFormModal from "./TeamsFormModal";
+import TeamDetails from "./TeamDetails";
 
-interface RoleTableProps {
-    data: GetAllRoleResponse | null;
+interface TeamsTableProps {
+    data: GetAllTeamResponse | null;
     pageIndex: number;
     pageSize: number;
     setPageIndex: (index: number) => void;
@@ -35,10 +37,9 @@ interface RoleTableProps {
             | Record<string, boolean>
             | ((prev: Record<string, boolean>) => Record<string, boolean>)
     ) => void;
-    refetch?: () => void;
 }
 
-const RoleTable = ({
+const TeamsTable = ({
     data,
     pageIndex,
     pageSize,
@@ -47,19 +48,13 @@ const RoleTable = ({
     loading,
     rowSelection,
     setRowSelection,
-    refetch,
-}: RoleTableProps) => {
+}: TeamsTableProps) => {
     const [dialogOpen, setDialogOpen] = useState(false);
     const [selectedId, setSelectedId] = useState<string | null>(null);
-    const [roleDetailsOpen, setRoleDetailsOpen] = useState(false);
-    const [roleFormOpen, setRoleFormOpen] = useState(false);
-    const [selectedRole, setSelectedRole] = useState<Role | null>(null);
+    const [teamsFormOpen, setTeamsFormOpen] = useState(false);
+    const [teamsDetailsOpen, setTeamsDetailsOpen] = useState(false);
 
-    const handleEdit = (role: Role) => {
-        setSelectedRole(role);
-        setRoleFormOpen(true);
-    };
-    const handleDeleteOpen = (id: string) => {
+    const handleDialogOpen = (id: string) => {
         setDialogOpen(true);
         setSelectedId(id);
     };
@@ -69,67 +64,86 @@ const RoleTable = ({
         setSelectedId(null);
     };
 
-    const columns = useMemo<ColumnDef<Role>[]>(
+    const columns = useMemo<ColumnDef<ExpandedTeam>[]>(
         () => [
             {
                 id: "select",
                 header: "",
                 cell: ({ row }) => (
-                    <div className="flex items-center justify-center ps-2.5">
-                        <Checkbox
-                            checked={row.getIsSelected()}
-                            onCheckedChange={(value) => row.toggleSelected(!!value)}
-                            aria-label="Select row"
-                        />
-                    </div>
+                    <Checkbox
+                        checked={row.getIsSelected()}
+                        onCheckedChange={(value) => row.toggleSelected(!!value)}
+                        aria-label="Select row"
+                        className="translate-y-[2px]"
+                    />
                 ),
                 enableSorting: false,
                 enableHiding: false,
-                enableResizing: false,
             },
             {
                 accessorKey: "displayName",
-                id: "name",
-                header: "Role Name",
+                header: "Team",
                 cell: ({ row }) => {
-                    const role = row.original;
+                    const team = row.original;
                     return (
-                        <div className="flex flex-col min-w-0 py-1">
-                            <div className="font-semibold text-sm leading-tight text-foreground">
-                                {role.displayName}
+                        <div className="flex flex-col min-w-0 font-medium">
+                            <span className="text-sm truncate">{team.displayName}</span>
+                            <span className="text-xs truncate opacity-70 italic">{team.name}</span>
+                        </div>
+                    );
+                },
+            },
+            {
+                accessorKey: "teamLeader",
+                header: "Team Leader",
+                cell: ({ row }) => {
+                    const leader = row.original.teamLeader;
+                    if (!leader) return <span className="text-sm text-muted-foreground italic">No Leader Assigned</span>;
+                    return (
+                        <div className="flex items-center gap-2.5">
+                            <Avatar className="size-8 border shadow-sm">
+                                <AvatarImage src={leader.avatar || undefined} alt={leader.name} />
+                                <AvatarFallback className="text-[10px] font-bold bg-muted text-muted-foreground">
+                                    {leader.name.charAt(0)}
+                                </AvatarFallback>
+                            </Avatar>
+                            <div className="flex flex-col">
+                                <span className="text-sm font-medium">{leader.name}</span>
+                                <span className="text-[10px] text-muted-foreground truncate max-w-[150px]">{leader.email}</span>
                             </div>
                         </div>
                     );
                 },
-                enableSorting: true,
-                enableHiding: false,
-                enableResizing: true,
+            },
+            {
+                accessorKey: "department",
+                header: "Department",
+                cell: ({ row }) => {
+                    const dept = row.original.department;
+                    return (
+                        <p className="font-medium text-sm">
+                            {dept?.displayName || "N/A"}
+                        </p>
+                    );
+                },
             },
             {
                 accessorKey: "description",
-                id: "description",
                 header: "Description",
                 cell: ({ row }) => (
-                    <div className="text-xs text-muted-foreground font-medium truncate max-w-80">
-                        {row.original.description || "-"}
-                    </div>
+                    <p className="text-sm text-muted-foreground truncate max-w-[200px]">
+                        {row.original.description || "No description"}
+                    </p>
                 ),
-                enableSorting: true,
-                enableHiding: true,
-                enableResizing: true,
             },
             {
                 accessorKey: "createdAt",
-                id: "created",
-                header: "Added Date",
+                header: "Created At",
                 cell: ({ row }) => (
-                    <span className="text-xs text-muted-foreground font-medium">
+                    <span className="text-xs text-muted-foreground">
                         {format(new Date(row.original.createdAt), "MMM dd, yyyy")}
                     </span>
                 ),
-                enableSorting: true,
-                enableHiding: true,
-                enableResizing: true,
             },
             {
                 header: "Actions",
@@ -143,34 +157,36 @@ const RoleTable = ({
                                         className="text-xl cursor-pointer"
                                         role="button"
                                         onClick={() => {
-                                            const role = row?.original;
-                                            handleEdit(role)
+                                            setSelectedId(row.original.id);
+                                            setTeamsFormOpen(true);
                                         }}
                                     >
                                         <TbEdit />
                                     </div>
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                    <p>Edit Role</p>
+                                    <p>Edit Team</p>
                                 </TooltipContent>
                             </Tooltip>
+
                             <Tooltip>
                                 <TooltipTrigger asChild>
                                     <div
                                         className="text-xl cursor-pointer"
+                                        role="button"
                                         onClick={() => {
-                                            const id = row?.original?.id;
-                                            if (id) setSelectedId(id)
-                                            setRoleDetailsOpen(true)
+                                            setSelectedId(row.original.id);
+                                            setTeamsDetailsOpen(true);
                                         }}
                                     >
                                         <TbEye />
                                     </div>
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                    <p>Role Details</p>
+                                    <p>Team Details</p>
                                 </TooltipContent>
                             </Tooltip>
+
                             <Tooltip>
                                 <TooltipTrigger asChild>
                                     <div
@@ -178,14 +194,14 @@ const RoleTable = ({
                                         role="button"
                                         onClick={() => {
                                             const id = row?.original?.id;
-                                            if (id) handleDeleteOpen(id);
+                                            if (id) handleDialogOpen(id);
                                         }}
                                     >
                                         <TbTrash className="hover:text-red-500" />
                                     </div>
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                    <p>Delete Role</p>
+                                    <p>Delete Team</p>
                                 </TooltipContent>
                             </Tooltip>
                         </div>
@@ -196,83 +212,70 @@ const RoleTable = ({
                 enableResizing: true,
             },
         ],
-        [],
+        []
     );
 
-    const table = useReactTable<Role>({
+    const table = useReactTable({
         data: data?.data || [],
         columns,
         state: {
             rowSelection,
         },
         getRowId: (row) => String(row.id),
-        onRowSelectionChange: (updater) => {
-            const newRowSelection =
-                typeof updater === "function" ? updater(rowSelection) : updater;
-            setRowSelection(newRowSelection);
-        },
+        onRowSelectionChange: setRowSelection,
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
     });
 
     return (
         <>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 px-6">
                 <DataTable table={table} loading={loading} />
-                {data && data?.data?.length > 0 && (
+                {data && data.data.length > 0 && (
                     <TablePagination
                         pageIndex={pageIndex}
                         setPageIndex={setPageIndex}
                         pageSize={pageSize}
                         setPageSize={setPageSize}
                         isLoading={loading}
-                        pageCount={data?.meta?.totalPages || 0}
-                        recordCount={data?.meta?.total || 0}
+                        pageCount={data.meta.totalPages}
+                        recordCount={data.meta.total}
                     />
                 )}
             </div>
-
-            <RoleFormModal
-                open={roleFormOpen}
-                onOpenChange={(open) => {
-                    setRoleFormOpen(open);
-                    if (!open) setSelectedRole(null);
-                }}
-                isEdit={!!selectedRole}
-                data={selectedRole}
-                selectedId={selectedRole?.id}
-            />
-
-            <RoleDeatils
-                open={roleDetailsOpen}
-                onOpenChange={(open) => {
-                    setRoleDetailsOpen(open);
-                    if (!open) setSelectedId(null);
-                }}
-                selectedId={selectedId}
-            />
-
             {dialogOpen && (
                 <ConfirmDialog
                     isOpen={dialogOpen}
                     type="danger"
-                    title={"Delete Role"}
+                    title="Delete Team"
                     onClose={handleDialogClose}
                     onCancel={handleDialogClose}
-                    confirmButtonType={"destructive"}
+                    confirmButtonType="destructive"
                     onConfirm={() => {
-                        toast.success("Role deleted successfully");
+                        toast.success("Team deleted successfully");
+                        console.log(selectedId);
                         handleDialogClose();
-                        refetch?.();
                     }}
                 >
                     <span>
-                        Are you sure you want to delete this role? This action cannot be undone.
+                        Are you sure you want to delete this team? This action cannot be
+                        undone.
                     </span>
                 </ConfirmDialog>
             )}
+            <TeamsFormModal
+                open={teamsFormOpen}
+                onOpenChange={setTeamsFormOpen}
+                isEdit={true}
+                selectedId={selectedId}
+            />
+            <TeamDetails
+                open={teamsDetailsOpen}
+                onOpenChange={setTeamsDetailsOpen}
+                selectedId={selectedId}
+            />
         </>
     );
 };
 
-export default RoleTable;
+export default TeamsTable;
