@@ -65,8 +65,8 @@ export const MAIN_NAV: NavConfig = [
         path: "/configuration/role",
       },
       {
-        title: "Company Category",
-        path: "/configuration/company-category",
+        title: "Company Type",
+        path: "/configuration/company-type",
       },
     ]
   },

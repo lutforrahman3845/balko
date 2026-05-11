@@ -1,6 +1,6 @@
-import { CompanyCategory } from '@/@types/compantCategory';
+import { CompanyType } from "@/@types/companiesType";
 
-export const COMPANY_CATEGORIES: CompanyCategory[] = [
+export const CompanyTypesData: CompanyType[] = [
   {
     id: '1',
     name: 'B2B',

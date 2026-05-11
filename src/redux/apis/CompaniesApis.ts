@@ -7,7 +7,7 @@ const companiesApiSlice = apiSlice.injectEndpoints({
             pageSize?: number;
             searchQuery?: string;
             pageIndex?: number;
-            category?: string;
+            type?: string;
             connectionStrength?: string;
             lastContacted?: string;
         }>({

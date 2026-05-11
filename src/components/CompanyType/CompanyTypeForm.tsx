@@ -2,14 +2,14 @@
 
 import { Control, Controller, FieldErrors } from "react-hook-form";
 import FormItem from "@/components/shared/FormItem";
-import { CompanyCategoryFormValues } from "@/@types/compantCategory";
+import { CompanyTypeFormValues } from "@/@types/companiesType";
 
-const CompanyCategoryForm = ({
+const CompanyTypeForm = ({
     control,
     errors,
 }: {
-    control: Control<CompanyCategoryFormValues>;
-    errors: FieldErrors<CompanyCategoryFormValues>;
+    control: Control<CompanyTypeFormValues>;
+    errors: FieldErrors<CompanyTypeFormValues>;
 }) => {
 
     return (
@@ -19,9 +19,9 @@ const CompanyCategoryForm = ({
                 control={control}
                 render={({ field }) => (
                     <FormItem
-                        label={"Company Category Name"}
+                        label={"Company Type Name"}
                         inputType="text"
-                        placeholder={"Enter company category name (e.g. Technology)"}
+                        placeholder={"Enter company type name (e.g. Technology)"}
                         invalid={Boolean(errors.name)}
                         errorMessage={errors.name?.message}
                         maxLength={100}
@@ -37,7 +37,7 @@ const CompanyCategoryForm = ({
                     <FormItem
                         label={"Description (optional)"}
                         inputType="text"
-                        placeholder={"Enter category description"}
+                        placeholder={"Enter company type description"}
                         invalid={Boolean(errors.description)}
                         errorMessage={errors.description?.message}
                         textarea={true}
@@ -49,4 +49,4 @@ const CompanyCategoryForm = ({
     );
 };
 
-export default CompanyCategoryForm;
+export default CompanyTypeForm;

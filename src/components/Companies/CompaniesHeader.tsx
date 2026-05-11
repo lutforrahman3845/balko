@@ -21,7 +21,7 @@ const CompaniesHeader = ({ data }: { data: ExpandedCompany[] }) => {
       Email: company.email,
       Phone: company.phone,
       Website: company.website,
-      Industry: company.categories?.map((c) => c.name).join(", ") || "N/A",
+      Industry: company.companyTypes?.map((c) => c.name).join(", ") || "N/A",
       "Employee Range": company.employeeRange,
       "Estimated ARR": company.estimatedArr,
       "Connection Strength": company.connectionStrength,

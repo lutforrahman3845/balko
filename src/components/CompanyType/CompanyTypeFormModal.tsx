@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { CompanyCategory, CompanyCategoryFormSchema, CompanyCategoryFormValues } from "@/@types/compantCategory";
+import { CompanyType, CompanyTypeFormSchema, CompanyTypeFormValues } from "@/@types/companiesType";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
@@ -16,32 +16,32 @@ import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
-import CompanyCategoryForm from "./CompanyCategoryForm";
+import CompanyTypeForm from "./CompanyTypeForm";
 import { BiCategoryAlt } from "react-icons/bi";
 
-interface CompanyCategoryFormModalProps {
+interface CompanyTypeFormModalProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
     isEdit?: boolean;
-    data?: CompanyCategory | null;
+    data?: CompanyType | null;
     selectedId?: string | null;
 }
 
-const CompanyCategoryFormModal = ({
+const CompanyTypeFormModal = ({
     open,
     onOpenChange,
     isEdit = false,
     data = null,
     selectedId = null,
-}: CompanyCategoryFormModalProps) => {
+}: CompanyTypeFormModalProps) => {
     // Form State
     const {
         control,
         handleSubmit,
         reset,
         formState: { errors, isSubmitting, isDirty },
-    } = useForm<CompanyCategoryFormValues>({
-        resolver: zodResolver(CompanyCategoryFormSchema),
+    } = useForm<CompanyTypeFormValues>({
+        resolver: zodResolver(CompanyTypeFormSchema),
         defaultValues: {
             name: "",
             description: "",
@@ -62,14 +62,14 @@ const CompanyCategoryFormModal = ({
         }
     }, [data, isEdit, reset]);
 
-    const onSubmit = (data: CompanyCategoryFormValues) => {
+    const onSubmit = (data: CompanyTypeFormValues) => {
         try {
             console.log(data);
             if (!isEdit) {
-                toast.success("Company Category created successfully!");
+                toast.success("Company Type created successfully!");
             } else {
                 console.log("Edit id :", selectedId);
-                toast.success("Company Category updated successfully!");
+                toast.success("Company Type updated successfully!");
             }
             reset();
             onOpenChange(false);
@@ -77,7 +77,7 @@ const CompanyCategoryFormModal = ({
         } catch (error: any) {
             toast.error(
                 error?.message ??
-                (isEdit ? "Failed to update company category" : "Failed to create company category"),
+                (isEdit ? "Failed to update company type" : "Failed to create company type"),
             );
         }
     };
@@ -92,13 +92,13 @@ const CompanyCategoryFormModal = ({
                 <SheetHeader className="mb-0">
                     <SheetTitle className="p-3 flex items-center gap-2.5">
                         <BiCategoryAlt className="size-5 text-blue-500" />
-                        {isEdit ? "Update Company Category" : "New Company Category"}
+                        {isEdit ? "Update Type" : "New Type"}
                     </SheetTitle>
                 </SheetHeader>
                 <form onSubmit={handleSubmit(onSubmit, handleFormError)}>
                     <SheetBody className="grow p-0">
                         <ScrollArea className="h-[calc(100vh-10.5rem)]">
-                            <CompanyCategoryForm
+                            <CompanyTypeForm
                                 control={control}
                                 errors={errors}
                             />
@@ -126,9 +126,9 @@ const CompanyCategoryFormModal = ({
                                 {isSubmitting ? (
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                                 ) : isEdit ? (
-                                    "Update Company Category"
+                                    "Update Type"
                                 ) : (
-                                    "Save Company Category"
+                                    "Save Type"
                                 )}
                             </Button>
                         </div>
@@ -139,4 +139,4 @@ const CompanyCategoryFormModal = ({
     );
 };
 
-export default CompanyCategoryFormModal;
+export default CompanyTypeFormModal;

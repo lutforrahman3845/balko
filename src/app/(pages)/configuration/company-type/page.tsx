@@ -1,12 +1,12 @@
 "use client"
 
-import { CompanyCategoryHeader } from "@/components/CompanyCategory/CompanyCategoryHeader";
-import CompanyCategoryTable from "@/components/CompanyCategory/CompanyCategoryTable";
+import { CompanyTypeHeader } from "@/components/CompanyType/CompanyTypeHeader";
+import CompanyTypeTable from "@/components/CompanyType/CompanyTypeTable";
 import ConfirmDialog from "@/components/shared/ConfirmDialog";
 import { ErrorState } from "@/components/shared/ErrorState";
 import FilterSearch from "@/components/shared/FilterSearch";
 import { Button } from "@/components/ui/button";
-import { useGetCompanyCategoriesQuery } from "@/redux/apis/CompanyCategoryApis";
+import { useGetCompanyTypesQuery } from "@/redux/apis/CompanyTypeApis";
 import { Trash2, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
@@ -20,27 +20,27 @@ const Page = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     const {
-        data: companyCategories,
+        data: companyTypes,
         isLoading: loading,
         isError,
         refetch,
-    } = useGetCompanyCategoriesQuery({
+    } = useGetCompanyTypesQuery({
         searchQuery,
         pageIndex,
         pageSize,
     });
 
     const selectedIds = useMemo(() => {
-        const dataIds = new Set(companyCategories?.data.map((item: any) => String(item.id)));
+        const dataIds = new Set(companyTypes?.data.map((item: any) => String(item.id)));
         return Object.keys(rowSelection).filter(
             (id) => (rowSelection as any)[id] && dataIds.has(id)
         );
-    }, [companyCategories, rowSelection]);
+    }, [companyTypes, rowSelection]);
 
     return (
         <div className="flex flex-col min-h-full">
-            <CompanyCategoryHeader data={companyCategories?.data || []} />
-            
+            <CompanyTypeHeader data={companyTypes?.data || []} />
+
             {isError ? (
                 <div className="px-6 py-4">
                     <ErrorState onRetry={() => refetch()} />
@@ -51,20 +51,20 @@ const Page = () => {
                         <div className="flex flex-wrap items-center gap-4 p-4">
                             <FilterSearch
                                 searchQuery={searchQuery}
-                                setSearchQuery={(q) => { 
-                                    const val = q.trimStart().replace(/\s\s+/g, " "); 
-                                    setSearchQuery(val); 
-                                    if (val.trim() !== searchQuery.trim()) setPageIndex(1) 
+                                setSearchQuery={(q) => {
+                                    const val = q.trimStart().replace(/\s\s+/g, " ");
+                                    setSearchQuery(val);
+                                    if (val.trim() !== searchQuery.trim()) setPageIndex(1)
                                 }}
-                                placeholder="Search company categories by name..."
+                                placeholder="Search company types by name..."
                             />
                         </div>
                     </section>
 
-                    <CompanyCategoryTable
+                    <CompanyTypeTable
                         setRowSelection={setRowSelection}
                         rowSelection={rowSelection}
-                        data={companyCategories || null}
+                        data={companyTypes || null}
                         loading={loading}
                         pageIndex={pageIndex}
                         pageSize={pageSize}
@@ -83,7 +83,7 @@ const Page = () => {
                                     <div className="flex flex-col">
                                         <span className="text-[13px] sm:text-sm font-semibold whitespace-nowrap leading-none">
                                             {selectedIds.length}{" "}
-                                            {selectedIds.length === 1 ? "Company Category" : "Company Categories"}
+                                            {selectedIds.length === 1 ? "Company Type" : "Company Types"}
                                         </span>
                                         <span className="text-[10px] sm:text-[11px] text-muted-foreground mt-1 uppercase tracking-wider font-bold hidden xs:inline-block">
                                             Selected
@@ -123,13 +123,13 @@ const Page = () => {
                         <ConfirmDialog
                             isOpen={isDialogOpen}
                             type="danger"
-                            title="Delete Company Categories"
+                            title="Delete Company Types"
                             onClose={() => setIsDialogOpen(false)}
                             onCancel={() => setIsDialogOpen(false)}
                             confirmButtonType="destructive"
                             onConfirm={() => {
                                 toast.success(
-                                    `${selectedIds.length} company categories deleted successfully`,
+                                    `${selectedIds.length} company types deleted successfully`,
                                 );
                                 setRowSelection({});
                                 setIsDialogOpen(false);
@@ -137,7 +137,7 @@ const Page = () => {
                         >
                             <span>
                                 Are you sure you want to delete {selectedIds.length} selected{" "}
-                                {selectedIds.length === 1 ? "company category" : "company categories"}? This action
+                                {selectedIds.length === 1 ? "company type" : "company types"}? This action
                                 cannot be undone.
                             </span>
                         </ConfirmDialog>

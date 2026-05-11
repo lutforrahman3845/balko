@@ -181,9 +181,9 @@ const CompaniesDetails = ({
                         </div>
 
                         <div className="flex flex-wrap gap-1 mb-3">
-                          {company.categories?.map((cat) => (
-                            <Badge key={cat.id} variant="secondary" className="text-[10px] py-0 bg-secondary/50">
-                              {cat.name}
+                          {company.companyTypes?.map((type) => (
+                            <Badge key={type.id} variant="secondary" className="text-[10px] py-0 bg-secondary/50">
+                              {type.name}
                             </Badge>
                           ))}
                         </div>

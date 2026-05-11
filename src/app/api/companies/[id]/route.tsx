@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { COMPANIES } from "@/mock/companies";
 import { mockContacts } from "@/mock/contacts";
-import { COMPANY_CATEGORIES } from "@/mock/companyCategories";
+import { CompanyTypesData } from "@/mock/companyType";
 
 // GET single company by ID
 export async function GET(
@@ -11,16 +11,16 @@ export async function GET(
   try {
     const { id } = await params;
     const company = COMPANIES.find((c) => c.id === id);
-    
+
     if (!company) {
       return NextResponse.json({ error: "Company not found" }, { status: 404 });
     }
 
-    // Expand categories for detailed view
+    // Expand CompanyTypesData for detailed view
     const expandedCompany = {
       ...company,
-      categories: (company.categoryIds || [])
-        .map(catId => COMPANY_CATEGORIES.find(cat => cat.id === catId))
+      companyTypes: (company.companyTypeIds || [])
+        .map(catId => CompanyTypesData.find(cat => cat.id === catId))
         .filter(Boolean),
       contacts: (company.contactIds || [])
         .map(contactId => mockContacts.find(contact => contact.id === contactId))

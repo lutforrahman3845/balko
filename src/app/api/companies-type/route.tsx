@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { COMPANY_CATEGORIES } from "@/mock/companyCategories";
-import { CompanyCategory, GetCompanyCategoryResponse } from "@/@types/compantCategory";
+import { CompanyTypesData } from "@/mock/companyType";
+import { CompanyType, GetCompanyTypeResponse } from "@/@types/companiesType";
 
 export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
@@ -10,23 +10,23 @@ export async function GET(request: NextRequest) {
     const pageIndex = parseInt(searchParams.get('pageIndex') || '1');
     const pageSize = parseInt(searchParams.get('pageSize') || '10');
 
-    let filteredCategories = [...COMPANY_CATEGORIES];
+    let filteredCompanyTypes = [...CompanyTypesData];
 
     if (searchQuery) {
-        filteredCategories = filteredCategories.filter(category =>
-            category.name.toLowerCase().includes(searchQuery.toLowerCase())
+        filteredCompanyTypes = filteredCompanyTypes.filter(type =>
+            type.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
     }
 
-    const total = filteredCategories.length;
+    const total = filteredCompanyTypes.length;
     const totalPages = Math.ceil(total / pageSize);
     const start = (pageIndex - 1) * pageSize;
     const end = start + pageSize;
 
-    const paginatedCategories = filteredCategories.slice(start, end);
+    const paginatedCompanyTypes = filteredCompanyTypes.slice(start, end);
 
-    const response: GetCompanyCategoryResponse = {
-        data: paginatedCategories,
+    const response: GetCompanyTypeResponse = {
+        data: paginatedCompanyTypes,
         meta: {
             pageIndex,
             pageSize,

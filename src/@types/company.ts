@@ -1,4 +1,4 @@
-import { CompanyCategory } from "./compantCategory";
+import { CompanyType } from "./companiesType";
 import { Contact } from "./contact";
 
 export interface Company {
@@ -8,7 +8,7 @@ export interface Company {
   email: string | null;
   phone: string | null;
   description: string | null;
-  categoryIds: string[] | null;
+  companyTypeIds: string[] | null;
   contactIds: string[] | null;
   address: string | null;
   state: string | null;
@@ -29,7 +29,7 @@ export interface Company {
 }
 
 export interface ExpandedCompany extends Company {
-  categories: CompanyCategory[];
+  companyTypes: CompanyType[];
   contacts: Contact[];
 }
 import { PaginationMeta } from "./pagination";
@@ -57,7 +57,7 @@ export const CompanyFormSchema = z
       .optional(),
     website: z.string().url("Website must be a valid URL").optional().or(z.literal("")),
     description: z.string().optional(),
-    categoryIds: z.array(z.string()).optional(),
+    companyTypeIds: z.array(z.string()).optional(),
     address: z.string().optional(),
     state: z.string().optional(),
     city: z.string().optional(),

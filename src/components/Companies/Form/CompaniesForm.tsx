@@ -16,7 +16,7 @@ import { useMemo } from "react";
 import { countryList } from "@/config/countryList";
 import { LuMapPin } from "react-icons/lu";
 import { ConnectionStrengthOptions } from "@/lib/CompanyConnectionBadge";
-import { useGetCompanyCategoryOptionsQuery } from "@/redux/apis/CompanyCategoryApis";
+import { useGetCompanyTypeOptionsQuery } from "@/redux/apis/CompanyTypeApis";
 
 const CompaniesForm = ({
   control,
@@ -30,14 +30,14 @@ const CompaniesForm = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   unregister: (name: any) => void;
 }) => {
-  const { data: companyCategories, isLoading: loading } = useGetCompanyCategoryOptionsQuery(undefined);
+  const { data: companyTypes, isLoading: loading } = useGetCompanyTypeOptionsQuery(undefined);
 
-  const categoryOptions = useMemo(() => {
-    return companyCategories?.map((category:FilterOption) => ({
-      value: category.id,
-      label: category.name,
+  const companyTypeOptions = useMemo(() => {
+    return companyTypes?.map((type: FilterOption) => ({
+      value: type.id,
+      label: type.name,
     }));
-  }, [companyCategories]);
+  }, [companyTypes]);
   return (
     <div className="grid grid-cols-1  lg:grid-cols-3 gap-4">
       <div className="col-span-1 md:col-span-2 pr-6 lg:border-r lg:border-primary/30">
@@ -111,17 +111,17 @@ const CompaniesForm = ({
             )}
           />
           <Controller
-            name="categoryIds"
+            name="companyTypeIds"
             control={control}
             render={({ field }) => (
               <CustomeSelect
                 onChange={(value: string | string[]) => {
                   field.onChange(value);
                 }}
-                label={"Company Category"}
-                placeholder={"Select company category"}
-                error={errors.categoryIds?.message}
-                options={categoryOptions || []}
+                label={"Company Type"}
+                placeholder={"Select company type"}
+                error={errors.companyTypeIds?.message}
+                options={companyTypeOptions || []}
                 name={field.name}
                 value={field.value || []}
                 multiple={true}

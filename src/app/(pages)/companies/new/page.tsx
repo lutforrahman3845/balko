@@ -28,7 +28,7 @@ const Page = () => {
       email: "",
       phone: "",
       website: "",
-      categoryIds: [],
+      companyTypeIds: [],
       address: "",
       state: "",
       city: "",

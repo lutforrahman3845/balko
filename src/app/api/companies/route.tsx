@@ -1,7 +1,7 @@
 import { COMPANIES } from "@/mock/companies";
 import { NextResponse } from "next/server";
 import { mockContacts } from "@/mock/contacts";
-import { COMPANY_CATEGORIES } from "@/mock/companyCategories";
+import { CompanyTypesData } from "@/mock/companyType";
 
 export async function GET(req: Request) {
     try {
@@ -9,12 +9,12 @@ export async function GET(req: Request) {
 
 
         const searchQuery = searchParams.get("searchQuery")?.toLowerCase() || "";
-        const categoryParam = searchParams.get("category");
-        const categories = categoryParam ? categoryParam.split(",").filter(Boolean) : [];
-        
+        const typeParam = searchParams.get("type");
+        const types = typeParam ? typeParam.split(",").filter(Boolean) : [];
+
         const connectionParam = searchParams.get("connectionStrength");
         const connectionStrengths = connectionParam ? connectionParam.split(",").filter(Boolean) : [];
-        
+
         const lastContacted = searchParams.get("lastContacted");
         const pageIndex = parseInt(searchParams.get("pageIndex") || "1", 10);
         const pageSize = parseInt(searchParams.get("pageSize") || "10", 10);
@@ -29,10 +29,10 @@ export async function GET(req: Request) {
             );
         }
 
-        // 2. Category filter
-        if (categories.length > 0) {
+        // 2. Company Type filter
+        if (types.length > 0) {
             filtered = filtered.filter((company) =>
-                company.categoryIds?.some(id => categories.includes(id))
+                company.companyTypeIds?.some(id => types.includes(id))
             );
         }
 
@@ -70,8 +70,8 @@ export async function GET(req: Request) {
         const startIdx = (pageIndex - 1) * pageSize;
         const data = filtered.slice(startIdx, startIdx + pageSize).map(company => ({
             ...company,
-            categories: (company.categoryIds || [])
-                .map(id => COMPANY_CATEGORIES.find(cat => cat.id === id))
+            companyTypes: (company.companyTypeIds || [])
+                .map(id => CompanyTypesData.find(cat => cat.id === id))
                 .filter(Boolean),
             contacts: (company.contactIds || [])
                 .map(id => mockContacts.find(contact => contact.id === id))

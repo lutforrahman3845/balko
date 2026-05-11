@@ -16,7 +16,7 @@ import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import { RiShakeHandsLine } from "react-icons/ri";
 import { toast } from "sonner";
 import { useGetCompaniesQuery } from "@/redux/apis/CompaniesApis";
-import { useGetCompanyCategoryOptionsQuery } from "@/redux/apis/CompanyCategoryApis";
+import { useGetCompanyTypeOptionsQuery } from "@/redux/apis/CompanyTypeApis";
 
 const connectionStrengthOptions = [
   {
@@ -53,12 +53,12 @@ const Page = () => {
   const [pageIndex, setPageIndex] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(10);
   const [rowSelection, setRowSelection] = useState({});
-  const [category, setCategory] = useState<string[]>([]);
+  const [companyType, setCompanyType] = useState<string[]>([]);
   const [connectionStrength, setConnectionStrength] = useState<string[]>([]);
   const [lastContacted, setLastContacted] = useState<string>("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const { data: categoryOptions } = useGetCompanyCategoryOptionsQuery(undefined);
+  const { data: companyTypeOptions } = useGetCompanyTypeOptionsQuery(undefined);
 
   const {
     data: companies,
@@ -66,7 +66,7 @@ const Page = () => {
     isError,
     refetch,
   } = useGetCompaniesQuery({
-    category: category.join(","),
+    type: companyType.join(","),
     connectionStrength: connectionStrength.join(","),
     lastContacted,
     searchQuery,
@@ -101,10 +101,10 @@ const Page = () => {
                 placeholder="Search company by Name, Email, website"
               />
               <FilterDropDown
-                label="Category"
-                options={categoryOptions || []}
-                selectedValues={category}
-                onSelectedValuesChange={setCategory}
+                label="companyType"
+                options={companyTypeOptions || []}
+                selectedValues={companyType}
+                onSelectedValuesChange={setCompanyType}
                 setPageIndex={setPageIndex}
               />
               <FilterDropDown

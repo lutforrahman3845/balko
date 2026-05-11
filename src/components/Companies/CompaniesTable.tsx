@@ -147,15 +147,15 @@ const CompaniesTable = ({
       ),
     },
     {
-      accessorKey: "categories",
-      header: "Categories",
+      accessorKey: "companyTypes",
+      header: "Types",
       size: 200,
       cell: ({ row }) => (
         <div className="flex flex-wrap gap-1">
-          {row.original.categories?.length > 0 ? (
-            row.original.categories.map((cat) => (
-              <Badge key={cat.id} variant="secondary" className="text-[10px] py-0">
-                {cat.name}
+          {row.original.companyTypes?.length > 0 ? (
+            row.original.companyTypes.map((type) => (
+              <Badge key={type.id} variant="secondary" className="text-[10px] py-0">
+                {type.name}
               </Badge>
             ))
           ) : (

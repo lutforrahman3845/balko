@@ -15,7 +15,6 @@ import { Globe, Mail, Phone } from "lucide-react";
 import { ErrorState } from "../shared/ErrorState";
 import { getStatusBadge } from "@/lib/ContactStatusBadge";
 import { getConnectionStrengthBadge } from "@/lib/CompanyConnectionBadge";
-import { LuBriefcase, LuMail, LuPhone } from "react-icons/lu";
 
 interface CompaniesInteractionHistoryProps {
     open: boolean;

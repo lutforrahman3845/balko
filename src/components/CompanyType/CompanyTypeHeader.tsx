@@ -11,29 +11,29 @@ import {
 import ContentHeader from "@/components/ContentHeader";
 import { useState } from "react";
 import * as XLSX from "xlsx";
-import { CompanyCategory } from "@/@types/compantCategory";
+import { CompanyType } from "@/@types/companiesType";
 import { BiSolidCategoryAlt } from "react-icons/bi";
-import CompanyCategoryFormModal from "./CompanyCategoryFormModal";
+import CompanyTypeFormModal from "./CompanyTypeFormModal";
 
-export function CompanyCategoryHeader({ data }: { data: CompanyCategory[] }) {
-    const [categoryFormOpen, setCategoryFormOpen] = useState(false);
+export function CompanyTypeHeader({ data }: { data: CompanyType[] }) {
+    const [typeFormOpen, setTypeFormOpen] = useState(false);
 
     const exportToFormat = (format: "csv" | "xlsx") => {
         if (!data || data.length === 0) return;
 
-        const exportData = data.map((category) => ({
-            Name: category.name,
-            Description: category.description || "",
-            "Created At": category.createdAt
-                ? new Date(category.createdAt).toLocaleDateString()
+        const exportData = data.map((type) => ({
+            Name: type.name,
+            Description: type.description || "",
+            "Created At": type.createdAt
+                ? new Date(type.createdAt).toLocaleDateString()
                 : "",
         }));
 
         const worksheet = XLSX.utils.json_to_sheet(exportData);
         const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Categories");
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Company Types");
 
-        XLSX.writeFile(workbook, `categories_${new Date().toISOString().slice(0, 10)}.${format}`, {
+        XLSX.writeFile(workbook, `Company-Types_${new Date().toISOString().slice(0, 10)}.${format}`, {
             bookType: format,
         });
     };
@@ -43,10 +43,10 @@ export function CompanyCategoryHeader({ data }: { data: CompanyCategory[] }) {
             <ContentHeader>
                 <div className="flex flex-col items-start">
                     <h1 className="inline-flex items-center gap-2.5 font-semibold text-2xl">
-                        <BiSolidCategoryAlt className="size-6" /> Company Categories
+                        <BiSolidCategoryAlt className="size-6" /> Company Types
                     </h1>
                     <p className="text-sm text-muted-foreground">
-                        Manage business categories and industry types
+                        Manage company types and industry types
                     </p>
                 </div>
 
@@ -77,13 +77,13 @@ export function CompanyCategoryHeader({ data }: { data: CompanyCategory[] }) {
                         </DropdownMenuContent>
                     </DropdownMenu>
 
-                    <Button size="sm" onClick={() => setCategoryFormOpen(true)} className="bg-blue-600 hover:bg-blue-700">
-                        <Plus className="size-4 mr-2" /> New Company Category
+                    <Button size="sm" onClick={() => setTypeFormOpen(true)} className="bg-blue-600 hover:bg-blue-700">
+                        <Plus className="size-4 mr-2" /> New Type
                     </Button>
                 </div>
             </ContentHeader>
 
-            <CompanyCategoryFormModal open={categoryFormOpen} onOpenChange={setCategoryFormOpen} />
+            <CompanyTypeFormModal open={typeFormOpen} onOpenChange={setTypeFormOpen} />
         </>
     );
 }

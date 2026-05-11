@@ -17,12 +17,12 @@ import {
 import { TbEdit, TbEye, TbTrash } from "react-icons/tb";
 import ConfirmDialog from "../shared/ConfirmDialog";
 import { toast } from "sonner";
-import { CompanyCategory, GetCompanyCategoryResponse } from "@/@types/compantCategory";
-import CompanyCategoryFormModal from "./CompanyCategoryFormModal";
-import CompanyCategoryDetails from "./CompanyCategoryDetails";
+import { CompanyType, GetCompanyTypeResponse } from "@/@types/companiesType";
+import CompanyTypeFormModal from "./CompanyTypeFormModal";
+import CompanyTypeDetails from "./CompanyTypeDetails";
 
-interface CompanyCategoryTableProps {
-    data: GetCompanyCategoryResponse | null;
+interface CompanyTypeTableProps {
+    data: GetCompanyTypeResponse | null;
     pageIndex: number;
     pageSize: number;
     setPageIndex: (index: number) => void;
@@ -37,7 +37,7 @@ interface CompanyCategoryTableProps {
     refetch?: () => void;
 }
 
-const CompanyCategoryTable = ({
+const CompanyTypeTable = ({
     data,
     pageIndex,
     pageSize,
@@ -47,16 +47,16 @@ const CompanyCategoryTable = ({
     rowSelection,
     setRowSelection,
     refetch,
-}: CompanyCategoryTableProps) => {
+}: CompanyTypeTableProps) => {
     const [dialogOpen, setDialogOpen] = useState(false);
     const [selectedId, setSelectedId] = useState<string | null>(null);
-    const [categoryDetailsOpen, setCategoryDetailsOpen] = useState(false);
-    const [categoryFormOpen, setCategoryFormOpen] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState<CompanyCategory | null>(null);
+    const [typeDetailsOpen, setTypeDetailsOpen] = useState(false);
+    const [typeFormOpen, setTypeFormOpen] = useState(false);
+    const [selectedType, setSelectedType] = useState<CompanyType | null>(null);
 
-    const handleEdit = (category: CompanyCategory) => {
-        setSelectedCategory(category);
-        setCategoryFormOpen(true);
+    const handleEdit = (type: CompanyType) => {
+        setSelectedType(type);
+        setTypeFormOpen(true);
     };
     const handleDeleteOpen = (id: string) => {
         setDialogOpen(true);
@@ -68,7 +68,7 @@ const CompanyCategoryTable = ({
         setSelectedId(null);
     };
 
-    const columns = useMemo<ColumnDef<CompanyCategory>[]>(
+    const columns = useMemo<ColumnDef<CompanyType>[]>(
         () => [
             {
                 id: "select",
@@ -89,13 +89,13 @@ const CompanyCategoryTable = ({
             {
                 accessorKey: "name",
                 id: "name",
-                header: "Company Category Name",
+                header: "Company Type",
                 cell: ({ row }) => {
-                    const category = row.original;
+                    const type = row.original;
                     return (
                         <div className="flex flex-col min-w-0 py-1">
                             <div className="font-semibold text-sm leading-tight text-foreground">
-                                {category.name}
+                                {type.name}
                             </div>
                         </div>
                     );
@@ -142,15 +142,15 @@ const CompanyCategoryTable = ({
                                         className="text-xl cursor-pointer"
                                         role="button"
                                         onClick={() => {
-                                            const category = row?.original;
-                                            handleEdit(category)
+                                            const type = row?.original;
+                                            handleEdit(type)
                                         }}
                                     >
                                         <TbEdit />
                                     </div>
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                    <p>Edit Company Category</p>
+                                    <p>Edit Type</p>
                                 </TooltipContent>
                             </Tooltip>
                             <Tooltip>
@@ -160,14 +160,14 @@ const CompanyCategoryTable = ({
                                         onClick={() => {
                                             const id = row?.original?.id;
                                             if (id) setSelectedId(id)
-                                            setCategoryDetailsOpen(true)
+                                            setTypeDetailsOpen(true)
                                         }}
                                     >
                                         <TbEye />
                                     </div>
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                    <p>Company Category Details</p>
+                                    <p>Type Details</p>
                                 </TooltipContent>
                             </Tooltip>
                             <Tooltip>
@@ -184,7 +184,7 @@ const CompanyCategoryTable = ({
                                     </div>
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                    <p>Delete Company Category</p>
+                                    <p>Delete Type</p>
                                 </TooltipContent>
                             </Tooltip>
                         </div>
@@ -198,7 +198,7 @@ const CompanyCategoryTable = ({
         [],
     );
 
-    const table = useReactTable<CompanyCategory>({
+    const table = useReactTable<CompanyType>({
         data: data?.data || [],
         columns,
         state: {
@@ -231,21 +231,21 @@ const CompanyCategoryTable = ({
                 )}
             </div>
 
-            <CompanyCategoryFormModal
-                open={categoryFormOpen}
+            <CompanyTypeFormModal
+                open={typeFormOpen}
                 onOpenChange={(open) => {
-                    setCategoryFormOpen(open);
-                    if (!open) setSelectedCategory(null);
+                    setTypeFormOpen(open);
+                    if (!open) setSelectedType(null);
                 }}
-                isEdit={!!selectedCategory}
-                data={selectedCategory}
-                selectedId={selectedCategory?.id}
+                isEdit={!!selectedType}
+                data={selectedType}
+                selectedId={selectedType?.id}
             />
 
-            <CompanyCategoryDetails
-                open={categoryDetailsOpen}
+            <CompanyTypeDetails 
+                open={typeDetailsOpen}
                 onOpenChange={(open) => {
-                    setCategoryDetailsOpen(open);
+                    setTypeDetailsOpen(open);
                     if (!open) setSelectedId(null);
                 }}
                 selectedId={selectedId}
@@ -255,18 +255,18 @@ const CompanyCategoryTable = ({
                 <ConfirmDialog
                     isOpen={dialogOpen}
                     type="danger"
-                    title={"Delete Company Category"}
+                    title={"Delete Company Type"}
                     onClose={handleDialogClose}
                     onCancel={handleDialogClose}
                     confirmButtonType={"destructive"}
                     onConfirm={() => {
-                        toast.success("Company Category deleted successfully");
+                        toast.success("Company Type deleted successfully");
                         handleDialogClose();
                         refetch?.();
                     }}
                 >
                     <span>
-                        Are you sure you want to delete this company category? This action cannot be undone.
+                        Are you sure you want to delete this company type? This action cannot be undone.
                     </span>
                 </ConfirmDialog>
             )}
@@ -274,4 +274,4 @@ const CompanyCategoryTable = ({
     );
 };
 
-export default CompanyCategoryTable;
+export default CompanyTypeTable;    
