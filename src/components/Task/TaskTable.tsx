@@ -132,7 +132,7 @@ const TaskTable = ({
             <div className="flex flex-col min-w-0 py-1">
               <div
                 className={cn(
-                  "font-medium truncate text-sm leading-tight",
+                  "font-medium truncate text-sm leading-tight max-w-60",
                   task.status === "completed" &&
                   "line-through text-muted-foreground",
                 )}
@@ -140,7 +140,7 @@ const TaskTable = ({
                 {task.title}
               </div>
               {task.content && (
-                <div className="text-[11px] text-muted-foreground truncate opacity-70 leading-normal">
+                <div className="text-[11px] text-muted-foreground truncate opacity-70 leading-normal max-w-60">
                   {task.content}
                 </div>
               )}

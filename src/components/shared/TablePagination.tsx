@@ -1,5 +1,10 @@
-import { ReactNode } from 'react';
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+import { ReactNode, useMemo } from 'react';
+import { 
+  ChevronLeftIcon, 
+  ChevronRightIcon, 
+  ChevronsLeftIcon, 
+  ChevronsRightIcon 
+} from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
@@ -25,13 +30,11 @@ interface TablePaginationProps {
   pageSize: number;
   setPageIndex: (pageIndex: number) => void;
   setPageSize: (pageSize: number) => void;
-
 }
 
 const TablePagination = ({
   sizes = [10, 25, 50, 100],
   sizesSkeleton = <Skeleton className="h-8 w-44" />,
-  moreLimit = 10,
   info = '{from} - {to} of {count}',
   infoSkeleton = <Skeleton className="h-8 w-60" />,
   className,
@@ -43,170 +46,181 @@ const TablePagination = ({
   setPageIndex,
   setPageSize,
 }: TablePaginationProps) => {
-
-  const btnBaseClasses = 'size-7 p-0 text-sm';
-  const btnArrowClasses = btnBaseClasses + ' rtl:transform rtl:rotate-180';
+  const btnBaseClasses = 'size-8 p-0 text-xs sm:text-sm font-medium transition-all duration-200';
+  const btnArrowClasses = cn(btnBaseClasses, 'hover:bg-accent hover:text-accent-foreground disabled:opacity-30 rtl:rotate-180');
 
   const from = recordCount === 0 ? 0 : Math.min((pageIndex - 1) * pageSize + 1, recordCount);
   const to = Math.min(pageIndex * pageSize, recordCount);
 
-  // Replace placeholders in paginationInfo
-  const paginationInfo = info
-    ? info
+  const paginationInfo = useMemo(() => {
+    if (!info) return `${from} - ${to} of ${recordCount}`;
+    return info
       .replace('{from}', from.toString())
       .replace('{to}', to.toString())
-      .replace('{count}', recordCount.toString())
-    : `${from} - ${to} of ${recordCount}`;
+      .replace('{count}', recordCount.toString());
+  }, [from, to, recordCount, info]);
 
-  // Pagination limit logic
-  const paginationMoreLimit = moreLimit || 10;
+  const paginationItems = useMemo(() => {
+    const items: (number | string)[] = [];
+    const siblingCount = 1; // Number of pages to show on each side of current page
 
-  // Determine the start and end of the pagination group
-  const currentGroupStart =
-    Math.floor((pageIndex - 1) / paginationMoreLimit) * paginationMoreLimit + 1;
-  const currentGroupEnd = Math.min(
-    currentGroupStart + paginationMoreLimit - 1,
-    pageCount,
-  );
+    // If total pages are less than or equal to what we want to show without ellipses
+    const totalPageNumbers = siblingCount + 5; // 1 (first) + 1 (last) + current + 2 (siblings)
 
-  // Render page buttons based on the current group
-  const renderPageButtons = () => {
-    const buttons = [];
-    for (let i = currentGroupStart; i <= currentGroupEnd; i++) {
-      buttons.push(
-        <Button
-          key={i}
-          size="sm"
-          variant="ghost"
-          className={cn(btnBaseClasses, 'text-muted-foreground', {
-            'bg-accent text-accent-foreground': pageIndex === i,
-          })}
-          onClick={() => {
-            if (pageIndex !== i) {
-              setPageIndex(i);
-            }
-          }}
-        >
-          {i}
-        </Button>,
-      );
+    if (pageCount <= totalPageNumbers) {
+      for (let i = 1; i <= pageCount; i++) items.push(i);
+      return items;
     }
-    return buttons;
-  };
 
-  // Render a "previous" ellipsis button if there are previous pages to show
-  const renderEllipsisPrevButton = () => {
-    if (currentGroupStart > 1) {
-      return (
-        <Button
-          size="sm"
-          className={btnBaseClasses}
-          variant="ghost"
-          onClick={() => setPageIndex(currentGroupStart - 1)}
-        >
-          ...
-        </Button>
-      );
-    }
-    return null;
-  };
+    const leftSiblingIndex = Math.max(pageIndex - siblingCount, 1);
+    const rightSiblingIndex = Math.min(pageIndex + siblingCount, pageCount);
 
-  // Render a "next" ellipsis button if there are more pages to show after the current group
-  const renderEllipsisNextButton = () => {
-    if (currentGroupEnd < pageCount) {
-      return (
-        <Button
-          className={btnBaseClasses}
-          variant="ghost"
-          size="sm"
-          onClick={() => setPageIndex(currentGroupEnd + 1)}
-        >
-          ...
-        </Button>
-      );
+    const shouldShowLeftDots = leftSiblingIndex > 2;
+    const shouldShowRightDots = rightSiblingIndex < pageCount - 1;
+
+    if (!shouldShowLeftDots && shouldShowRightDots) {
+      let leftItemCount = 3 + 2 * siblingCount;
+      let leftRange = Array.from({ length: leftItemCount }, (_, i) => i + 1);
+      return [...leftRange, 'ellipsis-right', pageCount];
     }
-    return null;
-  };
+
+    if (shouldShowLeftDots && !shouldShowRightDots) {
+      let rightItemCount = 3 + 2 * siblingCount;
+      let rightRange = Array.from(
+        { length: rightItemCount },
+        (_, i) => pageCount - rightItemCount + i + 1
+      );
+      return [1, 'ellipsis-left', ...rightRange];
+    }
+
+    if (shouldShowLeftDots && shouldShowRightDots) {
+      let middleRange = Array.from(
+        { length: rightSiblingIndex - leftSiblingIndex + 1 },
+        (_, i) => leftSiblingIndex + i
+      );
+      return [1, 'ellipsis-left', ...middleRange, 'ellipsis-right', pageCount];
+    }
+
+    return items;
+  }, [pageCount, pageIndex]);
+
+  if (isLoading) {
+    return (
+      <div className={cn('flex flex-col sm:flex-row justify-between items-center gap-4 py-4 px-6', className)}>
+        {sizesSkeleton}
+        {infoSkeleton}
+      </div>
+    );
+  }
 
   return (
-    <div
-      className={cn(
-        'flex flex-wrap flex-col sm:flex-row justify-between items-center gap-2.5 py-2.5 sm:py-0 grow px-6 mb-4',
-        className,
-      )}
-    >
-      <div className="flex flex-wrap items-center space-x-2.5 pb-2.5 sm:pb-0 order-2 sm:order-1">
-        {isLoading ? (
-          sizesSkeleton
-        ) : (
-          <>
-            <div className="text-sm text-muted-foreground">Rows per page</div>
-            <Select
-              value={`${pageSize}`}
-              onValueChange={(value) => {
-                const newPageSize = Number(value);
-                setPageSize(newPageSize);
-                setPageIndex(1);
-              }}
-            >
-              <SelectTrigger className="w-fit" size="sm">
-                <SelectValue placeholder={`${pageSize}`} />
-              </SelectTrigger>
-              <SelectContent side="top" className="min-w-12.5">
-                {sizes?.map((size: number) => (
-                  <SelectItem key={size} value={`${size}`}>
-                    {size}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </>
-        )}
+    <div className={cn('flex flex-col sm:flex-row justify-between items-center gap-4 py-4 px-6 border-t border-border/50 bg-background/50 backdrop-blur-sm rounded-b-xl', className)}>
+      {/* Rows per page selector */}
+      <div className="flex items-center gap-3 order-2 sm:order-1">
+        <span className="text-sm text-muted-foreground whitespace-nowrap">Rows per page</span>
+        <Select
+          value={`${pageSize}`}
+          onValueChange={(value) => {
+            setPageSize(Number(value));
+            setPageIndex(1);
+          }}
+        >
+          <SelectTrigger className="h-8 w-[70px] bg-background border-border/50 hover:border-primary/50 transition-colors" size="sm">
+            <SelectValue placeholder={`${pageSize}`} />
+          </SelectTrigger>
+          <SelectContent side="top" className="min-w-[70px]">
+            {sizes.map((size) => (
+              <SelectItem key={size} value={`${size}`}>
+                {size}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
-      <div className="flex flex-col sm:flex-row justify-center sm:justify-end items-center gap-2.5 pt-2.5 sm:pt-0 order-1 sm:order-2">
-        {isLoading ? (
-          infoSkeleton
-        ) : (
-          <>
-            <div className="text-sm text-muted-foreground text-nowrap order-2 sm:order-1">
-              {paginationInfo}
+
+      {/* Pagination Controls */}
+      <div className="flex flex-col sm:flex-row items-center gap-4 order-1 sm:order-2">
+        <span className="text-sm text-muted-foreground font-medium order-2 sm:order-1">
+          {paginationInfo}
+        </span>
+        
+        {pageCount > 1 && (
+          <div className="flex items-center gap-1 order-1 sm:order-2">
+            {/* First Page */}
+            <Button
+              variant="ghost"
+              size="sm"
+              className={btnArrowClasses}
+              onClick={() => setPageIndex(1)}
+              disabled={pageIndex <= 1}
+            >
+              <ChevronsLeftIcon className="size-4" />
+            </Button>
+
+            {/* Previous Page */}
+            <Button
+              variant="ghost"
+              size="sm"
+              className={btnArrowClasses}
+              onClick={() => setPageIndex(pageIndex - 1)}
+              disabled={pageIndex <= 1}
+            >
+              <ChevronLeftIcon className="size-4" />
+            </Button>
+
+            {/* Page Numbers */}
+            <div className="flex items-center gap-1 mx-1">
+              {paginationItems.map((item, idx) => {
+                if (typeof item === 'string') {
+                  return (
+                    <span key={`${item}-${idx}`} className="flex items-center justify-center size-8 text-muted-foreground select-none">
+                      ...
+                    </span>
+                  );
+                }
+                return (
+                  <Button
+                    key={item}
+                    variant={pageIndex === item ? 'default' : 'ghost'}
+                    size="sm"
+                    className={cn(btnBaseClasses, {
+                      'shadow-sm bg-primary text-primary-foreground hover:bg-primary/90': pageIndex === item,
+                      'text-muted-foreground hover:text-foreground hover:bg-accent': pageIndex !== item,
+                    })}
+                    onClick={() => setPageIndex(item)}
+                  >
+                    {item}
+                  </Button>
+                );
+              })}
             </div>
-            {pageCount > 1 && (
-              <div className="flex items-center space-x-1 order-1 sm:order-2">
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className={btnArrowClasses}
-                  onClick={() => setPageIndex(pageIndex - 1)}
-                  disabled={pageIndex <= 1}
-                >
-                  <span className="sr-only">Go to previous page</span>
-                  <ChevronLeftIcon className="size-4" />
-                </Button>
 
-                {renderEllipsisPrevButton()}
+            {/* Next Page */}
+            <Button
+              variant="ghost"
+              size="sm"
+              className={btnArrowClasses}
+              onClick={() => setPageIndex(pageIndex + 1)}
+              disabled={pageIndex >= pageCount}
+            >
+              <ChevronRightIcon className="size-4" />
+            </Button>
 
-                {renderPageButtons()}
-
-                {renderEllipsisNextButton()}
-
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className={btnArrowClasses}
-                  onClick={() => setPageIndex(pageIndex + 1)}
-                  disabled={pageIndex >= pageCount}
-                >
-                  <span className="sr-only">Go to next page</span>
-                  <ChevronRightIcon className="size-4" />
-                </Button>
-              </div>
-            )}
-          </>
+            {/* Last Page */}
+            <Button
+              variant="ghost"
+              size="sm"
+              className={btnArrowClasses}
+              onClick={() => setPageIndex(pageCount)}
+              disabled={pageIndex >= pageCount}
+            >
+              <ChevronsRightIcon className="size-4" />
+            </Button>
+          </div>
         )}
       </div>
     </div>
   );
 };
 
-export default TablePagination;
+export default TablePagination;
