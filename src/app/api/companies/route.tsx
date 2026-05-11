@@ -1,7 +1,7 @@
 import { COMPANIES } from "@/mock/companies";
-import { CATEGORIES } from "@/mock/categories";
 import { NextResponse } from "next/server";
 import { mockContacts } from "@/mock/contacts";
+import { COMPANY_CATEGORIES } from "@/mock/companyCategories";
 
 export async function GET(req: Request) {
     try {
@@ -71,7 +71,7 @@ export async function GET(req: Request) {
         const data = filtered.slice(startIdx, startIdx + pageSize).map(company => ({
             ...company,
             categories: (company.categoryIds || [])
-                .map(id => CATEGORIES.find(cat => cat.id === id))
+                .map(id => COMPANY_CATEGORIES.find(cat => cat.id === id))
                 .filter(Boolean),
             contacts: (company.contactIds || [])
                 .map(id => mockContacts.find(contact => contact.id === id))

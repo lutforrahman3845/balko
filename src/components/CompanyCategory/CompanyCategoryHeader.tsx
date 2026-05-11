@@ -11,29 +11,29 @@ import {
 import ContentHeader from "@/components/ContentHeader";
 import { useState } from "react";
 import * as XLSX from "xlsx";
-import { Role } from "@/@types/role";
-import {TbUserHexagon } from "react-icons/tb";
-import RoleFormModal from "./RoleFormModal";
+import { CompanyCategory } from "@/@types/compantCategory";
+import { BiSolidCategoryAlt } from "react-icons/bi";
+import CompanyCategoryFormModal from "./CompanyCategoryFormModal";
 
-export function RoleHeader({ data }: { data: Role[] }) {
-    const [roleFormOpen, setRoleFormOpen] = useState(false);
+export function CompanyCategoryHeader({ data }: { data: CompanyCategory[] }) {
+    const [categoryFormOpen, setCategoryFormOpen] = useState(false);
 
     const exportToFormat = (format: "csv" | "xlsx") => {
         if (!data || data.length === 0) return;
 
-        const exportData = data.map((role) => ({
-            Name: role.displayName,
-            Description: role.description || "",
-            "Created At": role.createdAt
-                ? new Date(role.createdAt).toLocaleDateString()
+        const exportData = data.map((category) => ({
+            Name: category.name,
+            Description: category.description || "",
+            "Created At": category.createdAt
+                ? new Date(category.createdAt).toLocaleDateString()
                 : "",
         }));
 
         const worksheet = XLSX.utils.json_to_sheet(exportData);
         const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Roles");
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Categories");
 
-        XLSX.writeFile(workbook, `roles_${new Date().toISOString().slice(0, 10)}.${format}`, {
+        XLSX.writeFile(workbook, `categories_${new Date().toISOString().slice(0, 10)}.${format}`, {
             bookType: format,
         });
     };
@@ -43,10 +43,10 @@ export function RoleHeader({ data }: { data: Role[] }) {
             <ContentHeader>
                 <div className="flex flex-col items-start">
                     <h1 className="inline-flex items-center gap-2.5 font-semibold text-2xl">
-                        <TbUserHexagon className="size-6" /> Roles
+                        <BiSolidCategoryAlt className="size-6" /> Company Categories
                     </h1>
                     <p className="text-sm text-muted-foreground">
-                        Manage user roles and permissions
+                        Manage business categories and industry types
                     </p>
                 </div>
 
@@ -77,13 +77,13 @@ export function RoleHeader({ data }: { data: Role[] }) {
                         </DropdownMenuContent>
                     </DropdownMenu>
 
-                    <Button size="sm" onClick={() => setRoleFormOpen(true)} className="bg-blue-600 hover:bg-blue-700">
-                        <Plus className="size-4 mr-2" /> New Role
+                    <Button size="sm" onClick={() => setCategoryFormOpen(true)} className="bg-blue-600 hover:bg-blue-700">
+                        <Plus className="size-4 mr-2" /> New Company Category
                     </Button>
                 </div>
             </ContentHeader>
 
-            <RoleFormModal open={roleFormOpen} onOpenChange={setRoleFormOpen} />
+            <CompanyCategoryFormModal open={categoryFormOpen} onOpenChange={setCategoryFormOpen} />
         </>
     );
 }

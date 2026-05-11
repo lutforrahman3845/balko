@@ -16,7 +16,7 @@ import { useMemo } from "react";
 import { countryList } from "@/config/countryList";
 import { LuMapPin } from "react-icons/lu";
 import { ConnectionStrengthOptions } from "@/lib/CompanyConnectionBadge";
-import { useGetCategoryOptionsQuery } from "@/redux/apis/CategoryApis";
+import { useGetCompanyCategoryOptionsQuery } from "@/redux/apis/CompanyCategoryApis";
 
 const CompaniesForm = ({
   control,
@@ -30,15 +30,14 @@ const CompaniesForm = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   unregister: (name: any) => void;
 }) => {
-  const { data: categorys, isLoading: loading } = useGetCategoryOptionsQuery(undefined);
+  const { data: companyCategories, isLoading: loading } = useGetCompanyCategoryOptionsQuery(undefined);
 
   const categoryOptions = useMemo(() => {
-    return categorys?.map((category:FilterOption) => ({
+    return companyCategories?.map((category:FilterOption) => ({
       value: category.id,
       label: category.name,
-      color: category.color,
     }));
-  }, [categorys]);
+  }, [companyCategories]);
   return (
     <div className="grid grid-cols-1  lg:grid-cols-3 gap-4">
       <div className="col-span-1 md:col-span-2 pr-6 lg:border-r lg:border-primary/30">
@@ -119,7 +118,7 @@ const CompaniesForm = ({
                 onChange={(value: string | string[]) => {
                   field.onChange(value);
                 }}
-                label={"Category"}
+                label={"Company Category"}
                 placeholder={"Select company category"}
                 error={errors.categoryIds?.message}
                 options={categoryOptions || []}

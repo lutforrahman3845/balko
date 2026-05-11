@@ -45,7 +45,7 @@ export function DepartmentHeader({ data }: { data: ExpandedDepartment[] }) {
       <ContentHeader>
         <div className="flex flex-col items-start">
           <h1 className="inline-flex items-center gap-2.5 font-semibold text-2xl">
-            <PiFolderOpenDuotone className="size-6 text-blue-600" /> Departments
+            <PiFolderOpenDuotone className="size-6" /> Departments
           </h1>
           <p className="text-sm text-muted-foreground">
             Manage your organization's departments and hierarchy

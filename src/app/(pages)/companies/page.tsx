@@ -16,7 +16,7 @@ import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import { RiShakeHandsLine } from "react-icons/ri";
 import { toast } from "sonner";
 import { useGetCompaniesQuery } from "@/redux/apis/CompaniesApis";
-import { useGetCategoryOptionsQuery } from "@/redux/apis/CategoryApis";
+import { useGetCompanyCategoryOptionsQuery } from "@/redux/apis/CompanyCategoryApis";
 
 const connectionStrengthOptions = [
   {
@@ -58,7 +58,7 @@ const Page = () => {
   const [lastContacted, setLastContacted] = useState<string>("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const { data: categoryOptions } = useGetCategoryOptionsQuery(undefined);
+  const { data: categoryOptions } = useGetCompanyCategoryOptionsQuery(undefined);
 
   const {
     data: companies,

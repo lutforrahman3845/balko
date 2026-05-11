@@ -1,4 +1,4 @@
-import { Category } from "./category";
+import { CompanyCategory } from "./compantCategory";
 import { Contact } from "./contact";
 
 export interface Company {
@@ -29,7 +29,7 @@ export interface Company {
 }
 
 export interface ExpandedCompany extends Company {
-  categories: Category[];
+  categories: CompanyCategory[];
   contacts: Contact[];
 }
 import { PaginationMeta } from "./pagination";
