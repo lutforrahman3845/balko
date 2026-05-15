@@ -1,5 +1,6 @@
 import { ExpandedTask, GetTask } from "@/@types/tassk";
 import { useMemo, useState } from "react";
+import { Briefcase } from "lucide-react";
 import {
   ColumnDef,
   getCoreRowModel,
@@ -149,6 +150,29 @@ const TaskTable = ({
         },
         enableSorting: true,
         enableHiding: false,
+        enableResizing: true,
+      },
+      {
+        accessorKey: "project",
+        id: "project",
+        header: "Project",
+        cell: ({ row }) => {
+          const project = row.original.project;
+          if (!project) return <span className="text-muted-foreground text-[11px] italic">No Project</span>;
+          
+          return (
+            <div className="flex items-center gap-2 max-w-40">
+              <div className="flex items-center justify-center size-6 rounded-md bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 shrink-0">
+                <Briefcase className="size-3.5" />
+              </div>
+              <span className="text-xs font-medium truncate" title={project.name}>
+                {project.name}
+              </span>
+            </div>
+          );
+        },
+        enableSorting: true,
+        enableHiding: true,
         enableResizing: true,
       },
       {

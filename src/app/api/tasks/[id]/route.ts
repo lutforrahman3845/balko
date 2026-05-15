@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { tasksData } from "@/mock/taskData";
 import { employeeData } from "@/mock/employeeData";
+import { mockProjects } from "@/mock/projectData";
 
 // Get single task by id
 export async function GET(
@@ -13,13 +14,21 @@ export async function GET(
     if (!task) {
       return NextResponse.json({ error: "Task not found" }, { status: 404 });
     }
+
     const creator =
       employeeData.find((emp) => emp.id === task.createdBy) || null;
     const assignedEmployees =
       task.assignedEmployeeIds
         ?.map((id) => employeeData.find((c) => c.id === id))
         .filter(Boolean) || [];
-    return NextResponse.json({ ...task, creator, assignedEmployees });
+    const project = mockProjects.find((p) => p.id === task.projectId) || null;
+
+    return NextResponse.json({ 
+      ...task, 
+      creator, 
+      assignedEmployees,
+      project 
+    });
   } catch (error) {
     console.error("Error fetching task:", error);
     return NextResponse.json(
@@ -35,7 +44,7 @@ export async function PATCH(
 ) {
   try {
     const { id } = await params;
-    const { status, notes } = await req.json();
+    const body = await req.json();
 
     const taskIndex = tasksData.findIndex((t) => t.id === id);
     if (taskIndex === -1) {
@@ -45,16 +54,33 @@ export async function PATCH(
     // Update the mock data
     tasksData[taskIndex] = {
       ...tasksData[taskIndex],
-      status: status || tasksData[taskIndex].status,
-      // In a real app we would save notes too
+      ...body,
+      updatedAt: new Date().toISOString(),
     };
 
-    return NextResponse.json({ success: true, data: tasksData[taskIndex] });
+    return NextResponse.json(tasksData[taskIndex]);
   } catch (error) {
     console.error("Error updating task:", error);
     return NextResponse.json(
-      { error: { message: "Internal Server Error" } },
+      { error: "Failed to update task" },
       { status: 500 },
     );
   }
+}
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: Promise<{ id: string }> },
+) {
+    try {
+        const { id } = await params;
+        const taskIndex = tasksData.findIndex((t) => t.id === id);
+        if (taskIndex === -1) {
+            return NextResponse.json({ error: "Task not found" }, { status: 404 });
+        }
+        tasksData.splice(taskIndex, 1);
+        return NextResponse.json({ success: true });
+    } catch (error) {
+        return NextResponse.json({ error: "Failed to delete task" }, { status: 500 });
+    }
 }

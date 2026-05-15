@@ -12,11 +12,13 @@ export interface Task {
   completedAt?: string;
   createdAt: string;
   updatedAt: string;
+  projectId: string | null;
 }
 
 export interface ExpandedTask extends Task {
   creator: Employee | null;
   assignedEmployees: Employee[];
+  project: Project | null;
 }
 
 import { PaginationMeta } from "./pagination";
@@ -29,6 +31,7 @@ export interface GetTask {
 
 // Form Schema
 import { z } from "zod";
+import { Project } from "./project";
 
 export const TaskFormSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -37,6 +40,7 @@ export const TaskFormSchema = z.object({
   status: z.enum(["pending", "in_progress", "completed", "blocked"]).optional(),
   priority: z.enum(["high", "medium", "low"]).optional(),
   dueAt: z.string().min(1, "Due date is required"),
+  projectId: z.string().nullable().optional(),
 });
 
 export type TaskFormValues = z.infer<typeof TaskFormSchema>;

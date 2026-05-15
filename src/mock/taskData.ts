@@ -12,12 +12,12 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-10T09:00:00.000Z',
     updatedAt: '2024-01-10T09:00:00.000Z',
     assignedEmployeeIds: ['1', '4'],
+    projectId: '1',
   },
   {
     id: '2',
     title: 'Prepare project proposal',
-    content:
-      'Create detailed proposal including timeline, deliverables, and pricing.',
+    content: 'Create detailed proposal including timeline, deliverables, and pricing.',
     createdBy: '2',
     priority: 'high',
     dueAt: '2026-03-03T11:00:00.000Z',
@@ -25,6 +25,7 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-12T11:00:00.000Z',
     updatedAt: '2024-01-13T15:30:00.000Z',
     assignedEmployeeIds: ['2', '3'],
+    projectId: '1',
   },
   {
     id: '3',
@@ -39,12 +40,12 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-08T10:00:00.000Z',
     updatedAt: '2024-01-12T16:30:00.000Z',
     assignedEmployeeIds: ['1', '3'],
+    projectId: '2',
   },
   {
     id: '4',
     title: 'Review quarterly reports',
-    content:
-      'Analyze Q4 performance metrics and prepare summary for stakeholders.',
+    content: 'Analyze Q4 performance metrics and prepare summary for stakeholders.',
     createdBy: '1',
     priority: 'low',
     dueAt: '2026-02-27T08:00:00.000Z',
@@ -52,6 +53,7 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-14T08:00:00.000Z',
     updatedAt: '2024-01-14T08:00:00.000Z',
     assignedEmployeeIds: ['4'],
+    projectId: '4',
   },
   {
     id: '5',
@@ -64,12 +66,12 @@ export const tasksData: Task[] = [
     createdAt: '2026-02-24T17:20:51.000Z',
     updatedAt: '2026-02-24T17:20:51.000Z',
     assignedEmployeeIds: ['2', '3'],
+    projectId: '3',
   },
   {
     id: '6',
     title: 'Update website content',
-    content:
-      'Refresh homepage content and update product descriptions based on latest features.',
+    content: 'Refresh homepage content and update product descriptions based on latest features.',
     createdBy: '4',
     priority: 'low',
     dueAt: '2026-03-10T14:00:00.000Z',
@@ -77,12 +79,12 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-11T14:00:00.000Z',
     updatedAt: '2024-01-14T10:15:00.000Z',
     assignedEmployeeIds: ['5', '6'],
+    projectId: '3',
   },
   {
     id: '7',
     title: 'Database optimization',
-    content:
-      'Optimize database queries and improve performance for user dashboard.',
+    content: 'Optimize database queries and improve performance for user dashboard.',
     createdBy: '5',
     priority: 'high',
     dueAt: '2026-02-22T16:00:00.000Z',
@@ -90,6 +92,7 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-05T16:00:00.000Z',
     updatedAt: '2024-01-05T16:00:00.000Z',
     assignedEmployeeIds: ['7'],
+    projectId: '3',
   },
   {
     id: '8',
@@ -102,12 +105,12 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-13T12:00:00.000Z',
     updatedAt: '2024-01-13T12:00:00.000Z',
     assignedEmployeeIds: ['8', '9'],
+    projectId: '5',
   },
   {
     id: '9',
     title: 'Security audit',
-    content:
-      'Conduct comprehensive security audit of all systems and applications.',
+    content: 'Conduct comprehensive security audit of all systems and applications.',
     createdBy: '7',
     priority: 'high',
     dueAt: '2026-03-06T08:30:00.000Z',
@@ -115,12 +118,12 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-09T08:30:00.000Z',
     updatedAt: '2024-01-15T11:20:00.000Z',
     assignedEmployeeIds: ['11', '12'],
+    projectId: '1',
   },
   {
     id: '10',
     title: 'Customer feedback analysis',
-    content:
-      'Analyze customer feedback from last quarter and identify improvement areas.',
+    content: 'Analyze customer feedback from last quarter and identify improvement areas.',
     createdBy: '8',
     priority: 'medium',
     dueAt: '2024-01-10T15:00:00.000Z',
@@ -130,12 +133,12 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-07T09:00:00.000Z',
     updatedAt: '2024-01-10T14:45:00.000Z',
     assignedEmployeeIds: ['3', '2'],
+    projectId: '2',
   },
   {
     id: '11',
     title: 'Mobile app testing',
-    content:
-      'Complete testing of new mobile app features before production release.',
+    content: 'Complete testing of new mobile app features before production release.',
     createdBy: '9',
     priority: 'high',
     dueAt: '2026-02-28T10:00:00.000Z',
@@ -143,12 +146,12 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-12T10:00:00.000Z',
     updatedAt: '2024-01-12T10:00:00.000Z',
     assignedEmployeeIds: ['14', '15'],
+    projectId: '3',
   },
   {
     id: '12',
     title: 'Invoice processing',
-    content:
-      'Process pending invoices and send payment reminders to overdue accounts.',
+    content: 'Process pending invoices and send payment reminders to overdue accounts.',
     createdBy: '10',
     priority: 'high',
     dueAt: '2026-02-23T13:00:00.000Z',
@@ -156,12 +159,12 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-14T13:00:00.000Z',
     updatedAt: '2024-01-15T09:30:00.000Z',
     assignedEmployeeIds: ['1', '4'],
+    projectId: '1',
   },
   {
     id: '13',
     title: 'Product demo preparation',
-    content:
-      'Prepare comprehensive product demo for potential enterprise clients.',
+    content: 'Prepare comprehensive product demo for potential enterprise clients.',
     createdBy: '11',
     priority: 'medium',
     dueAt: '2026-03-02T15:00:00.000Z',
@@ -169,6 +172,7 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-13T15:00:00.000Z',
     updatedAt: '2024-01-13T15:00:00.000Z',
     assignedEmployeeIds: ['17', '18'],
+    projectId: '5',
   },
   {
     id: '14',
@@ -183,6 +187,7 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-06T11:00:00.000Z',
     updatedAt: '2024-01-08T15:30:00.000Z',
     assignedEmployeeIds: ['20'],
+    projectId: '3',
   },
   {
     id: '15',
@@ -195,6 +200,7 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-14T16:00:00.000Z',
     updatedAt: '2024-01-14T16:00:00.000Z',
     assignedEmployeeIds: ['1', '2'],
+    projectId: '3',
   },
   {
     id: '16',
@@ -207,6 +213,7 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-15T08:00:00.000Z',
     updatedAt: '2024-01-15T08:00:00.000Z',
     assignedEmployeeIds: ['1', '3'],
+    projectId: null,
   },
   {
     id: '17',
@@ -219,6 +226,7 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-14T10:00:00.000Z',
     updatedAt: '2024-01-15T09:15:00.000Z',
     assignedEmployeeIds: ['1', '4'],
+    projectId: '2',
   },
   {
     id: '18',
@@ -231,6 +239,7 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-15T07:30:00.000Z',
     updatedAt: '2024-01-15T07:30:00.000Z',
     assignedEmployeeIds: ['7', '6'],
+    projectId: '3',
   },
   {
     id: '19',
@@ -243,6 +252,7 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-15T06:00:00.000Z',
     updatedAt: '2024-01-15T06:00:00.000Z',
     assignedEmployeeIds: ['8'],
+    projectId: null,
   },
   {
     id: '20',
@@ -255,12 +265,12 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-15T05:00:00.000Z',
     updatedAt: '2024-01-15T05:00:00.000Z',
     assignedEmployeeIds: ['3', '9'],
+    projectId: '3',
   },
   {
     id: '21',
     title: 'Customer support review',
-    content:
-      'Review pending customer support tickets and prioritize responses.',
+    content: 'Review pending customer support tickets and prioritize responses.',
     createdBy: '6',
     priority: 'high',
     dueAt: '2026-02-24T11:30:00.000Z',
@@ -268,6 +278,7 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-15T08:30:00.000Z',
     updatedAt: '2024-01-15T10:00:00.000Z',
     assignedEmployeeIds: ['12', '19'],
+    projectId: '2',
   },
   {
     id: '22',
@@ -280,6 +291,7 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-14T16:00:00.000Z',
     updatedAt: '2024-01-14T16:00:00.000Z',
     assignedEmployeeIds: ['6', '1'],
+    projectId: '5',
   },
   {
     id: '23',
@@ -292,5 +304,6 @@ export const tasksData: Task[] = [
     createdAt: '2024-01-15T09:00:00.000Z',
     updatedAt: '2024-01-15T09:00:00.000Z',
     assignedEmployeeIds: ['2', '17'],
+    projectId: '3',
   },
 ];

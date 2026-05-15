@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { tasksData } from "@/mock/taskData";
 import { employeeData } from "@/mock/employeeData";
+import { mockProjects } from "@/mock/projectData";
 
 export async function GET(req: Request) {
   try {
@@ -91,10 +92,13 @@ export async function GET(req: Request) {
         task.assignedEmployeeIds
           ?.map((id) => employeeData.find((c) => c.id === id))
           .filter(Boolean) || [];
+      const project = mockProjects.find((p) => p.id === task.projectId) || null;
+      
       return {
         ...task,
         creator,
         assignedEmployees,
+        project,
       };
     });
 

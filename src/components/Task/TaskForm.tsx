@@ -46,25 +46,99 @@ export const StatusOptions = [
   },
 ];
 import { useGetEmployeesQuery } from "@/redux/apis/EmployeesApis";
+import { useGetProjectsQuery } from "@/redux/apis/ProjectApis";
+import { ExpandedProject, Project } from "@/@types/project";
 
 const TaskForm = ({
   control,
   errors,
   isEdit = false,
   data = [],
+  currentProject = null,
 }: {
   control: Control<TaskFormValues>;
   errors: FieldErrors<TaskFormValues>;
   isEdit?: boolean;
   data?: Employee[];
+  currentProject?: Project | null;
 }) => {
   const [searchEmployee, setSearchEmployee] = useState("");
+  const [searchProject, setSearchProject] = useState("");
 
   const { data: employees, isLoading: loading } = useGetEmployeesQuery({
     searchQuery: searchEmployee,
     pageIndex: 1,
     pageSize: 20,
   });
+  const { data: projects, isLoading: loadingProjects } = useGetProjectsQuery({
+    searchQuery: searchProject,
+    pageIndex: 1,
+    pageSize: 20,
+  });
+
+  const projectOptions = useMemo(() => {
+    const options: {
+      value: string;
+      searchText: string;
+      label: React.ReactNode;
+    }[] = [];
+
+    // In Edit, add the currently associated project to the top
+    if (isEdit && currentProject) {
+      options.push({
+        value: currentProject.id.toString(),
+        searchText: currentProject.name,
+        label: (
+          <div className="flex items-center gap-3 w-full">
+            <Avatar className="size-8 shrink-0">
+              <AvatarImage src={currentProject.thumbnail || undefined} />
+              <AvatarFallback>{currentProject.name.charAt(0)}</AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col min-w-0 flex-1">
+              <p className="text-sm font-medium text-foreground truncate leading-tight">
+                {currentProject.name}
+              </p>
+              <p className="text-xs text-muted-foreground truncate">
+                {currentProject.description}
+              </p>
+            </div>
+          </div>
+        ),
+      });
+    }
+
+    // Add fetched project options
+    projects?.data?.forEach((project: ExpandedProject) => {
+      if (
+        !options.some(
+          (opt: { value: string }) => opt.value === project.id.toString(),
+        )
+      ) {
+        options.push({
+          value: project.id.toString(),
+          searchText: project.name,
+          label: (
+            <div className="flex items-center gap-3 w-full">
+              <Avatar className="size-8 shrink-0">
+                <AvatarImage src={project.thumbnail || undefined} />
+                <AvatarFallback>{project.name.charAt(0)}</AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col min-w-0 flex-1">
+                <p className="text-sm font-medium text-foreground truncate leading-tight">
+                  {project.name}
+                </p>
+                <p className="text-xs text-muted-foreground truncate">
+                  {project.description}
+                </p>
+              </div>
+            </div>
+          ),
+        });
+      }
+    });
+
+    return options;
+  }, [projects, currentProject, isEdit]);
 
   const employeeOptions = useMemo(() => {
     const options: {
@@ -164,6 +238,29 @@ const TaskForm = ({
         )}
       />
       <Controller
+        name="projectId"
+        control={control}
+        render={({ field }) => (
+          <CustomeSelect
+            label="Project (optional)"
+            placeholder="Select project"
+            name={field.name}
+            value={field?.value ? [field.value] : []}
+            onChange={(vals) => field.onChange(vals?.[0] || null)}
+            onSearch={setSearchProject}
+            error={
+              typeof errors?.projectId?.message === "string"
+                ? errors?.projectId?.message
+                : undefined
+            }
+            options={projectOptions}
+            multiple={false}
+            className="w-full"
+            loading={loadingProjects}
+          />
+        )}
+      />
+      <Controller
         name="assignedEmployeeIds"
         control={control}
         render={({ field }) => (
@@ -249,12 +346,12 @@ const TaskForm = ({
             value={
               field.value
                 ? (() => {
-                    const d = new Date(field.value);
-                    const offset = d.getTimezoneOffset() * 60000;
-                    return new Date(d.getTime() - offset)
-                      .toISOString()
-                      .slice(0, 16);
-                  })()
+                  const d = new Date(field.value);
+                  const offset = d.getTimezoneOffset() * 60000;
+                  return new Date(d.getTime() - offset)
+                    .toISOString()
+                    .slice(0, 16);
+                })()
                 : ""
             }
             required

@@ -47,6 +47,7 @@ const TaskFormModal = ({
       status: "pending",
       priority: "medium",
       dueAt: "",
+      projectId: null,
     },
   });
 
@@ -59,6 +60,7 @@ const TaskFormModal = ({
         status: data?.status || "pending",
         priority: data?.priority,
         dueAt: data?.dueAt,
+        projectId: data?.projectId || null,
       });
     } else {
       reset({
@@ -68,6 +70,7 @@ const TaskFormModal = ({
         status: "pending",
         priority: "medium",
         dueAt: "",
+        projectId: null,
       });
     }
   }, [data, isEdit, reset]);
@@ -112,6 +115,7 @@ const TaskFormModal = ({
                 errors={errors}
                 isEdit={isEdit}
                 data={data?.assignedEmployees || []}
+                currentProject={data?.project || null}
               />
             </ScrollArea>
           </SheetBody>

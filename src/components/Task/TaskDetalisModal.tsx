@@ -12,6 +12,7 @@ import {
   User,
   Users,
   Layout,
+  Briefcase,
 } from "lucide-react";
 import { BiMessageSquare } from "react-icons/bi";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -253,6 +254,25 @@ const TaskDetalisModal = ({
                         </div>
                       </div>
                     </div>
+
+                    {task.project && (
+                      <div className="flex items-start gap-3">
+                        <h4 className="text-xs sm:text-sm font-bold uppercase tracking-widest text-muted-foreground/80 flex items-center gap-1.5 mt-1.5">
+                          <Briefcase className="size-4 text-amber-500/70" />
+                          Project :
+                        </h4>
+                        <div className="flex items-start gap-3 p-2 rounded-xl bg-amber-500/5 border border-amber-500/10 flex-1">
+                          <div className="flex flex-col min-w-0">
+                            <span className="text-sm font-bold text-amber-900 dark:text-amber-400 leading-none mb-1">
+                              {task.project.name}
+                            </span>
+                            <p className="text-[11px] text-amber-700/70 dark:text-amber-400/60 line-clamp-2 leading-tight font-medium">
+                              {task.project.description}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
 
                     {/* Content / Description */}
                     <div className="space-y-3 pt-6 border-t">
