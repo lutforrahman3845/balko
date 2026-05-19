@@ -27,6 +27,15 @@ export interface Project {
 
 
 
+import { Folder } from "./folder";
+import { ProjectDocument, DocumentType } from "./projectDocuments";
+
+export interface ExpandedProjectDocument extends ProjectDocument {
+    documentType: DocumentType | null;
+    uploadedByEmployee: Employee | null;
+    folder: Folder | null;
+}
+
 export interface ExpandedProject extends Project {
     manager: Employee;
     teams: ExpandedSingleTeam[];
@@ -40,7 +49,9 @@ export interface GetProject {
     meta: PaginationMeta;
 }
 
-
+export interface SingleProject extends ExpandedProject {
+    documents: ExpandedProjectDocument[];
+}
 // Form Schema
 import { z } from "zod";
 import { Employee } from "./employee";

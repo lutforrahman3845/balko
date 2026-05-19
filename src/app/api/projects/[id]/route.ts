@@ -7,6 +7,9 @@ import { mockContacts } from "@/mock/contacts";
 import { COMPANIES } from "@/mock/companies";
 import { teamMemberData } from "@/mock/teamMemberData";
 import { rolesData } from "@/mock/roleData";
+import { mockFolderData } from "@/mock/folderData";
+import { mockProjectDocuments } from "@/mock/projectDocuments";
+import { mockDocumentType } from "@/mock/documentType";
 
 export async function GET(
   req: Request,
@@ -20,7 +23,7 @@ export async function GET(
   }
 
   const manager = employeeData.find((emp) => emp.id === project.managerId);
-  
+
   // Expand each team to ExpandedSingleTeam
   const teams = project.teamIds.map((tId) => {
     const team = teamData.find((t) => t.id === tId);
@@ -29,31 +32,52 @@ export async function GET(
     const teamDept = departmentData.find((dept) => dept.id === team.departmentId);
     const leaderBase = employeeData.find((emp) => emp.id === team.teamLeaderId);
     const teamLeader = leaderBase ? {
-        ...leaderBase,
-        department: departmentData.find((dept) => dept.id === leaderBase.departmentId),
-        role: rolesData.find((role) => role.id === leaderBase.roleId)
+      ...leaderBase,
+      department: departmentData.find((dept) => dept.id === leaderBase.departmentId),
+      role: rolesData.find((role) => role.id === leaderBase.roleId)
     } : null;
 
     const teamMembers = teamMemberData.filter((tm) => tm.teamId === team.id).map((tm) => {
-        const memberBase = employeeData.find((emp) => emp.id === tm.userId);
-        return memberBase ? {
-            ...memberBase,
-            department: departmentData.find((dept) => dept.id === memberBase.departmentId),
-            role: rolesData.find((role) => role.id === memberBase.roleId)
-        } : null;
+      const memberBase = employeeData.find((emp) => emp.id === tm.userId);
+      return memberBase ? {
+        ...memberBase,
+        department: departmentData.find((dept) => dept.id === memberBase.departmentId),
+        role: rolesData.find((role) => role.id === memberBase.roleId)
+      } : null;
     }).filter(Boolean);
 
     return {
-        ...team,
-        department: teamDept,
-        teamLeader,
-        teamMembers
+      ...team,
+      department: teamDept,
+      teamLeader,
+      teamMembers
     };
   }).filter(Boolean);
 
   const department = departmentData.find((d) => d.id === project.departmentId) || null;
   const company = COMPANIES.find((c) => c.id === project.companyId) || null;
   const contactPerson = mockContacts.find((c) => c.id === project.contactPersonId) || null;
+
+  // Hydrate project documents with type and employee uploader details
+  const documents = mockProjectDocuments
+    .filter((doc) => doc.projectId === project.id)
+    .map((doc) => {
+      const documentType = mockDocumentType.find((dt) => dt.id === doc.documentTypeId) || null;
+      const uploadedByEmployee = employeeData.find((emp) => emp.id === doc.uploadedBy) || null;
+      const folders = mockFolderData.find((folder) => folder.id === doc.folderId) || null;
+      return {
+        ...doc,
+        documentType,
+        uploadedByEmployee: {
+          id: uploadedByEmployee?.id,
+          avatar: uploadedByEmployee?.avatar,
+          name: uploadedByEmployee?.name,
+          email: uploadedByEmployee?.email,
+          designation: uploadedByEmployee?.designation,   
+        },
+        folders,
+      };
+    });
 
   const expandedProject = {
     ...project,
@@ -62,6 +86,7 @@ export async function GET(
     department,
     company,
     contactPerson,
+    documents,
   };
 
   return NextResponse.json(expandedProject);
