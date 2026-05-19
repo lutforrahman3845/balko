@@ -25,6 +25,8 @@ export interface Project {
     updatedAt: string;
 }
 
+
+
 export interface ExpandedProject extends Project {
     manager: Employee;
     teams: ExpandedSingleTeam[];
