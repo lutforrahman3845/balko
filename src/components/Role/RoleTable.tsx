@@ -20,7 +20,6 @@ import { toast } from "sonner";
 import { Role, GetAllRoleResponse } from "@/@types/role";
 import RoleFormModal from "./RoleFormModal";
 import RoleDeatils from "./RoleDeatils";
-import { Badge } from "../ui/badge";
 
 interface RoleTableProps {
     data: GetAllRoleResponse | null;
@@ -199,6 +198,7 @@ const RoleTable = ({
         [],
     );
 
+    // eslint-disable-next-line react-hooks/incompatible-library
     const table = useReactTable<Role>({
         data: data?.data || [],
         columns,

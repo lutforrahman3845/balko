@@ -1,12 +1,10 @@
 "use client";
-import { ExpandedCompany, GetCompaniesResponse } from "@/@types/company";
+import { ExpandedCompany } from "@/@types/company";
 import CompaniesHeader from "@/components/Companies/CompaniesHeader";
 import CompaniesTable from "@/components/Companies/CompaniesTable";
 import ConfirmDialog from "@/components/shared/ConfirmDialog";
 import { ErrorState } from "@/components/shared/ErrorState";
-import FilterDropDown, {
-  FilterOption,
-} from "@/components/shared/FilterDropDown";
+import FilterDropDown from "@/components/shared/FilterDropDown";
 import FilterSearch from "@/components/shared/FilterSearch";
 import FilterSort from "@/components/shared/FilterSort";
 import { Button } from "@/components/ui/button";
@@ -74,7 +72,9 @@ const Page = () => {
     pageSize,
   });
   const selectedIds = useMemo(() => {
-    const dataIds = new Set(companies?.data.map((item: ExpandedCompany) => String(item.id)));
+    const dataIds = new Set(
+      companies?.data.map((item: ExpandedCompany) => String(item.id)),
+    );
     return Object.keys(rowSelection).filter(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (id) => (rowSelection as any)[id] && dataIds.has(id),
@@ -95,9 +95,11 @@ const Page = () => {
             <div className="flex flex-wrap items-center  gap-4 p-4">
               <FilterSearch
                 searchQuery={searchQuery}
-                setSearchQuery={(q) => { const val = q.trimStart().replace(/\s\s+/g, " "); setSearchQuery(val); if (val.trim() !== searchQuery.trim()) setPageIndex(1) }}
-
-
+                setSearchQuery={(q) => {
+                  const val = q.trimStart().replace(/\s\s+/g, " ");
+                  setSearchQuery(val);
+                  if (val.trim() !== searchQuery.trim()) setPageIndex(1);
+                }}
                 placeholder="Search company by Name, Email, website"
               />
               <FilterDropDown
@@ -207,8 +209,8 @@ const Page = () => {
             >
               <span>
                 Are you sure you want to delete {selectedIds.length} selected{" "}
-                {selectedIds.length === 1 ? "company" : "companies"}? This action
-                cannot be undone.
+                {selectedIds.length === 1 ? "company" : "companies"}? This
+                action cannot be undone.
               </span>
             </ConfirmDialog>
           )}

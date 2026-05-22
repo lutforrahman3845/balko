@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import { RoleHeader } from "@/components/Role/RoleHeader";
 import RoleTable from "@/components/Role/RoleTable";

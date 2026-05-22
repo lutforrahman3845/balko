@@ -41,7 +41,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
-import { useGetTaskDetailsQuery, useUpdateTaskStatusMutation } from "@/redux/apis/TasksApis";
+import {
+  useGetTaskDetailsQuery,
+  useUpdateTaskStatusMutation,
+} from "@/redux/apis/TasksApis";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { TbHomeFilled } from "react-icons/tb";
+import { TiUser } from "react-icons/ti";
 
 interface TaskDetalisModalProps {
   open: boolean;
@@ -75,7 +81,8 @@ const TaskDetalisModal = ({
     }
   }, [task?.status, openModal]);
 
-  const [updateStatus, { isLoading: isUpdating }] = useUpdateTaskStatusMutation();
+  const [updateStatus, { isLoading: isUpdating }] =
+    useUpdateTaskStatusMutation();
 
   const handleUpdateStatus = async () => {
     if (!newStatus) {
@@ -83,7 +90,11 @@ const TaskDetalisModal = ({
       return;
     }
     try {
-      await updateStatus({ id: selectedId as string, status: newStatus, notes }).unwrap();
+      await updateStatus({
+        id: selectedId as string,
+        status: newStatus,
+        notes,
+      }).unwrap();
       toast.success("Task status updated");
       setOpenModal(false);
       setNotes("");
@@ -262,13 +273,40 @@ const TaskDetalisModal = ({
                           Project :
                         </h4>
                         <div className="flex items-start gap-3 p-2 rounded-xl bg-amber-500/5 border border-amber-500/10 flex-1">
-                          <div className="flex flex-col min-w-0">
-                            <span className="text-sm font-bold text-amber-900 dark:text-amber-400 leading-none mb-1">
-                              {task.project.name}
-                            </span>
-                            <p className="text-[11px] text-amber-700/70 dark:text-amber-400/60 line-clamp-2 leading-tight font-medium">
-                              {task.project.description}
-                            </p>
+                          <div className="flex items-center gap-3">
+                            <div className="flex flex-col min-w-0 font-medium">
+                              <span className="text-sm truncate flex items-center gap-1.5">
+                                {task?.project?.type === "internal" ? (
+                                  <Tooltip>
+                                    <TooltipTrigger asChild>
+                                      <div className="text-blue-500">
+                                        <TbHomeFilled className="size-4" />
+                                      </div>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                      <p>In-House Project</p>
+                                    </TooltipContent>
+                                  </Tooltip>
+                                ) : (
+                                  <Tooltip>
+                                    <TooltipTrigger asChild>
+                                      <div className="text-emerald-500">
+                                        <TiUser className="size-4" />
+                                      </div>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                      <p>Client Project</p>
+                                    </TooltipContent>
+                                  </Tooltip>
+                                )}
+                                {task?.project?.name}
+                              </span>
+                              <span className="text-xs truncate opacity-70">
+                                {task?.project?.description
+                                  ? task?.project?.description
+                                  : "No description"}
+                              </span>
+                            </div>
                           </div>
                         </div>
                       </div>

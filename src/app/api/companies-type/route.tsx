@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { CompanyTypesData } from "@/mock/companyType";
-import { CompanyType, GetCompanyTypeResponse } from "@/@types/companiesType";
+import { GetCompanyTypeResponse } from "@/@types/companiesType";
 
 export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);

@@ -284,7 +284,7 @@ const TeamForm = ({ control,
                         onChange={(val) => field.onChange(val as string)}
                         options={teamEmployeeOptions}
                         multiple={true}
-                        loading={loadingDepts}
+                        loading={loading}
                         error={
                             typeof errors?.teamMembers?.message === "string"
                                 ? errors?.teamMembers?.message

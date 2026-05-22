@@ -2,8 +2,7 @@
 
 import { Control, Controller, FieldErrors } from "react-hook-form";
 import FormItem from "@/components/shared/FormItem";
-import { Role, RoleFormValues } from "@/@types/role";
-import CustomeSelect from "@/components/shared/CustomeSelect";
+import { RoleFormValues } from "@/@types/role";
 
 const RoleForm = ({
     control,

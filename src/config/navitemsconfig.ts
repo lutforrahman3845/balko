@@ -1,5 +1,5 @@
 import { NavConfig } from "@/@types/NavItem";
-import { CheckSquare, LayoutGrid } from "lucide-react";
+import { Briefcase, CheckSquare, LayoutGrid } from "lucide-react";
 import { IoPeopleCircle, IoSettingsOutline } from "react-icons/io5";
 import { LuBuilding2 } from "react-icons/lu";
 import { LiaUserTieSolid } from "react-icons/lia";
@@ -48,6 +48,16 @@ export const MAIN_NAV: NavConfig = [
     icon: IoPeopleCircle,
     title: "Teams",
     path: "/teams",
+    haveSubmenu: false,
+  },
+  {
+    icon: Briefcase,
+    title: "Projects",
+    path: "/projects",
+    new: {
+      tooltip: "New Project",
+      path: "/projects/new",
+    },
     haveSubmenu: false,
   },
   {

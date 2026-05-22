@@ -14,11 +14,16 @@ import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
-import { ExpandedSingleTeam, TeamFormSchema, TeamFormValues } from "@/@types/team";
+import {
+  ExpandedSingleTeam,
+  TeamFormSchema,
+  TeamFormValues,
+} from "@/@types/team";
 import { IoPeopleCircleOutline } from "react-icons/io5";
 import { useGetTeamByIdQuery } from "@/redux/apis/TeamAPis";
 import { useEffect } from "react";
 import TeamForm from "./TeamForm";
+import { Skeleton } from "../ui/skeleton";
 interface TeamsFormModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -32,7 +37,10 @@ const TeamsFormModal = ({
   isEdit = false,
   selectedId = null,
 }: TeamsFormModalProps) => {
-  const { data: employeeData, isLoading: employeeDataLoading } = useGetTeamByIdQuery(selectedId as string, { skip: !open || !isEdit && !selectedId })
+  const { data: employeeData, isLoading: employeeDataLoading } =
+    useGetTeamByIdQuery(selectedId as string, {
+      skip: !open || (!isEdit && !selectedId),
+    });
   const data = employeeData?.data as ExpandedSingleTeam;
   // Form State
   const {
@@ -47,7 +55,7 @@ const TeamsFormModal = ({
       description: "",
       departmentId: "",
       teamLeaderId: "",
-      teamMembers: []
+      teamMembers: [],
     },
   });
 
@@ -58,7 +66,7 @@ const TeamsFormModal = ({
         description: data.description || "",
         departmentId: data.departmentId,
         teamLeaderId: data.teamLeaderId || "?",
-        teamMembers: data.teamMembers?.map((member) => member.id) || []
+        teamMembers: data.teamMembers?.map((member) => member.id) || [],
       });
     } else {
       reset({
@@ -66,7 +74,7 @@ const TeamsFormModal = ({
         description: "",
         departmentId: "",
         teamLeaderId: "",
-        teamMembers: []
+        teamMembers: [],
       });
     }
   }, [data, isEdit, reset]);
@@ -85,13 +93,14 @@ const TeamsFormModal = ({
     } catch (error: any) {
       toast.error(
         error?.message ??
-        (isEdit ? "Failed to update Team" : "Failed to create Team"),
+          (isEdit ? "Failed to update Team" : "Failed to create Team"),
       );
     }
   };
   const handleFormError = () => {
     toast.error("Please fix the errors in the form before submitting.");
   };
+
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent className="gap-0 sm:w-150 inset-5 inset-s-auto h-auto rounded-lg p-0 sm:max-w-none ">
@@ -104,12 +113,38 @@ const TeamsFormModal = ({
         <form onSubmit={handleSubmit(onSubmit, handleFormError)}>
           <SheetBody className="grow p-0">
             <ScrollArea className="h-[calc(100vh-10.5rem)]">
-              <TeamForm
-                control={control}
-                errors={errors}
-                data={data}
-                isEdit={isEdit}
-              />
+              {employeeDataLoading ? (
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-24" />
+                    <Skeleton className="h-10 w-full rounded-md" />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-32" />
+                    <Skeleton className="h-10 w-full rounded-md" />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-28" />
+                    <Skeleton className="h-10 w-full rounded-md" />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-20" />
+                    <Skeleton className="h-10 w-full rounded-md" />
+                  </div>
+
+                  <Skeleton className="h-12 w-32 rounded-md" />
+                </div>
+              ) : (
+                <TeamForm
+                  control={control}
+                  errors={errors}
+                  data={data}
+                  isEdit={isEdit}
+                />
+              )}
             </ScrollArea>
           </SheetBody>
           <SheetFooter className="p-5">

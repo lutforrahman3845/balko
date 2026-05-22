@@ -9,13 +9,11 @@ import {
 } from "@/components/ui/sheet";
 import { User, MapPin, Clock, Layout, Globe, ExternalLink } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ExpandedContact } from "@/@types/contact";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ErrorState } from "@/components/shared/ErrorState";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { LuBuilding2, LuPhone, LuMail, LuBriefcase } from "react-icons/lu";
 import { BiMessageAltDots } from "react-icons/bi";

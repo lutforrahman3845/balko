@@ -9,13 +9,11 @@ import {
 } from "@/components/ui/sheet";
 import { User, MapPin, Clock, Layout, Globe, ExternalLink, Mail, Phone, GlobeIcon, Briefcase, CalendarClock, StickyNote } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ExpandedCompany } from "@/@types/company";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ErrorState } from "@/components/shared/ErrorState";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
 import {
   FaLinkedin,

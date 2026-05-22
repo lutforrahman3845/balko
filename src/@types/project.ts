@@ -7,7 +7,6 @@ export interface Project {
     id: string;
     name: string;
     description: string;
-    thumbnail: string | null;
     type: ProjectType;
     status: ProjectStatus;
     priority: ProjectPriority;

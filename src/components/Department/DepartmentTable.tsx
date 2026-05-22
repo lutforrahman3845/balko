@@ -99,7 +99,7 @@ const DepartmentTable = ({
                             <div className="font-semibold text-sm leading-tight text-foreground">
                                 {dept.displayName}
                             </div>
-                            <div className="text-[11px] text-muted-foreground opacity-70 leading-normal  truncate w-[200px]">
+                            <div className="text-[11px] text-muted-foreground opacity-70 leading-normal  truncate w-50">
                                 {dept.description}
                             </div>
                         </div>

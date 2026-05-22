@@ -11,14 +11,19 @@ import {
   SheetBody,
   SheetFooter,
 } from "@/components/ui/sheet";
-import {Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
-import { EmployeeFormSchema, EmployeeFormValues, ExpandedSingleEmployee } from "@/@types/employee";
+import {
+  EmployeeFormSchema,
+  EmployeeFormValues,
+  ExpandedSingleEmployee,
+} from "@/@types/employee";
 import { TiUserAdd } from "react-icons/ti";
 import EmployeeForm from "./EmployeeForm";
 import { useGetEmployeeByIdQuery } from "@/redux/apis/EmployeesApis";
+import { Skeleton } from "../ui/skeleton";
 interface EmployeeFormModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -32,8 +37,10 @@ const EmployeeFormModal = ({
   isEdit = false,
   selectedId = null,
 }: EmployeeFormModalProps) => {
-
-  const { data: employeeData} = useGetEmployeeByIdQuery(selectedId as string, { skip: !open || !isEdit && !selectedId })
+  const { data: employeeData, isLoading: employeeDataLoading } =
+    useGetEmployeeByIdQuery(selectedId as string, {
+      skip: !open || (!isEdit && !selectedId),
+    });
   const data = employeeData?.data as ExpandedSingleEmployee;
   // Form State
   const {
@@ -101,7 +108,7 @@ const EmployeeFormModal = ({
     } catch (error: any) {
       toast.error(
         error?.message ??
-        (isEdit ? "Failed to update employee" : "Failed to create employee"),
+          (isEdit ? "Failed to update employee" : "Failed to create employee"),
       );
     }
   };
@@ -120,12 +127,38 @@ const EmployeeFormModal = ({
         <form onSubmit={handleSubmit(onSubmit, handleFormError)}>
           <SheetBody className="grow p-0">
             <ScrollArea className="h-[calc(100vh-10.5rem)]">
-              <EmployeeForm
-                control={control}
-                errors={errors}
-                data={data}
-                isEdit={isEdit}
-              />
+              {employeeDataLoading ? (
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-24" />
+                    <Skeleton className="h-10 w-full rounded-md" />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-32" />
+                    <Skeleton className="h-10 w-full rounded-md" />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-28" />
+                    <Skeleton className="h-10 w-full rounded-md" />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-20" />
+                    <Skeleton className="h-10 w-full rounded-md" />
+                  </div>
+
+                  <Skeleton className="h-12 w-32 rounded-md" />
+                </div>
+              ) : (
+                <EmployeeForm
+                  control={control}
+                  errors={errors}
+                  data={data}
+                  isEdit={isEdit}
+                />
+              )}
             </ScrollArea>
           </SheetBody>
           <SheetFooter className="p-5">

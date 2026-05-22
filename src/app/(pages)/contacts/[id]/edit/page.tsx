@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import {
   ContactsCreateFormSchema,
   ContactsCreateFormValues,
-  ExpandedContact,
 } from "@/@types/contact";
 import ContentHeader from "@/components/ContentHeader";
 import { useForm } from "react-hook-form";

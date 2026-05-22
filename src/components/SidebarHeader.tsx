@@ -59,7 +59,7 @@ export function SidebarHeader() {
         size="sm"
         variant="outline"
         className={cn(
-          'size-7 absolute start-full top-2/4 rtl:translate-x-2/4 -translate-x-2/4 -translate-y-2/4',
+          'size-7 absolute inset-s-full top-2/4 rtl:translate-x-2/4 -translate-x-2/4 -translate-y-2/4',
           sidebarCollapse ? 'ltr:rotate-180' : 'rtl:rotate-180',
         )}
       >

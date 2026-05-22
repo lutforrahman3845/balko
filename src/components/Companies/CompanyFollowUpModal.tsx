@@ -11,7 +11,7 @@ import {
     SheetBody,
     SheetFooter,
 } from "@/components/ui/sheet";
-import { Loader2, Globe, Mail, Phone, Building2 } from "lucide-react";
+import { Loader2, Globe, Mail, Phone} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
@@ -77,6 +77,7 @@ const CompanyFollowUpModal = ({
             } else {
                 toast.success("Company follow up created successfully!");
             }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             toast.error(
                 error?.message ?? "Failed to save follow up information",
@@ -130,7 +131,7 @@ const CompanyFollowUpModal = ({
                                                             <div className="size-7 rounded-md bg-background border border-border/60 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary shadow-sm transition-all duration-300">
                                                                 <Globe className="size-3.5" />
                                                             </div>
-                                                            <span className="truncate max-w-[150px]">{data.website.replace(/^https?:\/\//, '')}</span>
+                                                            <span className="truncate max-w-37.5">{data.website.replace(/^https?:\/\//, '')}</span>
                                                         </div>
                                                     )}
                                                     {data?.email && (
@@ -138,7 +139,7 @@ const CompanyFollowUpModal = ({
                                                             <div className="size-7 rounded-md bg-background border border-border/60 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary shadow-sm transition-all duration-300">
                                                                 <Mail className="size-3.5" />
                                                             </div>
-                                                            <span className="truncate max-w-[150px]">{data.email}</span>
+                                                            <span className="truncate max-w-37.5">{data.email}</span>
                                                         </div>
                                                     )}
                                                     {data?.phone && (

@@ -48,7 +48,7 @@ export function DepartmentHeader({ data }: { data: ExpandedDepartment[] }) {
             <PiFolderOpenDuotone className="size-6" /> Departments
           </h1>
           <p className="text-sm text-muted-foreground">
-            Manage your organization's departments and hierarchy
+            Manage your organization&lsquo;s departments and hierarchy
           </p>
         </div>
 

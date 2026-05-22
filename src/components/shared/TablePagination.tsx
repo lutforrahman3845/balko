@@ -79,14 +79,14 @@ const TablePagination = ({
     const shouldShowRightDots = rightSiblingIndex < pageCount - 1;
 
     if (!shouldShowLeftDots && shouldShowRightDots) {
-      let leftItemCount = 3 + 2 * siblingCount;
-      let leftRange = Array.from({ length: leftItemCount }, (_, i) => i + 1);
+      const leftItemCount = 3 + 2 * siblingCount;
+      const leftRange = Array.from({ length: leftItemCount }, (_, i) => i + 1);
       return [...leftRange, 'ellipsis-right', pageCount];
     }
 
     if (shouldShowLeftDots && !shouldShowRightDots) {
-      let rightItemCount = 3 + 2 * siblingCount;
-      let rightRange = Array.from(
+      const rightItemCount = 3 + 2 * siblingCount;
+      const rightRange = Array.from(
         { length: rightItemCount },
         (_, i) => pageCount - rightItemCount + i + 1
       );
@@ -94,7 +94,7 @@ const TablePagination = ({
     }
 
     if (shouldShowLeftDots && shouldShowRightDots) {
-      let middleRange = Array.from(
+      const middleRange = Array.from(
         { length: rightSiblingIndex - leftSiblingIndex + 1 },
         (_, i) => leftSiblingIndex + i
       );
@@ -125,12 +125,12 @@ const TablePagination = ({
             setPageIndex(1);
           }}
         >
-          <SelectTrigger className="h-8 w-[70px] bg-background border-border/50 hover:border-primary/50 transition-colors" size="sm">
+          <SelectTrigger className="h-8 w-17.5 bg-background border-border/50 hover:border-primary/50 transition-colors" size="sm">
             <SelectValue placeholder={`${pageSize}`} />
           </SelectTrigger>
-          <SelectContent side="top" className="min-w-[70px]">
+          <SelectContent side="top" className="min-w-17.5">
             {sizes.map((size) => (
-              <SelectItem key={size} value={`${size}`}>
+              <SelectItem key={size} value={`${size}`}> 
                 {size}
               </SelectItem>
             ))}
@@ -223,4 +223,4 @@ const TablePagination = ({
   );
 };
 
-export default TablePagination;
+export default TablePagination;

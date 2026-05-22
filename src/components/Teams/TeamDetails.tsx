@@ -8,12 +8,10 @@ import {
 import {
     Calendar,
     Mail,
-    Phone,
     Briefcase,
     Building2,
     ShieldCheck,
     Users2,
-    Info,
     User,
     Users,
 } from "lucide-react";
@@ -23,7 +21,6 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ErrorState } from "@/components/shared/ErrorState";
-import { cn } from "@/lib/utils";
 import { useGetTeamByIdQuery } from "@/redux/apis/TeamAPis";
 import { ExpandedSingleTeam } from "@/@types/team";
 import { IoPeopleCircle } from "react-icons/io5";

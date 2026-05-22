@@ -6,9 +6,9 @@ export const projectApis = apiSlice.injectEndpoints({
     getProjects: builder.query<
       GetProject,
       {
-        searchQuery?: string;
         pageIndex?: number;
         pageSize?: number;
+        searchQuery?: string;
         status?: string;
         type?: string;
         priority?: string;

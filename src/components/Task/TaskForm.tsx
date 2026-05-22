@@ -2,7 +2,7 @@ import { Control, Controller, FieldErrors } from "react-hook-form";
 import FormItem from "@/components/shared/FormItem";
 import SelectFormItem from "@/components/shared/SelectFormItem";
 import CustomeSelect from "@/components/shared/CustomeSelect";
-import { Employee, ExpandedEmployee, GetEmployee } from "@/@types/employee";
+import { Employee, ExpandedEmployee} from "@/@types/employee";
 import { useMemo, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { TaskFormValues } from "@/@types/tassk";
@@ -48,6 +48,9 @@ export const StatusOptions = [
 import { useGetEmployeesQuery } from "@/redux/apis/EmployeesApis";
 import { useGetProjectsQuery } from "@/redux/apis/ProjectApis";
 import { ExpandedProject, Project } from "@/@types/project";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { TbHomeFilled } from "react-icons/tb";
+import { TiUser } from "react-icons/ti";
 
 const TaskForm = ({
   control,
@@ -83,24 +86,39 @@ const TaskForm = ({
       label: React.ReactNode;
     }[] = [];
 
-    // In Edit, add the currently associated project to the top
     if (isEdit && currentProject) {
       options.push({
         value: currentProject.id.toString(),
         searchText: currentProject.name,
         label: (
-          <div className="flex items-center gap-3 w-full">
-            <Avatar className="size-8 shrink-0">
-              <AvatarImage src={currentProject.thumbnail || undefined} />
-              <AvatarFallback>{currentProject.name.charAt(0)}</AvatarFallback>
-            </Avatar>
-            <div className="flex flex-col min-w-0 flex-1">
-              <p className="text-sm font-medium text-foreground truncate leading-tight">
+          <div className="flex items-center gap-3">
+            <div className="flex flex-col min-w-0 font-medium">
+              <span className="text-sm truncate flex items-center gap-1.5">
+                {currentProject.type === "internal" ? (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="text-blue-500">
+                        <TbHomeFilled className="size-4" />
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>In-House Project</p>
+                    </TooltipContent>
+                  </Tooltip>
+                ) : (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="text-emerald-500">
+                        <TiUser className="size-4" />
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Client Project</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
                 {currentProject.name}
-              </p>
-              <p className="text-xs text-muted-foreground truncate">
-                {currentProject.description}
-              </p>
+              </span>
             </div>
           </div>
         ),
@@ -118,18 +136,34 @@ const TaskForm = ({
           value: project.id.toString(),
           searchText: project.name,
           label: (
-            <div className="flex items-center gap-3 w-full">
-              <Avatar className="size-8 shrink-0">
-                <AvatarImage src={project.thumbnail || undefined} />
-                <AvatarFallback>{project.name.charAt(0)}</AvatarFallback>
-              </Avatar>
-              <div className="flex flex-col min-w-0 flex-1">
-                <p className="text-sm font-medium text-foreground truncate leading-tight">
+            <div className="flex items-center gap-3">
+              <div className="flex flex-col min-w-0 font-medium">
+                <span className="text-sm truncate flex items-center gap-1.5">
+                  {project.type === "internal" ? (
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="text-blue-500">
+                          <TbHomeFilled className="size-4" />
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>In-House Project</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  ) : (
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="text-emerald-500">
+                          <TiUser className="size-4" />
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Client Project</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  )}
                   {project.name}
-                </p>
-                <p className="text-xs text-muted-foreground truncate">
-                  {project.description}
-                </p>
+                </span>
               </div>
             </div>
           ),
@@ -346,12 +380,12 @@ const TaskForm = ({
             value={
               field.value
                 ? (() => {
-                  const d = new Date(field.value);
-                  const offset = d.getTimezoneOffset() * 60000;
-                  return new Date(d.getTime() - offset)
-                    .toISOString()
-                    .slice(0, 16);
-                })()
+                    const d = new Date(field.value);
+                    const offset = d.getTimezoneOffset() * 60000;
+                    return new Date(d.getTime() - offset)
+                      .toISOString()
+                      .slice(0, 16);
+                  })()
                 : ""
             }
             required

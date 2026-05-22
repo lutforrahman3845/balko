@@ -229,7 +229,7 @@ const TeamsTable = ({
 
     return (
         <>
-            <div className="flex flex-col gap-4 px-6">
+            <div className="flex flex-col gap-4">
                 <DataTable table={table} loading={loading} />
                 {data && data.data.length > 0 && (
                     <TablePagination

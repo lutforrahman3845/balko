@@ -11,7 +11,6 @@ import {
     Clock,
     Layout,
     Shield,
-    CheckCircle2,
 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { format } from "date-fns";

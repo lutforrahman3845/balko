@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckSquare, Download, DownloadIcon, Plus, Share } from "lucide-react";
+import { Download, DownloadIcon, Plus, Share } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,

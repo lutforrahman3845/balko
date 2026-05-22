@@ -25,8 +25,7 @@ export async function GET(req: Request) {
     if (searchQuery) {
       filtered = filtered.filter(
         (project) =>
-          project.name.toLowerCase().includes(searchQuery) ||
-          project.description.toLowerCase().includes(searchQuery)
+          project.name.toLowerCase().includes(searchQuery)
       );
     }
 

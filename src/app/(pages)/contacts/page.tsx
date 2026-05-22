@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { GetContacts } from "@/@types/contact";
 import ContactsHeader from "@/components/Contacts/ContactsHeader";
 import { ErrorState } from "@/components/shared/ErrorState";
 import FilterDropDown from "@/components/shared/FilterDropDown";

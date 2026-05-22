@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CompanyInteractionHistory } from "@/mock/CompanyInteractionHistory";
 import { contactHistory } from "@/mock/contactHistory";
 import { COMPANIES } from "@/mock/companies";
@@ -51,7 +52,7 @@ export async function GET(
             companyConatact: paginatedSlice.filter((item: any) => 'companyId' in item && !('contactId' in item)),
             conatactsHistory: paginatedSlice
                 .filter((item: any) => 'contactId' in item)
-                .map(({ lastInteractionAt, ...rest }: any) => rest)
+                .map(({ ...rest }: any) => rest)
         };
 
         return NextResponse.json({

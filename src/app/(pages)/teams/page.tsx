@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useMemo, useState } from "react";
 import { useGetTeamsQuery } from "@/redux/apis/TeamAPis";
@@ -40,7 +41,7 @@ const Page = () => {
         );
     }, [teams, rowSelection]);
     return (
-        <div className="flex flex-col min-h-full bg-zinc-50/50 dark:bg-zinc-950/50">
+        <div>
             <TeamsHeader data={teams?.data || []} />
             {isError ? (
                 <div className="p-8">
