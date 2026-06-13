@@ -1,5 +1,5 @@
 import { apiSlice } from "../apiSlice";
-import { ExpandedProject, GetProject, Project, ProjectFormValues } from "@/@types/project";
+import { SingleProject, GetProject, Project, ProjectFormValues } from "@/@types/project";
 
 export const projectApis = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -21,7 +21,7 @@ export const projectApis = apiSlice.injectEndpoints({
       providesTags: ["project"],
     }),
 
-    getProjectById: builder.query<ExpandedProject, string>({
+    getProjectById: builder.query<SingleProject, string>({
       query: (id) => `/projects/${id}`,
       providesTags: (result, error, id) => [{ type: "project", id }],
     }),

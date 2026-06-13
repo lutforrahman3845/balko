@@ -21,6 +21,7 @@ import { ExpandedProject, GetProject } from "@/@types/project";
 import Link from "next/link";
 import { getProjectStatusBadge } from "@/lib/projectStatusBadges";
 import { TiUser } from "react-icons/ti";
+import ProjectDetails from "./ProjectDetails";
 interface ProjectTableProps {
   data: GetProject | null;
   pageIndex: number;
@@ -40,6 +41,7 @@ const ProjectTable = ({
 }: ProjectTableProps) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [projectDetailsOpen, setProjectDetailsOpen] = useState(false);
   const handleDialogOpen = (id: string) => {
     setDialogOpen(true);
     setSelectedId(id);
@@ -196,6 +198,7 @@ const ProjectTable = ({
                     className="text-xl cursor-pointer"
                     role="button"
                     onClick={() => {
+                      setProjectDetailsOpen(true);
                       setSelectedId(row.original.id);
                     }}
                   >
@@ -279,6 +282,11 @@ const ProjectTable = ({
           </span>
         </ConfirmDialog>
       )}
+      <ProjectDetails
+        open={projectDetailsOpen}
+        onOpenChange={setProjectDetailsOpen}
+        selectedId={selectedId}
+      />
     </>
   );
 };
