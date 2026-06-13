@@ -63,7 +63,6 @@ import { PaginationMeta } from "./pagination";
 export const ProjectFormSchema = z.object({
     name: z.string().min(1, "Project name is required"),
     description: z.string().min(1, "Description is required"),
-    thumbnail: z.string().nullable().optional(),
     type: z.enum(["client", "internal"]),
     status: z.enum(["planning", "active", "on_hold", "completed", "cancelled"]),
     priority: z.enum(["high", "medium", "low"]),
@@ -74,9 +73,9 @@ export const ProjectFormSchema = z.object({
     departmentId: z.string().nullable().optional(),
     companyId: z.string().nullable().optional(),
     contactPersonId: z.string().nullable().optional(),
-    budget: z.number().default(0),
-    currency: z.string().default("USD"),
-    progress: z.number().min(0).max(100).default(0),
+    budget: z.number(),
+    currency: z.string(),
+    progress: z.number().min(0).max(100),
 });
 
 export type ProjectFormValues = z.infer<typeof ProjectFormSchema>;
