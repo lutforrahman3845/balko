@@ -55,6 +55,7 @@ const NewProjectPage = () => {
       await createProject(payload).unwrap();
       toast.success("Project created successfully!");
       router.push("/projects");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error?.data?.message || error?.message || "Failed to create project");
     }

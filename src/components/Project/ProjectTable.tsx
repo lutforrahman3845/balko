@@ -14,7 +14,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { TbEdit, TbEye, TbTrash, TbHomeFilled } from "react-icons/tb";
+import { TbEdit, TbEye, TbTrash, TbHomeFilled, TbFilePlus } from "react-icons/tb";
 import ConfirmDialog from "../shared/ConfirmDialog";
 import { toast } from "sonner";
 import { ExpandedProject, GetProject } from "@/@types/project";
@@ -22,6 +22,7 @@ import Link from "next/link";
 import { getProjectStatusBadge } from "@/lib/projectStatusBadges";
 import { TiUser } from "react-icons/ti";
 import ProjectDetails from "./ProjectDetails";
+import AddDocumentDialog from "./AddDocumentDialog";
 interface ProjectTableProps {
   data: GetProject | null;
   pageIndex: number;
@@ -42,6 +43,8 @@ const ProjectTable = ({
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [projectDetailsOpen, setProjectDetailsOpen] = useState(false);
+  const [addDocOpen, setAddDocOpen] = useState(false);
+  const [docProjectId, setDocProjectId] = useState<string | null>(null);
   const handleDialogOpen = (id: string) => {
     setDialogOpen(true);
     setSelectedId(id);
@@ -215,6 +218,23 @@ const ProjectTable = ({
                     className="text-xl cursor-pointer"
                     role="button"
                     onClick={() => {
+                      setDocProjectId(row.original.id);
+                      setAddDocOpen(true);
+                    }}
+                  >
+                    <TbFilePlus className="hover:text-primary" />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Add Document</p>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div
+                    className="text-xl cursor-pointer"
+                    role="button"
+                    onClick={() => {
                       const id = row?.original?.id;
                       if (id) handleDialogOpen(id);
                     }}
@@ -287,6 +307,14 @@ const ProjectTable = ({
         onOpenChange={setProjectDetailsOpen}
         selectedId={selectedId}
       />
+      {addDocOpen && docProjectId && (
+        <AddDocumentDialog
+          open={addDocOpen}
+          onOpenChange={setAddDocOpen}
+          projectId={docProjectId}
+          projectName={data?.data?.find((p) => p.id === docProjectId)?.name}
+        />
+      )}
     </>
   );
 };

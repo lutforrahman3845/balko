@@ -83,7 +83,7 @@ const FormItem = ({
           <Input
             type={inputType}
             placeholder={placeholder}
-            className={`w-full  shadow-none placeholder:capitalize placeholder:italic placeholder:text-muted-foreground focus:outline-0 focus:border focus:border-primary/50 ${isInvalid ? "border-red-500" : ""
+            className={`w-full   shadow-none placeholder:capitalize placeholder:italic placeholder:text-muted-foreground focus:outline-0 focus:border focus:border-primary/50 ${isInvalid ? "border-red-500" : ""
               } ${suffixButton && "pr-24"}`}
             onChange={handleChange}
             onKeyDown={(e) => {
