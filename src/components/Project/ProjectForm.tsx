@@ -14,6 +14,7 @@ import { ExpandedSingleTeam } from "@/@types/team";
 import { ExpandedEmployee } from "@/@types/employee";
 import { ExpandedCompany } from "@/@types/company";
 import { ExpandedContact } from "@/@types/contact";
+import { currency } from "@/config/currency";
 
 const TypeOptions = [
   { value: "client", label: "Client Project" },
@@ -86,11 +87,11 @@ const ProjectForm = ({
     const options: { value: string; searchText: string; label: React.ReactNode }[] = [];
     if (isEdit && data?.department) {
       options.push({
-        value: data.department.id,
-        searchText: data.department.displayName || data.department.name,
+        value: data?.department?.id,
+        searchText: data?.department?.displayName || data?.department?.name || "",
         label: (
           <span className="text-sm font-medium">
-            {data.department.displayName || data.department.name}
+            {data?.department?.displayName || data?.department?.name}
           </span>
         ),
       });
@@ -99,10 +100,10 @@ const ProjectForm = ({
       if (!options.some((opt) => opt.value === dept.id)) {
         options.push({
           value: dept.id,
-          searchText: dept.displayName || dept.name,
+          searchText: dept?.displayName || dept?.name || "",
           label: (
             <span className="text-sm font-medium">
-              {dept.displayName || dept.name}
+              {dept?.displayName || dept?.name}
             </span>
           ),
         });
@@ -115,13 +116,13 @@ const ProjectForm = ({
   const teamOptions = useMemo(() => {
     const options: { value: string; searchText: string; label: React.ReactNode }[] = [];
     if (isEdit && data?.teams) {
-      data?.teams.forEach((team: ExpandedSingleTeam) => {
+      data?.teams?.forEach((team: ExpandedSingleTeam) => {
         options.push({
           value: team.id,
-          searchText: team.displayName || team.name,
+          searchText: team?.displayName || team?.name || "",
           label: (
             <span className="text-sm font-medium">
-              {team.displayName || team.name}
+              {team?.displayName || team?.name}
             </span>
           ),
         });
@@ -131,10 +132,10 @@ const ProjectForm = ({
       if (!options.some((opt) => opt.value === team.id)) {
         options.push({
           value: team.id,
-          searchText: team.displayName || team.name,
+          searchText: team?.displayName || team?.name || "",
           label: (
             <span className="text-sm font-medium">
-              {team.displayName || team.name}
+              {team?.displayName || team?.name}
             </span>
           ),
         });
@@ -148,17 +149,17 @@ const ProjectForm = ({
     const options: { value: string; searchText: string; label: React.ReactNode }[] = [];
     if (isEdit && data?.manager) {
       options.push({
-        value: data.manager.id,
-        searchText: data.manager.name,
+        value: data?.manager?.id,
+        searchText: data?.manager?.name || "",
         label: (
           <div className="flex items-center gap-3">
             <Avatar className="size-8 shrink-0">
-              <AvatarImage src={data.manager.avatar || undefined} />
-              <AvatarFallback>{data.manager.name.charAt(0)}</AvatarFallback>
+              <AvatarImage src={data?.manager?.avatar || undefined} />
+              <AvatarFallback>{data?.manager?.name?.charAt(0)}</AvatarFallback>
             </Avatar>
             <div className="flex flex-col min-w-0 flex-1">
-              <p className="text-sm font-medium leading-tight">{data.manager.name}</p>
-              <p className="text-xs text-muted-foreground">{data.manager.designation}</p>
+              <p className="text-sm font-medium leading-tight">{data?.manager?.name}</p>
+              <p className="text-xs text-muted-foreground">{data?.manager?.designation}</p>
             </div>
           </div>
         ),
@@ -168,16 +169,16 @@ const ProjectForm = ({
       if (!options.some((opt) => opt.value === emp.id)) {
         options.push({
           value: emp.id,
-          searchText: emp.name,
+          searchText: emp?.name || "",
           label: (
             <div className="flex items-center gap-3">
               <Avatar className="size-8 shrink-0">
-                <AvatarImage src={emp.avatar || undefined} />
-                <AvatarFallback>{emp.name.charAt(0)}</AvatarFallback>
+                <AvatarImage src={emp?.avatar || undefined} />
+                <AvatarFallback>{emp?.name?.charAt(0)}</AvatarFallback>
               </Avatar>
               <div className="flex flex-col min-w-0 flex-1">
-                <p className="text-sm font-medium leading-tight">{emp.name}</p>
-                <p className="text-xs text-muted-foreground">{emp.designation}</p>
+                <p className="text-sm font-medium leading-tight">{emp?.name}</p>
+                <p className="text-xs text-muted-foreground">{emp?.designation}</p>
               </div>
             </div>
           ),
@@ -194,7 +195,16 @@ const ProjectForm = ({
       options.push({
         value: data.company.id,
         searchText: data.company.name,
-        label: <span className="text-sm font-medium">{data.company.name}</span>,
+        label: <div className="flex items-center gap-3">
+          <Avatar className="size-8 shrink-0">
+            <AvatarImage src={data?.company?.logo || undefined} />
+            <AvatarFallback>{data?.company?.name?.charAt(0)}</AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col min-w-0 flex-1">
+            <p className="text-sm font-medium leading-tight">{data?.company?.name}</p>
+            <p className="text-xs text-muted-foreground">{data?.company?.phone}</p>
+          </div>
+        </div>,
       });
     }
     companies?.data?.forEach((comp: ExpandedCompany) => {
@@ -202,7 +212,16 @@ const ProjectForm = ({
         options.push({
           value: comp.id,
           searchText: comp.name,
-          label: <span className="text-sm font-medium">{comp.name}</span>,
+          label: <div className="flex items-center gap-3">
+            <Avatar className="size-8 shrink-0">
+              <AvatarImage src={comp?.logo || undefined} />
+              <AvatarFallback>{comp?.name.charAt(0)}</AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col min-w-0 flex-1">
+              <p className="text-sm font-medium leading-tight">{comp?.name}</p>
+              <p className="text-xs text-muted-foreground">{comp?.phone}</p>
+            </div>
+          </div>
         });
       }
     });
@@ -217,9 +236,15 @@ const ProjectForm = ({
         value: data.contactPerson.id,
         searchText: data.contactPerson.name,
         label: (
-          <div className="flex flex-col min-w-0">
-            <span className="text-sm font-medium">{data.contactPerson.name}</span>
-            <span className="text-xs text-muted-foreground">{data.contactPerson.email}</span>
+          <div className="flex items-center gap-3">
+            <Avatar className="size-8 shrink-0">
+              <AvatarImage src={data?.contactPerson?.avatar || undefined} />
+              <AvatarFallback>{data?.contactPerson?.name.charAt(0)}</AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col min-w-0 flex-1">
+              <p className="text-sm font-medium leading-tight">{data?.contactPerson?.name}</p>
+              <p className="text-xs text-muted-foreground">{data?.contactPerson?.email}</p>
+            </div>
           </div>
         ),
       });
@@ -230,9 +255,15 @@ const ProjectForm = ({
           value: contact.id,
           searchText: contact.name,
           label: (
-            <div className="flex flex-col min-w-0">
-              <span className="text-sm font-medium">{contact.name}</span>
-              <span className="text-xs text-muted-foreground">{contact.email}</span>
+            <div className="flex items-center gap-3">
+              <Avatar className="size-8 shrink-0">
+                <AvatarImage src={contact?.avatar || undefined} />
+                <AvatarFallback>{contact?.name?.charAt(0)}</AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col min-w-0 flex-1">
+                <p className="text-sm font-medium leading-tight">{contact?.name}</p>
+                <p className="text-xs text-muted-foreground">{contact?.email}</p>
+              </div>
             </div>
           ),
         });
@@ -339,7 +370,7 @@ const ProjectForm = ({
       {/* Dates & Financials */}
       <div className="space-y-4">
         <h3 className="text-lg font-semibold border-b pb-2">Dates & Financials</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <Controller
             name="startDate"
             control={control}
@@ -386,13 +417,16 @@ const ProjectForm = ({
             name="currency"
             control={control}
             render={({ field }) => (
-              <FormItem
+              <SelectFormItem
+                onChange={(value: string) => field.onChange(value)}
                 label="Currency"
-                inputType="text"
-                placeholder="USD"
+                placeholder="Select"
                 invalid={Boolean(errors.currency)}
                 errorMessage={errors.currency?.message}
-                {...field}
+                options={currency}
+                name={field.name}
+                value={field.value || ""}
+                key={field.value}
               />
             )}
           />
