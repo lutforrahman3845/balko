@@ -275,6 +275,7 @@ const ProjectForm = ({
                 options={TypeOptions}
                 name={field.name}
                 value={field.value || ""}
+                key={field.value}
                 required
               />
             )}
@@ -292,6 +293,7 @@ const ProjectForm = ({
                 options={StatusOptions}
                 name={field.name}
                 value={field.value || ""}
+                key={field.value}
                 required
               />
             )}
@@ -309,6 +311,7 @@ const ProjectForm = ({
                 options={PriorityOptions}
                 name={field.name}
                 value={field.value || ""}
+                key={field.value}
                 required
               />
             )}
