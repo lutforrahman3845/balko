@@ -2,10 +2,10 @@ import { apiSlice } from "../apiSlice";
 import { Folder, GetFoldersResponse } from "@/@types/folder";
 
 interface GetFoldersParams {
-  projectId?: string;
-  searchQuery?: string;
   page?: number;
   limit?: number;
+  searchQuery?: string;
+  projectId?: string;
 }
 
 

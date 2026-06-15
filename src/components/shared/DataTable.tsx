@@ -18,7 +18,7 @@ interface DataTableProps<T> {
 const DataTable = <T,>({ table, loading }: DataTableProps<T>) => {
   return (
     <>
-      <Table className="border-y">
+      <Table className="border-t">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>

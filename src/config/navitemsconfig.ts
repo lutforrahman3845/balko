@@ -4,6 +4,7 @@ import { IoPeopleCircle, IoSettingsOutline } from "react-icons/io5";
 import { LuBuilding2 } from "react-icons/lu";
 import { LiaUserTieSolid } from "react-icons/lia";
 import { RiContactsBook3Line } from "react-icons/ri";
+import { FaFolderTree } from "react-icons/fa6";
 
 export const MAIN_NAV: NavConfig = [
   {
@@ -59,6 +60,12 @@ export const MAIN_NAV: NavConfig = [
       path: "/projects/new",
     },
     haveSubmenu: false,
+  },
+  {
+    icon: FaFolderTree,
+    title: "Folders",
+    path: "/folders",
+    haveSubmenu: false
   },
   {
     icon: IoSettingsOutline,
