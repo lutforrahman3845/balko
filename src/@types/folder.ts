@@ -1,3 +1,4 @@
+import { PaginationMeta } from "./pagination";
 
 
 export interface Folder {
@@ -11,4 +12,9 @@ export interface Folder {
     createdBy: string;
     createdAt: string;
     updatedAt: string;
+}
+
+export interface GetFoldersResponse {
+    data: Folder[];
+    meta: PaginationMeta
 }

@@ -20,7 +20,7 @@ export const mockFolderData: Folder[] = [
         "name": "Functional Specs",
         "path": "Requirements/Functional Specs",
         "color": "#10B981",
-        "icon": "requirement",
+        "icon": "default",
         "createdBy": "user2",
         "createdAt": "2024-01-16T00:00:00Z",
         "updatedAt": "2024-01-16T00:00:00Z"
@@ -32,7 +32,7 @@ export const mockFolderData: Folder[] = [
         "name": "Non-Functional Specs",
         "path": "Requirements/Non-Functional Specs",
         "color": "#F59E0B",
-        "icon": "requirement",
+        "icon": "default",
         "createdBy": "user2",
         "createdAt": "2024-01-16T00:00:00Z",
         "updatedAt": "2024-01-16T00:00:00Z"

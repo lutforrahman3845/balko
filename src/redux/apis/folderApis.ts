@@ -1,22 +1,14 @@
 import { apiSlice } from "../apiSlice";
-import { Folder } from "@/@types/folder";
+import { Folder, GetFoldersResponse } from "@/@types/folder";
 
 interface GetFoldersParams {
   projectId?: string;
   searchQuery?: string;
-  pageIndex?: number;
-  pageSize?: number;
+  page?: number;
+  limit?: number;
 }
 
-interface GetFoldersResponse {
-  data: Folder[];
-  meta: {
-    pageIndex: number;
-    pageSize: number;
-    total: number;
-    totalPages: number;
-  };
-}
+
 
 export const folderApis = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -28,9 +20,9 @@ export const folderApis = apiSlice.injectEndpoints({
       providesTags: (result) =>
         result
           ? [
-              ...result.data.map(({ id }) => ({ type: "folder" as const, id })),
-              { type: "folder" as const, id: "LIST" },
-            ]
+            ...result.data.map(({ id }) => ({ type: "folder" as const, id })),
+            { type: "folder" as const, id: "LIST" },
+          ]
           : [{ type: "folder" as const, id: "LIST" }],
     }),
     getFolderById: builder.query<Folder, string>({

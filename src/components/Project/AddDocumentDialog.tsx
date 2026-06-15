@@ -53,8 +53,8 @@ const AddDocumentDialog = ({
 
   const { data: docTypesRes, isLoading: loadingTypes } = useGetDocumentTypesQuery();
   const { data: foldersRes, isLoading: loadingFolders } = useGetFoldersQuery(
-    { projectId },
-    { skip: !projectId || !open }
+    { page: 1, limit: 200 },
+    { skip: !open }
   );
 
   const [isCreatingNewFolder, setIsCreatingNewFolder] = useState(false);
@@ -162,9 +162,8 @@ const AddDocumentDialog = ({
                         onChange(files[0]);
                       }
                     }}
-                    className={`border-2 border-dashed rounded-xl p-6 flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-muted/10 ${
-                      errors.file ? "border-destructive bg-destructive/5" : "border-muted-foreground/30 hover:border-primary/50"
-                    }`}
+                    className={`border-2 border-dashed rounded-xl p-6 flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-muted/10 ${errors.file ? "border-destructive bg-destructive/5" : "border-muted-foreground/30 hover:border-primary/50"
+                      }`}
                   >
                     <input
                       id="file-upload"
@@ -177,7 +176,7 @@ const AddDocumentDialog = ({
                         }
                       }}
                     />
-                    
+
                     {file ? (
                       <div className="flex items-center gap-3 w-full bg-muted/20 p-3 rounded-lg border">
                         <div className="p-2 bg-rose-500/10 rounded-lg shrink-0">
@@ -326,6 +325,7 @@ const AddDocumentDialog = ({
                       options={folderOptions}
                       multiple={false}
                       loading={loadingFolders}
+                      searchable={false}
                     />
                   )}
                 />

@@ -6,8 +6,8 @@ export async function GET(request: NextRequest) {
 
     const searchQuery = searchParams.get('searchQuery') || '';
     const projectId = searchParams.get('projectId') || '';
-    const pageIndex = parseInt(searchParams.get('pageIndex') || '1');
-    const pageSize = parseInt(searchParams.get('pageSize') || '10');
+    const pageIndex = parseInt(searchParams.get('page') || '1');
+    const pageSize = parseInt(searchParams.get('limit') || '10');
 
     let filteredFolders = [...mockFolderData];
 
