@@ -1,12 +1,7 @@
 import { apiSlice } from "../apiSlice";
 import { ExpandedProjectDocument } from "@/@types/project";
-import { DocumentType } from "@/@types/projectDocuments";
-import { Folder } from "@/@types/folder";
+import { DocumentType, GetDocumentsResponse } from "@/@types/documents";
 
-interface GetDocumentsResponse {
-  data: ExpandedProjectDocument[];
-  total: number;
-}
 
 interface GetDocumentTypesResponse {
   data: DocumentType[];
@@ -37,6 +32,21 @@ export const projectDocumentApis = apiSlice.injectEndpoints({
         { type: "project", id: projectId },
       ],
     }),
+    getDocuments: builder.query({
+      query: ({ limit, page, recent, projectId }: { limit?: string, page?: string, recent?: string, projectId?: string }) => {
+        const params = new URLSearchParams();
+        if (limit) params.append('limit', limit)
+        if (page) params.append('page', page)
+        if (recent) params.append('recent', recent)
+        if (projectId) params.append('projectId', projectId)
+        const queryString = params.toString()
+        return {
+          url: `/documents${queryString && `?${queryString}`}`,
+          method: "GET",
+        }
+      },
+      providesTags: ["documents"],
+    }),
   }),
 });
 
@@ -44,4 +54,5 @@ export const {
   useGetProjectDocumentsQuery,
   useGetDocumentTypesQuery,
   useAddProjectDocumentMutation,
+  useGetDocumentsQuery
 } = projectDocumentApis;

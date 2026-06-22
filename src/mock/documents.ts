@@ -1,6 +1,6 @@
-import { ProjectDocument } from "@/@types/projectDocuments";
+import { document } from "@/@types/documents";
 
-export const mockProjectDocuments: ProjectDocument[] = [
+export const mockDocuments: document[] = [
     {
         "id": "1",
         "projectId": "1",
@@ -64,7 +64,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "6",
         "projectId": "3",
-        "folderId": null,
+        "folderId": "7",
         "description": "Hardware procurement invoice for project phase 1.",
         "url": "https://drive.google.com/file/d/1hFj1MTet01jR-umMrH39jATseB3buYbZ/view?usp=sharing",
         "documentTypeId": "14",
@@ -76,7 +76,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "7",
         "projectId": "4",
-        "folderId": null,
+        "folderId": "8",
         "description": "Environmental impact and sustainability study report.",
         "url": "https://docs.google.com/document/d/1FJ20xvsf4thYfz2OqNCF8IWfE1dMN2_T/edit?usp=sharing&ouid=118056740364820434582&rtpof=true&sd=true",
         "documentTypeId": "15",
@@ -88,7 +88,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "8",
         "projectId": "4",
-        "folderId": null,
+        "folderId": "8",
         "description": "Project kickoff presentation slide deck.",
         "url": "https://drive.google.com/file/d/1abIW7UnAn3AGvVdzZAyCXVK2rAnE3gNH/view?usp=sharing",
         "documentTypeId": "17",
@@ -100,7 +100,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "9",
         "projectId": "5",
-        "folderId": null,
+        "folderId": "8",
         "description": "Historic preservation legal approval contract.",
         "url": "https://drive.google.com/file/d/1KOG_7dLIRDTshMx7l1k3YBmeHySe9jLM/view?usp=sharing",
         "documentTypeId": "11",
@@ -112,7 +112,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "10",
         "projectId": "5",
-        "folderId": null,
+        "folderId": "8",
         "description": "Historical restoration budget estimation and planning sheets.",
         "url": "https://drive.google.com/file/d/1v3LVW8-vGyQEE8sWyHn69sp1GNhw6St5/view?usp=sharing",
         "documentTypeId": "18",
@@ -124,7 +124,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "11",
         "projectId": "6",
-        "folderId": null,
+        "folderId": "8",
         "description": "Office layout plans and green space design specifications.",
         "url": "https://drive.google.com/file/d/1hFj1MTet01jR-umMrH39jATseB3buYbZ/view?usp=sharing",
         "documentTypeId": "12",
@@ -136,7 +136,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "12",
         "projectId": "6",
-        "folderId": null,
+        "folderId": "8",
         "description": "Eco-friendly materials purchase quotes and supplier agreements.",
         "url": "https://docs.google.com/document/d/1FJ20xvsf4thYfz2OqNCF8IWfE1dMN2_T/edit?usp=sharing&ouid=118056740364820434582&rtpof=true&sd=true",
         "documentTypeId": "14",
@@ -148,7 +148,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "13",
         "projectId": "6",
-        "folderId": null,
+        "folderId": "8",
         "description": "Office energy consumption baseline assessment report.",
         "url": "https://drive.google.com/file/d/1abIW7UnAn3AGvVdzZAyCXVK2rAnE3gNH/view?usp=sharing",
         "documentTypeId": "15",
@@ -160,7 +160,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "14",
         "projectId": "7",
-        "folderId": null,
+        "folderId": "8",
         "description": "Nexus database migration architecture design whitepaper.",
         "url": "https://drive.google.com/file/d/1KOG_7dLIRDTshMx7l1k3YBmeHySe9jLM/view?usp=sharing",
         "documentTypeId": "12",
@@ -172,7 +172,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "15",
         "projectId": "7",
-        "folderId": null,
+        "folderId": "8",
         "description": "AWS Cloud services agreement and SLA.",
         "url": "https://drive.google.com/file/d/1v3LVW8-vGyQEE8sWyHn69sp1GNhw6St5/view?usp=sharing",
         "documentTypeId": "11",
@@ -184,7 +184,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "16",
         "projectId": "7",
-        "folderId": null,
+        "folderId": "8",
         "description": "Migration phase 1 system cutover plan.",
         "url": "https://drive.google.com/file/d/1hFj1MTet01jR-umMrH39jATseB3buYbZ/view?usp=sharing",
         "documentTypeId": "13",
@@ -196,7 +196,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "17",
         "projectId": "8",
-        "folderId": null,
+        "folderId": "8",
         "description": "Smart City IoT sensor technical requirements document.",
         "url": "https://docs.google.com/document/d/1FJ20xvsf4thYfz2OqNCF8IWfE1dMN2_T/edit?usp=sharing&ouid=118056740364820434582&rtpof=true&sd=true",
         "documentTypeId": "13",
@@ -208,7 +208,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "18",
         "projectId": "8",
-        "folderId": null,
+        "folderId": "8",
         "description": "Downtown sensor network grid installation blueprint.",
         "url": "https://drive.google.com/file/d/1abIW7UnAn3AGvVdzZAyCXVK2rAnE3gNH/view?usp=sharing",
         "documentTypeId": "12",
@@ -220,7 +220,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "19",
         "projectId": "9",
-        "folderId": null,
+        "folderId": "8",
         "description": "Global Rebranding creative brief and assets guidelines.",
         "url": "https://drive.google.com/file/d/1KOG_7dLIRDTshMx7l1k3YBmeHySe9jLM/view?usp=sharing",
         "documentTypeId": "12",
@@ -232,7 +232,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "20",
         "projectId": "9",
-        "folderId": null,
+        "folderId": "8",
         "description": "Ad campaign performance and outreach planning sheet.",
         "url": "https://drive.google.com/file/d/1v3LVW8-vGyQEE8sWyHn69sp1GNhw6St5/view?usp=sharing",
         "documentTypeId": "18",
@@ -244,7 +244,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "21",
         "projectId": "10",
-        "folderId": null,
+        "folderId": "8",
         "description": "Mobile App UI/UX wireframes and user flow diagram.",
         "url": "https://drive.google.com/file/d/1hFj1MTet01jR-umMrH39jATseB3buYbZ/view?usp=sharing",
         "documentTypeId": "12",
@@ -256,7 +256,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "22",
         "projectId": "10",
-        "folderId": null,
+        "folderId": "8",
         "description": "Mobile Client REST API interface endpoints specs.",
         "url": "https://docs.google.com/document/d/1FJ20xvsf4thYfz2OqNCF8IWfE1dMN2_T/edit?usp=sharing&ouid=118056740364820434582&rtpof=true&sd=true",
         "documentTypeId": "13",
@@ -268,7 +268,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "23",
         "projectId": "11",
-        "folderId": null,
+        "folderId": "8",
         "description": "Country Club construction structural design guidelines.",
         "url": "https://drive.google.com/file/d/1abIW7UnAn3AGvVdzZAyCXVK2rAnE3gNH/view?usp=sharing",
         "documentTypeId": "12",
@@ -280,7 +280,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "24",
         "projectId": "11",
-        "folderId": null,
+        "folderId": "8",
         "description": "Subcontractor liability agreement and insurance forms.",
         "url": "https://drive.google.com/file/d/1KOG_7dLIRDTshMx7l1k3YBmeHySe9jLM/view?usp=sharing",
         "documentTypeId": "11",
@@ -292,7 +292,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "25",
         "projectId": "12",
-        "folderId": null,
+        "folderId": "8",
         "description": "Enterprise security audit final penetration test report.",
         "url": "https://drive.google.com/file/d/1v3LVW8-vGyQEE8sWyHn69sp1GNhw6St5/view?usp=sharing",
         "documentTypeId": "15",
@@ -304,7 +304,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "26",
         "projectId": "12",
-        "folderId": null,
+        "folderId": "8",
         "description": "Employee basic cybersecurity training guidelines document.",
         "url": "https://drive.google.com/file/d/1hFj1MTet01jR-umMrH39jATseB3buYbZ/view?usp=sharing",
         "documentTypeId": "19",
@@ -316,7 +316,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "27",
         "projectId": "13",
-        "folderId": null,
+        "folderId": "8",
         "description": "Eco-Lodge structural design and blueprint layout.",
         "url": "https://docs.google.com/document/d/1FJ20xvsf4thYfz2OqNCF8IWfE1dMN2_T/edit?usp=sharing&ouid=118056740364820434582&rtpof=true&sd=true",
         "documentTypeId": "12",
@@ -328,7 +328,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "28",
         "projectId": "13",
-        "folderId": null,
+        "folderId": "8",
         "description": "Land survey and zoning approval documents.",
         "url": "https://drive.google.com/file/d/1abIW7UnAn3AGvVdzZAyCXVK2rAnE3gNH/view?usp=sharing",
         "documentTypeId": "11",
@@ -340,7 +340,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "29",
         "projectId": "14",
-        "folderId": null,
+        "folderId": "8",
         "description": "E-Commerce multi-currency API integration requirements.",
         "url": "https://drive.google.com/file/d/1KOG_7dLIRDTshMx7l1k3YBmeHySe9jLM/view?usp=sharing",
         "documentTypeId": "13",
@@ -352,7 +352,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "30",
         "projectId": "14",
-        "folderId": null,
+        "folderId": "8",
         "description": "Stripe/PayPal third-party merchant agreement.",
         "url": "https://drive.google.com/file/d/1v3LVW8-vGyQEE8sWyHn69sp1GNhw6St5/view?usp=sharing",
         "documentTypeId": "11",
@@ -364,7 +364,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "31",
         "projectId": "15",
-        "folderId": null,
+        "folderId": "8",
         "description": "AI chatbot model prompt and training requirements specs.",
         "url": "https://drive.google.com/file/d/1hFj1MTet01jR-umMrH39jATseB3buYbZ/view?usp=sharing",
         "documentTypeId": "13",
@@ -376,7 +376,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "32",
         "projectId": "15",
-        "folderId": null,
+        "folderId": "8",
         "description": "Customer support response fine-tuning guidelines doc.",
         "url": "https://docs.google.com/document/d/1FJ20xvsf4thYfz2OqNCF8IWfE1dMN2_T/edit?usp=sharing&ouid=118056740364820434582&rtpof=true&sd=true",
         "documentTypeId": "19",
@@ -388,7 +388,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "33",
         "projectId": "6",
-        "folderId": null,
+        "folderId": "8",
         "description": "Office redesign project progress tracking sheet.",
         "url": "https://drive.google.com/file/d/1abIW7UnAn3AGvVdzZAyCXVK2rAnE3gNH/view?usp=sharing",
         "documentTypeId": "18",
@@ -400,7 +400,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "34",
         "projectId": "7",
-        "folderId": null,
+        "folderId": "8",
         "description": "Cloud migration infrastructure risk assessment report.",
         "url": "https://drive.google.com/file/d/1KOG_7dLIRDTshMx7l1k3YBmeHySe9jLM/view?usp=sharing",
         "documentTypeId": "15",
@@ -412,7 +412,7 @@ export const mockProjectDocuments: ProjectDocument[] = [
     {
         "id": "35",
         "projectId": "8",
-        "folderId": null,
+        "folderId": "8",
         "description": "Smart city IoT hardware deployment progress report.",
         "url": "https://drive.google.com/file/d/1v3LVW8-vGyQEE8sWyHn69sp1GNhw6St5/view?usp=sharing",
         "documentTypeId": "15",

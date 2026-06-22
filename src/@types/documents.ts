@@ -1,3 +1,5 @@
+import { PaginationMeta } from "./pagination";
+
 export interface DocumentType {
     id: string;
     name: string;
@@ -6,10 +8,10 @@ export interface DocumentType {
     updatedAt: string;
 }
 
-export interface ProjectDocument {
+export interface document {
     id: string;
-    projectId: string;
-    folderId: string | null
+    projectId: string | null;
+    folderId: string
     description: string | null
     url: string;
     documentTypeId: string;
@@ -17,4 +19,9 @@ export interface ProjectDocument {
     uploadedBy: string;
     uploadedAt: string;
     updatedAt: string;
+}
+
+export interface GetDocumentsResponse {
+    data: document[];
+    meta: PaginationMeta;
 }

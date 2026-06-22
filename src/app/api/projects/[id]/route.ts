@@ -8,7 +8,7 @@ import { COMPANIES } from "@/mock/companies";
 import { teamMemberData } from "@/mock/teamMemberData";
 import { rolesData } from "@/mock/roleData";
 import { mockFolderData } from "@/mock/folderData";
-import { mockProjectDocuments } from "@/mock/projectDocuments";
+import { mockDocuments } from "@/mock/documents";
 import { mockDocumentType } from "@/mock/documentType";
 
 export async function GET(
@@ -59,7 +59,7 @@ export async function GET(
   const contactPerson = mockContacts.find((c) => c.id === project.contactPersonId) || null;
 
   // Hydrate project documents with type and employee uploader details
-  const documents = mockProjectDocuments
+  const documents = mockDocuments
     .filter((doc) => doc.projectId === project.id)
     .map((doc) => {
       const documentType = mockDocumentType.find((dt) => dt.id === doc.documentTypeId) || null;
@@ -73,7 +73,7 @@ export async function GET(
           avatar: uploadedByEmployee?.avatar,
           name: uploadedByEmployee?.name,
           email: uploadedByEmployee?.email,
-          designation: uploadedByEmployee?.designation,   
+          designation: uploadedByEmployee?.designation,
         },
         folders,
       };

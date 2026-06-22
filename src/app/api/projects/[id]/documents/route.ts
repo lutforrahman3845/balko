@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { mockProjectDocuments } from "@/mock/projectDocuments";
+import { mockDocuments } from "@/mock/documents";
 import { mockDocumentType } from "@/mock/documentType";
 import { mockFolderData } from "@/mock/folderData";
 import { employeeData } from "@/mock/employeeData";
@@ -11,7 +11,7 @@ export async function GET(
   try {
     const { id: projectId } = await params;
 
-    const docs = mockProjectDocuments
+    const docs = mockDocuments
       .filter((doc) => doc.projectId === projectId)
       .map((doc) => {
         const documentType = mockDocumentType.find((dt) => dt.id === doc.documentTypeId) || null;
@@ -24,12 +24,12 @@ export async function GET(
           folder,
           uploadedByEmployee: uploadedByEmployee
             ? {
-                id: uploadedByEmployee.id,
-                name: uploadedByEmployee.name,
-                avatar: uploadedByEmployee.avatar,
-                email: uploadedByEmployee.email,
-                designation: uploadedByEmployee.designation,
-              }
+              id: uploadedByEmployee.id,
+              name: uploadedByEmployee.name,
+              avatar: uploadedByEmployee.avatar,
+              email: uploadedByEmployee.email,
+              designation: uploadedByEmployee.designation,
+            }
             : null,
         };
       });
@@ -47,7 +47,7 @@ export async function POST(
   try {
     const { id: projectId } = await params;
     const formData = await req.formData();
-    const folderId = formData.get("folderId") as string | null;
+    const folderId = formData.get("folderId") as string;
     const description = formData.get("description") as string | null;
     const documentTypeId = formData.get("documentTypeId") as string;
     const isPublic = formData.get("isPublic") === "true";
@@ -55,9 +55,9 @@ export async function POST(
     const url = file ? `/uploads/${file.name}` : "";
 
     const newDoc = {
-      id: (mockProjectDocuments.length + 1).toString(),
+      id: (mockDocuments.length + 1).toString(),
       projectId,
-      folderId: folderId || null,
+      folderId: folderId,
       description: description || null,
       url,
       documentTypeId,
@@ -67,7 +67,7 @@ export async function POST(
       updatedAt: new Date().toISOString(),
     };
 
-    mockProjectDocuments.push(newDoc);
+    mockDocuments.push(newDoc);
 
     // Return expanded doc
     const documentType = mockDocumentType.find((dt) => dt.id === newDoc.documentTypeId) || null;
@@ -81,12 +81,12 @@ export async function POST(
         folder,
         uploadedByEmployee: uploadedByEmployee
           ? {
-              id: uploadedByEmployee.id,
-              name: uploadedByEmployee.name,
-              avatar: uploadedByEmployee.avatar,
-              email: uploadedByEmployee.email,
-              designation: uploadedByEmployee.designation,
-            }
+            id: uploadedByEmployee.id,
+            name: uploadedByEmployee.name,
+            avatar: uploadedByEmployee.avatar,
+            email: uploadedByEmployee.email,
+            designation: uploadedByEmployee.designation,
+          }
           : null,
       },
       { status: 201 }

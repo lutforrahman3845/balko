@@ -1,4 +1,4 @@
-import { DocumentType } from "@/@types/projectDocuments";
+import { DocumentType } from "@/@types/documents";
 
 export const mockDocumentType: DocumentType[] = [
     {

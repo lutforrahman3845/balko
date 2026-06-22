@@ -19,7 +19,7 @@ import CustomeSelect from "@/components/shared/CustomeSelect";
 import {
   useAddProjectDocumentMutation,
   useGetDocumentTypesQuery,
-} from "@/redux/apis/ProjectDocumentApis";
+} from "@/redux/apis/DocumentApis";
 import { useGetFoldersQuery, useCreateFolderMutation } from "@/redux/apis/folderApis";
 
 // ─── Schema ────────────────────────────────────────────────────────────────
@@ -27,7 +27,7 @@ const AddDocumentSchema = z.object({
   file: z.any().refine((file) => file instanceof File, "Please upload a file"),
   description: z.string().min(1, "Description is required"),
   documentTypeId: z.string().min(1, "Document type is required"),
-  folderId: z.string().optional(),
+  folderId: z.string().min(1, "Folder is required"),
   isPublic: z.boolean(),
 });
 

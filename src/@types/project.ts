@@ -27,9 +27,9 @@ export interface Project {
 
 
 import { Folder } from "./folder";
-import { ProjectDocument, DocumentType } from "./projectDocuments";
+import { document, DocumentType } from "./documents";
 
-export interface ExpandedProjectDocument extends ProjectDocument {
+export interface ExpandedProjectDocument extends document {
     documentType: DocumentType | null;
     uploadedByEmployee: Employee | null;
     folder: Folder | null;
