@@ -291,7 +291,6 @@ const AddDocumentDialog = ({
                       try {
                         const newFolder = await createFolder({
                           name: newFolderName,
-                          projectId,
                         }).unwrap();
                         toast.success("Folder created!");
                         setValue("folderId", newFolder.id);

@@ -5,8 +5,17 @@ import { Button } from "@/components/ui/button";
 import ContentHeader from "@/components/ContentHeader";
 import Link from "next/link";
 import { FaFolderOpen } from "react-icons/fa6";
+import FilterSearch from "../shared/FilterSearch";
 
-export function FolderHeader() {
+export function FolderHeader({
+    searchFolder,
+    setSearchFolder,
+    setPageIndex
+}: {
+    searchFolder: string;
+    setSearchFolder: (value: string) => void
+    setPageIndex: (value: number) => void
+}) {
     return (
         <>
             <ContentHeader>
@@ -20,6 +29,11 @@ export function FolderHeader() {
                 </div>
 
                 <div className="flex items-center gap-2.5">
+                    <FilterSearch
+                        searchQuery={searchFolder}
+                        setSearchQuery={(q) => { const val = q.trimStart().replace(/\s\s+/g, " "); setSearchFolder(val); if (val.trim() !== searchFolder.trim()) setPageIndex(1) }}
+                        placeholder="Search by folder name"
+                    />
                     <Link href="/projects/new">
                         <Button size="sm">
                             <Plus /> New Folder

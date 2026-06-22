@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { mockFolderData } from "@/mock/folderData";
-import { mockProjects } from "@/mock/projectData";
 
 export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);

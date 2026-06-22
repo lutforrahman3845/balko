@@ -5,7 +5,6 @@ interface GetFoldersParams {
   page?: number;
   limit?: number;
   searchQuery?: string;
-  projectId?: string;
 }
 
 
