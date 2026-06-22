@@ -7,7 +7,8 @@ import FilterSearch from "@/components/shared/FilterSearch";
 import { useGetFoldersQuery } from "@/redux/apis/folderApis";
 import { useGetProjectsQuery } from "@/redux/apis/ProjectApis";
 import { useState } from "react";
-
+import { FolderCard } from "@/components/Folder/FolderCard";
+import { RecentDocumentsTable } from "@/components/Folder/RecentDocumentsTable";
 const Page = () => {
     const [searchFolder, setSearchFolder] = useState<string>('');
     const [searchProject, setSearchProject] = useState<string>('');
@@ -60,9 +61,30 @@ const Page = () => {
                                 />
                             </div>
                         </div>
+
+                        <div className=" px-4 space-y-8">
+                            <section>
+                                <h2 className="text-xl font-semibold mb-4 text-gray-900">Folders</h2>
+                                {loading ? (
+                                    <div>Loading folders...</div>
+                                ) : (
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                                        {(folders?.data || []).map(folder => (
+                                            <FolderCard key={folder.id} folder={folder} />
+                                        ))}
+                                    </div>
+                                )}
+                            </section>
+
+                            {/* <section>
+                                <h2 className="text-xl font-semibold mb-4 text-gray-900">Recently Added Documents</h2>
+                                <RecentDocumentsTable />
+                            </section> */}
+                        </div>
                     </section>
-                </>)}
-        </div >
+                </>
+            )}
+        </div>
     );
 }
 export default Page

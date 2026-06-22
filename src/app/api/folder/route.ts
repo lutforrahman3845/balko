@@ -1,20 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { mockFolderData } from "@/mock/folderData";
+import { mockProjects } from "@/mock/projectData";
 
 export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
 
     const searchQuery = searchParams.get('searchQuery') || '';
-    const projectId = searchParams.get('projectId') || '';
     const pageIndex = parseInt(searchParams.get('page') || '1');
     const pageSize = parseInt(searchParams.get('limit') || '10');
 
     let filteredFolders = [...mockFolderData];
-
-    if (projectId) {
-        filteredFolders = filteredFolders.filter(f => f.projectId === projectId);
-    }
-
     if (searchQuery) {
         filteredFolders = filteredFolders.filter(f =>
             f.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -27,9 +22,14 @@ export async function GET(request: NextRequest) {
     const end = start + pageSize;
 
     const paginatedFolders = filteredFolders.slice(start, end);
-
+    const FolderData = paginatedFolders.map(folder => {
+        return {
+            ...folder,
+            parentFolder: mockFolderData.find(f => f.id === folder.parentFolderId) || null
+        }
+    })
     return NextResponse.json({
-        data: paginatedFolders,
+        data: FolderData,
         meta: {
             pageIndex,
             pageSize,

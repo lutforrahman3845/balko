@@ -3,18 +3,45 @@ import { PaginationMeta } from "./pagination";
 
 export interface Folder {
     id: string;
-    projectId: string | null;
     parentFolderId: string | null;
     name: string;
     path: string | null;
-    color: string | null;
-    icon: string
+    icon:
+    | "requirements"
+    | "design"
+    | "contracts"
+    | "organization"
+    | "documents"
+    | "folder"
+    | "project"
+    | "planning"
+    | "development"
+    | "database"
+    | "api"
+    | "frontend"
+    | "backend"
+    | "testing"
+    | "deployment"
+    | "security"
+    | "finance"
+    | "reports"
+    | "meeting"
+    | "assets"
+    | "media"
+    | "archive"
+    | "settings"
+    | "default";
     createdBy: string;
     createdAt: string;
     updatedAt: string;
 }
 
+
+export interface ExpandFolder extends Folder {
+    parentFolder: Folder | null;
+}
+
 export interface GetFoldersResponse {
-    data: Folder[];
+    data: ExpandFolder[];
     meta: PaginationMeta
 }

@@ -16,6 +16,7 @@ export interface document {
     url: string;
     documentTypeId: string;
     isPublic: boolean
+    // shearWith:number | null
     uploadedBy: string;
     uploadedAt: string;
     updatedAt: string;

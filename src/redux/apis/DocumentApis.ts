@@ -1,5 +1,4 @@
 import { apiSlice } from "../apiSlice";
-import { ExpandedProjectDocument } from "@/@types/project";
 import { DocumentType, GetDocumentsResponse } from "@/@types/documents";
 
 
