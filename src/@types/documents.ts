@@ -22,7 +22,22 @@ export interface document {
     updatedAt: string;
 }
 
+export interface ExpandedDocument extends document {
+    folder: {
+        id: string;
+        name: string;
+    };
+    project: {
+        id: string;
+        name: string;
+    } | null;
+    documentType: {
+        id: string;
+        name: string;
+    };
+}
+
 export interface GetDocumentsResponse {
-    data: document[];
+    data: ExpandedDocument[];
     meta: PaginationMeta;
 }

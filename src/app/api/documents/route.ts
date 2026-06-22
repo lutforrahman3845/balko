@@ -1,4 +1,7 @@
 import { mockDocuments } from "@/mock/documents";
+import { mockDocumentType } from "@/mock/documentType";
+import { mockFolderData } from "@/mock/folderData";
+import { mockProjects } from "@/mock/projectData";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
@@ -29,9 +32,26 @@ export async function GET(request: Request) {
         const end = start + pageSize;
 
         const paginatedDocuments = filteredDocuments.slice(start, end);
+        const documentData = paginatedDocuments.map((document) => {
+            return {
+                ...document,
+                folder: {
+                    id: document?.folderId,
+                    name: mockFolderData.find(f => f.id === document?.folderId)?.name || ""
+                },
+                project: document?.projectId ? {
+                    id: document?.projectId,
+                    name: mockProjects.find(f => f.id === document?.projectId)?.name || ""
+                } : null,
+                documentType: {
+                    id: document?.documentTypeId,
+                    name: mockDocumentType.find(f => f.id === document?.documentTypeId)?.name || ""
+                }
+            }
+        })
 
         return NextResponse.json({
-            data: paginatedDocuments,
+            data: documentData,
             meta: {
                 pageIndex,
                 pageSize,

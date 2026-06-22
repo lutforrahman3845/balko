@@ -7,6 +7,7 @@ import { GetFoldersResponse } from "@/@types/folder";
 import { useState } from "react";
 import { FolderCard, FolderCardSkeleton } from "@/components/Folder/FolderCard";
 import ListCard, { ViewMode } from "@/components/shared/LsitCard";
+import { RecentDocumentsTable } from "@/components/Folder/RecentDocumentsTable";
 const Page = () => {
     const [searchFolder, setSearchFolder] = useState<string>('');
     const [pageIndex, setPageIndex] = useState<number>(1);
@@ -99,10 +100,10 @@ const Page = () => {
                                 )}
                             </section>
 
-                            {/* <section>
-                                <h2 className="text-xl font-semibold mb-4 text-gray-900">Recently Added Documents</h2>
+                            <section>
+                                <h2 className="text-xl font-semibold mb-4 text-gray-900">Recent Documents</h2>
                                 <RecentDocumentsTable />
-                            </section> */}
+                            </section>
                         </div>
                     </section>
                 </>
