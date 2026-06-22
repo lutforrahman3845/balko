@@ -122,26 +122,26 @@ export function FolderCard({ folder }: FolderCardProps) {
     : "recently";
 
   return (
-    <div className="group flex items-center gap-4 rounded-lg border border-transparent px-3 py-2.5 bg-gray-50 border-gray-100 transition-all duration-150 cursor-pointer">
+    <div className="group flex items-center gap-4 rounded-lg border border-transparent px-3 py-2.5 bg-gray-50 dark:bg-gray-800/50 border-gray-100 dark:border-gray-700 transition-all duration-150 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800">
 
       {/* Icon */}
-      <div className="flex-shrink-0 flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 group-hover:bg-gray-200 transition-colors">
+      <div className="flex-shrink-0 flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-700 group-hover:bg-gray-200 dark:group-hover:bg-gray-600 transition-colors">
         {getFolderIcon(folder.icon)}
       </div>
 
       {/* Name + parent breadcrumb */}
       <div className="flex-1 min-w-0">
         {folder.parentFolder && (
-          <p className="text-[11px] text-gray-400 mb-0.5 flex items-center gap-1 truncate">
+          <p className="text-[11px] text-gray-400 dark:text-gray-500 mb-0.5 flex items-center gap-1 truncate">
             <span className="truncate">{folder.parentFolder.name}</span>
             <span>/</span>
           </p>
         )}
-        <p className="text-sm font-medium text-gray-800 truncate">{folder.name}</p>
+        <p className="text-sm font-medium text-gray-800 dark:text-gray-100 truncate">{folder.name}</p>
       </div>
 
       {/* Timestamp */}
-      <span className="flex-shrink-0 text-[11px] text-gray-400 whitespace-nowrap">
+      <span className="flex-shrink-0 text-[11px] text-gray-400 dark:text-gray-500 whitespace-nowrap">
         {openedText}
       </span>
     </div>
@@ -150,18 +150,18 @@ export function FolderCard({ folder }: FolderCardProps) {
 
 export function FolderCardSkeleton() {
   return (
-    <div className="flex items-center gap-4 rounded-lg border border-gray-100 px-3 py-2.5 bg-gray-50">
+    <div className="flex items-center gap-4 rounded-lg border border-gray-100 dark:border-gray-700 px-3 py-2.5 bg-gray-50 dark:bg-gray-800/50">
       {/* Icon placeholder */}
-      <div className="flex-shrink-0 h-10 w-10 rounded-lg bg-gray-200 animate-pulse" />
+      <div className="flex-shrink-0 h-10 w-10 rounded-lg bg-gray-200 dark:bg-gray-700 animate-pulse" />
 
       {/* Text placeholder */}
       <div className="flex-1 min-w-0 space-y-1.5">
-        <div className="h-2 w-16 rounded bg-gray-200 animate-pulse" />
-        <div className="h-3 w-32 rounded bg-gray-200 animate-pulse" />
+        <div className="h-2 w-16 rounded bg-gray-200 dark:bg-gray-700 animate-pulse" />
+        <div className="h-3 w-32 rounded bg-gray-200 dark:bg-gray-700 animate-pulse" />
       </div>
 
       {/* Timestamp placeholder */}
-      <div className="flex-shrink-0 h-2 w-12 rounded bg-gray-200 animate-pulse" />
+      <div className="flex-shrink-0 h-2 w-12 rounded bg-gray-200 dark:bg-gray-700 animate-pulse" />
     </div>
   );
 }
