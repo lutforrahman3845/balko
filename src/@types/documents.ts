@@ -16,10 +16,10 @@ export interface document {
     url: string;
     documentTypeId: string;
     isPublic: boolean
-    // shearWith:number | null
     uploadedBy: string;
     uploadedAt: string;
     updatedAt: string;
+    shareWith: number[] | null
 }
 
 export interface ExpandedDocument extends document {
@@ -35,6 +35,16 @@ export interface ExpandedDocument extends document {
         id: string;
         name: string;
     };
+    uploadedByEmployee: {
+        id: string;
+        name: string;
+        avatar: string;
+    };
+    shareWithEmployee: {
+        id: number;
+        name: string;
+        avatar: string;
+    }[] | null;
 }
 
 export interface GetDocumentsResponse {

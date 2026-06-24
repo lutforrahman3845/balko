@@ -50,10 +50,10 @@ const AddDocumentDialog = ({
 }: AddDocumentDialogProps) => {
   const [addDocument, { isLoading: isAdding }] = useAddProjectDocumentMutation();
   const [createFolder, { isLoading: isCreatingFolder }] = useCreateFolderMutation();
-
+  const [folderSearchQuery, setFolderSearchQuery] = useState("");
   const { data: docTypesRes, isLoading: loadingTypes } = useGetDocumentTypesQuery();
   const { data: foldersRes, isLoading: loadingFolders } = useGetFoldersQuery(
-    { page: 1, limit: 200 },
+    { page: 1, limit: 200, searchQuery: folderSearchQuery },
     { skip: !open }
   );
 
@@ -324,7 +324,7 @@ const AddDocumentDialog = ({
                       options={folderOptions}
                       multiple={false}
                       loading={loadingFolders}
-                      searchable={false}
+                      onSearch={setFolderSearchQuery}
                     />
                   )}
                 />

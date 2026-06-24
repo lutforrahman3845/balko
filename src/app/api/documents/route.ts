@@ -1,5 +1,6 @@
 import { mockDocuments } from "@/mock/documents";
 import { mockDocumentType } from "@/mock/documentType";
+import { employeeData } from "@/mock/employeeData";
 import { mockFolderData } from "@/mock/folderData";
 import { mockProjects } from "@/mock/projectData";
 import { NextResponse } from "next/server";
@@ -46,7 +47,20 @@ export async function GET(request: Request) {
                 documentType: {
                     id: document?.documentTypeId,
                     name: mockDocumentType.find(f => f.id === document?.documentTypeId)?.name || ""
-                }
+                },
+                uploadedByEmployee: {
+                    id: document?.uploadedBy,
+                    name: employeeData.find(e => e.id === document?.uploadedBy)?.name || "",
+                    avatar: employeeData.find(e => e.id === document?.uploadedBy)?.avatar || ""
+                },
+                shareWithEmployee: (document?.shareWith && document?.shareWith?.length > 0) ?
+                    document?.shareWith.map(shareId => {
+                        return {
+                            id: shareId,
+                            name: employeeData.find(e => Number(e.id) === Number(shareId))?.name || "",
+                            avatar: employeeData.find(e => Number(e.id) === Number(shareId))?.avatar || ""
+                        }
+                    }) : null
             }
         })
 

@@ -11,7 +11,8 @@ export const mockDocuments: document[] = [
         "isPublic": true,
         "uploadedBy": "1",
         "uploadedAt": "2026-01-20T10:00:00Z",
-        "updatedAt": "2026-01-20T10:00:00Z"
+        "updatedAt": "2026-01-20T10:00:00Z",
+        "shareWith": null
     },
     {
         "id": "2",
@@ -23,7 +24,8 @@ export const mockDocuments: document[] = [
         "isPublic": false,
         "uploadedBy": "2",
         "uploadedAt": "2026-01-22T14:30:00Z",
-        "updatedAt": "2026-01-22T14:30:00Z"
+        "updatedAt": "2026-01-22T14:30:00Z",
+        "shareWith": null
     },
     {
         "id": "3",
@@ -35,7 +37,8 @@ export const mockDocuments: document[] = [
         "isPublic": true,
         "uploadedBy": "3",
         "uploadedAt": "2026-02-18T09:15:00Z",
-        "updatedAt": "2026-02-18T09:15:00Z"
+        "updatedAt": "2026-02-18T09:15:00Z",
+        "shareWith": null
     },
     {
         "id": "4",
@@ -47,7 +50,8 @@ export const mockDocuments: document[] = [
         "isPublic": false,
         "uploadedBy": "4",
         "uploadedAt": "2026-02-20T11:00:00Z",
-        "updatedAt": "2026-02-20T11:00:00Z"
+        "updatedAt": "2026-02-20T11:00:00Z",
+        "shareWith": null
     },
     {
         "id": "5",
@@ -59,7 +63,8 @@ export const mockDocuments: document[] = [
         "isPublic": false,
         "uploadedBy": "5",
         "uploadedAt": "2026-03-12T16:00:00Z",
-        "updatedAt": "2026-03-12T16:00:00Z"
+        "updatedAt": "2026-03-12T16:00:00Z",
+        "shareWith": null
     },
     {
         "id": "6",
@@ -71,7 +76,8 @@ export const mockDocuments: document[] = [
         "isPublic": true,
         "uploadedBy": "33",
         "uploadedAt": "2026-03-15T10:30:00Z",
-        "updatedAt": "2026-03-15T10:30:00Z"
+        "updatedAt": "2026-03-15T10:30:00Z",
+        "shareWith": null
     },
     {
         "id": "7",
@@ -83,91 +89,99 @@ export const mockDocuments: document[] = [
         "isPublic": true,
         "uploadedBy": "34",
         "uploadedAt": "2026-04-10T11:45:00Z",
-        "updatedAt": "2026-04-10T11:45:00Z"
+        "updatedAt": "2026-04-10T11:45:00Z",
+        "shareWith": null
     },
     {
         "id": "8",
         "projectId": "4",
-        "folderId": "8",
+        "folderId": "1",
         "description": "Project kickoff presentation slide deck.",
         "url": "https://drive.google.com/file/d/1abIW7UnAn3AGvVdzZAyCXVK2rAnE3gNH/view?usp=sharing",
         "documentTypeId": "17",
         "isPublic": true,
         "uploadedBy": "34",
         "uploadedAt": "2026-04-12T09:00:00Z",
-        "updatedAt": "2026-04-12T09:00:00Z"
+        "updatedAt": "2026-04-12T09:00:00Z",
+        "shareWith": null
     },
     {
         "id": "9",
         "projectId": "5",
-        "folderId": "8",
+        "folderId": "2",
         "description": "Historic preservation legal approval contract.",
         "url": "https://drive.google.com/file/d/1KOG_7dLIRDTshMx7l1k3YBmeHySe9jLM/view?usp=sharing",
         "documentTypeId": "11",
         "isPublic": false,
         "uploadedBy": "35",
         "uploadedAt": "2025-05-15T14:00:00Z",
-        "updatedAt": "2025-05-15T14:00:00Z"
+        "updatedAt": "2025-05-15T14:00:00Z",
+        "shareWith": null
     },
     {
         "id": "10",
         "projectId": "5",
-        "folderId": "8",
+        "folderId": "3",
         "description": "Historical restoration budget estimation and planning sheets.",
         "url": "https://drive.google.com/file/d/1v3LVW8-vGyQEE8sWyHn69sp1GNhw6St5/view?usp=sharing",
         "documentTypeId": "18",
         "isPublic": false,
         "uploadedBy": "35",
         "uploadedAt": "2025-05-20T16:30:00Z",
-        "updatedAt": "2025-05-20T16:30:00Z"
+        "updatedAt": "2025-05-20T16:30:00Z",
+        "shareWith": null
     },
     {
         "id": "11",
         "projectId": "6",
-        "folderId": "8",
+        "folderId": "4",
         "description": "Office layout plans and green space design specifications.",
         "url": "https://drive.google.com/file/d/1hFj1MTet01jR-umMrH39jATseB3buYbZ/view?usp=sharing",
         "documentTypeId": "12",
         "isPublic": true,
         "uploadedBy": "4",
         "uploadedAt": "2026-02-10T10:00:00Z",
-        "updatedAt": "2026-02-10T10:00:00Z"
+        "updatedAt": "2026-02-10T10:00:00Z",
+        "shareWith": null
     },
     {
         "id": "12",
         "projectId": "6",
-        "folderId": "8",
+        "folderId": "5",
         "description": "Eco-friendly materials purchase quotes and supplier agreements.",
         "url": "https://docs.google.com/document/d/1FJ20xvsf4thYfz2OqNCF8IWfE1dMN2_T/edit?usp=sharing&ouid=118056740364820434582&rtpof=true&sd=true",
         "documentTypeId": "14",
         "isPublic": false,
         "uploadedBy": "4",
         "uploadedAt": "2026-02-15T11:30:00Z",
-        "updatedAt": "2026-02-15T11:30:00Z"
+        "updatedAt": "2026-02-15T11:30:00Z",
+        "shareWith": null
     },
     {
         "id": "13",
         "projectId": "6",
-        "folderId": "8",
+        "folderId": "6",
         "description": "Office energy consumption baseline assessment report.",
         "url": "https://drive.google.com/file/d/1abIW7UnAn3AGvVdzZAyCXVK2rAnE3gNH/view?usp=sharing",
         "documentTypeId": "15",
         "isPublic": true,
         "uploadedBy": "4",
         "uploadedAt": "2026-02-20T09:00:00Z",
-        "updatedAt": "2026-02-20T09:00:00Z"
+        "updatedAt": "2026-02-20T09:00:00Z",
+        "shareWith": null
     },
     {
         "id": "14",
         "projectId": "7",
-        "folderId": "8",
+        "folderId": "7",
         "description": "Nexus database migration architecture design whitepaper.",
         "url": "https://drive.google.com/file/d/1KOG_7dLIRDTshMx7l1k3YBmeHySe9jLM/view?usp=sharing",
         "documentTypeId": "12",
         "isPublic": false,
         "uploadedBy": "5",
         "uploadedAt": "2026-04-20T14:00:00Z",
-        "updatedAt": "2026-04-20T14:00:00Z"
+        "updatedAt": "2026-04-20T14:00:00Z",
+        "shareWith": null
     },
     {
         "id": "15",
@@ -179,91 +193,99 @@ export const mockDocuments: document[] = [
         "isPublic": true,
         "uploadedBy": "5",
         "uploadedAt": "2026-04-25T10:30:00Z",
-        "updatedAt": "2026-04-25T10:30:00Z"
+        "updatedAt": "2026-04-25T10:30:00Z",
+        "shareWith": null
     },
     {
         "id": "16",
         "projectId": "7",
-        "folderId": "8",
+        "folderId": "1",
         "description": "Migration phase 1 system cutover plan.",
         "url": "https://drive.google.com/file/d/1hFj1MTet01jR-umMrH39jATseB3buYbZ/view?usp=sharing",
         "documentTypeId": "13",
         "isPublic": false,
         "uploadedBy": "5",
         "uploadedAt": "2026-05-02T16:45:00Z",
-        "updatedAt": "2026-05-02T16:45:00Z"
+        "updatedAt": "2026-05-02T16:45:00Z",
+        "shareWith": null
     },
     {
         "id": "17",
         "projectId": "8",
-        "folderId": "8",
+        "folderId": "2",
         "description": "Smart City IoT sensor technical requirements document.",
         "url": "https://docs.google.com/document/d/1FJ20xvsf4thYfz2OqNCF8IWfE1dMN2_T/edit?usp=sharing&ouid=118056740364820434582&rtpof=true&sd=true",
         "documentTypeId": "13",
         "isPublic": true,
         "uploadedBy": "33",
         "uploadedAt": "2025-10-15T09:00:00Z",
-        "updatedAt": "2025-10-15T09:00:00Z"
+        "updatedAt": "2025-10-15T09:00:00Z",
+        "shareWith": null
     },
     {
         "id": "18",
         "projectId": "8",
-        "folderId": "8",
+        "folderId": "3",
         "description": "Downtown sensor network grid installation blueprint.",
         "url": "https://drive.google.com/file/d/1abIW7UnAn3AGvVdzZAyCXVK2rAnE3gNH/view?usp=sharing",
         "documentTypeId": "12",
         "isPublic": true,
         "uploadedBy": "33",
         "uploadedAt": "2025-11-01T11:00:00Z",
-        "updatedAt": "2025-11-01T11:00:00Z"
+        "updatedAt": "2025-11-01T11:00:00Z",
+        "shareWith": null
     },
     {
         "id": "19",
         "projectId": "9",
-        "folderId": "8",
+        "folderId": "4",
         "description": "Global Rebranding creative brief and assets guidelines.",
         "url": "https://drive.google.com/file/d/1KOG_7dLIRDTshMx7l1k3YBmeHySe9jLM/view?usp=sharing",
         "documentTypeId": "12",
         "isPublic": true,
         "uploadedBy": "34",
         "uploadedAt": "2026-01-25T14:30:00Z",
-        "updatedAt": "2026-01-25T14:30:00Z"
+        "updatedAt": "2026-01-25T14:30:00Z",
+        "shareWith": null
     },
     {
         "id": "20",
         "projectId": "9",
-        "folderId": "8",
+        "folderId": "5",
         "description": "Ad campaign performance and outreach planning sheet.",
         "url": "https://drive.google.com/file/d/1v3LVW8-vGyQEE8sWyHn69sp1GNhw6St5/view?usp=sharing",
         "documentTypeId": "18",
         "isPublic": false,
         "uploadedBy": "34",
         "uploadedAt": "2026-02-05T10:00:00Z",
-        "updatedAt": "2026-02-05T10:00:00Z"
+        "updatedAt": "2026-02-05T10:00:00Z",
+        "shareWith": null
     },
     {
         "id": "21",
         "projectId": "10",
-        "folderId": "8",
+        "folderId": "6",
         "description": "Mobile App UI/UX wireframes and user flow diagram.",
         "url": "https://drive.google.com/file/d/1hFj1MTet01jR-umMrH39jATseB3buYbZ/view?usp=sharing",
         "documentTypeId": "12",
         "isPublic": false,
         "uploadedBy": "4",
         "uploadedAt": "2026-05-19T09:00:00Z",
-        "updatedAt": "2026-05-19T09:00:00Z"
+        "updatedAt": "2026-05-19T09:00:00Z",
+        "shareWith": null
     },
     {
         "id": "22",
         "projectId": "10",
-        "folderId": "8",
+        "folderId": "7",
         "description": "Mobile Client REST API interface endpoints specs.",
         "url": "https://docs.google.com/document/d/1FJ20xvsf4thYfz2OqNCF8IWfE1dMN2_T/edit?usp=sharing&ouid=118056740364820434582&rtpof=true&sd=true",
         "documentTypeId": "13",
         "isPublic": false,
         "uploadedBy": "4",
         "uploadedAt": "2026-05-19T10:30:00Z",
-        "updatedAt": "2026-05-19T10:30:00Z"
+        "updatedAt": "2026-05-19T10:30:00Z",
+        "shareWith": null
     },
     {
         "id": "23",
@@ -275,91 +297,99 @@ export const mockDocuments: document[] = [
         "isPublic": true,
         "uploadedBy": "35",
         "uploadedAt": "2025-11-20T13:00:00Z",
-        "updatedAt": "2025-11-20T13:00:00Z"
+        "updatedAt": "2025-11-20T13:00:00Z",
+        "shareWith": null
     },
     {
         "id": "24",
         "projectId": "11",
-        "folderId": "8",
+        "folderId": "1",
         "description": "Subcontractor liability agreement and insurance forms.",
         "url": "https://drive.google.com/file/d/1KOG_7dLIRDTshMx7l1k3YBmeHySe9jLM/view?usp=sharing",
         "documentTypeId": "11",
         "isPublic": false,
         "uploadedBy": "35",
         "uploadedAt": "2025-12-01T15:00:00Z",
-        "updatedAt": "2025-12-01T15:00:00Z"
+        "updatedAt": "2025-12-01T15:00:00Z",
+        "shareWith": null
     },
     {
         "id": "25",
         "projectId": "12",
-        "folderId": "8",
+        "folderId": "2",
         "description": "Enterprise security audit final penetration test report.",
         "url": "https://drive.google.com/file/d/1v3LVW8-vGyQEE8sWyHn69sp1GNhw6St5/view?usp=sharing",
         "documentTypeId": "15",
         "isPublic": false,
         "uploadedBy": "4",
         "uploadedAt": "2026-02-25T16:00:00Z",
-        "updatedAt": "2026-02-25T16:00:00Z"
+        "updatedAt": "2026-02-25T16:00:00Z",
+        "shareWith": null
     },
     {
         "id": "26",
         "projectId": "12",
-        "folderId": "8",
+        "folderId": "3",
         "description": "Employee basic cybersecurity training guidelines document.",
         "url": "https://drive.google.com/file/d/1hFj1MTet01jR-umMrH39jATseB3buYbZ/view?usp=sharing",
         "documentTypeId": "19",
         "isPublic": true,
         "uploadedBy": "4",
         "uploadedAt": "2026-02-28T10:00:00Z",
-        "updatedAt": "2026-02-28T10:00:00Z"
+        "updatedAt": "2026-02-28T10:00:00Z",
+        "shareWith": null
     },
     {
         "id": "27",
         "projectId": "13",
-        "folderId": "8",
+        "folderId": "4",
         "description": "Eco-Lodge structural design and blueprint layout.",
         "url": "https://docs.google.com/document/d/1FJ20xvsf4thYfz2OqNCF8IWfE1dMN2_T/edit?usp=sharing&ouid=118056740364820434582&rtpof=true&sd=true",
         "documentTypeId": "12",
         "isPublic": true,
         "uploadedBy": "5",
         "uploadedAt": "2026-02-01T09:30:00Z",
-        "updatedAt": "2026-02-01T09:30:00Z"
+        "updatedAt": "2026-02-01T09:30:00Z",
+        "shareWith": null
     },
     {
         "id": "28",
         "projectId": "13",
-        "folderId": "8",
+        "folderId": "5",
         "description": "Land survey and zoning approval documents.",
         "url": "https://drive.google.com/file/d/1abIW7UnAn3AGvVdzZAyCXVK2rAnE3gNH/view?usp=sharing",
         "documentTypeId": "11",
         "isPublic": false,
         "uploadedBy": "5",
         "uploadedAt": "2026-02-10T14:00:00Z",
-        "updatedAt": "2026-02-10T14:00:00Z"
+        "updatedAt": "2026-02-10T14:00:00Z",
+        "shareWith": null
     },
     {
         "id": "29",
         "projectId": "14",
-        "folderId": "8",
+        "folderId": "6",
         "description": "E-Commerce multi-currency API integration requirements.",
         "url": "https://drive.google.com/file/d/1KOG_7dLIRDTshMx7l1k3YBmeHySe9jLM/view?usp=sharing",
         "documentTypeId": "13",
         "isPublic": true,
         "uploadedBy": "33",
         "uploadedAt": "2026-02-20T10:00:00Z",
-        "updatedAt": "2026-02-20T10:00:00Z"
+        "updatedAt": "2026-02-20T10:00:00Z",
+        "shareWith": null
     },
     {
         "id": "30",
         "projectId": "14",
-        "folderId": "8",
+        "folderId": "7",
         "description": "Stripe/PayPal third-party merchant agreement.",
         "url": "https://drive.google.com/file/d/1v3LVW8-vGyQEE8sWyHn69sp1GNhw6St5/view?usp=sharing",
         "documentTypeId": "11",
         "isPublic": false,
         "uploadedBy": "33",
         "uploadedAt": "2026-02-25T11:00:00Z",
-        "updatedAt": "2026-02-25T11:00:00Z"
+        "updatedAt": "2026-02-25T11:00:00Z",
+        "shareWith": null
     },
     {
         "id": "31",
@@ -371,54 +401,189 @@ export const mockDocuments: document[] = [
         "isPublic": false,
         "uploadedBy": "34",
         "uploadedAt": "2026-03-10T09:00:00Z",
-        "updatedAt": "2026-03-10T09:00:00Z"
+        "updatedAt": "2026-03-10T09:00:00Z",
+        "shareWith": null
     },
     {
         "id": "32",
         "projectId": "15",
-        "folderId": "8",
+        "folderId": "1",
         "description": "Customer support response fine-tuning guidelines doc.",
         "url": "https://docs.google.com/document/d/1FJ20xvsf4thYfz2OqNCF8IWfE1dMN2_T/edit?usp=sharing&ouid=118056740364820434582&rtpof=true&sd=true",
         "documentTypeId": "19",
         "isPublic": true,
         "uploadedBy": "34",
-        "uploadedAt": "2026-03-15T15:30:00Z",
-        "updatedAt": "2026-03-15T15:30:00Z"
+        "uploadedAt": "2026-06-20T15:30:00Z",
+        "updatedAt": "2026-06-20T15:30:00Z",
+        "shareWith": null
     },
     {
         "id": "33",
         "projectId": "6",
-        "folderId": "8",
+        "folderId": "2",
         "description": "Office redesign project progress tracking sheet.",
         "url": "https://drive.google.com/file/d/1abIW7UnAn3AGvVdzZAyCXVK2rAnE3gNH/view?usp=sharing",
         "documentTypeId": "18",
         "isPublic": false,
         "uploadedBy": "4",
-        "uploadedAt": "2026-05-18T10:00:00Z",
-        "updatedAt": "2026-05-18T10:00:00Z"
+        "uploadedAt": "2026-06-18T10:00:00Z",
+        "updatedAt": "2026-06-18T10:00:00Z",
+        "shareWith": null
     },
     {
         "id": "34",
         "projectId": "7",
-        "folderId": "8",
+        "folderId": "3",
         "description": "Cloud migration infrastructure risk assessment report.",
         "url": "https://drive.google.com/file/d/1KOG_7dLIRDTshMx7l1k3YBmeHySe9jLM/view?usp=sharing",
         "documentTypeId": "15",
         "isPublic": false,
         "uploadedBy": "5",
-        "uploadedAt": "2026-05-15T11:00:00Z",
-        "updatedAt": "2026-05-15T11:00:00Z"
+        "uploadedAt": "2026-06-15T11:00:00Z",
+        "updatedAt": "2026-06-15T11:00:00Z",
+        "shareWith": null
     },
     {
         "id": "35",
         "projectId": "8",
-        "folderId": "8",
+        "folderId": "4",
         "description": "Smart city IoT hardware deployment progress report.",
         "url": "https://drive.google.com/file/d/1v3LVW8-vGyQEE8sWyHn69sp1GNhw6St5/view?usp=sharing",
         "documentTypeId": "15",
         "isPublic": true,
         "uploadedBy": "33",
-        "uploadedAt": "2026-05-12T14:00:00Z",
-        "updatedAt": "2026-05-12T14:00:00Z"
+        "uploadedAt": "2026-06-12T14:00:00Z",
+        "updatedAt": "2026-06-12T14:00:00Z",
+        "shareWith": null
+    },
+    {
+        "id": "36",
+        "projectId": null,
+        "folderId": "5",
+        "description": "Employee basic cybersecurity training guidelines document.",
+        "url": "https://drive.google.com/file/d/1hFj1MTet01jR-umMrH39jATseB3buYbZ/view?usp=sharing",
+        "documentTypeId": "19",
+        "isPublic": true,
+        "uploadedBy": "4",
+        "uploadedAt": "2026-06-22T10:00:00Z",
+        "updatedAt": "2026-06-22T10:00:00Z",
+        "shareWith": [1, 2, 3]
+    },
+    {
+        "id": "37",
+        "projectId": null,
+        "folderId": "6",
+        "description": "Eco-Lodge structural design and blueprint layout.",
+        "url": "https://docs.google.com/document/d/1FJ20xvsf4thYfz2OqNCF8IWfE1dMN2_T/edit?usp=sharing&ouid=118056740364820434582&rtpof=true&sd=true",
+        "documentTypeId": "12",
+        "isPublic": true,
+        "uploadedBy": "5",
+        "uploadedAt": "2026-06-10T09:30:00Z",
+        "updatedAt": "2026-06-10T09:30:00Z",
+        "shareWith": [4, 5, 11]
+    },
+    {
+        "id": "38",
+        "projectId": null,
+        "folderId": "7",
+        "description": "Land survey and zoning approval documents.",
+        "url": "https://drive.google.com/file/d/1abIW7UnAn3AGvVdzZAyCXVK2rAnE3gNH/view?usp=sharing",
+        "documentTypeId": "11",
+        "isPublic": false,
+        "uploadedBy": "5",
+        "uploadedAt": "2026-06-08T14:00:00Z",
+        "updatedAt": "2026-06-08T14:00:00Z",
+        "shareWith": [6, 7, 15, 23]
+    },
+    {
+        "id": "39",
+        "projectId": null,
+        "folderId": "8",
+        "description": "E-Commerce multi-currency API integration requirements.",
+        "url": "https://drive.google.com/file/d/1KOG_7dLIRDTshMx7l1k3YBmeHySe9jLM/view?usp=sharing",
+        "documentTypeId": "13",
+        "isPublic": true,
+        "uploadedBy": "33",
+        "uploadedAt": "2026-06-05T10:00:00Z",
+        "updatedAt": "2026-06-05T10:00:00Z",
+        "shareWith": [3, 19, 20, 33]
+    },
+    {
+        "id": "40",
+        "projectId": null,
+        "folderId": "1",
+        "description": "Stripe/PayPal third-party merchant agreement.",
+        "url": "https://drive.google.com/file/d/1v3LVW8-vGyQEE8sWyHn69sp1GNhw6St5/view?usp=sharing",
+        "documentTypeId": "11",
+        "isPublic": false,
+        "uploadedBy": "33",
+        "uploadedAt": "2026-05-25T11:00:00Z",
+        "updatedAt": "2026-05-25T11:00:00Z",
+        "shareWith": [2, 8, 12, 34]
+    },
+    {
+        "id": "41",
+        "projectId": null,
+        "folderId": "2",
+        "description": "AI chatbot model prompt and training requirements specs.",
+        "url": "https://drive.google.com/file/d/1hFj1MTet01jR-umMrH39jATseB3buYbZ/view?usp=sharing",
+        "documentTypeId": "13",
+        "isPublic": false,
+        "uploadedBy": "34",
+        "uploadedAt": "2026-06-01T09:00:00Z",
+        "updatedAt": "2026-06-01T09:00:00Z",
+        "shareWith": [9, 10, 24, 35]
+    },
+    {
+        "id": "42",
+        "projectId": null,
+        "folderId": "3",
+        "description": "Customer support response fine-tuning guidelines doc.",
+        "url": "https://docs.google.com/document/d/1FJ20xvsf4thYfz2OqNCF8IWfE1dMN2_T/edit?usp=sharing&ouid=118056740364820434582&rtpof=true&sd=true",
+        "documentTypeId": "19",
+        "isPublic": true,
+        "uploadedBy": "34",
+        "uploadedAt": "2026-06-19T15:30:00Z",
+        "updatedAt": "2026-06-19T15:30:00Z",
+        "shareWith": [1, 5, 13, 27]
+    },
+    {
+        "id": "43",
+        "projectId": null,
+        "folderId": "4",
+        "description": "Office redesign project progress tracking sheet.",
+        "url": "https://drive.google.com/file/d/1abIW7UnAn3AGvVdzZAyCXVK2rAnE3gNH/view?usp=sharing",
+        "documentTypeId": "18",
+        "isPublic": false,
+        "uploadedBy": "4",
+        "uploadedAt": "2026-06-14T10:00:00Z",
+        "updatedAt": "2026-06-14T10:00:00Z",
+        "shareWith": [4, 16, 21, 37]
+    },
+    {
+        "id": "44",
+        "projectId": null,
+        "folderId": "5",
+        "description": "Cloud migration infrastructure risk assessment report.",
+        "url": "https://drive.google.com/file/d/1KOG_7dLIRDTshMx7l1k3YBmeHySe9jLM/view?usp=sharing",
+        "documentTypeId": "15",
+        "isPublic": false,
+        "uploadedBy": "5",
+        "uploadedAt": "2026-06-11T11:00:00Z",
+        "updatedAt": "2026-06-11T11:00:00Z",
+        "shareWith": [6, 14, 22, 38]
+    },
+    {
+        "id": "45",
+        "projectId": null,
+        "folderId": "6",
+        "description": "Smart city IoT hardware deployment progress report.",
+        "url": "https://drive.google.com/file/d/1v3LVW8-vGyQEE8sWyHn69sp1GNhw6St5/view?usp=sharing",
+        "documentTypeId": "15",
+        "isPublic": true,
+        "uploadedBy": "33",
+        "uploadedAt": "2026-06-13T14:00:00Z",
+        "updatedAt": "2026-06-13T14:00:00Z",
+        "shareWith": [3, 17, 25, 33]
     }
 ];

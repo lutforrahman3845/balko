@@ -65,6 +65,7 @@ export async function POST(
       uploadedBy: "1",
       uploadedAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
+      shareWith: null
     };
 
     mockDocuments.push(newDoc);
