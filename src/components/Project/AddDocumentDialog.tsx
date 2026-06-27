@@ -91,7 +91,7 @@ const AddDocumentDialog = ({
     return [
       ...folders.map((f) => ({
         value: f.id,
-        label: f.path || f.name,
+        label: f.name,
       })),
     ];
   }, [folders]);
