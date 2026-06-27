@@ -3,9 +3,10 @@
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ContentHeader from "@/components/ContentHeader";
-import Link from "next/link";
 import { FaFolderOpen } from "react-icons/fa6";
 import FilterSearch from "../shared/FilterSearch";
+import { useState } from "react";
+import FolderFormModal from "./FolderFormModal";
 
 export function FolderHeader({
     searchFolder,
@@ -16,6 +17,8 @@ export function FolderHeader({
     setSearchFolder: (value: string) => void
     setPageIndex: (value: number) => void
 }) {
+    const [modal, setModal] = useState(false);
+
     return (
         <>
             <ContentHeader>
@@ -34,14 +37,12 @@ export function FolderHeader({
                         setSearchQuery={(q) => { const val = q.trimStart().replace(/\s\s+/g, " "); setSearchFolder(val); if (val.trim() !== searchFolder.trim()) setPageIndex(1) }}
                         placeholder="Search by folder name"
                     />
-                    <Link href="/projects/new">
-                        <Button size="sm">
-                            <Plus /> New Folder
-                        </Button>
-                    </Link>
+                    <Button size="sm" onClick={() => setModal(true)}>
+                        <Plus /> New Folder
+                    </Button>
                 </div>
             </ContentHeader>
-
+            <FolderFormModal open={modal} onOpenChange={setModal} />
         </>
     );
 }

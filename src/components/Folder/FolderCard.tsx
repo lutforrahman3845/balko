@@ -45,7 +45,7 @@ const BadgeFolder = ({
   </div>
 );
 
-const getFolderIcon = (iconType: string) => {
+export const getFolderIcon = (iconType: string) => {
   const icons: Record<string, ReactElement> = {
     requirements: (
       <BadgeFolder folderColor="text-emerald-500" BadgeIcon={MdOutlineChecklist} badgeColor="text-white" />
