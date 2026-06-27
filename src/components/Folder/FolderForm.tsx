@@ -4,7 +4,7 @@ import CustomeSelect from "@/components/shared/CustomeSelect";
 import { useMemo, useState } from "react";
 import { ExpandFolder, FolderFormValues } from "@/@types/folder";
 import { useGetFoldersQuery } from "@/redux/apis/folderApis";
-import { getFolderIcon } from "./FolderCard";
+import { getFolderIcon } from "@/lib/getIcons";
 const iconNames = [
     "requirements",
     "design",
