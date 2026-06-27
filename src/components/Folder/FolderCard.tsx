@@ -6,6 +6,7 @@ import {
   MdEdit,
 } from "react-icons/md";
 import { getFolderIcon } from "@/lib/getIcons";
+import Link from "next/link";
 
 interface FolderCardProps {
   folder: ExpandFolder;
@@ -14,7 +15,7 @@ interface FolderCardProps {
 export function FolderCard({ folder }: FolderCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
-    <>
+    <Link href={`/folders/${folder.id}`}>
       <div className="group flex items-center gap-4 rounded-lg border border-transparent px-3 py-2.5 bg-gray-50 dark:bg-gray-800/50 border-gray-100 dark:border-gray-700 transition-all duration-150 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800">
 
         {/* Icon */}
@@ -46,7 +47,7 @@ export function FolderCard({ folder }: FolderCardProps) {
         </button>
       </div>
       <FolderFormModal open={isModalOpen} onOpenChange={setIsModalOpen} isEdit={true} data={folder} />
-    </>
+    </Link>
   );
 }
 

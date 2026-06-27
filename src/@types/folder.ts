@@ -44,7 +44,59 @@ export interface GetFoldersResponse {
     data: ExpandFolder[];
     meta: PaginationMeta
 }
-
+export interface SingLeFolder {
+    id: string;
+    name: string;
+    icon: Folder["icon"];
+    createdBy: {
+        id: string;
+        name: string;
+        avatar: string;
+        designation: string;
+    };
+    parentFolderId: string | null;
+    parentFolder: Folder | null;
+    childFolders: Folder[];
+    createdAt: string;
+    updatedAt: string;
+    documents: {
+        id: string;
+        projectId: string | null;
+        folderId: string;
+        description: string;
+        url: string;
+        documentTypeId: string;
+        isPublic: boolean;
+        uploadedBy: string;
+        uploadedAt: string;
+        updatedAt: string;
+        shareWith: number[] | null;
+        folder: {
+            id: string;
+            name: string;
+        };
+        project: {
+            id: string;
+            name: string;
+        } | null;
+        documentType: {
+            id: string;
+            name: string;
+        };
+        uploadedByEmployee: {
+            id: string;
+            name: string;
+            avatar: string;
+            designation: string;
+        };
+        shareWithEmployee: {
+            id: number;
+            name: string;
+            avatar: string;
+            designation: string;
+        }[] | null;
+    }[];
+}
 // Form Schema
 import { z } from "zod";
 

@@ -38,8 +38,8 @@ const BadgeFolder = ({
     <div className="relative inline-flex">
         <MdFolder size={40} className={folderColor} />
         <BadgeIcon
-            size={13}
-            className={`absolute bottom-0.5 right-0 ${badgeColor} drop-shadow-sm`}
+            size={12}
+            className={`absolute bottom-2 right-1 ${badgeColor} drop-shadow-sm`}
         />
     </div>
 );

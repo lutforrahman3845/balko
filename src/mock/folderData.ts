@@ -6,7 +6,7 @@ export const mockFolderData: Folder[] = [
         "parentFolderId": null,
         "name": "Requirements",
         "icon": "requirements",
-        "createdBy": "user1",
+        "createdBy": "1",
         "createdAt": "2024-01-15T00:00:00Z",
         "updatedAt": "2024-01-15T00:00:00Z"
     },
@@ -15,7 +15,7 @@ export const mockFolderData: Folder[] = [
         "parentFolderId": "1",
         "name": "Functional Specs",
         "icon": "default",
-        "createdBy": "user2",
+        "createdBy": "2",
         "createdAt": "2024-01-16T00:00:00Z",
         "updatedAt": "2024-01-16T00:00:00Z"
     },
@@ -24,7 +24,7 @@ export const mockFolderData: Folder[] = [
         "parentFolderId": "1",
         "name": "Non-Functional Specs",
         "icon": "default",
-        "createdBy": "user2",
+        "createdBy": "2",
         "createdAt": "2024-01-16T00:00:00Z",
         "updatedAt": "2024-01-16T00:00:00Z"
     },
@@ -33,7 +33,7 @@ export const mockFolderData: Folder[] = [
         "parentFolderId": null,
         "name": "Design Assets",
         "icon": "design",
-        "createdBy": "user3",
+        "createdBy": "3",
         "createdAt": "2024-01-17T00:00:00Z",
         "updatedAt": "2024-01-17T00:00:00Z"
     },
@@ -42,7 +42,7 @@ export const mockFolderData: Folder[] = [
         "parentFolderId": "4",
         "name": "Wireframes",
         "icon": "design",
-        "createdBy": "user4",
+        "createdBy": "4",
         "createdAt": "2024-01-18T00:00:00Z",
         "updatedAt": "2024-01-18T00:00:00Z"
     },
@@ -51,7 +51,7 @@ export const mockFolderData: Folder[] = [
         "parentFolderId": "4",
         "name": "Mockups",
         "icon": "design",
-        "createdBy": "user4",
+        "createdBy": "4",
         "createdAt": "2024-01-18T00:00:00Z",
         "updatedAt": "2024-01-18T00:00:00Z"
     },
@@ -60,7 +60,7 @@ export const mockFolderData: Folder[] = [
         "parentFolderId": null,
         "name": "Contracts",
         "icon": "contracts",
-        "createdBy": "user5",
+        "createdBy": "5",
         "createdAt": "2024-01-19T00:00:00Z",
         "updatedAt": "2024-01-19T00:00:00Z"
     },
@@ -69,7 +69,7 @@ export const mockFolderData: Folder[] = [
         "parentFolderId": null,
         "name": "Internal Documents",
         "icon": "organization",
-        "createdBy": "user5",
+        "createdBy": "5",
         "createdAt": "2024-01-19T00:00:00Z",
         "updatedAt": "2024-01-19T00:00:00Z"
     }

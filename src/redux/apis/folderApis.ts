@@ -1,5 +1,5 @@
 import { apiSlice } from "../apiSlice";
-import { Folder, GetFoldersResponse } from "@/@types/folder";
+import { Folder, GetFoldersResponse, SingLeFolder } from "@/@types/folder";
 
 interface GetFoldersParams {
   page?: number;
@@ -24,7 +24,7 @@ export const folderApis = apiSlice.injectEndpoints({
           ]
           : [{ type: "folder" as const, id: "LIST" }],
     }),
-    getFolderById: builder.query<Folder, string>({
+    getFolderById: builder.query<SingLeFolder, string>({
       query: (id) => `/folder/${id}`,
       providesTags: (result, error, id) => [{ type: "folder" as const, id }],
     }),

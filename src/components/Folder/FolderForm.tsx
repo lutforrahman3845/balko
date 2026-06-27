@@ -2,7 +2,7 @@ import { Control, Controller, FieldErrors } from "react-hook-form";
 import FormItem from "@/components/shared/FormItem";
 import CustomeSelect from "@/components/shared/CustomeSelect";
 import { useMemo, useState } from "react";
-import { ExpandFolder, FolderFormValues } from "@/@types/folder";
+import { ExpandFolder, FolderFormValues, SingLeFolder } from "@/@types/folder";
 import { useGetFoldersQuery } from "@/redux/apis/folderApis";
 import { getFolderIcon } from "@/lib/getIcons";
 const iconNames = [
@@ -40,7 +40,7 @@ const FolderForm = ({
     control: Control<FolderFormValues>;
     errors: FieldErrors<FolderFormValues>;
     isEdit?: boolean;
-    data?: ExpandFolder | null;
+    data?: ExpandFolder | SingLeFolder | null;
 }) => {
     const [search, setSearch] = useState("");
     const [searchIcon, setSearchIcon] = useState("");
@@ -110,21 +110,21 @@ const FolderForm = ({
     const iconsOption = iconNames
         .filter((name) => name.toLowerCase().includes(searchIcon.toLowerCase()))
         .map((name) => ({
-        value: name,
-        searchText: name,
-        label: (
-            <div className="flex items-center gap-3 w-full">
-                <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center transform scale-75">
-                    {getFolderIcon(name)}
+            value: name,
+            searchText: name,
+            label: (
+                <div className="flex items-center gap-3 w-full">
+                    <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center transform scale-75">
+                        {getFolderIcon(name)}
+                    </div>
+                    <div className="flex flex-col min-w-0 flex-1">
+                        <p className="text-sm font-medium text-foreground truncate leading-tight capitalize">
+                            {name}
+                        </p>
+                    </div>
                 </div>
-                <div className="flex flex-col min-w-0 flex-1">
-                    <p className="text-sm font-medium text-foreground truncate leading-tight capitalize">
-                        {name}
-                    </p>
-                </div>
-            </div>
-        ),
-    }));
+            ),
+        }));
     return (
         <div className="flex flex-col px-6 py-3 space-y-6">
             <Controller

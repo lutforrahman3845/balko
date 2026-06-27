@@ -46,15 +46,6 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: "Missing required fields: name, projectId" }, { status: 400 });
         }
 
-        // Auto-generate path if not provided
-        let path = body.name;
-        if (body.parentFolderId) {
-            const parent = mockFolderData.find(f => f.id === body.parentFolderId);
-            if (parent) {
-                path = `${parent.path}/${body.name}`;
-            }
-        }
-
         const nextId = (Math.max(...mockFolderData.map(f => parseInt(f.id) || 0)) + 1).toString();
 
         const newFolder = {
@@ -62,7 +53,6 @@ export async function POST(request: NextRequest) {
             projectId: body.projectId,
             parentFolderId: body.parentFolderId || null,
             name: body.name,
-            path: body.path || path,
             color: body.color || "#3B82F6",
             icon: body.icon || "default",
             createdBy: body.createdBy || "1",

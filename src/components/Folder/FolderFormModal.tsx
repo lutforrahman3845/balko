@@ -16,14 +16,14 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
 import { HiOutlineFolderAdd } from "react-icons/hi";
-import { ExpandFolder, FolderFormSchema, FolderFormValues } from "@/@types/folder";
+import { ExpandFolder, FolderFormSchema, FolderFormValues, SingLeFolder } from "@/@types/folder";
 import FolderForm from "./FolderForm";
 
 interface FolderFormModalProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
     isEdit?: boolean;
-    data?: ExpandFolder | null;
+    data?: ExpandFolder | SingLeFolder | null;
     selectedId?: string | null;
 }
 

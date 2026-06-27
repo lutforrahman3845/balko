@@ -50,7 +50,9 @@ export function RecentDocumentsTable() {
               </div>
             </TableCell>
             <TableCell className="text-gray-500 dark:text-gray-400">
-              {doc?.folder?.name}
+              <Link href={`/folders/${doc?.folder?.id}`}>
+                {doc?.folder?.name}
+              </Link>
             </TableCell>
             <TableCell className="text-gray-500 dark:text-gray-400">
               {doc?.documentType?.name}
