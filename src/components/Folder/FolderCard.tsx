@@ -10,9 +10,10 @@ import Link from "next/link";
 
 interface FolderCardProps {
   folder: ExpandFolder;
+  haveEdit?: boolean
 }
 
-export function FolderCard({ folder }: FolderCardProps) {
+export function FolderCard({ folder, haveEdit = true }: FolderCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <Link href={`/folders/${folder.id}`}>
@@ -34,19 +35,19 @@ export function FolderCard({ folder }: FolderCardProps) {
           <p className="text-sm font-medium text-gray-800 dark:text-gray-100 truncate">{folder.name}</p>
         </div>
 
-
         {/* Edit Button */}
-        <button
+        {haveEdit && <button
           onClick={(e) => {
+            e.preventDefault();
             e.stopPropagation();
             setIsModalOpen(true);
           }}
           className="opacity-0 group-hover:opacity-100 transition-opacity p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md ml-1 flex-shrink-0 cursor-pointer"
         >
           <MdEdit className="w-4 h-4 text-gray-500" />
-        </button>
+        </button>}
       </div>
-      <FolderFormModal open={isModalOpen} onOpenChange={setIsModalOpen} isEdit={true} data={folder} />
+      {haveEdit && <FolderFormModal open={isModalOpen} onOpenChange={setIsModalOpen} isEdit={true} data={folder} />}
     </Link>
   );
 }

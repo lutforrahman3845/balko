@@ -9,6 +9,8 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
 import { MdEdit, MdFolder, MdChevronRight } from "react-icons/md";
+import { FolderChild } from "@/components/Folder/FolderChild";
+import { FolderDocumentList } from "@/components/Folder/FolderDocument";
 
 const Page = () => {
     const params = useParams();
@@ -65,6 +67,15 @@ const Page = () => {
                     </Button>
                 </div>
             </ContentHeader>
+
+            <div className="px-4 md:px-6 lg:px-8 space-y-8">
+                {data?.childFolders && data.childFolders.length > 0 && (
+                    <FolderChild childFolders={data.childFolders} />
+                )}
+                {data?.documents && data.documents.length > 0 && (
+                    <FolderDocumentList documents={data.documents} />
+                )}
+            </div>
             <FolderFormModal open={editFolder} onOpenChange={setEditFolder} isEdit={true} data={data} />
         </div>
     );

@@ -44,6 +44,43 @@ export interface GetFoldersResponse {
     data: ExpandFolder[];
     meta: PaginationMeta
 }
+export type FolderDocument = {
+    id: string;
+    projectId: string | null;
+    folderId: string;
+    description: string;
+    url: string;
+    documentTypeId: string;
+    isPublic: boolean;
+    uploadedBy: string;
+    uploadedAt: string;
+    updatedAt: string;
+    shareWith: number[] | null;
+    folder: {
+        id: string;
+        name: string;
+    };
+    project: {
+        id: string;
+        name: string;
+    } | null;
+    documentType: {
+        id: string;
+        name: string;
+    };
+    uploadedByEmployee: {
+        id: string;
+        name: string;
+        avatar: string;
+        designation: string;
+    };
+    shareWithEmployee: {
+        id: number;
+        name: string;
+        avatar: string;
+        designation: string;
+    }[] | null;
+}
 export interface SingLeFolder {
     id: string;
     name: string;
@@ -59,44 +96,9 @@ export interface SingLeFolder {
     childFolders: Folder[];
     createdAt: string;
     updatedAt: string;
-    documents: {
-        id: string;
-        projectId: string | null;
-        folderId: string;
-        description: string;
-        url: string;
-        documentTypeId: string;
-        isPublic: boolean;
-        uploadedBy: string;
-        uploadedAt: string;
-        updatedAt: string;
-        shareWith: number[] | null;
-        folder: {
-            id: string;
-            name: string;
-        };
-        project: {
-            id: string;
-            name: string;
-        } | null;
-        documentType: {
-            id: string;
-            name: string;
-        };
-        uploadedByEmployee: {
-            id: string;
-            name: string;
-            avatar: string;
-            designation: string;
-        };
-        shareWithEmployee: {
-            id: number;
-            name: string;
-            avatar: string;
-            designation: string;
-        }[] | null;
-    }[];
+    documents: FolderDocument[] | null;
 }
+
 // Form Schema
 import { z } from "zod";
 
