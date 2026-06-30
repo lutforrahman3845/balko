@@ -7,6 +7,8 @@ import { FaFolderOpen } from "react-icons/fa6";
 import FilterSearch from "../shared/FilterSearch";
 import { useState } from "react";
 import FolderFormModal from "./FolderFormModal";
+import { MdAdd } from "react-icons/md";
+import DocumentModal from "./DocumentModal";
 
 export function FolderHeader({
     searchFolder,
@@ -18,6 +20,7 @@ export function FolderHeader({
     setPageIndex: (value: number) => void
 }) {
     const [modal, setModal] = useState(false);
+    const [addDocument, setAddDocument] = useState(false);
 
     return (
         <>
@@ -40,9 +43,14 @@ export function FolderHeader({
                     <Button size="sm" onClick={() => setModal(true)}>
                         <Plus /> New Folder
                     </Button>
+                    <Button variant="outline" size="sm" className="gap-2 shadow-sm border-border/50 hover:bg-muted/50 transition-all" onClick={() => setAddDocument(true)}>
+                        <MdAdd className="size-4" />
+                        <span className="font-medium">Add Document</span>
+                    </Button>
                 </div>
             </ContentHeader>
             <FolderFormModal open={modal} onOpenChange={setModal} />
+            <DocumentModal open={addDocument} onOpenChange={setAddDocument} />
         </>
     );
 }

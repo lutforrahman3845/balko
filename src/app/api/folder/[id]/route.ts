@@ -31,7 +31,8 @@ export async function GET(
             ...document,
             folder: {
                 id: document?.folderId,
-                name: mockFolderData.find(f => f.id === document?.folderId)?.name || ""
+                name: mockFolderData.find(f => f.id === document?.folderId)?.name || "",
+                icon: mockFolderData.find(f => f.id === document?.folderId)?.icon || ""
             },
             project: document?.projectId ? {
                 id: document?.projectId,

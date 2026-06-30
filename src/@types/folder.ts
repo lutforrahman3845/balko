@@ -59,6 +59,7 @@ export type FolderDocument = {
     folder: {
         id: string;
         name: string;
+        icon:Folder["icon"]
     };
     project: {
         id: string;
@@ -134,3 +135,15 @@ export const FolderFormSchema = z.object({
 });
 
 export type FolderFormValues = z.infer<typeof FolderFormSchema>;
+
+export const DocumentUploadSchema = z.object({
+    projectId: z.string().nullable().optional(),
+    folderId: z.string().min(1, "Folder is required"),
+    description: z.string().nullable().optional(),
+    file: z.union([z.instanceof(File, { message: "File is required" }), z.string()]),
+    documentTypeId: z.string().min(1, "Document type is required"),
+    isPublic: z.boolean().default(false).optional(),
+    shareWith: z.array(z.number()).nullable().optional(),
+});
+
+export type DocumentFormValues = z.infer<typeof DocumentUploadSchema>;
