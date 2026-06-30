@@ -32,7 +32,7 @@ function NavItemContent({
     mainContent = (
       <Link
         href={item.path}
-        className="flex items-center grow gap-2.5 font-medium"
+        className="flex items-center grow gap-0.5 font-medium"
       >
         {item.icon && <item.icon className="size-5" />}
         <span className="text-[15px]">{item.title}</span>
@@ -87,14 +87,14 @@ function NavItemCollapsed({
         {item.path && !isTrigger ? (
           <Link
             href={item.path}
-            className="flex items-center justify-center w-full"
+            className="flex items-center justify-center w-full h-full"
           >
-            <div className="flex items-center justify-center size-9 rounded-md transition-colors hover:bg-accent group-data-[active=true]:bg-accent">
+            <div className="flex items-center justify-center size-9 rounded-md transition-colors">
               {item.icon && <item.icon className="size-5" />}
             </div>
           </Link>
         ) : (
-          <div className="flex items-center justify-center w-full">
+          <div className="flex items-center justify-center w-full h-full">
             <div className="flex items-center justify-center size-9 rounded-md">
               {item.icon && <item.icon className="size-5" />}
             </div>
@@ -133,10 +133,19 @@ function NavItem({
   const matchPath = (path: string) =>
     path === pathname || (path.length > 1 && pathname.startsWith(path));
 
-  if (item.haveSubmenu && item.submenu && !sidebarCollapse) {
+  const isActive = matchPath(item.path);
+  const isParent = item.haveSubmenu && item.submenu && !sidebarCollapse;
+
+  const activeClass = isActive
+    ? (isParent 
+        ? "text-zinc-900 dark:text-zinc-100 font-semibold bg-zinc-300/60 dark:bg-zinc-800/60" 
+        : "bg-[#252525] dark:bg-white text-white dark:text-black font-medium")
+    : "text-zinc-900 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800";
+
+  if (isParent) {
     return (
       <AccordionMenuSub value={item.path}>
-        <AccordionMenuSubTrigger className="px-5">
+        <AccordionMenuSubTrigger className={cn("px-4 rounded-md transition-all h-11 border-0", activeClass)}>
           <NavItemContent item={item} isTrigger />
         </AccordionMenuSubTrigger>
         <AccordionMenuSubContent
@@ -144,24 +153,27 @@ function NavItem({
           collapsible
           parentValue={item.path}
         >
-          {item.submenu.map((sub, sIdx) => (
-            <AccordionMenuItem key={sIdx} asChild value={sub.path}>
-              <Link
-                href={sub.path}
-                className={cn(
-                  "flex items-center gap-2.5 px-4 py-2 text-sm font-medium transition-colors hover:text-primary",
-                  matchPath(sub.path)
-                    ? "text-primary bg-accent/50"
-                    : "text-muted-foreground"
-                )}
-              >
-                <div className="flex items-center gap-2.5">
-                  <span className="size-1.5 rounded-full bg-current" />
-                  <span>{sub.title}</span>
-                </div>
-              </Link>
-            </AccordionMenuItem>
-          ))}
+          {item?.submenu?.map((sub, sIdx) => {
+            const isSubActive = matchPath(sub.path);
+            return (
+              <AccordionMenuItem key={sIdx} asChild value={sub.path}>
+                <Link
+                  href={sub.path}
+                  className={cn(
+                    "flex items-center gap-2.5 px-4 py-2.5 text-sm font-medium transition-all rounded-md mt-1",
+                    isSubActive
+                      ? "text-white dark:text-black bg-[#252525] dark:bg-white"
+                      : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                  )}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <span className={cn("size-1.5 rounded-full", isSubActive ? "bg-white dark:bg-black" : "bg-current")} />
+                    <span>{sub.title}</span>
+                  </div>
+                </Link>
+              </AccordionMenuItem>
+            );
+          })}
         </AccordionMenuSubContent>
       </AccordionMenuSub>
     );
@@ -169,7 +181,7 @@ function NavItem({
 
   return (
     <AccordionMenuItem asChild value={item.path}>
-      <div className="px-5">
+      <div className={cn("px-4 rounded-md transition-all h-11 w-full flex items-center my-0.5", activeClass)}>
         {sidebarCollapse ? (
           <NavItemCollapsed item={item} />
         ) : (
@@ -189,8 +201,8 @@ export function SidebarMenu() {
       <AccordionMenu
         type="single"
         classNames={{
-          root: "grow space-y-1.5 shrink-0",
-          item: "group py-0 h-10 [&:has([data-state=open])]:bg-accent/50 justify-between cursor-pointer rounded-md transition-colors",
+          root: "grow  shrink-0",
+          item: "group py-0 justify-between cursor-pointer rounded-md transition-colors",
         }}
         collapsible
       >
