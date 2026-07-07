@@ -67,10 +67,7 @@ const TaskCard = ({ task, isDragging, onClick, dragHandleProps }: TaskCardProps)
     : { label: "General", bg: "bg-zinc-100 dark:bg-zinc-800", text: "text-zinc-500 dark:text-zinc-400", icon: Tag };
   const CategoryIcon = category.icon;
 
-  // Placeholder attachment/comment counts (no such fields on Task yet) —
-  // derived from the id so each card stays stable across renders.
-  const attachments = hash(task.id + "a") % 5;
-  const comments = hash(task.id + "c") % 50;
+
 
   return (
     <div
@@ -147,15 +144,6 @@ const TaskCard = ({ task, isDragging, onClick, dragHandleProps }: TaskCardProps)
             Unassigned
           </span>
         )}
-
-        <div className="flex items-center gap-3 text-[11px] font-medium text-muted-foreground">
-          <span className="inline-flex items-center gap-1">
-            <Paperclip className="size-3.5" /> {attachments}
-          </span>
-          <span className="inline-flex items-center gap-1">
-            <MessageSquare className="size-3.5" /> {comments}
-          </span>
-        </div>
       </div>
     </div>
   );

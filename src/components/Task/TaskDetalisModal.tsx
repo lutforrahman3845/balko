@@ -272,14 +272,14 @@ const TaskDetalisModal = ({
                           <Briefcase className="size-4 text-amber-500/70" />
                           Project :
                         </h4>
-                        <div className="flex items-start gap-3 p-2 rounded-xl bg-amber-500/5 border border-amber-500/10 flex-1">
-                          <div className="flex items-center gap-3">
-                            <div className="flex flex-col min-w-0 font-medium">
-                              <span className="text-sm truncate flex items-center gap-1.5">
+                        <div className="flex items-start gap-3 p-2 rounded-xl bg-amber-500/5 border border-amber-500/10 flex-1 min-w-0">
+                          <div className="flex items-center gap-3 min-w-0 w-full">
+                            <div className="flex flex-col min-w-0 font-medium w-full">
+                              <span className="text-sm truncate flex items-center gap-1.5 min-w-0">
                                 {task?.project?.type === "internal" ? (
                                   <Tooltip>
                                     <TooltipTrigger asChild>
-                                      <div className="text-blue-500">
+                                      <div className="text-blue-500 flex-shrink-0">
                                         <TbHomeFilled className="size-4" />
                                       </div>
                                     </TooltipTrigger>
@@ -290,7 +290,7 @@ const TaskDetalisModal = ({
                                 ) : (
                                   <Tooltip>
                                     <TooltipTrigger asChild>
-                                      <div className="text-emerald-500">
+                                      <div className="text-emerald-500 flex-shrink-0">
                                         <TiUser className="size-4" />
                                       </div>
                                     </TooltipTrigger>
@@ -299,9 +299,9 @@ const TaskDetalisModal = ({
                                     </TooltipContent>
                                   </Tooltip>
                                 )}
-                                {task?.project?.name}
+                                <span className="truncate">{task?.project?.name}</span>
                               </span>
-                              <span className="text-xs truncate opacity-70">
+                              <span className="text-xs truncate opacity-70 text-wrap">
                                 {task?.project?.description
                                   ? task?.project?.description
                                   : "No description"}
@@ -318,7 +318,7 @@ const TaskDetalisModal = ({
                         <Layout className="size-4 text-primary/70" />
                         Description :
                       </div>
-                      <div className=" px-2 bg-muted/5 min-h-6 text-sm leading-relaxed text-foreground/80">
+                      <div className=" px-2 bg-muted/5 min-h-6 text-sm leading-relaxed text-foreground/80 text-wrap">
                         {task.content || (
                           <em className="opacity-50">
                             No description provided for this task.
