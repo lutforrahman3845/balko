@@ -16,7 +16,7 @@ const DashboardPage = () => {
       </h1>
 
       <p className="max-w-2xl text-lg sm:text-xl text-muted-foreground leading-relaxed mb-12">
-        We've successfully deployed the core <span className="font-bold text-foreground underline decoration-blue-500/40 underline-offset-8">Balko</span> task management engine. While you can manage your work now, a comprehensive analytics dashboard is currently in development and will arrive in our next major update.
+        We&apos;ve successfully deployed the core <span className="font-bold text-foreground underline decoration-blue-500/40 underline-offset-8">Balko</span> task management engine. While you can manage your work now, a comprehensive analytics dashboard is currently in development and will arrive in our next major update.
       </p>
 
       {/* Capability Grid */}

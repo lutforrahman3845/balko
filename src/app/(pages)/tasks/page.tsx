@@ -20,6 +20,8 @@ import { Button } from "@/components/ui/button";
 import ConfirmDialog from "@/components/shared/ConfirmDialog";
 import { toast } from "sonner";
 import { useGetTasksQuery } from "@/redux/apis/TasksApis";
+import ListCard, { type ViewMode } from "@/components/shared/LsitCard";
+import TaskBoard from "@/components/Task/TaskBoard";
 
 const Page = () => {
   const [active, setActive] = useState<string>("all");
@@ -30,6 +32,7 @@ const Page = () => {
   const [pageSize, setPageSize] = useState<number>(10);
   const [rowSelection, setRowSelection] = useState({});
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [view, setView] = useState<ViewMode>("list");
   const navItems = [
     { title: "All", icon: CalendarDays, id: "all" },
     { title: "Today", icon: CalendarCheck, id: "today" },
@@ -129,7 +132,7 @@ const Page = () => {
                 </div>
               ))}
             </div>
-            <div className="flex flex-wrap items-center  gap-4 p-4">
+            <div className="flex flex-wrap items-center gap-4 p-4">
               <FilterSearch
                 searchQuery={searchQuery}
                 setSearchQuery={(q) => { const val = q.trimStart().replace(/\s\s+/g, " "); setSearchQuery(val); if (val.trim() !== searchQuery.trim()) setPageIndex(1) }}
@@ -137,13 +140,16 @@ const Page = () => {
 
                 placeholder="Search Tasks by Title, Content, or Assigned Employee Name"
               />
-              <FilterDropDown
-                label="Status"
-                options={statusOptions}
-                selectedValues={selectedStatuses}
-                onSelectedValuesChange={setSelectedStatuses}
-                setPageIndex={setPageIndex}
-              />
+              {/* Status is represented by columns in board view, so hide the filter there */}
+              {view !== "board" && (
+                <FilterDropDown
+                  label="Status"
+                  options={statusOptions}
+                  selectedValues={selectedStatuses}
+                  onSelectedValuesChange={setSelectedStatuses}
+                  setPageIndex={setPageIndex}
+                />
+              )}
               <FilterDropDown
                 label="Priority"
                 options={priorityOptions}
@@ -152,19 +158,34 @@ const Page = () => {
                 icon={AlertCircle}
                 setPageIndex={setPageIndex}
               />
+              <div className="ml-auto">
+                <ListCard
+                  view={view}
+                  onViewChange={setView}
+                  options={["list", "board"]}
+                />
+              </div>
             </div>
           </section>
-          <TaskTable
-            setRowSelection={setRowSelection}
-            rowSelection={rowSelection}
-            data={tasks || null}
-            loading={loading}
-            pageIndex={pageIndex}
-            pageSize={pageSize}
-            setPageIndex={setPageIndex}
-            setPageSize={setPageSize}
-          />
-          {selectedIds.length > 0 && (
+          {view === "board" ? (
+            <TaskBoard
+              searchQuery={searchQuery}
+              priority={selectedPriorities.join(",")}
+              timeFrame={active === "all" ? "" : active}
+            />
+          ) : (
+            <TaskTable
+              setRowSelection={setRowSelection}
+              rowSelection={rowSelection}
+              data={tasks || null}
+              loading={loading}
+              pageIndex={pageIndex}
+              pageSize={pageSize}
+              setPageIndex={setPageIndex}
+              setPageSize={setPageSize}
+            />
+          )}
+          {view !== "board" && selectedIds.length > 0 && (
             <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-in fade-in slide-in-from-bottom-6 duration-300 w-[calc(100%-2rem)] sm:w-auto max-w-fit">
               <div className="flex items-center gap-3 sm:gap-6 px-3 py-2.5 sm:py-3 rounded-2xl bg-white/90 dark:bg-zinc-950/90 text-foreground shadow-2xl border border-zinc-200 dark:border-zinc-800 backdrop-blur-xl">
                 <div className="flex items-center gap-3 sm:gap-4 pr-3 sm:pr-6 border-r border-zinc-200 dark:border-zinc-800">
