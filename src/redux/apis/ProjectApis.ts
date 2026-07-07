@@ -1,5 +1,6 @@
 import { apiSlice } from "../apiSlice";
 import { SingleProject, GetProject, Project, ProjectFormValues } from "@/@types/project";
+import { GetTask } from "@/@types/tassk";
 
 export const projectApis = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -24,6 +25,17 @@ export const projectApis = apiSlice.injectEndpoints({
     getProjectById: builder.query<SingleProject, string>({
       query: (id) => `/projects/${id}`,
       providesTags: (result, error, id) => [{ type: "project", id }],
+    }),
+
+    getProjectTasks: builder.query<
+      GetTask,
+      { id: string; searchQuery?: string; priority?: string }
+    >({
+      query: ({ id, ...params }) => ({
+        url: `/projects/${id}/tasks`,
+        params,
+      }),
+      providesTags: ["task"],
     }),
 
     createProject: builder.mutation<Project, ProjectFormValues>({
@@ -60,6 +72,7 @@ export const projectApis = apiSlice.injectEndpoints({
 export const {
   useGetProjectsQuery,
   useGetProjectByIdQuery,
+  useGetProjectTasksQuery,
   useCreateProjectMutation,
   useUpdateProjectMutation,
   useDeleteProjectMutation,

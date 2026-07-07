@@ -8,6 +8,8 @@ import { useGetProjectsQuery } from "@/redux/apis/ProjectApis";
 import { AlertCircle } from "lucide-react";
 import { useState } from "react";
 import { PiBriefcaseMetalDuotone } from "react-icons/pi";
+import ListCard, { type ViewMode } from "@/components/shared/LsitCard";
+import ProjectTaskWorkspace from "@/components/Project/ProjectTaskWorkspace";
 
 const Page = () => {
     const [searchQuery, setSearchQuery] = useState<string>("");
@@ -16,6 +18,7 @@ const Page = () => {
     const [priority, setPriority] = useState<string[]>([]);
     const [pageIndex, setPageIndex] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(10);
+    const [view, setView] = useState<ViewMode>("list");
     const statusOptions = [
         { id: "planning", name: "Planning" },
         { id: "active", name: "Active" },
@@ -84,10 +87,24 @@ const Page = () => {
                                 setPageIndex={setPageIndex}
                             />
 
+                            <div className="ml-auto">
+                                <ListCard
+                                    view={view}
+                                    onViewChange={setView}
+                                    options={["list", "board"]}
+                                />
+                            </div>
                         </div>
                     </section>
 
-                    <>
+                    {view === "board" ? (
+                        <ProjectTaskWorkspace
+                            searchQuery={searchQuery}
+                            status={status.join(",")}
+                            type={type.join(",")}
+                            priority={priority.join(",")}
+                        />
+                    ) : (
                         <ProjectTable
                             data={projects || null}
                             loading={isLoading}
@@ -96,7 +113,7 @@ const Page = () => {
                             setPageIndex={setPageIndex}
                             setPageSize={setPageSize}
                         />
-                    </>
+                    )}
                 </>
             )}
         </div>

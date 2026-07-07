@@ -17,7 +17,7 @@ export function Sidebar() {
       )}
     >
       <SidebarHeader />
-      <div className="overflow-hidden">
+      <div className="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar">
         <div>
           <SidebarMenu />
         </div>

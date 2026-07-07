@@ -43,7 +43,7 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
-    /** Animations **/
+  /** Animations **/
   --animate-marquee: marquee var(--duration) infinite linear;
   --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
 
@@ -222,14 +222,13 @@
         var(--sidebar-transition-timing);
     }
 
-
     .demo1.sidebar-collapse
       .sidebar:not(:hover)
-      [data-slot='accordion-menu-title'],
-    .demo1.sidebar-collapse .sidebar:not(:hover) [data-slot='badge'],
+      [data-slot="accordion-menu-title"],
+    .demo1.sidebar-collapse .sidebar:not(:hover) [data-slot="badge"],
     .demo1.sidebar-collapse
       .sidebar:not(:hover)
-      [data-slot='accordion-menu-sub-indicator'] {
+      [data-slot="accordion-menu-sub-indicator"] {
       display: none !important;
       transition: none !important;
       animation: none !important;
@@ -237,7 +236,7 @@
 
     .demo1.sidebar-collapse
       .sidebar:not(:hover)
-      [data-slot='accordion-menu-sub-content'] {
+      [data-slot="accordion-menu-sub-content"] {
       visibility: hidden;
       position: absolute;
       height: 0;
@@ -246,15 +245,15 @@
 
     .demo1.sidebar-collapse
       .sidebar:not(:hover)
-      [data-slot='accordion-menu-label'] {
+      [data-slot="accordion-menu-label"] {
       visibility: hidden;
       position: relative;
     }
 
     .demo1.sidebar-collapse
       .sidebar:not(:hover)
-      [data-slot='accordion-menu-label']::before {
-      content: '...';
+      [data-slot="accordion-menu-label"]::before {
+      content: "...";
       color: currentColor;
       font-size: inherit;
       position: absolute;
@@ -279,7 +278,6 @@
   }
 }
 
-
 /** Custom Scrollbar **/
 @layer base {
   ::-webkit-scrollbar {
@@ -295,6 +293,25 @@
   * {
     scrollbar-width: thin;
     scrollbar-color: var(--input) transparent;
+  }
+  /* Standard properties — honored by modern Chrome/Edge/Firefox.
+     Must be set here, otherwise the global `* { scrollbar-color }` rule
+     above wins and the ::-webkit-scrollbar rules below are ignored. */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #636363 transparent;
+  }
+
+  /* WebKit fallback (older Safari) */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    background-color: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #636363;
+    border-radius: 8px;
   }
 }
 
