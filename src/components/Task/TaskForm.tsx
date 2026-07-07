@@ -86,7 +86,7 @@ const TaskForm = ({
       label: React.ReactNode;
     }[] = [];
 
-    if (isEdit && currentProject) {
+    if (currentProject) {
       options.push({
         value: currentProject.id.toString(),
         searchText: currentProject.name,

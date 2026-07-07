@@ -8,6 +8,7 @@ import {
   type DropResult,
 } from "@hello-pangea/dnd";
 import { ExpandedTask } from "@/@types/tassk";
+import { Project } from "@/@types/project";
 import { useUpdateTaskStatusMutation } from "@/redux/apis/TasksApis";
 import TaskCard from "./TaskCard";
 import TaskDetalisModal from "./TaskDetalisModal";
@@ -65,6 +66,9 @@ interface TaskBoardViewProps {
   isLoading: boolean;
   isError: boolean;
   onRetry: () => void;
+  // The board's active project — preselected when adding a task from it.
+  projectId?: string | null;
+  project?: Project | null;
 }
 
 /**
@@ -72,7 +76,7 @@ interface TaskBoardViewProps {
  * persists cross-column status changes. Data is supplied by the parent, so the
  * same board works for all tasks and for a single project's tasks.
  */
-const TaskBoardView = ({ tasks, isLoading, isError, onRetry }: TaskBoardViewProps) => {
+const TaskBoardView = ({ tasks, isLoading, isError, onRetry, projectId, project }: TaskBoardViewProps) => {
   const [updateTaskStatus] = useUpdateTaskStatusMutation();
 
   // Ordered per-column lists — the source of truth the DnD library reorders.
@@ -88,6 +92,8 @@ const TaskBoardView = ({ tasks, isLoading, isError, onRetry }: TaskBoardViewProp
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [formOpen, setFormOpen] = useState(false);
+  // Which column's "+" opened the form — preselects that column's status.
+  const [formStatus, setFormStatus] = useState<TaskStatus>("pending");
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination, draggableId } = result;
@@ -152,7 +158,10 @@ const TaskBoardView = ({ tasks, isLoading, isError, onRetry }: TaskBoardViewProp
                     </span>
                   </div>
                   <button
-                    onClick={() => setFormOpen(true)}
+                    onClick={() => {
+                      setFormStatus(col.id);
+                      setFormOpen(true);
+                    }}
                     title="Add task"
                     aria-label="Add task"
                     className="flex size-6 items-center justify-center rounded-md text-muted-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-foreground transition-colors"
@@ -224,7 +233,13 @@ const TaskBoardView = ({ tasks, isLoading, isError, onRetry }: TaskBoardViewProp
         onOpenChange={setDetailsOpen}
         selectedId={selectedId}
       />
-      <TaskFormModal open={formOpen} onOpenChange={setFormOpen} />
+      <TaskFormModal
+        open={formOpen}
+        onOpenChange={setFormOpen}
+        defaultProjectId={projectId ?? null}
+        defaultProject={project ?? null}
+        defaultStatus={formStatus}
+      />
     </>
   );
 };

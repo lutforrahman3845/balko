@@ -179,6 +179,8 @@ const ProjectTaskWorkspace = ({
                 isLoading={tasksLoading}
                 isError={tasksError}
                 onRetry={() => refetchTasks()}
+                projectId={selectedId}
+                project={selectedProject}
               />
             </div>
           </>

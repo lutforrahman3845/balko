@@ -17,12 +17,16 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
 import TaskForm from "./TaskForm";
+import { Project } from "@/@types/project";
 interface TaskFormProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   isEdit?: boolean;
   data?: ExpandedTask | null;
   selectedId?: string | null;
+  defaultProjectId?: string | null;
+  defaultProject?: Project | null;
+  defaultStatus?: TaskFormValues["status"];
 }
 
 const TaskFormModal = ({
@@ -31,6 +35,9 @@ const TaskFormModal = ({
   isEdit = false,
   data = null,
   selectedId = null,
+  defaultProjectId = null,
+  defaultProject = null,
+  defaultStatus = "pending",
 }: TaskFormProps) => {
   // Form State
   const {
@@ -67,13 +74,13 @@ const TaskFormModal = ({
         title: "",
         content: "",
         assignedEmployeeIds: [],
-        status: "pending",
+        status: defaultStatus ?? "pending",
         priority: "medium",
         dueAt: "",
-        projectId: null,
+        projectId: defaultProjectId ?? null,
       });
     }
-  }, [data, isEdit, reset]);
+  }, [data, isEdit, reset, defaultProjectId, defaultStatus, open]);
   const onSubmit = (data: TaskFormValues) => {
     try {
       console.log(data);
@@ -115,7 +122,7 @@ const TaskFormModal = ({
                 errors={errors}
                 isEdit={isEdit}
                 data={data?.assignedEmployees || []}
-                currentProject={data?.project || null}
+                currentProject={data?.project || defaultProject || null}
               />
             </ScrollArea>
           </SheetBody>
