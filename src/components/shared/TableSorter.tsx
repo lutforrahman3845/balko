@@ -78,7 +78,7 @@ const TableSorter = <T,>({ column, table, className }: TableSorterProps<T>) => {
                 <DropdownMenuSub>
                     <DropdownMenuSubTrigger>
                         <Settings2 className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
-                        <span className='text-stone-900'>Columns</span>
+                        <span>Columns</span>
                     </DropdownMenuSubTrigger>
                     <DropdownMenuSubContent>
                         {table.getAllColumns()
