@@ -58,7 +58,7 @@ export function Header() {
     <header
       className={cn(
         "sticky top-0 z-20 flex h-16 items-stretch shrink-0 border-b border-border bg-background pe-(--removed-body-scroll-bar-size,0px)",
-        headerSticky && "shadow-sm",
+        headerSticky && "",
       )}
     >
       <div className="flex justify-between items-stretch lg:gap-4 px-4 w-full">
