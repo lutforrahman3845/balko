@@ -11,7 +11,7 @@ export function SidebarHeader() {
   const { sidebarCollapse, setSidebarCollapse } = useLayout();
 
   return (
-    <div className="relative flex h-16 shrink-0 items-center border-b border-border px-3">
+    <div className="relative flex h-16 shrink-0 items-center px-3">
       <Link href="/" className="flex min-w-0 items-center overflow-hidden">
         {sidebarCollapse ? (
           <>

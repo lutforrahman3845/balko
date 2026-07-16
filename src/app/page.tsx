@@ -7,10 +7,10 @@ import DashboardLeadAnalytics from "@/components/Dashboard/DashboardLeadAnalytic
 
 const DashboardPage = () => {
   return (
-    <div className="flex flex-col gap-6 w-full max-w-full p-4 md:p-6 bg-background min-h-screen">
+    <div className="flex flex-col gap-6 w-full max-w-full bg-background min-h-screen">
       <DashboardHeader />
       
-      <div className="w-full flex flex-col gap-6">
+      <div className="w-full flex flex-col gap-6 px-4">
         {/* Row 1: Overview Cards */}
         <DashboardOverview />
         

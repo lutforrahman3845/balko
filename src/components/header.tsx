@@ -69,7 +69,7 @@ export function Header() {
               <Image
                 width={200}
                 height={200}
-                src="/logo/balcowhite.svg"
+                src="/avatars/300-4.jpg"
                 alt="logo"
                 className="h-9 w-9 transition-transform group-hover:rotate-12"
               />
@@ -78,7 +78,7 @@ export function Header() {
               <Image
                 width={200}
                 height={200}
-                src="/logo/balcoblack.svg"
+                src="/avatars/300-4.jpg"
                 alt="logo"
                 className="h-9 w-9  transition-transform group-hover:rotate-12"
               />
@@ -145,7 +145,7 @@ export function Header() {
                 height={200}
                 width={200}
                 className="size-9 rounded-full border-2 border-green-500 shrink-0 cursor-pointer"
-                src={"/avatars/300-8.svg"}
+                src={"/avatars/300-4.jpg"}
                 alt="User Avatar"
               />
             }
