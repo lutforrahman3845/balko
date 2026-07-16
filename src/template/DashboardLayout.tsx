@@ -1,65 +1,31 @@
-import { useEffect } from "react";
+"use client";
 
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useLayout } from "@/config/context";
 import { Sidebar } from "@/components/sidebar";
-import { cn } from "@/lib/utils";
 import { Header } from "@/components/header";
+import { cn } from "@/lib/utils";
 
+// Original app shell: a fixed sidebar rail plus a content column whose
+// inline-start margin follows the sidebar width. State-driven only — no
+// global body classes, no external layout CSS.
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const isMobile = useIsMobile();
   const { sidebarCollapse } = useLayout();
 
-  useEffect(() => {
-    const bodyClass = document.body.classList;
-
-    if (sidebarCollapse) {
-      bodyClass.add("sidebar-collapse");
-    } else {
-      bodyClass.remove("sidebar-collapse");
-    }
-  }, [sidebarCollapse]);
-
-  useEffect(() => {
-    const bodyClass = document.body.classList;
-
-    bodyClass.add("demo1");
-    bodyClass.add("sidebar-fixed");
-    bodyClass.add("header-fixed");
-
-    const timer = setTimeout(() => {
-      bodyClass.add("layout-initialized");
-    }, 1000);
-
-    return () => {
-      bodyClass.remove("demo1");
-      bodyClass.remove("sidebar-fixed");
-      bodyClass.remove("sidebar-collapse");
-      bodyClass.remove("header-fixed");
-      bodyClass.remove("layout-initialized");
-      clearTimeout(timer);
-    };
-  }, []);
-
   return (
-    <>
+    <div className="flex min-h-screen bg-background">
       {!isMobile && <Sidebar />}
 
-      <div className="flex flex-col grow" >
+      <div
+        className={cn(
+          "flex min-w-0 grow flex-col transition-[margin] duration-300 ease-in-out",
+          sidebarCollapse ? "lg:ms-18" : "lg:ms-64",
+        )}
+      >
         <Header />
-        <main
-          className={cn(
-            "grow  transition-all duration-300 ease-in-out",
-            "min-h-[calc(100vh-70px)] mt-14",
-            sidebarCollapse
-              ? "lg:ml-16 lg:w-[calc(100vw-67px)]"
-              : "lg:ml-65 lg:w-[calc(100vw-267px)]"
-          )}
-          role="content"
-        >
-          {children}
-        </main>
+        <main className="grow">{children}</main>
       </div>
-    </>
+    </div>
   );
 }

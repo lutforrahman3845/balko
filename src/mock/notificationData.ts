@@ -7,7 +7,7 @@ export const notificationData: INotification[] = [
         type: 'assignment',
         sender: {
             name: 'Sarah Chen',
-            avatar: '/avatars/300-34.png',
+            avatar: '/avatars/300-34.svg',
             role: 'Product Manager',
         },
         title: 'Sarah Chen assigned you to task',
@@ -26,7 +26,7 @@ export const notificationData: INotification[] = [
         type: 'status-change',
         sender: {
             name: 'Mike Ross',
-            avatar: '/avatars/300-2.png',
+            avatar: '/avatars/300-2.svg',
             role: 'Developer',
         },
         title: 'Mike Ross moved task',
@@ -66,7 +66,7 @@ export const notificationData: INotification[] = [
         type: 'approval',
         sender: {
             name: 'Jessica Pearson',
-            avatar: '/avatars/300-13.png',
+            avatar: '/avatars/300-13.svg',
             role: 'Art Director',
         },
         title: 'Jessica Pearson requested review',
@@ -136,7 +136,7 @@ export const notificationData: INotification[] = [
         type: 'mention',
         sender: {
             name: 'Alex Johnson',
-            avatar: '/avatars/300-1.png',
+            avatar: '/avatars/300-1.svg',
             role: 'QA Lead',
         },
         title: 'Alex Johnson mentioned you',
@@ -155,7 +155,7 @@ export const notificationData: INotification[] = [
         type: 'comment',
         sender: {
             name: 'Emily Davis',
-            avatar: '/avatars/300-2.png',
+            avatar: '/avatars/300-2.svg',
             role: 'Designer',
         },
         title: 'New comment on task',
@@ -174,7 +174,7 @@ export const notificationData: INotification[] = [
         type: 'file',
         sender: {
             name: 'David Wilson',
-            avatar: '/avatars/300-3.png',
+            avatar: '/avatars/300-3.svg',
             role: 'Stakeholder',
         },
         title: 'David Wilson uploaded an attachment',

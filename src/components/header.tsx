@@ -57,11 +57,11 @@ export function Header() {
   return (
     <header
       className={cn(
-        "header fixed top-0 z-10 inset-s-0 flex items-stretch shrink-0 border-b  bg-background inset-e-0 pe-(--removed-body-scroll-bar-size,0px)",
-        headerSticky && "border-b border-border",
+        "sticky top-0 z-20 flex h-16 items-stretch shrink-0 border-b border-border bg-background pe-(--removed-body-scroll-bar-size,0px)",
+        headerSticky && "shadow-sm",
       )}
     >
-      <div className="container-fluid flex justify-between items-stretch lg:gap-4 px-4 w-full">
+      <div className="flex justify-between items-stretch lg:gap-4 px-4 w-full">
         {/* HeaderLogo - Always present for justify-between to work */}
         <div className="flex items-center gap-2.5">
           <Link href="/" className="shrink-0 lg:hidden">
@@ -107,7 +107,7 @@ export function Header() {
                     >
                       <SheetHeader className="p-0 space-y-0" />
                       <SheetBody className="p-0 overflow-y-auto">
-                        <SidebarMenu />
+                        <SidebarMenu forceExpanded />
                       </SheetBody>
                     </SheetContent>
                   </Sheet>
@@ -145,7 +145,7 @@ export function Header() {
                 height={200}
                 width={200}
                 className="size-9 rounded-full border-2 border-green-500 shrink-0 cursor-pointer"
-                src={"/avatars/300-8.png"}
+                src={"/avatars/300-8.svg"}
                 alt="User Avatar"
               />
             }

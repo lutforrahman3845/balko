@@ -35,7 +35,7 @@ export function UserDropdownMenu({ trigger }: { trigger: ReactNode }) {
         <div className="flex items-center justify-between p-3">
           <div className="flex items-center gap-2">
             <Image
-              src={"/avatars/300-8.png"}
+              src={"/avatars/300-8.svg"}
               alt="User avatar"
               height={200}
               width={200}

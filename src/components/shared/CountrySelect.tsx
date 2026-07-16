@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useState, useEffect, useMemo, startTransition } from "react";
 import { Label } from "@/components/ui/label";
 import { ChevronDown, ChevronUp, Search } from "lucide-react";
@@ -139,15 +138,11 @@ const CountrySelect = ({
               ) : (
                 <div className="flex items-center gap-2 truncate whitespace-normal">
                   {flags && selectedObjects[0].short && (
-                    <Avatar className="size-5 shrink-0">
-                      <AvatarImage
-                        src={`/countries/${selectedObjects[0].short}.png`}
-                        alt={selectedObjects[0].value}
-                      />
-                      <AvatarFallback className="text-[8px]">
-                        {selectedObjects[0].short}
-                      </AvatarFallback>
-                    </Avatar>
+                    <span
+                      className={`fi fi-${selectedObjects[0].short.toLowerCase()} rounded-xs shrink-0`}
+                      style={{ fontSize: "1rem" }}
+                      title={selectedObjects[0].value}
+                    />
                   )}
                   {dialCode
                     ? selectedObjects[0].dialCode
@@ -216,15 +211,11 @@ const CountrySelect = ({
                     >
                       <div className="flex items-center gap-3 min-w-0 flex-1">
                         {flags && option.short && (
-                          <Avatar className="size-6 shrink-0">
-                            <AvatarImage
-                              src={`/countries/${option.short}.png`}
-                              alt={option.value}
-                            />
-                            <AvatarFallback className="text-[10px]">
-                              {option.short}
-                            </AvatarFallback>
-                          </Avatar>
+                          <span
+                            className={`fi fi-${option.short.toLowerCase()} rounded-xs shrink-0`}
+                            style={{ fontSize: "1.25rem" }}
+                            title={option.value}
+                          />
                         )}
                         <span className="truncate">
                           {dialCode ? option.dialCode : option.label}

@@ -4,7 +4,7 @@ import { Company } from "@/@types/company";
 export const COMPANIES: Company[] = [
   {
     id: '1',
-    logo: '/brand-logos/tbg.svg',
+    logo: '/logos/tbg-corporation.svg',
     name: 'TBG Corporation',
     website: 'https://www.tbg.com',
     email: 'contact@tbg.com',
@@ -33,7 +33,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '2',
-    logo: '/brand-logos/airbnb-2.svg',
+    logo: '/logos/globex-inc.svg',
     name: 'Globex Inc',
     website: 'https://www.globexinc.com',
     email: 'info@globexinc.com',
@@ -62,7 +62,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '3',
-    logo: '/brand-logos/android.svg',
+    logo: '/logos/initech.svg',
     name: 'Initech',
     website: 'https://www.initech.com',
     email: 'hello@initech.com',
@@ -91,7 +91,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '4',
-    logo: '/brand-logos/amazon.svg',
+    logo: '/logos/umbrella-corp.svg',
     name: 'Umbrella Corp',
     website: 'https://www.umbrella.com',
     email: 'support@umbrella.com',
@@ -120,7 +120,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '5',
-    logo: '/brand-logos/apple-black.svg',
+    logo: '/logos/hooli.svg',
     name: 'Hooli',
     website: 'https://www.hooli.com',
     email: 'info@hooli.com',
@@ -149,7 +149,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '6',
-    logo: '/brand-logos/atica.svg',
+    logo: '/logos/stark-industries.svg',
     name: 'Stark Industries',
     website: 'https://www.starkindustries.com',
     email: 'contact@starkindustries.com',
@@ -178,7 +178,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '7',
-    logo: '/brand-logos/azure.svg',
+    logo: '/logos/wayne-enterprises.svg',
     name: 'Wayne Enterprises',
     website: 'https://www.wayneenterprises.com',
     email: 'info@wayneenterprises.com',
@@ -207,7 +207,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '8',
-    logo: '/brand-logos/beats-electronics.svg',
+    logo: '/logos/oscorp.svg',
     name: 'Oscorp',
     website: 'https://www.oscorp.com',
     email: 'hello@oscorp.com',
@@ -236,7 +236,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '9',
-    logo: '/brand-logos/bitsane.svg',
+    logo: '/logos/lexcorp.svg',
     name: 'LexCorp',
     website: 'https://www.lexcorp.com',
     email: 'contact@lexcorp.com',
@@ -265,7 +265,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '10',
-    logo: '/brand-logos/bookingcom.svg',
+    logo: '/logos/daily-planet.svg',
     name: 'Daily Planet',
     website: 'https://www.dailyplanet.com',
     email: 'editor@dailyplanet.com',
@@ -294,7 +294,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '11',
-    logo: '/brand-logos/bootstrap.svg',
+    logo: '/logos/pied-piper.svg',
     name: 'Pied Piper',
     website: 'https://www.piedpiper.com',
     email: 'info@piedpiper.com',
@@ -322,7 +322,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '12',
-    logo: '/brand-logos/chrome.svg',
+    logo: '/logos/monarch-solutions.svg',
     name: 'Monarch Solutions',
     website: 'https://www.monarchsolutions.com',
     email: 'contact@monarchsolutions.com',
@@ -349,7 +349,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '13',
-    logo: '/brand-logos/disqus.svg',
+    logo: '/logos/massive-dynamic.svg',
     name: 'Massive Dynamic',
     website: 'https://www.massivedynamic.com',
     email: 'hello@massivedynamic.com',
@@ -376,7 +376,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '14',
-    logo: '/brand-logos/duolingo.svg',
+    logo: '/logos/cyberdyne-systems.svg',
     name: 'Cyberdyne Systems',
     website: 'https://www.cyberdyne.com',
     email: 'support@cyberdyne.com',
@@ -403,7 +403,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '15',
-    logo: '/brand-logos/ebay.svg',
+    logo: '/logos/vandelay-industries.svg',
     name: 'Vandelay Industries',
     website: 'https://www.vandelay.com',
     email: 'info@vandelay.com',
@@ -430,7 +430,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '16',
-    logo: '/brand-logos/evernote.svg',
+    logo: '/logos/soylent-corp.svg',
     name: 'Soylent Corp',
     website: 'https://www.soylent.com',
     email: 'contact@soylent.com',
@@ -457,7 +457,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '17',
-    logo: '/brand-logos/figma.svg',
+    logo: '/logos/tyrell-corporation.svg',
     name: 'Tyrell Corporation',
     website: 'https://www.tyrell.com',
     email: 'hello@tyrell.com',
@@ -484,7 +484,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '18',
-    logo: '/brand-logos/google.svg',
+    logo: '/logos/wonka-industries.svg',
     name: 'Wonka Industries',
     website: 'https://www.wonka.com',
     email: 'info@wonka.com',
@@ -511,7 +511,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '19',
-    logo: '/brand-logos/instagram.svg',
+    logo: '/logos/bluth-company.svg',
     name: 'Bluth Company',
     website: 'https://www.bluthcompany.com',
     email: 'contact@bluthcompany.com',
@@ -538,7 +538,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '20',
-    logo: '/brand-logos/kickstarter.svg',
+    logo: '/logos/prestige-worldwide.svg',
     name: 'Prestige Worldwide',
     website: 'https://www.prestigeworldwide.com',
     email: 'info@prestigeworldwide.com',
