@@ -1,4 +1,5 @@
 import { PaginationMeta } from "./pagination";
+import * as z from "zod";
 
 export interface DocumentType {
     id: string;
@@ -51,3 +52,10 @@ export interface GetDocumentsResponse {
     data: ExpandedDocument[];
     meta: PaginationMeta;
 }
+
+export const DocumentTypeFormSchema = z.object({
+    name: z.string().min(1, "Name is required").max(100, "Name cannot exceed 100 characters"),
+    description: z.string().optional(),
+});
+
+export type DocumentTypeFormValues = z.infer<typeof DocumentTypeFormSchema>;

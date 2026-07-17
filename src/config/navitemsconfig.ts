@@ -85,6 +85,10 @@ export const MAIN_NAV: NavConfig = [
         title: "Company Type",
         path: "/configuration/company-type",
       },
+      {
+        title:"Document Type",
+        path:"/configuration/document-type"
+      }
     ]
   },
 
