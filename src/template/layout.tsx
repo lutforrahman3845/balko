@@ -5,11 +5,11 @@ import { DashboardLayout } from './DashboardLayout';
 import { useEffect, useState } from 'react';
 import { ScreenLoader } from '@/components/ScreenLoader';
 import { MAIN_NAV } from '@/config/navitemsconfig';
-
-
+import { usePathname } from 'next/navigation';
 
 export function Layout({ children }: { children: React.ReactNode }) {
     const [isLoading, setIsLoading] = useState(true);
+    const pathname = usePathname();
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -21,6 +21,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
     if (isLoading) {
         return <ScreenLoader />;
+    }
+
+    if (pathname?.startsWith('/sign-in')) {
+        return <>{children}</>;
     }
 
     return (

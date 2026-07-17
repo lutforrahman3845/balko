@@ -106,12 +106,12 @@ export function UserDropdownMenu({ trigger }: { trigger: ReactNode }) {
             />
           </div>
         </DropdownMenuItem>
-        <div className="p-2 mt-1">
+        <Link href="/sign-in" className="p-2 mt-1">
           <Button variant="outline" size="sm" className="w-full gap-2">
             <LogOut className="size-4" />
             Logout
           </Button>
-        </div>
+        </Link>
       </DropdownMenuContent>
     </DropdownMenu>
   );
