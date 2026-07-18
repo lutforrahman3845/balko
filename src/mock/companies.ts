@@ -4,7 +4,7 @@ import { Company } from "@/@types/company";
 export const COMPANIES: Company[] = [
   {
     id: '1',
-    logo: '/companiesLogo/apple.png',
+    logo: '/companiesLogo/company-logo-4.png',
     name: 'Apple',
     website: 'https://www.apple.com',
     email: 'contact@apple.com',
@@ -33,7 +33,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '2',
-    logo: '/companiesLogo/google.png',
+    logo: '/companiesLogo/company-logo-10.png',
     name: 'Google',
     website: 'https://www.google.com',
     email: 'contact@google.com',
@@ -62,7 +62,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '3',
-    logo: '/companiesLogo/microsoft.png',
+    logo: '/companiesLogo/company-logo-12.png',
     name: 'Microsoft',
     website: 'https://www.microsoft.com',
     email: 'contact@microsoft.com',
@@ -91,7 +91,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '4',
-    logo: '/companiesLogo/amazon.png',
+    logo: '/companiesLogo/company-logo-2.png',
     name: 'Amazon',
     website: 'https://www.amazon.com',
     email: 'contact@amazon.com',
@@ -120,7 +120,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '5',
-    logo: '/companiesLogo/netflix.png',
+    logo: '/companiesLogo/company-logo-13.png',
     name: 'Netflix',
     website: 'https://www.netflix.com',
     email: 'contact@netflix.com',
@@ -149,7 +149,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '6',
-    logo: '/companiesLogo/meta.png',
+    logo: '/companiesLogo/company-logo-11.png',
     name: 'Meta',
     website: 'https://www.meta.com',
     email: 'contact@meta.com',
@@ -178,7 +178,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '7',
-    logo: '/companiesLogo/tesla.png',
+    logo: '/companiesLogo/company-logo-19.png',
     name: 'Tesla',
     website: 'https://www.tesla.com',
     email: 'contact@tesla.com',
@@ -207,7 +207,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '8',
-    logo: '/companiesLogo/adobe.png',
+    logo: '/companiesLogo/company-logo-1.png',
     name: 'Adobe',
     website: 'https://www.adobe.com',
     email: 'contact@adobe.com',
@@ -236,7 +236,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '9',
-    logo: '/companiesLogo/spotify.png',
+    logo: '/companiesLogo/company-logo-18.png',
     name: 'Spotify',
     website: 'https://www.spotify.com',
     email: 'contact@spotify.com',
@@ -265,7 +265,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '10',
-    logo: '/companiesLogo/slack.png',
+    logo: '/companiesLogo/company-logo-16.png',
     name: 'Slack',
     website: 'https://www.slack.com',
     email: 'contact@slack.com',
@@ -565,7 +565,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '21',
-    logo: '/companiesLogo/nvidia.png',
+    logo: '/companiesLogo/company-logo-14.png',
     name: 'Nvidia',
     website: 'https://www.nvidia.com',
     email: 'contact@nvidia.com',
@@ -594,7 +594,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '22',
-    logo: '/companiesLogo/amd.png',
+    logo: '/companiesLogo/company-logo-3.png',
     name: 'AMD',
     website: 'https://www.amd.com',
     email: 'contact@amd.com',
@@ -623,7 +623,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '23',
-    logo: '/companiesLogo/zoom.png',
+    logo: '/companiesLogo/company-logo-20.png',
     name: 'Zoom',
     website: 'https://www.zoom.us',
     email: 'contact@zoom.us',
@@ -652,7 +652,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '24',
-    logo: '/companiesLogo/atlassian.png',
+    logo: '/companiesLogo/company-logo-5.png',
     name: 'Atlassian',
     website: 'https://www.atlassian.com',
     email: 'contact@atlassian.com',
@@ -681,7 +681,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '25',
-    logo: '/companiesLogo/palantir.png',
+    logo: '/companiesLogo/company-logo-15.png',
     name: 'Palantir',
     website: 'https://www.palantir.com',
     email: 'contact@palantir.com',
@@ -710,7 +710,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '26',
-    logo: '/companiesLogo/databricks.png',
+    logo: '/companiesLogo/company-logo-6.png',
     name: 'Databricks',
     website: 'https://www.databricks.com',
     email: 'contact@databricks.com',
@@ -739,7 +739,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '27',
-    logo: '/companiesLogo/snowflake.png',
+    logo: '/companiesLogo/company-logo-17.png',
     name: 'Snowflake',
     website: 'https://www.snowflake.com',
     email: 'contact@snowflake.com',
@@ -768,7 +768,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '28',
-    logo: '/companiesLogo/figma.png',
+    logo: '/companiesLogo/company-logo-7.png',
     name: 'Figma',
     website: 'https://www.figma.com',
     email: 'contact@figma.com',
@@ -797,7 +797,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '29',
-    logo: '/companiesLogo/github.png',
+    logo: '/companiesLogo/company-logo-8.png',
     name: 'GitHub',
     website: 'https://www.github.com',
     email: 'contact@github.com',
@@ -826,7 +826,7 @@ export const COMPANIES: Company[] = [
   },
   {
     id: '30',
-    logo: '/companiesLogo/gitlab.png',
+    logo: '/companiesLogo/company-logo-9.png',
     name: 'GitLab',
     website: 'https://www.gitlab.com',
     email: 'contact@gitlab.com',

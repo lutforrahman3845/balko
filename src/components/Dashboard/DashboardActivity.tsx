@@ -12,7 +12,7 @@ const activities = [
   {
     id: 1,
     user: "Alex Chen",
-    avatar: "/avatars/300-1.jpg",
+    avatar: "/avatars/avatar-1.jpg",
     action: "closed a deal with",
     target: "Stark Industries",
     value: "$45,000",
@@ -24,7 +24,7 @@ const activities = [
   {
     id: 2,
     user: "Maria Garcia",
-    avatar: "/avatars/300-2.jpg",
+    avatar: "/avatars/avatar-2.jpg",
     action: "added a new lead",
     target: "Cyberdyne Systems",
     time: "4h ago",
@@ -35,7 +35,7 @@ const activities = [
   {
     id: 3,
     user: "James Wilson",
-    avatar: "/avatars/300-3.jpg",
+    avatar: "/avatars/avatar-3.jpg",
     action: "logged a call with",
     target: "Massive Dynamic",
     time: "5h ago",
@@ -46,7 +46,7 @@ const activities = [
   {
     id: 4,
     user: "Sarah Jenkins",
-    avatar: "/avatars/300-5.jpg",
+    avatar: "/avatars/avatar-5.jpg",
     action: "sent a proposal to",
     target: "Pied Piper",
     time: "Yesterday",

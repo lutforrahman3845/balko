@@ -11,7 +11,7 @@ const initialTasks = [
     title: "Review Acme Corp Proposal",
     due: "Today, 5:00 PM",
     priority: "High",
-    avatar: "/avatars/300-11.jpg",
+    avatar: "/avatars/avatar-11.jpg",
     completed: false,
   },
   {
@@ -19,7 +19,7 @@ const initialTasks = [
     title: "Follow up with Pied Piper",
     due: "Tomorrow",
     priority: "Medium",
-    avatar: "/avatars/300-12.jpg",
+    avatar: "/avatars/avatar-12.jpg",
     completed: false,
   },
   {
@@ -27,7 +27,7 @@ const initialTasks = [
     title: "Prepare Q3 Strategy Deck",
     due: "In 2 days",
     priority: "Low",
-    avatar: "/avatars/300-13.jpg",
+    avatar: "/avatars/avatar-13.jpg",
     completed: true,
   },
   {
@@ -35,7 +35,7 @@ const initialTasks = [
     title: "Sync with marketing team",
     due: "In 3 days",
     priority: "Medium",
-    avatar: "/avatars/300-14.jpg",
+    avatar: "/avatars/avatar-14.jpg",
     completed: false,
   },
 ];
