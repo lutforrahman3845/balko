@@ -1,8 +1,8 @@
 # Third-Party Notices
 
 This project bundles the following open-source software. Each is distributed
-under its own license; copies are available in the respective package under
-`node_modules/<pkg>/LICENSE`.
+under its own license. The **full license texts and copyright notices** for
+every dependency are reproduced in [THIRD_PARTY_LICENSES.txt](THIRD_PARTY_LICENSES.txt).
 
 | Component | License |
 |-----------|---------|
@@ -13,10 +13,14 @@ under its own license; copies are available in the respective package under
 | Tailwind CSS, `tw-animate-css` | MIT |
 | Redux Toolkit / React-Redux | MIT |
 | TanStack Table | MIT |
+| axios, clsx, cmdk, tailwind-merge, zustand, next-themes | MIT |
+| recharts, date-fns, zod, react-hook-form, `@hookform/resolvers`, sonner | MIT |
 | lucide-react | ISC |
 | react-icons | MIT (per-icon-set upstream licenses apply) |
-| flag-icons | MIT |
-| recharts, date-fns, zod, react-hook-form, sonner | MIT |
+| flag-icons | MIT (flag SVGs are public domain) |
+| `@hello-pangea/dnd` | Apache-2.0 |
+| `class-variance-authority` | Apache-2.0 |
+| SheetJS `xlsx` | Apache-2.0 |
 
 ## Media assets
 
