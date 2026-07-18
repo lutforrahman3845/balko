@@ -1,5 +1,5 @@
 import { Control, Controller, FieldErrors } from "react-hook-form";
-import CustomeSelect from "@/components/shared/CustomeSelect";
+import CustomSelect from "@/components/shared/CustomSelect";
 import { DocumentFormValues } from "@/@types/folder";
 import { useGetFoldersQuery } from "@/redux/apis/folderApis";
 import { getFolderIcon } from "@/lib/getIcons";
@@ -251,7 +251,7 @@ const DocumentForm = ({
                     name="folderId"
                     control={control}
                     render={({ field }) => (
-                        <CustomeSelect
+                        <CustomSelect
                             label="Folder"
                             placeholder="Select folder"
                             name={field.name}
@@ -272,7 +272,7 @@ const DocumentForm = ({
                 name="projectId"
                 control={control}
                 render={({ field }) => (
-                    <CustomeSelect
+                    <CustomSelect
                         label="Project (optional)"
                         placeholder="Select project"
                         name={field.name}
@@ -292,7 +292,7 @@ const DocumentForm = ({
                 name="documentTypeId"
                 control={control}
                 render={({ field }) => (
-                    <CustomeSelect
+                    <CustomSelect
                         label="Document Type"
                         placeholder="Select document type"
                         name={field.name}
@@ -326,7 +326,7 @@ const DocumentForm = ({
                 name="shareWith"
                 control={control}
                 render={({ field }) => (
-                    <CustomeSelect
+                    <CustomSelect
                         label="Share With Employees (optional)"
                         placeholder="Select employees"
                         name={field.name}

@@ -1,6 +1,6 @@
 import { Control, Controller, FieldErrors } from "react-hook-form";
 import FormItem from "@/components/shared/FormItem";
-import CustomeSelect from "@/components/shared/CustomeSelect";
+import CustomSelect from "@/components/shared/CustomSelect";
 import { ExpandedEmployee } from "@/@types/employee";
 import { ExpandedDepartment, DepartmentFormValues } from "@/@types/department";
 import { useMemo, useState } from "react";
@@ -180,7 +180,7 @@ const DepartmentForm = ({
                 name="departmentHeadId"
                 control={control}
                 render={({ field }) => (
-                    <CustomeSelect
+                    <CustomSelect
                         label="Department Head (optional)"
                         placeholder="Select department head"
                         name={field.name}
@@ -199,7 +199,7 @@ const DepartmentForm = ({
                 name="parentDepartmentId"
                 control={control}
                 render={({ field }) => (
-                    <CustomeSelect
+                    <CustomSelect
                         label="Parent Department (optional)"
                         placeholder="Select parent department"
                         name={field.name}

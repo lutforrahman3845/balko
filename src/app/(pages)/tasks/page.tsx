@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 import ConfirmDialog from "@/components/shared/ConfirmDialog";
 import { toast } from "sonner";
 import { useGetTasksQuery } from "@/redux/apis/TasksApis";
-import ListCard, { type ViewMode } from "@/components/shared/LsitCard";
+import ListCard, { type ViewMode } from "@/components/shared/ListCard";
 import TaskBoard from "@/components/Task/TaskBoard";
 
 const Page = () => {

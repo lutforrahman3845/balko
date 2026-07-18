@@ -1,4 +1,4 @@
-import { ContactHistory } from "@/@types/contactdHistory";
+import { ContactHistory } from "@/@types/contactHistory";
 
 export const contactHistory: ContactHistory[] = [
   {

@@ -30,7 +30,7 @@ const contactApiSlice = apiSlice.injectEndpoints({
                 if (pageIndex) params.set("pageIndex", pageIndex.toString());
                 if (pageSize) params.set("pageSize", pageSize.toString());
                 return {
-                    url: `/contactHistroy/${id}${params.toString() ? `?${params.toString()}` : ``}`,
+                    url: `/contactHistory/${id}${params.toString() ? `?${params.toString()}` : ``}`,
                 method: "GET",
                 }
             },

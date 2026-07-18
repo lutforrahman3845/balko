@@ -1,5 +1,5 @@
 import { ContactsCreateFormValues } from "@/@types/contact";
-import CustomeSelect from "@/components/shared/CustomeSelect";
+import CustomSelect from "@/components/shared/CustomSelect";
 import FormItem from "@/components/shared/FormItem";
 import {
   Control,
@@ -105,7 +105,7 @@ const CompanyForm = ({
 
         <div className="md:col-span-3 space-y-6">
           <div className="bg-white/50 dark:bg-gray-800/50 p-4 rounded-xl border border-dashed border-gray-200 dark:border-gray-700">
-            <CustomeSelect
+            <CustomSelect
               label="Sync with Existing Company"
               placeholder="Start typing company name..."
               name="search-company"

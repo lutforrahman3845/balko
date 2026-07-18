@@ -20,17 +20,17 @@ import { ErrorState } from "@/components/shared/ErrorState";
 
 import { useGetDepartmentByIdQuery } from "@/redux/apis/DepartmentAPis";
 
-interface DepartmentDeatilsProps {
+interface DepartmentDetailsProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   selectedId?: string | null;
 }
 
-const DepartmentDeatils = ({
+const DepartmentDetails = ({
   open,
   onOpenChange,
   selectedId,
-}: DepartmentDeatilsProps) => {
+}: DepartmentDetailsProps) => {
   const {
     data: department,
     isLoading,
@@ -171,4 +171,4 @@ const DepartmentDeatils = ({
   );
 };
 
-export default DepartmentDeatils;
+export default DepartmentDetails;

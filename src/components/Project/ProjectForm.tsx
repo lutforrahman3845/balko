@@ -2,13 +2,13 @@ import { useMemo, useState } from "react";
 import { Control, Controller, FieldErrors } from "react-hook-form";
 import FormItem from "@/components/shared/FormItem";
 import SelectFormItem from "@/components/shared/SelectFormItem";
-import CustomeSelect from "@/components/shared/CustomeSelect";
+import CustomSelect from "@/components/shared/CustomSelect";
 import { ProjectFormValues, SingleProject } from "@/@types/project";
 import { useGetDepartmentQuery } from "@/redux/apis/DepartmentAPis";
 import { useGetTeamsQuery } from "@/redux/apis/TeamAPis";
 import { useGetEmployeesQuery } from "@/redux/apis/EmployeesApis";
 import { useGetCompaniesQuery } from "@/redux/apis/CompaniesApis";
-import { useGetContactsQuery } from "@/redux/apis/ConatctAPis";
+import { useGetContactsQuery } from "@/redux/apis/ContactApis";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { ExpandedSingleTeam } from "@/@types/team";
 import { ExpandedEmployee } from "@/@types/employee";
@@ -441,7 +441,7 @@ const ProjectForm = ({
             name="managerId"
             control={control}
             render={({ field }) => (
-              <CustomeSelect
+              <CustomSelect
                 label="Project Manager"
                 placeholder="Select manager"
                 name={field.name}
@@ -460,7 +460,7 @@ const ProjectForm = ({
             name="departmentId"
             control={control}
             render={({ field }) => (
-              <CustomeSelect
+              <CustomSelect
                 label="Department"
                 placeholder="Select department"
                 name={field.name}
@@ -478,7 +478,7 @@ const ProjectForm = ({
             name="companyId"
             control={control}
             render={({ field }) => (
-              <CustomeSelect
+              <CustomSelect
                 label="Client / Company"
                 placeholder="Select company"
                 name={field.name}
@@ -496,7 +496,7 @@ const ProjectForm = ({
             name="contactPersonId"
             control={control}
             render={({ field }) => (
-              <CustomeSelect
+              <CustomSelect
                 label="Contact Person"
                 placeholder="Select contact"
                 name={field.name}
@@ -515,7 +515,7 @@ const ProjectForm = ({
               name="teamIds"
               control={control}
               render={({ field }) => (
-                <CustomeSelect
+                <CustomSelect
                   label="Assigned Teams"
                   placeholder="Select teams"
                   name={field.name}

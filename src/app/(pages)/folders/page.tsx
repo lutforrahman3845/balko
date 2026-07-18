@@ -6,7 +6,7 @@ import { useGetFoldersQuery } from "@/redux/apis/folderApis";
 import { GetFoldersResponse } from "@/@types/folder";
 import { useState } from "react";
 import { FolderCard, FolderCardSkeleton } from "@/components/Folder/FolderCard";
-import ListCard, { ViewMode } from "@/components/shared/LsitCard";
+import ListCard, { ViewMode } from "@/components/shared/ListCard";
 import { RecentDocumentsTable } from "@/components/Folder/RecentDocumentsTable";
 const Page = () => {
     const [searchFolder, setSearchFolder] = useState<string>('');

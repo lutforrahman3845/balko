@@ -45,7 +45,7 @@ The codebase follows one consistent vertical slice per domain. To add or modify 
 
 - **shadcn/ui (new-york style)** primitives in [src/components/ui/](src/components/ui/); config in [components.json](components.json). Tailwind CSS v4 (config-less, via `@tailwindcss/postcss`); theme tokens/CSS variables live in [src/app/globals.css](src/app/globals.css).
 - Icons mix `lucide-react` and `react-icons`.
-- Reusable cross-domain widgets (`DataTable`, `FilterDropDown`, `FilterSearch`, `TablePagination`, `ConfirmDialog`, `CustomeSelect`, `FileUpload`, `CountrySelect`) live in [src/components/shared/](src/components/shared/). Tables are built on **@tanstack/react-table**; [src/components/shared/DataTable.tsx](src/components/shared/DataTable.tsx) takes a prepared `table` instance plus `loading` and handles skeleton/empty states.
+- Reusable cross-domain widgets (`DataTable`, `FilterDropDown`, `FilterSearch`, `TablePagination`, `ConfirmDialog`, `CustomSelect`, `FileUpload`, `CountrySelect`) live in [src/components/shared/](src/components/shared/). Tables are built on **@tanstack/react-table**; [src/components/shared/DataTable.tsx](src/components/shared/DataTable.tsx) takes a prepared `table` instance plus `loading` and handles skeleton/empty states.
 - Forms use **react-hook-form + Zod** (`@hookform/resolvers`). Configuration entities (Department, Role, Company Type) are edited in modal dialogs (`*FormModal`); larger entities (Company, Contact, Project) have dedicated `new`/`[id]/edit` routes.
 - Drag-and-drop (Kanban `TaskBoard`) uses `@hello-pangea/dnd`. Charts use `recharts`. Status/badge rendering helpers live in [src/lib/](src/lib/) (`projectStatusBadges`, `ContactStatusBadge`, etc.).
 
@@ -55,7 +55,7 @@ The codebase follows one consistent vertical slice per domain. To add or modify 
 
 ## Conventions & gotchas
 
-- **The codebase uses irregular filenames/spellings** that are load-bearing — match the existing name exactly rather than "correcting" it: e.g. `src/@types/tassk.ts`, `CustomeSelect.tsx`, `LsitCard.tsx`, `ConatctAPis.ts`, `contactdHistory.ts`, `RoleDeatils.tsx`, and API folders like `contactHistroy`.
+- Previously misspelled filenames have been normalized (`tassk.ts`→`task.ts`, `CustomeSelect.tsx`→`CustomSelect.tsx`, `LsitCard.tsx`→`ListCard.tsx`, `ConatctAPis.ts`→`ContactApis.ts`, `contactdHistory.ts`→`contactHistory.ts`, `RoleDeatils.tsx`→`RoleDetails.tsx`, `DepartmentDeatils.tsx`→`DepartmentDetails.tsx`, `ConatctedHistory.tsx`→`ContactedHistory.tsx`, and the `api/contactHistroy` folder→`api/contactHistory`). Use the corrected spellings.
 - Route Handler files are inconsistently `.ts` or `.tsx` — follow whatever the sibling routes in that folder use.
 - Relation expansion is **manual and duplicated** between the list route and the `[id]` route. When you change an entity's joined shape, update both handlers and the `Expanded*` type together.
 - POST handlers generate ids as `(mockArray.length + 1).toString()` and set `createdAt`/`updatedAt` via `new Date().toISOString()`.

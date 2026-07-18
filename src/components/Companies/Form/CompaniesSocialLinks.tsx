@@ -47,7 +47,7 @@ import {
 } from "react-hook-form";
 import { CompanyCreateFormValues } from "@/@types/company";
 import FormItem from "@/components/shared/FormItem";
-import CustomeSelect from "@/components/shared/CustomeSelect";
+import CustomSelect from "@/components/shared/CustomSelect";
 import { Button } from "@/components/ui/button";
 
 export const SOCIAL_PLATFORMS = [
@@ -153,7 +153,7 @@ const CompaniesSocialLinks = ({
         </div>
         {availablePlatforms.length > 0 && (
           <div className="w-64">
-            <CustomeSelect
+            <CustomSelect
               name="social-selector"
               placeholder="Add social media link"
               options={availablePlatforms}

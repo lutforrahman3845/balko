@@ -11,7 +11,7 @@ import {
 import ContentHeader from "@/components/ContentHeader";
 import { useState } from "react";
 import TaskFormModal from "./TaskFormModal";
-import { ExpandedTask } from "@/@types/tassk";
+import { ExpandedTask } from "@/@types/task";
 import * as XLSX from "xlsx";
 
 export function TaskHeader({ data }: { data: ExpandedTask[] }) {

@@ -1,4 +1,4 @@
-import { ExpandedTask, GetTask } from "@/@types/tassk";
+import { ExpandedTask, GetTask } from "@/@types/task";
 import { useMemo, useState } from "react";
 import { Briefcase } from "lucide-react";
 import {

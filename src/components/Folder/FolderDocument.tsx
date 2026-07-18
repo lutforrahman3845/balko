@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FileText, Globe,  Pencil } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { formatDistanceToNow } from "date-fns";
-import ListCard, { ViewMode } from "@/components/shared/LsitCard";
+import ListCard, { ViewMode } from "@/components/shared/ListCard";
 import { useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";

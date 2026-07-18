@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { ExpandedTask, TaskFormSchema, TaskFormValues } from "@/@types/tassk";
+import { ExpandedTask, TaskFormSchema, TaskFormValues } from "@/@types/task";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {

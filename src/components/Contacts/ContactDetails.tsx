@@ -92,7 +92,7 @@ const platforms = [
   { key: "figma", icon: SiFigma },
 ];
 
-import { useGetContactDetailsQuery } from "@/redux/apis/ConatctAPis";
+import { useGetContactDetailsQuery } from "@/redux/apis/ContactApis";
 
 const ContactDetails = ({
   open,

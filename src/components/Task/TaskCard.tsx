@@ -1,6 +1,6 @@
 "use client";
 
-import { ExpandedTask } from "@/@types/tassk";
+import { ExpandedTask } from "@/@types/task";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Tooltip,

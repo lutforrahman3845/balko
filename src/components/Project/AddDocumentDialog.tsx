@@ -15,7 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import FormItem from "@/components/shared/FormItem";
-import CustomeSelect from "@/components/shared/CustomeSelect";
+import CustomSelect from "@/components/shared/CustomSelect";
 import {
   useAddProjectDocumentMutation,
   useGetDocumentTypesQuery,
@@ -242,7 +242,7 @@ const AddDocumentDialog = ({
               name="documentTypeId"
               control={control}
               render={({ field }) => (
-                <CustomeSelect
+                <CustomSelect
                   label="Type"
                   placeholder={loadingTypes ? "Loading types..." : "Select type"}
                   name={field.name}
@@ -315,7 +315,7 @@ const AddDocumentDialog = ({
                   name="folderId"
                   control={control}
                   render={({ field }) => (
-                    <CustomeSelect
+                    <CustomSelect
                       label=""
                       placeholder={loadingFolders ? "Loading folders..." : "No folder"}
                       name={field.name}

@@ -1,11 +1,11 @@
 import { Control, Controller, FieldErrors } from "react-hook-form";
 import FormItem from "@/components/shared/FormItem";
 import SelectFormItem from "@/components/shared/SelectFormItem";
-import CustomeSelect from "@/components/shared/CustomeSelect";
+import CustomSelect from "@/components/shared/CustomSelect";
 import { Employee, ExpandedEmployee} from "@/@types/employee";
 import { useMemo, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { TaskFormValues } from "@/@types/tassk";
+import { TaskFormValues } from "@/@types/task";
 export const PriorityOptions = [
   {
     value: "high",
@@ -275,7 +275,7 @@ const TaskForm = ({
         name="projectId"
         control={control}
         render={({ field }) => (
-          <CustomeSelect
+          <CustomSelect
             label="Project (optional)"
             placeholder="Select project"
             name={field.name}
@@ -298,7 +298,7 @@ const TaskForm = ({
         name="assignedEmployeeIds"
         control={control}
         render={({ field }) => (
-          <CustomeSelect
+          <CustomSelect
             label="Assign To"
             placeholder="Select employee"
             name={field.name}

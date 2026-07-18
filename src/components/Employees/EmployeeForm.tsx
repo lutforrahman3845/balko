@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { Control, Controller, FieldErrors } from "react-hook-form";
 import FormItem from "@/components/shared/FormItem";
 import SelectFormItem from "@/components/shared/SelectFormItem";
-import CustomeSelect from "@/components/shared/CustomeSelect";
+import CustomSelect from "@/components/shared/CustomSelect";
 import { EmployeeFormValues, ExpandedSingleEmployee } from "@/@types/employee";
 import { useGetDepartmentQuery } from "@/redux/apis/DepartmentAPis";
 import { useGetRolesQuery } from "@/redux/apis/RoleAPis";
@@ -302,7 +302,7 @@ const EmployeeForm = ({
           name="departmentId"
           control={control}
           render={({ field }) => (
-            <CustomeSelect
+            <CustomSelect
               label="Department"
               placeholder="Select department"
               name={field.name}
@@ -322,7 +322,7 @@ const EmployeeForm = ({
           name="roleId"
           control={control}
           render={({ field }) => (
-            <CustomeSelect
+            <CustomSelect
               label="Role"
               placeholder="Select role"
               name={field.name}
@@ -342,7 +342,7 @@ const EmployeeForm = ({
           name="teamIds"
           control={control}
           render={({ field }) => (
-            <CustomeSelect
+            <CustomSelect
               label="Team"
               placeholder="Select team"
               name={field.name}

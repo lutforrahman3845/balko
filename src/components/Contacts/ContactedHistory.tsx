@@ -15,23 +15,23 @@ import { LuBriefcase, LuBuilding2, LuMail, LuPhone } from "react-icons/lu";
 import Link from "next/link";
 import { ErrorState } from "../shared/ErrorState";
 import { getStatusBadge } from "@/lib/ContactStatusBadge";
-import { useGetContactHistoryQuery } from "@/redux/apis/ConatctAPis";
-import { ContactHistory } from "@/@types/contactdHistory";
+import { useGetContactHistoryQuery } from "@/redux/apis/ContactApis";
+import { ContactHistory } from "@/@types/contactHistory";
 import { startTransition, useEffect, useRef, useState } from "react";
 
-interface ConatctedHistoryProps {
+interface ContactedHistoryProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   selectedId?: string | null;
   data?: ExpandedContact | null;
 }
 
-const ConatctedHistory = ({
+const ContactedHistory = ({
   open,
   onOpenChange,
   selectedId,
   data = null,
-}: ConatctedHistoryProps) => {
+}: ContactedHistoryProps) => {
   const [limit, setLimit] = useState(20);
   const [historyData, setHistoryData] = useState<ContactHistory[]>([]);
   const {
@@ -298,4 +298,4 @@ const ConatctedHistory = ({
   );
 };
 
-export default ConatctedHistory;
+export default ContactedHistory;

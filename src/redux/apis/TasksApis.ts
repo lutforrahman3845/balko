@@ -1,4 +1,4 @@
-import { GetTask, ExpandedTask } from "@/@types/tassk";
+import { GetTask, ExpandedTask } from "@/@types/task";
 import { apiSlice } from "../apiSlice";
 
 const tasksApiSlice = apiSlice.injectEndpoints({

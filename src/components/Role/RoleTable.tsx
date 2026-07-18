@@ -19,7 +19,7 @@ import ConfirmDialog from "../shared/ConfirmDialog";
 import { toast } from "sonner";
 import { Role, GetAllRoleResponse } from "@/@types/role";
 import RoleFormModal from "./RoleFormModal";
-import RoleDeatils from "./RoleDeatils";
+import RoleDetails from "./RoleDetails";
 
 interface RoleTableProps {
     data: GetAllRoleResponse | null;
@@ -243,7 +243,7 @@ const RoleTable = ({
                 selectedId={selectedRole?.id}
             />
 
-            <RoleDeatils
+            <RoleDetails
                 open={roleDetailsOpen}
                 onOpenChange={(open) => {
                     setRoleDetailsOpen(open);

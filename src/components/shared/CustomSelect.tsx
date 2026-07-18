@@ -18,7 +18,7 @@ export interface CustomeOption {
   disabled?: boolean;
 }
 
-interface CustomeSelectProps {
+interface CustomSelectProps {
   label?: string;
   className?: string;
   placeholder?: string;
@@ -35,7 +35,7 @@ interface CustomeSelectProps {
   loading?: boolean;
 }
 
-const CustomeSelect = ({
+const CustomSelect = ({
   label,
   className,
   placeholder,
@@ -49,7 +49,7 @@ const CustomeSelect = ({
   onSearch,
   options,
   loading = false,
-}: CustomeSelectProps) => {
+}: CustomSelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -307,4 +307,4 @@ const CustomeSelect = ({
   );
 };
 
-export default CustomeSelect;
+export default CustomSelect;

@@ -16,7 +16,7 @@ import { useParams, useRouter } from "next/navigation";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ErrorState } from "@/components/shared/ErrorState";
 
-import { useGetContactDetailsQuery } from "@/redux/apis/ConatctAPis";
+import { useGetContactDetailsQuery } from "@/redux/apis/ContactApis";
 
 const Page = () => {
   const params = useParams();

@@ -19,17 +19,17 @@ import { ErrorState } from "@/components/shared/ErrorState";
 import { useGetRoleByIdQuery } from "@/redux/apis/RoleAPis";
 import { Badge } from "../ui/badge";
 
-interface RoleDeatilsProps {
+interface RoleDetailsProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
     selectedId?: string | null;
 }
 
-const RoleDeatils = ({
+const RoleDetails = ({
     open,
     onOpenChange,
     selectedId,
-}: RoleDeatilsProps) => {
+}: RoleDetailsProps) => {
     const {
         data: role,
         isLoading,
@@ -121,4 +121,4 @@ const RoleDeatils = ({
     );
 };
 
-export default RoleDeatils;
+export default RoleDetails;

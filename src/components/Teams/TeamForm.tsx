@@ -6,7 +6,7 @@ import { useMemo, useState } from "react";
 import { Control, Controller, FieldErrors } from "react-hook-form";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import FormItem from "../shared/FormItem";
-import CustomeSelect from "../shared/CustomeSelect";
+import CustomSelect from "../shared/CustomSelect";
 
 const TeamForm = ({ control,
     errors,
@@ -238,7 +238,7 @@ const TeamForm = ({ control,
                 name="departmentId"
                 control={control}
                 render={({ field }) => (
-                    <CustomeSelect
+                    <CustomSelect
                         label="Department"
                         placeholder="Select department"
                         name={field.name}
@@ -257,7 +257,7 @@ const TeamForm = ({ control,
                 name="teamLeaderId"
                 control={control}
                 render={({ field }) => (
-                    <CustomeSelect
+                    <CustomSelect
                         label="Team Leader"
                         placeholder="Select team leader"
                         name={field.name}
@@ -276,7 +276,7 @@ const TeamForm = ({ control,
                 name="teamMembers"
                 control={control}
                 render={({ field }) => (
-                    <CustomeSelect
+                    <CustomSelect
                         label="Team Members"
                         placeholder="Select team members"
                         name={field.name}

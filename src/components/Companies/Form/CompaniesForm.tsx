@@ -10,7 +10,7 @@ import CompaniesLogo from "./CompaniesLogo";
 import CompaniesSocialLinks from "./CompaniesSocialLinks";
 import SelectFormItem from "@/components/shared/SelectFormItem";
 import { FilterOption } from "@/components/shared/FilterDropDown";
-import CustomeSelect from "@/components/shared/CustomeSelect";
+import CustomSelect from "@/components/shared/CustomSelect";
 import CountrySelect from "@/components/shared/CountrySelect";
 import { useMemo } from "react";
 import { countryList } from "@/config/countryList";
@@ -114,7 +114,7 @@ const CompaniesForm = ({
             name="companyTypeIds"
             control={control}
             render={({ field }) => (
-              <CustomeSelect
+              <CustomSelect
                 onChange={(value: string | string[]) => {
                   field.onChange(value);
                 }}

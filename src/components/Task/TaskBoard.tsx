@@ -7,7 +7,7 @@ import {
   Droppable,
   type DropResult,
 } from "@hello-pangea/dnd";
-import { ExpandedTask, GetTask } from "@/@types/tassk";
+import { ExpandedTask, GetTask } from "@/@types/task";
 import {
   useGetTasksQuery,
   useUpdateTaskStatusMutation,

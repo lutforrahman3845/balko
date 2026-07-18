@@ -1,6 +1,6 @@
 import { Control, Controller, FieldErrors } from "react-hook-form";
 import FormItem from "@/components/shared/FormItem";
-import CustomeSelect from "@/components/shared/CustomeSelect";
+import CustomSelect from "@/components/shared/CustomSelect";
 import { useMemo, useState } from "react";
 import { ExpandFolder, FolderFormValues, SingLeFolder } from "@/@types/folder";
 import { useGetFoldersQuery } from "@/redux/apis/folderApis";
@@ -147,7 +147,7 @@ const FolderForm = ({
                 name="icon"
                 control={control}
                 render={({ field }) => (
-                    <CustomeSelect
+                    <CustomSelect
                         label="Icon (optional)"
                         placeholder="Select icon"
                         name={field.name}
@@ -165,7 +165,7 @@ const FolderForm = ({
                 name="parentFolderId"
                 control={control}
                 render={({ field }) => (
-                    <CustomeSelect
+                    <CustomSelect
                         label="Parent Folder (optional)"
                         placeholder="Select parent folder"
                         name={field.name}

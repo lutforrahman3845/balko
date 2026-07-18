@@ -18,7 +18,7 @@ import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import FilterSort from "@/components/shared/FilterSort";
 import { TiUserAddOutline, TiUserOutline } from "react-icons/ti";
 import { LuTarget } from "react-icons/lu";
-import { useGetContactsQuery, useGetPositionsQuery } from "@/redux/apis/ConatctAPis";
+import { useGetContactsQuery, useGetPositionsQuery } from "@/redux/apis/ContactApis";
 
 const stausItems = [
   { title: "all", icon: MdOutlineContacts, id: "all" },

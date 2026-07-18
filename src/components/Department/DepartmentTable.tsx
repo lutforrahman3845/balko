@@ -20,7 +20,7 @@ import ConfirmDialog from "../shared/ConfirmDialog";
 import { toast } from "sonner";
 import { ExpandedDepartment, GetAllDepartmentResponse } from "@/@types/department";
 import DepartmentFormModal from "./DepartmentFormModal";
-import DepartmentDeatils from "./DepartmentDeatils";
+import DepartmentDetails from "./DepartmentDetails";
 
 
 interface DepartmentTableProps {
@@ -301,7 +301,7 @@ const DepartmentTable = ({
                 selectedId={selectedDepartment?.id}
             />
 
-            <DepartmentDeatils
+            <DepartmentDetails
                 open={departmentDetailsOpen}
                 onOpenChange={(open) => {
                     setDepartmentDetailsOpen(open);

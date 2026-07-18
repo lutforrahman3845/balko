@@ -63,7 +63,7 @@ import ContactFollowUpModal from "./ContactFollowUpModal";
 import ContactDetails from "./ContactDetails";
 import { useRouter } from "next/navigation";
 import { LuTarget } from "react-icons/lu";
-import ConatctedHistory from "./ConatctedHistory";
+import ContactedHistory from "./ContactedHistory";
 import { getStatusBadge } from "@/lib/ContactStatusBadge";
 interface ContactTableProps {
   data: GetContacts | null;
@@ -470,7 +470,7 @@ const ContactTable = ({
           </span>
         </ConfirmDialog>
       )}
-      <ConatctedHistory
+      <ContactedHistory
         open={contactedHistoryOpen}
         onOpenChange={setContactedHistoryOpen}
         data={contactData || null}
