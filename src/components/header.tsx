@@ -1,5 +1,5 @@
 import { startTransition, useEffect, useState } from "react";
-import { Bell, Menu } from "lucide-react";
+import { Bell, Menu, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
@@ -119,6 +119,30 @@ export function Header() {
 
         {/* HeaderTopbar */}
         <div className="flex items-center gap-3">
+          {/* Command palette trigger */}
+          <button
+            type="button"
+            onClick={() =>
+              window.dispatchEvent(new Event("open-command-palette"))
+            }
+            className="hidden sm:flex items-center gap-2 h-9 rounded-lg border border-border bg-muted/40 px-3 text-sm text-muted-foreground hover:bg-muted transition-colors"
+          >
+            <Search className="size-4" />
+            <span>Search...</span>
+            <kbd className="ml-2 hidden lg:inline-flex items-center gap-0.5 rounded border border-border bg-background px-1.5 font-mono text-[10px] text-muted-foreground">
+              ⌘K
+            </kbd>
+          </button>
+          <Button
+            variant="ghost"
+            className="size-9 sm:hidden hover:bg-primary/10 hover:[&_svg]:text-primary"
+            onClick={() =>
+              window.dispatchEvent(new Event("open-command-palette"))
+            }
+          >
+            <Search className="size-4.5!" />
+          </Button>
+
           {/* Real-time Date/Time Display */}
           <div
             className="hidden md:flex items-center px-3 py-1.5 rounded-md  cursor-pointer"

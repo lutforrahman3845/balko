@@ -4,6 +4,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { useLayout } from "@/config/context";
 import { Sidebar } from "@/components/sidebar";
 import { Header } from "@/components/header";
+import { CommandPalette } from "@/components/shared/CommandPalette";
 import { cn } from "@/lib/utils";
 
 // Original app shell: a fixed sidebar rail plus a content column whose
@@ -15,6 +16,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex min-h-screen bg-background">
+      <CommandPalette />
       {!isMobile && <Sidebar />}
 
       <div

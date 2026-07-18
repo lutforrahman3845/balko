@@ -1,5 +1,13 @@
 import { NavConfig } from "@/@types/NavItem";
-import { Briefcase, CheckSquare, LayoutGrid } from "lucide-react";
+import {
+  Briefcase,
+  CheckSquare,
+  LayoutGrid,
+  BarChart3,
+  Calendar,
+  MessageSquare,
+  Component,
+} from "lucide-react";
 import { IoPeopleCircle, IoSettingsOutline } from "react-icons/io5";
 import { LuBuilding2 } from "react-icons/lu";
 import { LiaUserTieSolid } from "react-icons/lia";
@@ -14,10 +22,28 @@ export const MAIN_NAV: NavConfig = [
     haveSubmenu: false,
   },
   {
+    title: "Analytics",
+    icon: BarChart3,
+    path: "/analytics",
+    haveSubmenu: false,
+  },
+  {
     icon: CheckSquare,
     title: "Tasks",
     path: "/tasks",
     haveSubmenu: false
+  },
+  {
+    icon: Calendar,
+    title: "Calendar",
+    path: "/calendar",
+    haveSubmenu: false,
+  },
+  {
+    icon: MessageSquare,
+    title: "Chat",
+    path: "/chat",
+    haveSubmenu: false,
   },
   {
     icon: RiContactsBook3Line,
@@ -66,6 +92,12 @@ export const MAIN_NAV: NavConfig = [
     title: "Folders",
     path: "/folders",
     haveSubmenu: false
+  },
+  {
+    icon: Component,
+    title: "UI Kit",
+    path: "/ui-kit",
+    haveSubmenu: false,
   },
   {
     icon: IoSettingsOutline,
