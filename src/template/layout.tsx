@@ -7,6 +7,18 @@ import { ScreenLoader } from '@/components/ScreenLoader';
 import { MAIN_NAV } from '@/config/navitemsconfig';
 import { usePathname } from 'next/navigation';
 
+// Routes rendered without the dashboard shell (auth flow + marketing pages).
+const BARE_ROUTES = [
+    '/sign-in',
+    '/sign-up',
+    '/forgot-password',
+    '/reset-password',
+    '/verify-email',
+    '/lock-screen',
+    '/landing',
+    '/pricing',
+];
+
 export function Layout({ children }: { children: React.ReactNode }) {
     const [isLoading, setIsLoading] = useState(true);
     const pathname = usePathname();
@@ -23,7 +35,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         return <ScreenLoader />;
     }
 
-    if (pathname?.startsWith('/sign-in')) {
+    if (BARE_ROUTES.some((route) => pathname?.startsWith(route))) {
         return <>{children}</>;
     }
 

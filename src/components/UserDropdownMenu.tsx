@@ -4,6 +4,7 @@ import {
   UserCircle,
   Calendar,
   Settings,
+  Lock,
   HelpCircle,
   LogOut,
 } from "lucide-react";
@@ -43,13 +44,13 @@ export function UserDropdownMenu({ trigger }: { trigger: ReactNode }) {
             />
             <div className="flex flex-col">
               <Link
-                href="#"
+                href="/account/profile"
                 className="text-sm text-mono hover:text-primary font-semibold"
               >
                 Jon Snow
               </Link>
               <a
-                href={`mailto:sean@kt.com`}
+                href={`mailto:ceo@balko.com`}
                 className="text-xs text-muted-foreground hover:text-primary"
               >
                 ceo@balko.com
@@ -61,13 +62,13 @@ export function UserDropdownMenu({ trigger }: { trigger: ReactNode }) {
         <DropdownMenuSeparator />
 
         <DropdownMenuItem asChild>
-          <Link href="#" className="flex items-center gap-2">
+          <Link href="/account/profile" className="flex items-center gap-2">
             <UserCircle className="size-4" />
             My Profile
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href="#" className="flex items-center gap-2">
+          <Link href="/calendar" className="flex items-center gap-2">
             <Calendar className="size-4" />
             Calendar
           </Link>
@@ -76,9 +77,16 @@ export function UserDropdownMenu({ trigger }: { trigger: ReactNode }) {
         <DropdownMenuSeparator />
 
         <DropdownMenuItem asChild>
-          <Link href="#" className="flex items-center gap-2">
+          <Link href="/account/settings" className="flex items-center gap-2">
             <Settings className="size-4" />
             Settings
+          </Link>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem asChild>
+          <Link href="/lock-screen" className="flex items-center gap-2">
+            <Lock className="size-4" />
+            Lock screen
           </Link>
         </DropdownMenuItem>
 
