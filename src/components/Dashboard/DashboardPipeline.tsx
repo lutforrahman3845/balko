@@ -10,10 +10,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const data = [
-  { name: "Lead", value: 800, count: 45, fill: "#3b82f6" }, 
-  { name: "Contacted", value: 600, count: 22, fill: "#6366f1" }, 
-  { name: "Proposal", value: 950, count: 14, fill: "#a855f7" }, 
-  { name: "Won", value: 490, count: 8, fill: "#10b981" }, 
+  { name: "Lead", value: 800, count: 45, fill: "#93c5fd" },
+  { name: "Contacted", value: 600, count: 22, fill: "#60a5fa" },
+  { name: "Proposal", value: 950, count: 14, fill: "#3b82f6" },
+  { name: "Won", value: 490, count: 8, fill: "#2563eb" },
 ];
 
 const CustomTooltip = ({ active, payload }: any) => {
@@ -38,11 +38,11 @@ const CustomTooltip = ({ active, payload }: any) => {
 
 const DashboardPipeline = () => {
   return (
-    <div className="p-6 rounded-3xl border bg-card/80 backdrop-blur-md text-card-foreground shadow-sm flex flex-col justify-between h-full hover:shadow-xl transition-all duration-300">
+    <div className="p-6 rounded-xl border bg-card text-card-foreground shadow-sm flex flex-col justify-between h-full">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20">
-            <BarChart3 className="w-5 h-5 text-blue-500" />
+          <div className="p-2.5 rounded-xl bg-muted">
+            <BarChart3 className="w-5 h-5 text-muted-foreground" />
           </div>
           <div>
             <h3 className="text-sm font-bold">Pipeline Revenue</h3>
@@ -93,8 +93,8 @@ const DashboardPipeline = () => {
           >
             <defs>
               <linearGradient id="pipelineArea" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.15}/>
-                <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0}/>
+                <stop offset="5%" stopColor="#2563eb" stopOpacity={0.12}/>
+                <stop offset="95%" stopColor="#2563eb" stopOpacity={0}/>
               </linearGradient>
             </defs>
             <XAxis 
@@ -105,7 +105,7 @@ const DashboardPipeline = () => {
               dy={10}
             />
             <YAxis hide />
-            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--muted)/0.4)', rx: 8 }} />
+            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(136,136,136,0.15)', rx: 8 }} />
             
             <Area 
               type="monotone" 
@@ -118,13 +118,13 @@ const DashboardPipeline = () => {
                 <Cell key={`cell-${index}`} fill={entry.fill} className="hover:opacity-80 transition-opacity" />
               ))}
             </Bar>
-            <Line 
-              type="monotone" 
-              dataKey="value" 
-              stroke="#8b5cf6" 
-              strokeWidth={3} 
-              dot={{ r: 5, strokeWidth: 2, fill: "hsl(var(--background))", stroke: "#8b5cf6" }} 
-              activeDot={{ r: 8, strokeWidth: 0, fill: "#8b5cf6" }}
+            <Line
+              type="monotone"
+              dataKey="value"
+              stroke="#2563eb"
+              strokeWidth={2.5}
+              dot={{ r: 4, strokeWidth: 2, fill: "var(--background)", stroke: "#2563eb" }}
+              activeDot={{ r: 6, strokeWidth: 0, fill: "#2563eb" }}
             />
           </ComposedChart>
         </ResponsiveContainer>

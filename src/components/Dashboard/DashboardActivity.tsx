@@ -1,6 +1,5 @@
 import { MoreHorizontal, MessageSquare, DollarSign, UserPlus, Phone, Edit, Share, Trash2 } from "lucide-react";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -58,7 +57,7 @@ const activities = [
 
 const DashboardActivity = () => {
   return (
-    <div className="p-6 rounded-2xl border bg-card/80 backdrop-blur-md text-card-foreground shadow-sm flex flex-col h-full hover:shadow-lg transition-all duration-300">
+    <div className="p-6 rounded-xl border bg-card text-card-foreground shadow-sm flex flex-col h-full">
       <div className="flex items-center justify-between mb-8">
         <span className="text-sm font-semibold">Recent Activity</span>
         <DropdownMenu modal={false}>
@@ -100,8 +99,8 @@ const DashboardActivity = () => {
                   height={32}
                   className="rounded-full border-2 border-background shadow-sm group-hover:scale-110 transition-transform"
                 />
-                <div className={cn("absolute -bottom-1 -right-1 p-0.5 rounded-full border-2 border-background", activity.bg)}>
-                  <Icon className={cn("w-2.5 h-2.5", activity.color)} />
+                <div className="absolute -bottom-1 -right-1 p-0.5 rounded-full border-2 border-background bg-muted">
+                  <Icon className="w-2.5 h-2.5 text-muted-foreground" />
                 </div>
               </div>
               
@@ -110,7 +109,7 @@ const DashboardActivity = () => {
                   <span className="font-semibold text-foreground">{activity.user}</span> {activity.action}{" "}
                   <span className="font-semibold text-foreground">{activity.target}</span>
                   {activity.value && (
-                    <span className="font-semibold text-emerald-500 ml-1">{activity.value}</span>
+                    <span className="font-semibold text-foreground ml-1">{activity.value}</span>
                   )}
                 </p>
                 <span className="text-[11px] text-muted-foreground/80 mt-1 block">

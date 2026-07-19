@@ -40,10 +40,10 @@ const initialTasks = [
   },
 ];
 
-const priorityColors = {
-  High: "bg-rose-500/10 text-rose-500 border-rose-500/20",
-  Medium: "bg-amber-500/10 text-amber-500 border-amber-500/20",
-  Low: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20",
+const priorityDot = {
+  High: "bg-rose-500",
+  Medium: "bg-amber-500",
+  Low: "bg-emerald-500",
 };
 
 const DashboardTasks = () => {
@@ -58,7 +58,7 @@ const DashboardTasks = () => {
   const pendingCount = tasks.filter(t => !t.completed).length;
 
   return (
-    <div className="p-6 rounded-2xl border bg-card/80 backdrop-blur-md text-card-foreground shadow-sm flex flex-col h-full hover:shadow-lg transition-all duration-300">
+    <div className="p-6 rounded-xl border bg-card text-card-foreground shadow-sm flex flex-col h-full">
       <div className="flex items-center justify-between mb-6">
         <div>
           <span className="text-sm font-semibold">Active Tasks</span>
@@ -102,7 +102,8 @@ const DashboardTasks = () => {
                   <Clock className="w-3 h-3" />
                   {task.due}
                 </span>
-                <span className={cn("px-2 py-0.5 rounded-full border", priorityColors[task.priority as keyof typeof priorityColors])}>
+                <span className="inline-flex items-center gap-1.5 text-muted-foreground">
+                  <span className={cn("size-1.5 rounded-full", priorityDot[task.priority as keyof typeof priorityDot])} />
                   {task.priority}
                 </span>
               </div>

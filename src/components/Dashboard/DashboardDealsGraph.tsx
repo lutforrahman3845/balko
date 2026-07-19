@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -44,7 +45,7 @@ const DashboardDealsGraph = () => {
   const ranges = ["Day", "Week", "Month", "Year"];
 
   return (
-    <div className="p-6 rounded-2xl border bg-card/80 backdrop-blur-md text-card-foreground shadow-sm flex flex-col h-full hover:shadow-lg transition-all duration-300">
+    <div className="p-6 rounded-xl border bg-card text-card-foreground shadow-sm flex flex-col h-full">
       <div className="mb-6 flex items-center justify-between">
         <span className="text-sm font-semibold text-foreground">Deals Overview</span>
         <div className="flex gap-1 bg-muted/30 p-1 rounded-full border">
@@ -65,60 +66,60 @@ const DashboardDealsGraph = () => {
       </div>
 
       <div className="grid grid-cols-3 gap-4 mb-8">
-        <div className="flex items-center gap-3 group">
-          <div className="p-2 rounded-full border bg-emerald-500/10 group-hover:bg-emerald-500/20 transition-colors">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+        <div className="flex items-center gap-3">
+          <div className="p-2 rounded-lg bg-muted">
+            <CheckCircle2 className="w-4 h-4 text-muted-foreground" />
           </div>
           <div>
             <div className="text-xs font-medium text-muted-foreground mb-0.5">Closed Deals</div>
             <div className="flex items-baseline gap-2">
               <span className="text-xl font-bold">18</span>
-              <span className="text-xs font-medium text-emerald-500">+4 deals</span>
+              <span className="text-xs font-medium text-emerald-600 dark:text-emerald-500">+4 deals</span>
             </div>
           </div>
         </div>
-        
-        <div className="flex items-center gap-3 group">
-          <div className="p-2 rounded-full border bg-blue-500/10 group-hover:bg-blue-500/20 transition-colors">
-            <Clock className="w-4 h-4 text-blue-500" />
+
+        <div className="flex items-center gap-3">
+          <div className="p-2 rounded-lg bg-muted">
+            <Clock className="w-4 h-4 text-muted-foreground" />
           </div>
           <div>
             <div className="text-xs font-medium text-muted-foreground mb-0.5">Pipeline Value</div>
             <div className="flex items-baseline gap-2">
               <span className="text-xl font-bold">$2.8M</span>
-              <span className="text-xs font-medium text-blue-500">+$420K</span>
+              <span className="text-xs font-medium text-emerald-600 dark:text-emerald-500">+$420K</span>
             </div>
           </div>
         </div>
 
-        <div className="flex items-center gap-3 group">
-          <div className="p-2 rounded-full border bg-purple-500/10 group-hover:bg-purple-500/20 transition-colors">
-            <TrendingUp className="w-4 h-4 text-purple-500" />
+        <div className="flex items-center gap-3">
+          <div className="p-2 rounded-lg bg-muted">
+            <TrendingUp className="w-4 h-4 text-muted-foreground" />
           </div>
           <div>
             <div className="text-xs font-medium text-muted-foreground mb-0.5">Conversion Rate</div>
             <div className="flex items-baseline gap-2">
               <span className="text-xl font-bold">23%</span>
-              <span className="text-xs font-medium text-purple-500">+5%</span>
+              <span className="text-xs font-medium text-emerald-600 dark:text-emerald-500">+5%</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="flex-1 w-full min-h-[250px]">
+      <div className="flex-1 w-full min-h-62.5">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
             <defs>
               <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
-                <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                <stop offset="5%" stopColor="#2563eb" stopOpacity={0.25}/>
+                <stop offset="95%" stopColor="#2563eb" stopOpacity={0}/>
               </linearGradient>
               <linearGradient id="colorTarget" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.15}/>
-                <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0}/>
+                <stop offset="5%" stopColor="#94a3b8" stopOpacity={0.12}/>
+                <stop offset="95%" stopColor="#94a3b8" stopOpacity={0}/>
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" vertical={true} horizontal={true} stroke="hsl(var(--border))" opacity={0.3} />
+            <CartesianGrid strokeDasharray="3 3" vertical={true} horizontal={true} stroke="#888888" strokeOpacity={0.2} />
             <XAxis 
               dataKey="time" 
               stroke="none"
@@ -138,24 +139,24 @@ const DashboardDealsGraph = () => {
               tick={{ fill: '#888888' }}
             />
             <Tooltip content={<CustomTooltip />} />
-            <Area 
-              type="monotone" 
-              dataKey="target" 
-              stroke="#8b5cf6" 
+            <Area
+              type="monotone"
+              dataKey="target"
+              stroke="#94a3b8"
               strokeWidth={2}
               strokeDasharray="5 5"
-              fillOpacity={1} 
-              fill="url(#colorTarget)" 
-              activeDot={{ r: 6, fill: "#8b5cf6", strokeWidth: 0 }}
+              fillOpacity={1}
+              fill="url(#colorTarget)"
+              activeDot={{ r: 5, fill: "#94a3b8", strokeWidth: 0 }}
             />
-            <Area 
-              type="monotone" 
-              dataKey="value" 
-              stroke="#10b981" 
-              strokeWidth={3}
-              fillOpacity={1} 
-              fill="url(#colorValue)" 
-              activeDot={{ r: 6, fill: "#10b981", strokeWidth: 0, stroke: "hsl(var(--background))" }}
+            <Area
+              type="monotone"
+              dataKey="value"
+              stroke="#2563eb"
+              strokeWidth={2.5}
+              fillOpacity={1}
+              fill="url(#colorValue)"
+              activeDot={{ r: 5, fill: "#2563eb", strokeWidth: 0 }}
             />
           </AreaChart>
         </ResponsiveContainer>
