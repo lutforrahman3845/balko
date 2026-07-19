@@ -93,7 +93,7 @@ const DashboardPipeline = () => {
       </div>
 
       {/* Recharts ComposedChart */}
-      <div className="flex-1 w-full min-h-[240px] mt-2 -ml-2">
+      <div className="flex-1 w-full min-h-60 mt-2 -ml-2">
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart 
             data={data} 

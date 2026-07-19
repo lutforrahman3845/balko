@@ -52,7 +52,7 @@ const DashboardLeadAnalytics = () => {
         ))}
       </div>
 
-      <div className="flex-1 w-full min-h-[150px]">
+      <div className="flex-1 w-full min-h-37.5">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
              <defs>

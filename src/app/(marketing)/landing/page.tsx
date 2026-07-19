@@ -50,7 +50,7 @@ export default function LandingPage() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-primary/5 to-transparent" />
+        <div className="absolute inset-0 -z-10 bg-linear-to-b from-primary/5 to-transparent" />
         <div className="mx-auto max-w-6xl px-4 pt-20 pb-16 text-center">
           <span className="inline-flex items-center gap-2 rounded-full border bg-background px-3 py-1 text-xs font-medium text-muted-foreground">
             <span className="size-1.5 rounded-full bg-emerald-500" />
@@ -81,7 +81,7 @@ export default function LandingPage() {
               <span className="size-3 rounded-full bg-amber-400" />
               <span className="size-3 rounded-full bg-emerald-400" />
             </div>
-            <div className="aspect-[16/9] w-full rounded-lg bg-gradient-to-br from-primary/10 via-muted to-background grid place-items-center">
+            <div className="aspect-video w-full rounded-lg bg-linear-to-br from-primary/10 via-muted to-background grid place-items-center">
               <BarChart3 className="size-16 text-primary/40" />
             </div>
           </div>
