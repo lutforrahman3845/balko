@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
 
         mockFolderData.push(newFolder);
         return NextResponse.json(newFolder, { status: 201 });
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: "Failed to create folder" }, { status: 500 });
     }
 }

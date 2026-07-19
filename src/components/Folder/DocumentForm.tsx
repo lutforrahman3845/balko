@@ -41,7 +41,6 @@ const DocumentForm = ({
         limit: 100,
     });
     const { data: docTypesRes, isLoading: loadingTypes } = useGetDocumentTypesQuery();
-    const docTypes = docTypesRes?.data || [];
     const { data: projects, isLoading: loadingProjects } = useGetProjectsQuery({
         searchQuery: searchProject,
         pageIndex: 1,
@@ -65,7 +64,7 @@ const DocumentForm = ({
                 searchText: folder.name,
                 label: (
                     <div className="flex items-center gap-3 w-full">
-                        <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center transform scale-75">
+                        <div className="shrink-0 w-8 h-8 flex items-center justify-center transform scale-75">
                             {getFolderIcon(folder.icon)}
                         </div>
                         <div className="flex flex-col min-w-0 flex-1">
@@ -78,31 +77,33 @@ const DocumentForm = ({
             });
         });
 
-        isEdit && document?.folder && options.unshift({
-            value: document?.folderId?.toString(),
-            searchText: document?.folder?.name,
-            label: (
-                <div className="flex items-center gap-3 w-full">
-                    <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center transform scale-75">
-                        {getFolderIcon(document?.folder?.icon)}
+        if (isEdit && document?.folder) {
+            options.unshift({
+                value: document?.folderId?.toString(),
+                searchText: document?.folder?.name,
+                label: (
+                    <div className="flex items-center gap-3 w-full">
+                        <div className="shrink-0 w-8 h-8 flex items-center justify-center transform scale-75">
+                            {getFolderIcon(document?.folder?.icon)}
+                        </div>
+                        <div className="flex flex-col min-w-0 flex-1">
+                            <p className="text-sm font-medium text-foreground truncate leading-tight capitalize">
+                                {document?.folder?.name}
+                            </p>
+                        </div>
                     </div>
-                    <div className="flex flex-col min-w-0 flex-1">
-                        <p className="text-sm font-medium text-foreground truncate leading-tight capitalize">
-                            {document?.folder?.name}
-                        </p>
-                    </div>
-                </div>
-            ),
-        });
+                ),
+            });
+        }
 
         return options;
     }, [folders, isEdit, document]);
     const docTypeOptions = useMemo(() => {
-        return docTypes.map((dt: DocumentType) => ({
+        return (docTypesRes?.data ?? []).map((dt: DocumentType) => ({
             value: dt.id.toString(),
             label: dt.name,
         }));
-    }, [docTypes]);
+    }, [docTypesRes]);
 
     const projectOptions = useMemo(() => {
         const options: {

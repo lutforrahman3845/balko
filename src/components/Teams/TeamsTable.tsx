@@ -11,7 +11,6 @@ import { Checkbox } from "../ui/checkbox";
 import { format } from "date-fns";
 import DataTable from "../shared/DataTable";
 import TablePagination from "../shared/TablePagination";
-import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
     Tooltip,

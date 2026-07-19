@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
@@ -54,17 +54,28 @@ const DocumentModal = ({
         },
     });
 
-    useEffect(() => {
-        reset({
-            projectId: document?.project?.id || null,
-            folderId: document?.folder?.id || folderId || "",
-            description: document?.description || "",
-            documentTypeId: document?.documentType?.id || "",
-            isPublic: document?.isPublic || false,
-            shareWith: document?.shareWithEmployee?.map((employee) => employee.id) || [],
-            file: document?.url || undefined,
-        });
-    }, [folderId, reset, open]);
+    // Load the document's values whenever the modal opens for a different
+    // record. Keyed on `document?.id` rather than the `document` object: the
+    // parent rebuilds that object on each render, so depending on it directly
+    // would reset the form mid-edit and discard whatever the user had typed.
+    const documentId = document?.id;
+    const [loadedKey, setLoadedKey] = useState<string | null>(null);
+    const openKey = open ? `${documentId ?? "new"}:${folderId ?? ""}` : null;
+
+    if (openKey !== loadedKey) {
+        setLoadedKey(openKey);
+        if (open) {
+            reset({
+                projectId: document?.project?.id || null,
+                folderId: document?.folder?.id || folderId || "",
+                description: document?.description || "",
+                documentTypeId: document?.documentType?.id || "",
+                isPublic: document?.isPublic || false,
+                shareWith: document?.shareWithEmployee?.map((employee) => employee.id) || [],
+                file: document?.url || undefined,
+            });
+        }
+    }
 
     const onSubmit = (data: DocumentFormValues) => {
         try {

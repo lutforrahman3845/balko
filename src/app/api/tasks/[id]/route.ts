@@ -80,7 +80,7 @@ export async function DELETE(
         }
         tasksData.splice(taskIndex, 1);
         return NextResponse.json({ success: true });
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: "Failed to delete task" }, { status: 500 });
     }
 }

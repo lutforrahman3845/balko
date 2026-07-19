@@ -27,15 +27,16 @@ const Page = () => {
         refetch,
     } = useGetDocumentTypesQuery();
 
-    const documentTypes = documentTypesResponse?.data || [];
-
     const filteredData = useMemo(() => {
+        // Read the list inside the memo: `response?.data || []` built a new
+        // array identity every render, so the memo never actually memoised.
+        const documentTypes = documentTypesResponse?.data ?? [];
         if (!searchQuery) return documentTypes;
-        return documentTypes.filter((docType: DocumentType) => 
-            docType.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        return documentTypes.filter((docType: DocumentType) =>
+            docType.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
             docType.description?.toLowerCase().includes(searchQuery.toLowerCase())
         );
-    }, [documentTypes, searchQuery]);
+    }, [documentTypesResponse, searchQuery]);
 
     const paginatedData = useMemo(() => {
         const start = (pageIndex - 1) * pageSize;

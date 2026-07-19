@@ -74,7 +74,7 @@ export async function GET(request: Request) {
             },
         });
 
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: "Failed to upload document" }, { status: 500 });
     }
 }

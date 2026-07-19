@@ -88,7 +88,7 @@ export async function PATCH(
         };
 
         return NextResponse.json(mockFolderData[index]);
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: "Failed to update folder" }, { status: 500 });
     }
 }

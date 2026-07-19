@@ -61,8 +61,6 @@ const AddDocumentDialog = ({
   const [isCreatingNewFolder, setIsCreatingNewFolder] = useState(false);
   const [newFolderName, setNewFolderName] = useState("");
 
-  const docTypes = docTypesRes?.data || [];
-  const folders = foldersRes?.data || [];
 
   const {
     control,
@@ -81,21 +79,22 @@ const AddDocumentDialog = ({
     },
   });
 
+  // Both lists are read inside their memo: `res?.data || []` produced a fresh
+  // array identity on every render, so depending on it re-ran the memo every
+  // time regardless of whether the data had actually changed.
   const docTypeOptions = useMemo(() => {
-    return docTypes.map((dt) => ({
+    return (docTypesRes?.data ?? []).map((dt) => ({
       value: dt.id,
       label: dt.name,
     }));
-  }, [docTypes]);
+  }, [docTypesRes]);
 
   const folderOptions = useMemo(() => {
-    return [
-      ...folders.map((f) => ({
-        value: f.id,
-        label: f.name,
-      })),
-    ];
-  }, [folders]);
+    return (foldersRes?.data ?? []).map((f) => ({
+      value: f.id,
+      label: f.name,
+    }));
+  }, [foldersRes]);
 
   const onSubmit = async (data: AddDocumentValues) => {
     const folderId = data.folderId === "" || !data.folderId ? null : data.folderId;

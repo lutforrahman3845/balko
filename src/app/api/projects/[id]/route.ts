@@ -112,7 +112,7 @@ export async function PATCH(
     };
 
     return NextResponse.json(mockProjects[index]);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Failed to update project" }, { status: 500 });
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Trash2 } from "lucide-react";
 import {
   Dialog,
@@ -53,9 +53,17 @@ export function EventModal({
   onDelete: (id: string) => void;
 }) {
   const [draft, setDraft] = useState<Draft>(EMPTY);
+  const [syncedFrom, setSyncedFrom] = useState<{
+    open: boolean;
+    initial: Partial<CalEvent> | null;
+  }>({ open: false, initial: null });
 
-  // Reset the form each time the modal opens with new data.
-  useEffect(() => {
+  // Reset the form each time the modal opens with new data. This is done
+  // during render rather than in an effect: an effect would paint one frame of
+  // the previous event's values before correcting itself, and setting state
+  // synchronously in an effect cascades an extra render every open.
+  if (open !== syncedFrom.open || initial !== syncedFrom.initial) {
+    setSyncedFrom({ open, initial });
     if (open) {
       setDraft({
         id: initial?.id,
@@ -65,7 +73,7 @@ export function EventModal({
         color: initial?.color ?? EVENT_COLORS[0].value,
       });
     }
-  }, [open, initial]);
+  }
 
   const isEditing = Boolean(draft.id);
 

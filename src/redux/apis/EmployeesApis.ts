@@ -1,4 +1,4 @@
-import { ExpandedEmployee, ExpandedSingleEmployee, GetEmployee } from "@/@types/employee";
+import { ExpandedSingleEmployee, GetEmployee } from "@/@types/employee";
 import { apiSlice } from "../apiSlice";
 
 const employeeApiSlice = apiSlice.injectEndpoints({

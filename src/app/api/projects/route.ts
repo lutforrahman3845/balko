@@ -133,7 +133,7 @@ export async function POST(req: Request) {
         };
         mockProjects.push(newProject);
         return NextResponse.json(newProject, { status: 201 });
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: "Failed to create project" }, { status: 500 });
     }
 }

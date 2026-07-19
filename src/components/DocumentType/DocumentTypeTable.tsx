@@ -50,7 +50,6 @@ const DocumentTypeTable = ({
     refetch,
 }: DocumentTypeTableProps) => {
     const [dialogOpen, setDialogOpen] = useState(false);
-    const [selectedId, setSelectedId] = useState<string | null>(null);
     const [formOpen, setFormOpen] = useState(false);
     const [selectedDocType, setSelectedDocType] = useState<DocumentType | null>(null);
 
@@ -59,14 +58,12 @@ const DocumentTypeTable = ({
         setFormOpen(true);
     };
 
-    const handleDeleteOpen = (id: string) => {
+    const handleDeleteOpen = () => {
         setDialogOpen(true);
-        setSelectedId(id);
     };
 
     const handleDialogClose = () => {
         setDialogOpen(false);
-        setSelectedId(null);
     };
 
     const columns = useMemo<ColumnDef<DocumentType>[]>(
@@ -159,8 +156,7 @@ const DocumentTypeTable = ({
                                         className="text-xl cursor-pointer"
                                         role="button"
                                         onClick={() => {
-                                            const id = row?.original?.id;
-                                            if (id) handleDeleteOpen(id);
+                                            if (row?.original?.id) handleDeleteOpen();
                                         }}
                                     >
                                         <TbTrash className="hover:text-red-500" />
