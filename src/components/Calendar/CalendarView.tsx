@@ -106,6 +106,17 @@ export function CalendarView() {
     setEvents((prev) => prev.filter((e) => e.id !== id));
   };
 
+  // Drag-to-reschedule: move an event to a new day (and optionally a new time).
+  const reschedule = (id: string, dateKey: string, time?: string) => {
+    setEvents((prev) =>
+      prev.map((e) =>
+        e.id === id
+          ? { ...e, date: dateKey, ...(time !== undefined ? { time } : {}) }
+          : e,
+      ),
+    );
+  };
+
   return (
     <div className="rounded-xl border bg-card text-card-foreground shadow-sm">
       {/* Toolbar */}
@@ -188,6 +199,11 @@ export function CalendarView() {
                   onKeyDown={(ev) => {
                     if (ev.key === "Enter") openNew(key);
                   }}
+                  onDragOver={(ev) => ev.preventDefault()}
+                  onDrop={(ev) => {
+                    const id = ev.dataTransfer.getData("text/plain");
+                    if (id) reschedule(id, key);
+                  }}
                   className={cn(
                     "group min-h-24 sm:min-h-28 cursor-pointer border-b border-r p-1.5 text-left align-top transition-colors hover:bg-muted/40 nth-[7n]:border-r-0",
                     !inMonth && "bg-muted/30",
@@ -215,6 +231,12 @@ export function CalendarView() {
                         key={e.id}
                         role="button"
                         tabIndex={0}
+                        draggable
+                        onDragStart={(ev) => {
+                          ev.stopPropagation();
+                          ev.dataTransfer.setData("text/plain", e.id);
+                          ev.dataTransfer.effectAllowed = "move";
+                        }}
                         onClick={(ev) => {
                           ev.stopPropagation();
                           openEdit(e);
@@ -226,7 +248,7 @@ export function CalendarView() {
                             openEdit(e);
                           }
                         }}
-                        className="flex items-center gap-1.5 rounded bg-muted/60 px-1.5 py-0.5 text-[11px] hover:bg-muted"
+                        className="flex cursor-grab items-center gap-1.5 rounded bg-muted/60 px-1.5 py-0.5 text-[11px] hover:bg-muted active:cursor-grabbing"
                       >
                         <span className={cn("size-1.5 shrink-0 rounded-full", e.color)} />
                         {e.time && (
@@ -254,6 +276,7 @@ export function CalendarView() {
           events={events}
           onNewAt={openNew}
           onEdit={openEdit}
+          onReschedule={reschedule}
         />
       )}
 

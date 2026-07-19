@@ -32,15 +32,26 @@ export function CalendarTimeGrid({
   events,
   onNewAt,
   onEdit,
+  onReschedule,
 }: {
   days: Date[];
   events: CalEvent[];
   onNewAt: (dateKey: string, time?: string) => void;
   onEdit: (event: CalEvent) => void;
+  onReschedule: (id: string, dateKey: string, time?: string) => void;
 }) {
   const gridCols = `3.5rem repeat(${days.length}, minmax(0, 1fr))`;
 
   const forDay = (key: string) => events.filter((e) => e.date === key);
+
+  const dragProps = (e: CalEvent) => ({
+    draggable: true,
+    onDragStart: (ev: React.DragEvent) => {
+      ev.stopPropagation();
+      ev.dataTransfer.setData("text/plain", e.id);
+      ev.dataTransfer.effectAllowed = "move";
+    },
+  });
 
   return (
     <div className="flex flex-col">
@@ -73,15 +84,25 @@ export function CalendarTimeGrid({
           All day
         </div>
         {days.map((day) => {
-          const allDay = forDay(iso(day)).filter((e) => !e.time);
+          const dayKey = iso(day);
+          const allDay = forDay(dayKey).filter((e) => !e.time);
           return (
-            <div key={iso(day)} className="min-h-8 border-r p-1 last:border-r-0">
+            <div
+              key={dayKey}
+              onDragOver={(ev) => ev.preventDefault()}
+              onDrop={(ev) => {
+                const id = ev.dataTransfer.getData("text/plain");
+                if (id) onReschedule(id, dayKey, "");
+              }}
+              className="min-h-8 border-r p-1 last:border-r-0"
+            >
               {allDay.map((e) => (
                 <button
                   key={e.id}
+                  {...dragProps(e)}
                   onClick={() => onEdit(e)}
                   className={cn(
-                    "mb-1 block w-full truncate rounded border-l-2 px-1.5 py-0.5 text-left text-[11px]",
+                    "mb-1 block w-full cursor-grab truncate rounded border-l-2 px-1.5 py-0.5 text-left text-[11px] active:cursor-grabbing",
                     BLOCK_STYLE[e.color] ?? "border-l-primary bg-muted",
                   )}
                 >
@@ -122,21 +143,28 @@ export function CalendarTimeGrid({
                 style={{ height: HOURS.length * HOUR_HEIGHT }}
               >
                 {/* Hour slots (click to add) */}
-                {HOURS.map((h) => (
-                  <div
-                    key={h}
-                    role="button"
-                    tabIndex={0}
-                    aria-label={`Add event at ${timeLabel(h)}`}
-                    onClick={() => onNewAt(key, `${String(h).padStart(2, "0")}:00`)}
-                    onKeyDown={(ev) => {
-                      if (ev.key === "Enter")
-                        onNewAt(key, `${String(h).padStart(2, "0")}:00`);
-                    }}
-                    className="cursor-pointer border-b transition-colors hover:bg-muted/40"
-                    style={{ height: HOUR_HEIGHT }}
-                  />
-                ))}
+                {HOURS.map((h) => {
+                  const slotTime = `${String(h).padStart(2, "0")}:00`;
+                  return (
+                    <div
+                      key={h}
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`Add event at ${timeLabel(h)}`}
+                      onClick={() => onNewAt(key, slotTime)}
+                      onKeyDown={(ev) => {
+                        if (ev.key === "Enter") onNewAt(key, slotTime);
+                      }}
+                      onDragOver={(ev) => ev.preventDefault()}
+                      onDrop={(ev) => {
+                        const id = ev.dataTransfer.getData("text/plain");
+                        if (id) onReschedule(id, key, slotTime);
+                      }}
+                      className="cursor-pointer border-b transition-colors hover:bg-muted/40"
+                      style={{ height: HOUR_HEIGHT }}
+                    />
+                  );
+                })}
 
                 {/* Timed events */}
                 {timed.map((e) => {
@@ -146,9 +174,10 @@ export function CalendarTimeGrid({
                   return (
                     <button
                       key={e.id}
+                      {...dragProps(e)}
                       onClick={() => onEdit(e)}
                       className={cn(
-                        "absolute inset-x-1 overflow-hidden rounded border-l-2 px-1.5 py-1 text-left",
+                        "absolute inset-x-1 cursor-grab overflow-hidden rounded border-l-2 px-1.5 py-1 text-left active:cursor-grabbing",
                         BLOCK_STYLE[e.color] ?? "border-l-primary bg-muted",
                       )}
                       style={{ top, height: HOUR_HEIGHT - 4 }}
