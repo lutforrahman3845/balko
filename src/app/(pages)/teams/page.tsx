@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useMemo, useState } from "react";
 import { useGetTeamsQuery } from "@/redux/apis/TeamAPis";
@@ -14,13 +13,14 @@ import { Trash2, X } from "lucide-react";
 import ConfirmDialog from "@/components/shared/ConfirmDialog";
 import { toast } from "sonner";
 import TeamsTable from "@/components/Teams/TeamsTable";
+import type { RowSelectionState } from "@tanstack/react-table";
 
 const Page = () => {
     const [teamSearch, setTeamSearch] = useState<string>("");
     const [pageIndex, setPageIndex] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(10);
     const [selectedDepartments, setSelectedDepartments] = useState<string[]>([]);
-    const [rowSelection, setRowSelection] = useState({});
+    const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
     const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
     const { data: departments } = useGetDepartmentQuery({ pageSize: 100 });
     const departmentOptions = departments?.data.map(dept => ({
@@ -35,9 +35,9 @@ const Page = () => {
         departmentId: selectedDepartments.join(","),
     });
     const selectedIds = useMemo(() => {
-        const dataIds = new Set(teams?.data.map((item: any) => String(item.id)));
+        const dataIds = new Set(teams?.data.map((item: { id: string | number }) => String(item.id)));
         return Object.keys(rowSelection).filter(
-            (id) => (rowSelection as any)[id] && dataIds.has(id)
+            (id) => rowSelection[id] && dataIds.has(id)
         );
     }, [teams, rowSelection]);
     return (

@@ -14,6 +14,7 @@ import { useUpdateProjectMutation, useGetProjectByIdQuery } from "@/redux/apis/P
 import ContentHeader from "@/components/ContentHeader";
 import { ErrorState } from "@/components/shared/ErrorState";
 import { useParams } from "next/navigation";
+import { getErrorMessage } from "@/lib/errors";
 
 const EditProjectPage = () => {
     const params = useParams();
@@ -98,8 +99,8 @@ const EditProjectPage = () => {
             await updateProject({ id, data: payload }).unwrap();
             toast.success("Project updated successfully!");
             router.push(`/projects`);
-        } catch (error: any) {
-            toast.error(error?.data?.message || error?.message || "Failed to update project");
+        } catch (error: unknown) {
+            toast.error(getErrorMessage(error, "Failed to update project"));
         }
     };
 

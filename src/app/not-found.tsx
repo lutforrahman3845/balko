@@ -4,18 +4,10 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
-import { useLayout } from "@/config/context";
 
 export default function NotFound() {
-  const { sidebarCollapse } = useLayout();
-
   return (
-    <div
-      className={`flex min-h-[calc(100vh-140px)] flex-col items-center justify-center bg-background px-6  lg:px-8 relative overflow-hidden  ${sidebarCollapse
-          ? " lg:w-[calc(100vw-85px)]"
-          : " lg:w-[calc(100vw-280px)]"
-        }`}
-    >
+    <div className="relative flex min-h-[calc(100vh-140px)] w-full flex-col items-center justify-center overflow-hidden bg-background px-6 lg:px-8">
       {/* Decorative Background Elements */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none opacity-[0.03] dark:opacity-[0.05]">
         <h1 className="text-[11rem] font-black tracking-tighter sm:text-[15rem] md:text-[20rem] lg:text-[25rem]">

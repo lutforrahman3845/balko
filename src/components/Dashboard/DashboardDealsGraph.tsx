@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -22,12 +21,25 @@ const data = [
   { time: "20:00", value: 500, target: 580 },
 ];
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+interface TooltipEntry {
+  name?: string | number;
+  value?: string | number;
+  color?: string;
+  dataKey?: string | number;
+}
+
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: TooltipEntry[];
+  label?: string | number;
+}
+
+const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-card/95 backdrop-blur-sm border border-border p-3 rounded-lg shadow-xl">
         <p className="text-muted-foreground text-xs font-medium mb-2">{label}</p>
-        {payload.map((entry: any, index: number) => (
+        {payload.map((entry, index) => (
           <div key={index} className="flex items-center gap-2 text-sm font-bold text-foreground">
             <div className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.color }} />
             <span className="capitalize">{entry.name}:</span>
@@ -111,15 +123,15 @@ const DashboardDealsGraph = () => {
           <AreaChart data={data} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
             <defs>
               <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#2563eb" stopOpacity={0.25}/>
-                <stop offset="95%" stopColor="#2563eb" stopOpacity={0}/>
+                <stop offset="5%" stopColor="var(--chart-1)" stopOpacity={0.25}/>
+                <stop offset="95%" stopColor="var(--chart-1)" stopOpacity={0}/>
               </linearGradient>
               <linearGradient id="colorTarget" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#94a3b8" stopOpacity={0.12}/>
-                <stop offset="95%" stopColor="#94a3b8" stopOpacity={0}/>
+                <stop offset="5%" stopColor="var(--muted-foreground)" stopOpacity={0.12}/>
+                <stop offset="95%" stopColor="var(--muted-foreground)" stopOpacity={0}/>
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" vertical={true} horizontal={true} stroke="#888888" strokeOpacity={0.2} />
+            <CartesianGrid strokeDasharray="3 3" vertical={true} horizontal={true} stroke="var(--border)" strokeOpacity={0.2} />
             <XAxis 
               dataKey="time" 
               stroke="none"
@@ -127,36 +139,36 @@ const DashboardDealsGraph = () => {
               tickLine={false} 
               axisLine={false}
               dy={10}
-              tick={{ fill: '#888888' }}
+              tick={{ fill: 'var(--muted-foreground)' }}
             />
-            <YAxis 
+            <YAxis
               stroke="none"
-              fontSize={11} 
-              tickLine={false} 
+              fontSize={11}
+              tickLine={false}
               axisLine={false}
               dx={-10}
               tickFormatter={(value) => `$${value}`}
-              tick={{ fill: '#888888' }}
+              tick={{ fill: 'var(--muted-foreground)' }}
             />
             <Tooltip content={<CustomTooltip />} />
             <Area
               type="monotone"
               dataKey="target"
-              stroke="#94a3b8"
+              stroke="var(--muted-foreground)"
               strokeWidth={2}
               strokeDasharray="5 5"
               fillOpacity={1}
               fill="url(#colorTarget)"
-              activeDot={{ r: 5, fill: "#94a3b8", strokeWidth: 0 }}
+              activeDot={{ r: 5, fill: "var(--muted-foreground)", strokeWidth: 0 }}
             />
             <Area
               type="monotone"
               dataKey="value"
-              stroke="#2563eb"
+              stroke="var(--chart-1)"
               strokeWidth={2.5}
               fillOpacity={1}
               fill="url(#colorValue)"
-              activeDot={{ r: 5, fill: "#2563eb", strokeWidth: 0 }}
+              activeDot={{ r: 5, fill: "var(--chart-1)", strokeWidth: 0 }}
             />
           </AreaChart>
         </ResponsiveContainer>

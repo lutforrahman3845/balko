@@ -24,6 +24,7 @@ import { TiUserAdd } from "react-icons/ti";
 import EmployeeForm from "./EmployeeForm";
 import { useGetEmployeeByIdQuery } from "@/redux/apis/EmployeesApis";
 import { Skeleton } from "../ui/skeleton";
+import { getErrorMessage } from "@/lib/errors";
 interface EmployeeFormModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -104,11 +105,9 @@ const EmployeeFormModal = ({
       }
       reset();
       onOpenChange(false);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.error(
-        error?.message ??
-          (isEdit ? "Failed to update employee" : "Failed to create employee"),
+        getErrorMessage(error, isEdit ? "Failed to update employee" : "Failed to create employee"),
       );
     }
   };

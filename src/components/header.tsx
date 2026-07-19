@@ -1,7 +1,8 @@
-import { startTransition, useEffect, useState } from "react";
+"use client";
+
+import { startTransition, useEffect, useState, type ReactNode } from "react";
 import { Bell, Menu, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -13,27 +14,34 @@ import {
 import { SidebarMenu } from "./SidebarMenu";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { useScrollPosition } from "@/hooks/use-scroll-position";
 import { UserDropdownMenu } from "./UserDropdownMenu";
 import Image from "next/image";
 import { Notifications } from "./notifications";
+import { LayoutSwitcher } from "./shared/LayoutSwitcher";
 
-export function Header() {
+interface HeaderProps {
+  /**
+   * Show the wordmark at every breakpoint. Shells that carry their own brand
+   * (sidebar, rail, two-column) leave this off so it is not shown twice.
+   */
+  alwaysShowBrand?: boolean;
+  /** Secondary row under the header bar — used by the top-nav shell. */
+  bottomRow?: ReactNode;
+}
+
+export function Header({ alwaysShowBrand = false, bottomRow }: HeaderProps) {
   const [isSidebarSheetOpen, setIsSidebarSheetOpen] = useState(false);
   const [use12HourFormat, setUse12HourFormat] = useState(true);
   const [currentDateTime, setCurrentDateTime] = useState("");
   const pathname = usePathname();
-  const mobileMode = useIsMobile();
 
-  const scrollPosition = useScrollPosition();
-  const headerSticky: boolean = scrollPosition > 0;
-
-  // Close sheet when route changes
+  // Close the mobile nav when the route changes.
   useEffect(() => {
     startTransition(() => {
       setIsSidebarSheetOpen(false);
     });
   }, [pathname]);
+
   useEffect(() => {
     const updateDateTime = () => {
       const now = new Date();
@@ -54,18 +62,16 @@ export function Header() {
     const interval = setInterval(updateDateTime, 1000);
     return () => clearInterval(interval);
   }, [use12HourFormat]);
+
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-20 flex h-16 items-stretch shrink-0 border-b border-border bg-background pe-(--removed-body-scroll-bar-size,0px)",
-        headerSticky && "",
-      )}
-    >
-      <div className="flex justify-between items-stretch lg:gap-4 px-4 w-full">
-        {/* HeaderLogo - Always present for justify-between to work */}
+    <header className="sticky top-0 z-20 flex shrink-0 flex-col border-b border-border bg-background pe-(--removed-body-scroll-bar-size,0px)">
+      <div className="flex h-16 w-full items-stretch justify-between px-4 lg:gap-4">
         <div className="flex items-center gap-2.5">
-          <Link href="/" className="shrink-0 lg:hidden">
-            <div className="dark:hidden flex items-center">
+          <Link
+            href="/"
+            className={cn("shrink-0", !alwaysShowBrand && "lg:hidden")}
+          >
+            <span className="flex items-center dark:hidden">
               <Image
                 width={200}
                 height={200}
@@ -73,8 +79,8 @@ export function Header() {
                 alt="Balko"
                 className="h-9 w-9"
               />
-            </div>
-            <div className="hidden dark:flex items-center">
+            </span>
+            <span className="hidden items-center dark:flex">
               <Image
                 width={200}
                 height={200}
@@ -82,60 +88,44 @@ export function Header() {
                 alt="Balko"
                 className="h-9 w-9"
               />
-            </div>
+            </span>
           </Link>
-          <div className="flex items-center lg:hidden">
-            {mobileMode && (
-              <Sheet
-                open={isSidebarSheetOpen}
-                onOpenChange={setIsSidebarSheetOpen}
-              >
-                {mobileMode && (
-                  <Sheet
-                    open={isSidebarSheetOpen}
-                    onOpenChange={setIsSidebarSheetOpen}
-                  >
-                    <SheetTrigger asChild>
-                      <Button variant="ghost">
-                        <Menu className="text-muted-foreground/70 size-6" />
-                      </Button>
-                    </SheetTrigger>
-                    <SheetContent
-                      className="p-0 gap-0 w-68.75"
-                      side="left"
-                      close={false}
-                    >
-                      <SheetHeader className="p-0 space-y-0" />
-                      <SheetBody className="p-0 overflow-y-auto">
-                        <SidebarMenu forceExpanded />
-                      </SheetBody>
-                    </SheetContent>
-                  </Sheet>
-                )}
-              </Sheet>
-            )}
-          </div>
+
+          {/* Visibility is CSS-driven so the trigger is correct on first paint
+              rather than appearing after a viewport measurement. */}
+          <Sheet open={isSidebarSheetOpen} onOpenChange={setIsSidebarSheetOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" className="lg:hidden" aria-label="Open navigation">
+                <Menu className="size-6 text-muted-foreground/70" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent className="w-68.75 gap-0 p-0" side="left" close={false}>
+              <SheetHeader className="space-y-0 p-0" />
+              <SheetBody className="overflow-y-auto p-0">
+                <SidebarMenu forceExpanded />
+              </SheetBody>
+            </SheetContent>
+          </Sheet>
         </div>
 
-        {/* HeaderTopbar */}
         <div className="flex items-center gap-3">
-          {/* Command palette trigger */}
           <button
             type="button"
             onClick={() =>
               window.dispatchEvent(new Event("open-command-palette"))
             }
-            className="hidden sm:flex items-center gap-2 h-9 rounded-lg border border-border bg-muted/40 px-3 text-sm text-muted-foreground hover:bg-muted transition-colors"
+            className="hidden h-9 items-center gap-2 rounded-lg border border-border bg-muted/40 px-3 text-sm text-muted-foreground transition-colors hover:bg-muted sm:flex"
           >
             <Search className="size-4" />
             <span>Search...</span>
-            <kbd className="ml-2 hidden lg:inline-flex items-center gap-0.5 rounded border border-border bg-background px-1.5 font-mono text-[10px] text-muted-foreground">
+            <kbd className="ml-2 hidden items-center gap-0.5 rounded border border-border bg-background px-1.5 font-mono text-[10px] text-muted-foreground lg:inline-flex">
               ⌘K
             </kbd>
           </button>
           <Button
             variant="ghost"
-            className="size-9 sm:hidden hover:bg-primary/10 hover:[&_svg]:text-primary"
+            className="size-9 hover:bg-primary/10 hover:[&_svg]:text-primary sm:hidden"
+            aria-label="Search"
             onClick={() =>
               window.dispatchEvent(new Event("open-command-palette"))
             }
@@ -143,21 +133,23 @@ export function Header() {
             <Search className="size-4.5!" />
           </Button>
 
-          {/* Real-time Date/Time Display */}
-          <div
-            className="hidden md:flex items-center px-3 py-1.5 rounded-md  cursor-pointer"
+          <button
+            type="button"
+            className="hidden cursor-pointer rounded-md px-3 py-1.5 text-sm font-medium text-foreground/80 md:block"
             onClick={() => setUse12HourFormat((prev) => !prev)}
-            title="Click to toggle time format"
+            title="Switch between 12- and 24-hour time"
           >
-            <span className="text-sm font-medium text-foreground/80">
-              {currentDateTime}
-            </span>
-          </div>
+            {currentDateTime}
+          </button>
+
+          <LayoutSwitcher />
+
           <Notifications
             trigger={
               <Button
                 variant="ghost"
                 className="size-9 hover:bg-primary/10 hover:[&_svg]:text-primary"
+                aria-label="Notifications"
               >
                 <Bell className="size-4.5!" />
               </Button>
@@ -168,7 +160,7 @@ export function Header() {
               <Image
                 height={200}
                 width={200}
-                className="size-9 rounded-full border-2 border-green-500 shrink-0 cursor-pointer"
+                className="size-9 shrink-0 cursor-pointer rounded-full border-2 border-border"
                 src={"/avatars/avatar-4.jpg"}
                 alt="User Avatar"
               />
@@ -176,6 +168,8 @@ export function Header() {
           />
         </div>
       </div>
+
+      {bottomRow}
     </header>
   );
 }

@@ -27,8 +27,12 @@ type SelectFormItemProps = {
   disabled?: boolean;
   className?: string;
   value?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any;
+  name?: string;
+  required?: boolean;
+  // Accepted (but unused by this component) at some call sites; kept so those
+  // callers keep type-checking without reintroducing a catch-all `any`.
+  dialCode?: boolean;
+  flags?: boolean;
 };
 
 const SelectFormItem = forwardRef<HTMLButtonElement, SelectFormItemProps>(

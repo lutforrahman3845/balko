@@ -21,3 +21,11 @@ export interface NavItem {
 }
 
 export type NavConfig = NavItem[];
+
+export interface NavSection {
+  title: string;
+  icon: LucideIcon | IconType;
+  items: NavConfig;
+}
+
+export type NavSectionConfig = NavSection[];

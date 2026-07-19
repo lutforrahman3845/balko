@@ -18,6 +18,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
 import { TbUserSquareRounded } from "react-icons/tb";
 import RoleForm from "./RoleForm";
+import { getErrorMessage } from "@/lib/errors";
 
 interface RoleFormModalProps {
     open: boolean;
@@ -73,11 +74,9 @@ const RoleFormModal = ({
             }
             reset();
             onOpenChange(false);
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
+        } catch (error: unknown) {
             toast.error(
-                error?.message ??
-                (isEdit ? "Failed to update role" : "Failed to create role"),
+                getErrorMessage(error, isEdit ? "Failed to update role" : "Failed to create role"),
             );
         }
     };

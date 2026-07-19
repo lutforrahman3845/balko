@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useMemo, useState } from "react";
 import { TaskHeader } from "@/components/Task/TaskHeader";
@@ -20,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import ConfirmDialog from "@/components/shared/ConfirmDialog";
 import { toast } from "sonner";
 import { useGetTasksQuery } from "@/redux/apis/TasksApis";
+import type { RowSelectionState } from "@tanstack/react-table";
 import ListCard, { type ViewMode } from "@/components/shared/ListCard";
 import TaskBoard from "@/components/Task/TaskBoard";
 
@@ -30,7 +30,7 @@ const Page = () => {
   const [selectedPriorities, setSelectedPriorities] = useState<string[]>([]);
   const [pageIndex, setPageIndex] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(10);
-  const [rowSelection, setRowSelection] = useState({});
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [view, setView] = useState<ViewMode>("list");
   const navItems = [
@@ -94,9 +94,9 @@ const Page = () => {
     searchQuery,
   });
   const selectedIds = useMemo(() => {
-    const dataIds = new Set(tasks?.data.map((item: any) => String(item.id)));
+    const dataIds = new Set(tasks?.data.map((item: { id: string | number }) => String(item.id)));
     return Object.keys(rowSelection).filter(
-      (id) => (rowSelection as any)[id] && dataIds.has(id)
+      (id) => rowSelection[id] && dataIds.has(id)
     );
   }, [tasks, rowSelection]);
   return (

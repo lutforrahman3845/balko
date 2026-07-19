@@ -6,7 +6,6 @@ import {
   AreaChart,
   ResponsiveContainer,
   Tooltip,
-  XAxis
 } from "recharts";
 
 const data = [
@@ -58,8 +57,8 @@ const DashboardLeadAnalytics = () => {
           <AreaChart data={data} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
              <defs>
               <linearGradient id="colorLead" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.4}/>
-                <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0}/>
+                <stop offset="5%" stopColor="var(--chart-5)" stopOpacity={0.4}/>
+                <stop offset="95%" stopColor="var(--chart-5)" stopOpacity={0}/>
               </linearGradient>
             </defs>
             <Tooltip 
@@ -74,7 +73,7 @@ const DashboardLeadAnalytics = () => {
             <Area 
               type="monotone" 
               dataKey="value" 
-              stroke="#8b5cf6" 
+              stroke="var(--chart-5)"
               strokeWidth={2}
               fillOpacity={1} 
               fill="url(#colorLead)" 

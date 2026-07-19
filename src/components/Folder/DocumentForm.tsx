@@ -13,6 +13,9 @@ import { useGetEmployeesQuery } from "@/redux/apis/EmployeesApis";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import FormItem from "../shared/FormItem";
 import FileUpload from "../shared/FileUpload";
+import { DocumentType } from "@/@types/documents";
+import { ExpandedProject } from "@/@types/project";
+import { ExpandedEmployee } from "@/@types/employee";
 
 
 const DocumentForm = ({
@@ -95,7 +98,7 @@ const DocumentForm = ({
         return options;
     }, [folders, isEdit, document]);
     const docTypeOptions = useMemo(() => {
-        return docTypes.map((dt: any) => ({
+        return docTypes.map((dt: DocumentType) => ({
             value: dt.id.toString(),
             label: dt.name,
         }));
@@ -125,7 +128,7 @@ const DocumentForm = ({
         }
 
         // Add all fetched projects
-        (projects?.data || []).forEach((p: any) => {
+        (projects?.data || []).forEach((p: ExpandedProject) => {
             if (
                 !options.some(
                     (opt: { value: string }) => opt.value === p.id.toString(),
@@ -159,7 +162,7 @@ const DocumentForm = ({
         }[] = [];
 
         if (isEdit && document?.shareWithEmployee) {
-            document.shareWithEmployee.forEach((emp: any) => {
+            document.shareWithEmployee.forEach((emp) => {
                 options.push({
                     value: emp.id.toString(),
                     searchText: emp.name,
@@ -184,7 +187,7 @@ const DocumentForm = ({
         }
 
         // Add fetched employee options
-        employees?.data?.forEach((emp: any) => {
+        employees?.data?.forEach((emp: ExpandedEmployee) => {
             if (
                 !options.some(
                     (opt: { value: string }) => opt.value === emp.id.toString(),

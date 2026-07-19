@@ -21,6 +21,7 @@ import FormItem from "../shared/FormItem";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LuTarget } from "react-icons/lu";
 import { ConnectionStrengthOptions } from "@/lib/CompanyConnectionBadge";
+import { getErrorMessage } from "@/lib/errors";
 
 interface CompanyFollowUpModalProps {
     open: boolean;
@@ -53,9 +54,8 @@ const CompanyFollowUpModal = ({
     useEffect(() => {
         if (data) {
             reset({
-                connectionStrength: (data.connectionStrength?.toLowerCase()
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    .replace(/\s+/g, "_")  as any) || undefined,
+                connectionStrength: data.connectionStrength?.toLowerCase()
+                    .replace(/\s+/g, "_") || undefined,
                 lastInteractionAt: data.lastInteractionAt || "",
                 note: data.note || "",
             });
@@ -77,10 +77,9 @@ const CompanyFollowUpModal = ({
             } else {
                 toast.success("Company follow up created successfully!");
             }
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
+        } catch (error: unknown) {
             toast.error(
-                error?.message ?? "Failed to save follow up information",
+                getErrorMessage(error, "Failed to save follow up information"),
             );
         } finally {
             reset();

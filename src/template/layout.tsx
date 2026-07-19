@@ -4,7 +4,7 @@ import { LayoutProvider } from '@/config/context';
 import { DashboardLayout } from './DashboardLayout';
 import { useEffect, useState } from 'react';
 import { ScreenLoader } from '@/components/ScreenLoader';
-import { MAIN_NAV } from '@/config/navitemsconfig';
+import { MAIN_NAV, MAIN_NAV_SECTIONS } from '@/config/navitemsconfig';
 import { usePathname } from 'next/navigation';
 
 // Routes rendered without the dashboard shell (auth flow + marketing pages).
@@ -40,7 +40,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
     }
 
     return (
-        <LayoutProvider sidebarNavItems={MAIN_NAV}>
+        <LayoutProvider
+            sidebarNavItems={MAIN_NAV}
+            sidebarNavSections={MAIN_NAV_SECTIONS}
+        >
             <DashboardLayout>
                 {children}
             </DashboardLayout>

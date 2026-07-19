@@ -19,6 +19,20 @@ import { LuBuilding2 } from "react-icons/lu";
 import { toast } from "sonner";
 import { useGetCompanyDetailsQuery } from "@/redux/apis/CompaniesApis";
 
+const CONNECTION_STRENGTH_VALUES = [
+  "weak",
+  "medium",
+  "strong",
+  "very_strong",
+  "extremely_strong",
+] as const;
+
+function isConnectionStrength(
+  value: string,
+): value is NonNullable<CompanyCreateFormValues["connectionStrength"]> {
+  return (CONNECTION_STRENGTH_VALUES as readonly string[]).includes(value);
+}
+
 const Page = () => {
   const params = useParams();
   const router = useRouter();
@@ -60,6 +74,9 @@ const Page = () => {
   });
   useEffect(() => {
     if (company) {
+      const normalizedConnectionStrength = company?.connectionStrength
+        ?.toLowerCase()
+        .replace(/\s+/g, "_");
       reset({
         name: company?.name || "",
         logo: company?.logo || null,
@@ -74,10 +91,11 @@ const Page = () => {
         country: company?.country || "",
         estimatedArr: company?.estimatedArr || "",
         employeeRange: company?.employeeRange || "",
-        connectionStrength: (company?.connectionStrength
-          ?.toLowerCase()
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          .replace(/\s+/g, "_") as any) || undefined,
+        connectionStrength:
+          normalizedConnectionStrength &&
+          isConnectionStrength(normalizedConnectionStrength)
+            ? normalizedConnectionStrength
+            : undefined,
         socialLinks: company?.socialLinks || {},
         description: company?.description || "",
       });

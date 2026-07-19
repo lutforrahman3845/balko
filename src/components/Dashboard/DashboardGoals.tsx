@@ -2,7 +2,7 @@
 
 import { Target } from "lucide-react";
 
-const ACCENT = "#2563eb";
+const ACCENT = "var(--primary)";
 
 type Goal = {
   label: string;

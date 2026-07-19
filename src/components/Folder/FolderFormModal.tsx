@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import { HiOutlineFolderAdd } from "react-icons/hi";
 import { ExpandFolder, FolderFormSchema, FolderFormValues, SingLeFolder } from "@/@types/folder";
 import FolderForm from "./FolderForm";
+import { getErrorMessage } from "@/lib/errors";
 
 interface FolderFormModalProps {
     open: boolean;
@@ -76,11 +77,9 @@ const FolderFormModal = ({
             }
             reset();
             onOpenChange(false);
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
+        } catch (error: unknown) {
             toast.error(
-                error?.message ??
-                (isEdit ? "Failed to update folder" : "Failed to create folder"),
+                getErrorMessage(error, isEdit ? "Failed to update folder" : "Failed to create folder"),
             );
         }
     }; 

@@ -28,9 +28,9 @@ const TOOLTIP_STYLE = {
   fontSize: "13px",
 };
 
-// Recharts renders axis ticks/grid as SVG attributes where var() does NOT
-// resolve — use a mid-gray that reads in both themes (matches the dashboard).
-const AXIS = "#888888";
+// Neutral colors for axis ticks/lines and grid lines, theme-aware via tokens.
+const AXIS = "var(--muted-foreground)";
+const GRID = "var(--border)";
 
 const revenueData = [
   { name: "Jan", revenue: 42, target: 40 },
@@ -54,10 +54,10 @@ const sessionsData = [
 ];
 
 const trafficData = [
-  { name: "Organic", value: 42, color: "#3b82f6" },
-  { name: "Direct", value: 26, color: "#10b981" },
-  { name: "Referral", value: 18, color: "#f59e0b" },
-  { name: "Social", value: 14, color: "#8b5cf6" },
+  { name: "Organic", value: 42, color: "var(--chart-1)" },
+  { name: "Direct", value: 26, color: "var(--chart-2)" },
+  { name: "Referral", value: 18, color: "var(--chart-3)" },
+  { name: "Social", value: 14, color: "var(--chart-5)" },
 ];
 
 const productsData = [
@@ -104,16 +104,16 @@ export function AnalyticsCharts() {
           <ComposedChart data={revenueData} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
             <defs>
               <linearGradient id="rev" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
-                <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+                <stop offset="5%" stopColor="var(--chart-1)" stopOpacity={0.3} />
+                <stop offset="95%" stopColor="var(--chart-1)" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={AXIS} strokeOpacity={0.2} />
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={GRID} strokeOpacity={0.2} />
             <XAxis dataKey="name" stroke={AXIS} fontSize={12} tickLine={false} axisLine={false} dy={10} />
             <YAxis stroke={AXIS} fontSize={12} tickLine={false} axisLine={false} />
             <Tooltip contentStyle={TOOLTIP_STYLE} />
-            <Area type="monotone" dataKey="revenue" stroke="#3b82f6" strokeWidth={2} fill="url(#rev)" />
-            <Line type="monotone" dataKey="target" stroke="#94a3b8" strokeWidth={2} strokeDasharray="4 4" dot={false} />
+            <Area type="monotone" dataKey="revenue" stroke="var(--chart-1)" strokeWidth={2} fill="url(#rev)" />
+            <Line type="monotone" dataKey="target" stroke="var(--muted-foreground)" strokeWidth={2} strokeDasharray="4 4" dot={false} />
           </ComposedChart>
         </ResponsiveContainer>
       </ChartCard>
@@ -150,11 +150,11 @@ export function AnalyticsCharts() {
       <ChartCard title="Weekly Sessions" subtitle="Visitor sessions this week" className="lg:col-span-2 h-80">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={sessionsData} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={AXIS} strokeOpacity={0.2} />
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={GRID} strokeOpacity={0.2} />
             <XAxis dataKey="name" stroke={AXIS} fontSize={12} tickLine={false} axisLine={false} dy={10} />
             <YAxis stroke={AXIS} fontSize={12} tickLine={false} axisLine={false} />
             <Tooltip contentStyle={TOOLTIP_STYLE} />
-            <Line type="monotone" dataKey="sessions" stroke="#10b981" strokeWidth={2.5} dot={{ r: 3 }} activeDot={{ r: 5 }} />
+            <Line type="monotone" dataKey="sessions" stroke="var(--chart-2)" strokeWidth={2.5} dot={{ r: 3 }} activeDot={{ r: 5 }} />
           </LineChart>
         </ResponsiveContainer>
       </ChartCard>
@@ -162,11 +162,11 @@ export function AnalyticsCharts() {
       <ChartCard title="Top Products" subtitle="Sales by product" className="h-80">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={productsData} layout="vertical" margin={{ top: 0, right: 10, left: 10, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke={AXIS} strokeOpacity={0.2} />
+            <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke={GRID} strokeOpacity={0.2} />
             <XAxis type="number" stroke={AXIS} fontSize={12} tickLine={false} axisLine={false} />
             <YAxis type="category" dataKey="name" stroke={AXIS} fontSize={12} tickLine={false} axisLine={false} width={70} />
             <Tooltip contentStyle={TOOLTIP_STYLE} cursor={{ fill: AXIS, opacity: 0.1 }} />
-            <Bar dataKey="sales" fill="#8b5cf6" radius={[0, 4, 4, 0]} maxBarSize={22} />
+            <Bar dataKey="sales" fill="var(--chart-5)" radius={[0, 4, 4, 0]} maxBarSize={22} />
           </BarChart>
         </ResponsiveContainer>
       </ChartCard>

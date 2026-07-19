@@ -43,6 +43,7 @@ import {
   Controller,
   FieldErrors,
   UseFormSetValue,
+  UseFormUnregister,
   useWatch,
 } from "react-hook-form";
 import { CompanyCreateFormValues } from "@/@types/company";
@@ -91,8 +92,7 @@ interface CompaniesSocialLinksProps {
   control: Control<CompanyCreateFormValues>;
   errors: FieldErrors<CompanyCreateFormValues>;
   setValue: UseFormSetValue<CompanyCreateFormValues>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  unregister: any;
+  unregister: UseFormUnregister<CompanyCreateFormValues>;
 }
 
 const CompaniesSocialLinks = ({
@@ -219,8 +219,7 @@ const CompaniesSocialLinks = ({
         typeof errors.socialLinks === "object" &&
         "message" in errors.socialLinks && (
           <p className="text-red-500 text-sm mt-1">
-            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-            {(errors.socialLinks as any).message}
+            {(errors.socialLinks as { message?: string }).message}
           </p>
         )}
     </div>

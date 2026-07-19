@@ -21,6 +21,7 @@ import {
   useGetDocumentTypesQuery,
 } from "@/redux/apis/DocumentApis";
 import { useGetFoldersQuery, useCreateFolderMutation } from "@/redux/apis/folderApis";
+import { getErrorMessage } from "@/lib/errors";
 
 // ─── Schema ────────────────────────────────────────────────────────────────
 const AddDocumentSchema = z.object({
@@ -113,8 +114,8 @@ const AddDocumentDialog = ({
       toast.success("Document added successfully!");
       reset();
       onOpenChange(false);
-    } catch (error: any) {
-      toast.error(error?.data?.message || error?.message || "Failed to add document");
+    } catch (error: unknown) {
+      toast.error(getErrorMessage(error, "Failed to add document"));
     }
   };
 
@@ -277,7 +278,7 @@ const AddDocumentDialog = ({
                       inputType="text"
                       placeholder="Folder name"
                       value={newFolderName}
-                      onChange={(e: any) => setNewFolderName(e.target.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setNewFolderName(e.target.value)}
                     />
                   </div>
                   <Button
@@ -296,8 +297,8 @@ const AddDocumentDialog = ({
                         setValue("folderId", newFolder.id);
                         setNewFolderName("");
                         setIsCreatingNewFolder(false);
-                      } catch (err: any) {
-                        toast.error(err?.data?.message || "Failed to create folder");
+                      } catch (err: unknown) {
+                        toast.error(getErrorMessage(err, "Failed to create folder"));
                       }
                     }}
                     disabled={isCreatingFolder}

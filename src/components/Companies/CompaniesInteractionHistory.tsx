@@ -1,5 +1,6 @@
 import {
   CompanyInteractionHistoryResponse,
+  ContactInteraction,
   ExpandedCompany,
 } from "@/@types/company";
 import { useGetCompanyInteractionHistoryQuery } from "@/redux/apis/CompaniesApis";
@@ -281,8 +282,10 @@ const CompaniesInteractionHistory = ({
                             },
                             {} as Record<
                               string,
-                              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                              { contact: any; interactions: any[] }
+                              {
+                                contact: ContactInteraction["contact"];
+                                interactions: ContactInteraction[];
+                              }
                             >,
                           ),
                         ).map((group) => (

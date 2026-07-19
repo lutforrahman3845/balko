@@ -38,7 +38,7 @@ import {
 } from "react-icons/si";
 import { LuGlobe, LuPlus, LuTrash2 } from "react-icons/lu";
 import { useMemo, useState } from "react";
-import { Control, Controller, FieldErrors, UseFormSetValue, useWatch } from "react-hook-form";
+import { Control, Controller, FieldErrors, UseFormSetValue, UseFormUnregister, useWatch } from "react-hook-form";
 import { ContactsCreateFormValues } from "@/@types/contact";
 import FormItem from "@/components/shared/FormItem";
 import CustomSelect from "@/components/shared/CustomSelect";
@@ -85,8 +85,7 @@ interface SocialLinksFormProps {
     control: Control<ContactsCreateFormValues>;
     errors: FieldErrors<ContactsCreateFormValues>;
     setValue: UseFormSetValue<ContactsCreateFormValues>;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    unregister: any;
+    unregister: UseFormUnregister<ContactsCreateFormValues>;
 }
 
 const SocialLinksForm = ({ control, errors, setValue, unregister }: SocialLinksFormProps) => {
@@ -201,8 +200,7 @@ const SocialLinksForm = ({ control, errors, setValue, unregister }: SocialLinksF
                 )}
             </div>
             {errors.socialLinks && typeof errors.socialLinks === "object" && "message" in errors.socialLinks && (
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                <p className="text-red-500 text-sm mt-1">{(errors.socialLinks as any).message}</p>
+                <p className="text-red-500 text-sm mt-1">{(errors.socialLinks as { message?: string }).message}</p>
             )}
         </div>
     );

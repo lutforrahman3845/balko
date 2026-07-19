@@ -1,33 +1,39 @@
 "use client";
 
-import { useIsMobile } from "@/hooks/use-mobile";
 import { useLayout } from "@/config/context";
-import { Sidebar } from "@/components/sidebar";
-import { Header } from "@/components/header";
 import { CommandPalette } from "@/components/shared/CommandPalette";
-import { cn } from "@/lib/utils";
+import { SidebarLayout } from "./layouts/SidebarLayout";
+import { RailLayout } from "./layouts/RailLayout";
+import { TopNavLayout } from "./layouts/TopNavLayout";
+import { TwoColumnLayout } from "./layouts/TwoColumnLayout";
+import type { LayoutVariant } from "@/@types/layout";
 
-// Original app shell: a fixed sidebar rail plus a content column whose
-// inline-start margin follows the sidebar width. State-driven only — no
-// global body classes, no external layout CSS.
+const SHELLS: Record<
+  LayoutVariant,
+  (props: { children: React.ReactNode }) => React.ReactNode
+> = {
+  sidebar: SidebarLayout,
+  rail: RailLayout,
+  topnav: TopNavLayout,
+  twocolumn: TwoColumnLayout,
+};
+
+/**
+ * Picks the app shell. Each shell owns its own navigation chrome; every one of
+ * them hides that chrome below the desktop breakpoint and falls back to the
+ * header's navigation sheet, so pages need no per-shell handling.
+ *
+ * Visibility is CSS-driven rather than gated on a viewport hook, so the first
+ * paint is already correct on mobile.
+ */
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const isMobile = useIsMobile();
-  const { sidebarCollapse } = useLayout();
+  const { layoutVariant } = useLayout();
+  const Shell = SHELLS[layoutVariant] ?? SidebarLayout;
 
   return (
     <div className="flex min-h-screen bg-background">
       <CommandPalette />
-      {!isMobile && <Sidebar />}
-
-      <div
-        className={cn(
-          "flex min-w-0 grow flex-col transition-[margin] duration-300 ease-in-out",
-          sidebarCollapse ? "lg:ms-18" : "lg:ms-64",
-        )}
-      >
-        <Header />
-        <main className="grow">{children}</main>
-      </div>
+      <Shell>{children}</Shell>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { ErrorState } from "@/components/shared/ErrorState";
 import FilterSearch from "@/components/shared/FilterSearch";
 import { Button } from "@/components/ui/button";
 import { useGetDocumentTypesQuery } from "@/redux/apis/DocumentApis";
+import type { RowSelectionState } from "@tanstack/react-table";
 import { Trash2, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
@@ -16,7 +17,7 @@ const Page = () => {
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [pageIndex, setPageIndex] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(10);
-    const [rowSelection, setRowSelection] = useState({});
+    const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     const {
@@ -43,9 +44,9 @@ const Page = () => {
     }, [filteredData, pageIndex, pageSize]);
 
     const selectedIds = useMemo(() => {
-        const dataIds = new Set(paginatedData.map((item: any) => String(item.id)));
+        const dataIds = new Set(paginatedData.map((item: DocumentType) => String(item.id)));
         return Object.keys(rowSelection).filter(
-            (id) => (rowSelection as any)[id] && dataIds.has(id)
+            (id) => rowSelection[id] && dataIds.has(id)
         );
     }, [paginatedData, rowSelection]);
 

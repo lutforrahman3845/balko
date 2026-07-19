@@ -3,7 +3,7 @@
 import { ArrowUp, ArrowDown, Users, Briefcase, DollarSign, Building2 } from "lucide-react";
 import { Area, AreaChart, ResponsiveContainer } from "recharts";
 
-const ACCENT = "#2563eb";
+const ACCENT = "var(--primary)";
 
 const overviewData = [
   {

@@ -10,13 +10,21 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const data = [
-  { name: "Lead", value: 800, count: 45, fill: "#93c5fd" },
-  { name: "Contacted", value: 600, count: 22, fill: "#60a5fa" },
-  { name: "Proposal", value: 950, count: 14, fill: "#3b82f6" },
-  { name: "Won", value: 490, count: 8, fill: "#2563eb" },
+  { name: "Lead", value: 800, count: 45, fill: "color-mix(in oklch, var(--chart-1) 35%, var(--card))" },
+  { name: "Contacted", value: 600, count: 22, fill: "color-mix(in oklch, var(--chart-1) 55%, var(--card))" },
+  { name: "Proposal", value: 950, count: 14, fill: "color-mix(in oklch, var(--chart-1) 78%, var(--card))" },
+  { name: "Won", value: 490, count: 8, fill: "var(--chart-1)" },
 ];
 
-const CustomTooltip = ({ active, payload }: any) => {
+type PipelineStage = (typeof data)[number];
+
+const CustomTooltip = ({
+  active,
+  payload,
+}: {
+  active?: boolean;
+  payload?: { payload: PipelineStage }[];
+}) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (
@@ -93,15 +101,15 @@ const DashboardPipeline = () => {
           >
             <defs>
               <linearGradient id="pipelineArea" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#2563eb" stopOpacity={0.12}/>
-                <stop offset="95%" stopColor="#2563eb" stopOpacity={0}/>
+                <stop offset="5%" stopColor="var(--chart-1)" stopOpacity={0.12}/>
+                <stop offset="95%" stopColor="var(--chart-1)" stopOpacity={0}/>
               </linearGradient>
             </defs>
             <XAxis 
               dataKey="name" 
               axisLine={false} 
               tickLine={false} 
-              tick={{ fill: '#888888', fontSize: 12, fontWeight: 600 }} 
+              tick={{ fill: 'var(--muted-foreground)', fontSize: 12, fontWeight: 600 }}
               dy={10}
             />
             <YAxis hide />
@@ -121,10 +129,10 @@ const DashboardPipeline = () => {
             <Line
               type="monotone"
               dataKey="value"
-              stroke="#2563eb"
+              stroke="var(--chart-1)"
               strokeWidth={2.5}
-              dot={{ r: 4, strokeWidth: 2, fill: "var(--background)", stroke: "#2563eb" }}
-              activeDot={{ r: 6, strokeWidth: 0, fill: "#2563eb" }}
+              dot={{ r: 4, strokeWidth: 2, fill: "var(--background)", stroke: "var(--chart-1)" }}
+              activeDot={{ r: 6, strokeWidth: 0, fill: "var(--chart-1)" }}
             />
           </ComposedChart>
         </ResponsiveContainer>

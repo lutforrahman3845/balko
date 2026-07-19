@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import ContactsHeader from "@/components/Contacts/ContactsHeader";
 import { ErrorState } from "@/components/shared/ErrorState";
@@ -19,6 +18,7 @@ import FilterSort from "@/components/shared/FilterSort";
 import { TiUserAddOutline, TiUserOutline } from "react-icons/ti";
 import { LuTarget } from "react-icons/lu";
 import { useGetContactsQuery, useGetPositionsQuery } from "@/redux/apis/ContactApis";
+import type { RowSelectionState } from "@tanstack/react-table";
 
 const stausItems = [
   { title: "all", icon: MdOutlineContacts, id: "all" },
@@ -35,7 +35,7 @@ const Page = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [pageIndex, setPageIndex] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(10);
-  const [rowSelection, setRowSelection] = useState({});
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const { data: positionOptions } = useGetPositionsQuery();
@@ -54,9 +54,9 @@ const Page = () => {
     pageSize,
   });
   const selectedIds = useMemo(() => {
-    const dataIds = new Set(contacts?.data.map((item: any) => String(item.id)));
+    const dataIds = new Set(contacts?.data.map((item: { id: string | number }) => String(item.id)));
     return Object.keys(rowSelection).filter(
-      (id) => (rowSelection as any)[id] && dataIds.has(id)
+      (id) => rowSelection[id] && dataIds.has(id)
     );
   }, [contacts, rowSelection]);
   return (

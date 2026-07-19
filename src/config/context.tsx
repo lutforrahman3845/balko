@@ -1,63 +1,104 @@
-import { NavConfig } from "@/@types/NavItem";
+"use client";
+
+import { NavConfig, NavSectionConfig } from "@/@types/NavItem";
+import {
+  DEFAULT_LAYOUT_VARIANT,
+  isLayoutVariant,
+  type LayoutVariant,
+} from "@/@types/layout";
 import {
   createContext,
   ReactNode,
+  useCallback,
   useContext,
   useMemo,
-  useState,
 } from "react";
+import {
+  useHydrated,
+  usePersistedPreference,
+} from "@/lib/persisted-preference";
 
-type SidebarTheme = "dark" | "light";
+const LAYOUT_STORAGE_KEY = "balko-layout-variant";
+const COLLAPSE_STORAGE_KEY = "balko-sidebar-collapsed";
 
-// Define the shape of the layout state
 interface LayoutState {
   sidebarCollapse: boolean;
-  setSidebarCollapse: (open: boolean) => void;
-  sidebarTheme: SidebarTheme;
-  setSidebarTheme: (theme: SidebarTheme) => void;
+  setSidebarCollapse: (collapsed: boolean) => void;
+  layoutVariant: LayoutVariant;
+  setLayoutVariant: (variant: LayoutVariant) => void;
+  /** False until the persisted preferences have been read from storage. */
+  layoutReady: boolean;
   getSidebarNavItems: () => NavConfig;
+  getSidebarNavSections: () => NavSectionConfig;
 }
 
-// Create the context
 const LayoutContext = createContext<LayoutState | undefined>(undefined);
 
-// Provider component
 interface LayoutProviderProps {
   children: ReactNode;
   sidebarNavItems: NavConfig;
+  sidebarNavSections: NavSectionConfig;
 }
 
 export function LayoutProvider({
   children,
   sidebarNavItems,
+  sidebarNavSections,
 }: LayoutProviderProps) {
-  const [sidebarCollapse, setSidebarCollapse] = useState(false);
-  const [sidebarTheme, setSidebarTheme] = useState<SidebarTheme>("light");
-  const processedNavItems = useMemo(() => {
-    return sidebarNavItems.map((item) => {
-      return item;
-    });
-  }, [sidebarNavItems]);
+  // Both preferences come straight from storage rather than through an effect,
+  // so there is no cascading render on mount. The server render and hydration
+  // both see the defaults; `layoutReady` flips once hydration is done, which
+  // is what holds back the width transition on first paint.
+  const [layoutVariant, setLayoutVariant] = usePersistedPreference<LayoutVariant>(
+    LAYOUT_STORAGE_KEY,
+    DEFAULT_LAYOUT_VARIANT,
+    (raw) => (isLayoutVariant(raw) ? raw : DEFAULT_LAYOUT_VARIANT),
+  );
 
-  const getSidebarNavItems = () => {
-    return processedNavItems;
-  };
+  const [sidebarCollapse, setSidebarCollapse] = usePersistedPreference<boolean>(
+    COLLAPSE_STORAGE_KEY,
+    false,
+    (raw) => raw === "true",
+  );
+
+  const layoutReady = useHydrated();
+
+  const getSidebarNavItems = useCallback(
+    () => sidebarNavItems,
+    [sidebarNavItems],
+  );
+
+  const getSidebarNavSections = useCallback(
+    () => sidebarNavSections,
+    [sidebarNavSections],
+  );
+
+  const value = useMemo<LayoutState>(
+    () => ({
+      sidebarCollapse,
+      setSidebarCollapse,
+      layoutVariant,
+      setLayoutVariant,
+      layoutReady,
+      getSidebarNavItems,
+      getSidebarNavSections,
+    }),
+    [
+      sidebarCollapse,
+      setSidebarCollapse,
+      layoutVariant,
+      setLayoutVariant,
+      layoutReady,
+      getSidebarNavItems,
+      getSidebarNavSections,
+    ],
+  );
+
   return (
-    <LayoutContext.Provider
-      value={{
-        sidebarCollapse,
-        setSidebarCollapse,
-        sidebarTheme,
-        setSidebarTheme,
-        getSidebarNavItems,
-      }}
-    >
-      {children}
-    </LayoutContext.Provider>
+    <LayoutContext.Provider value={value}>{children}</LayoutContext.Provider>
   );
 }
 
-// Custom hook for consuming the context
 export const useLayout = () => {
   const context = useContext(LayoutContext);
   if (!context) {

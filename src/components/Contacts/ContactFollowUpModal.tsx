@@ -22,6 +22,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import { LuBuilding2, LuPhone, LuMail, LuBriefcase, LuTarget } from "react-icons/lu";
 import { ContactStatusOptions } from "@/lib/ContactStatusBadge";
+import { getErrorMessage } from "@/lib/errors";
 
 
 
@@ -76,11 +77,12 @@ const ContactFollowUpModal = ({
             } else {
                 toast.success("Follow up updated successfully!");
             }
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
+        } catch (error: unknown) {
             toast.error(
-                error?.message ??
-                ((!data?.status || !data?.lastContacted || !data?.note) ? "Failed to update follow up" : "Failed to create follow up"),
+                getErrorMessage(
+                    error,
+                    (!data?.status || !data?.lastContacted || !data?.note) ? "Failed to update follow up" : "Failed to create follow up",
+                ),
             );
         } finally {
             reset();

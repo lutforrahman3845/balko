@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useMemo, useState } from "react";
 import { EmployeeHeader } from "@/components/Employees/EmployeeHeader";
@@ -20,6 +19,7 @@ import ConfirmDialog from "@/components/shared/ConfirmDialog";
 import { toast } from "sonner";
 import { TbUserSquareRounded } from "react-icons/tb";
 import { PiFolderOpenDuotone } from "react-icons/pi";
+import type { RowSelectionState } from "@tanstack/react-table";
 
 const Page = () => {
     const [searchQuery, setSearchQuery] = useState<string>("");
@@ -29,7 +29,7 @@ const Page = () => {
     const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
     const [pageIndex, setPageIndex] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(10);
-    const [rowSelection, setRowSelection] = useState({});
+    const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
     const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
     const { data: departments } = useGetDepartmentQuery({ pageSize: 100 });
@@ -68,9 +68,9 @@ const Page = () => {
         name: role.displayName
     })) || [];
     const selectedIds = useMemo(() => {
-        const dataIds = new Set(employees?.data.map((item: any) => String(item.id)));
+        const dataIds = new Set(employees?.data.map((item: { id: string | number }) => String(item.id)));
         return Object.keys(rowSelection).filter(
-            (id) => (rowSelection as any)[id] && dataIds.has(id)
+            (id) => rowSelection[id] && dataIds.has(id)
         );
     }, [employees, rowSelection]);
 

@@ -18,6 +18,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
 import { TbFileText } from "react-icons/tb";
 import DocumentTypeForm from "./DocumentTypeForm";
+import { getErrorMessage } from "@/lib/errors";
 
 interface DocumentTypeFormModalProps {
     open: boolean;
@@ -73,11 +74,9 @@ const DocumentTypeFormModal = ({
             }
             reset();
             onOpenChange(false);
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
+        } catch (error: unknown) {
             toast.error(
-                error?.message ??
-                (isEdit ? "Failed to update document type" : "Failed to create document type"),
+                getErrorMessage(error, isEdit ? "Failed to update document type" : "Failed to create document type"),
             );
         }
     };

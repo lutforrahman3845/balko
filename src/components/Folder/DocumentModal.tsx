@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import { HiOutlineDocumentAdd } from "react-icons/hi";
 import { DocumentUploadSchema, DocumentFormValues, FolderDocument } from "@/@types/folder";
 import DocumentForm from "./DocumentForm";
+import { getErrorMessage } from "@/lib/errors";
 
 interface DocumentModalProps {
     open: boolean;
@@ -100,9 +101,9 @@ const DocumentModal = ({
             toast.success("Document saved successfully!");
             reset();
             onOpenChange(false);
-        } catch (error: any) {
+        } catch (error: unknown) {
             toast.error(
-                error?.message ?? "Failed to upload document"
+                getErrorMessage(error, "Failed to upload document")
             );
         }
     };

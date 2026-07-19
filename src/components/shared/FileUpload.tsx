@@ -3,7 +3,7 @@ import { FileText, UploadCloud } from "lucide-react";
 
 interface FileUploadProps {
     file?: File | string;
-    onChange: (file?: File) => void;
+    onChange: (file: File | null) => void;
     error?: string;
 }
 
@@ -58,7 +58,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ file, onChange, error }) => {
                             onClick={(e) => {
                                 e.preventDefault();
                                 e.stopPropagation();
-                                onChange(null as any);
+                                onChange(null);
                                 // clear input value so same file can be selected again
                                 const input = document.getElementById("file-upload") as HTMLInputElement;
                                 if (input) input.value = "";

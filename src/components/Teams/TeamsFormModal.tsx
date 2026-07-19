@@ -24,6 +24,7 @@ import { useGetTeamByIdQuery } from "@/redux/apis/TeamAPis";
 import { useEffect } from "react";
 import TeamForm from "./TeamForm";
 import { Skeleton } from "../ui/skeleton";
+import { getErrorMessage } from "@/lib/errors";
 interface TeamsFormModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -89,11 +90,9 @@ const TeamsFormModal = ({
       }
       reset();
       onOpenChange(false);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.error(
-        error?.message ??
-          (isEdit ? "Failed to update Team" : "Failed to create Team"),
+        getErrorMessage(error, isEdit ? "Failed to update Team" : "Failed to create Team"),
       );
     }
   };

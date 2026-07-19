@@ -12,23 +12,19 @@ import {
 import { Button } from "@/components/ui/button";
 import { useLayout } from "@/config/context";
 import type { NavItem } from "@/@types/NavItem";
+import { isActivePath } from "@/lib/nav";
 import { cn } from "@/lib/utils";
-
-function isActivePath(path: string, pathname: string) {
-  if (path === "/") return pathname === "/";
-  return path === pathname || pathname.startsWith(path + "/");
-}
 
 /** Quick "+" action revealed on row hover (expanded mode only). */
 function QuickAdd({ to, tooltip }: { to: string; tooltip: string }) {
   return (
     <Tooltip delayDuration={300}>
       <TooltipTrigger asChild>
-        <Link href={to} onClick={(e) => e.stopPropagation()}>
+        <Link href={to} onClick={(e) => e.stopPropagation()} aria-label={tooltip}>
           <Button
             variant="ghost"
             size="icon"
-            className="size-6 opacity-0 transition-opacity group-hover/row:opacity-100"
+            className="size-6 opacity-0 transition-opacity group-hover/row:opacity-100 focus-visible:opacity-100"
           >
             <Plus className="size-3.5" />
           </Button>
@@ -57,6 +53,7 @@ function CollapsedItem({ item, pathname }: { item: NavItem; pathname: string }) 
       <TooltipTrigger asChild>
         <Link
           href={item.path}
+          aria-current={active ? "page" : undefined}
           className={cn(
             "flex h-10 items-center justify-center rounded-lg",
             active ? rowActive : rowIdle,
@@ -95,7 +92,9 @@ function ExpandedItem({
 }) {
   const Icon = item.icon;
   const active = isActivePath(item.path, pathname);
-  const hasChildActive = !!item.submenu?.some((s) => isActivePath(s.path, pathname));
+  const hasChildActive = !!item.submenu?.some((s) =>
+    isActivePath(s.path, pathname),
+  );
 
   if (item.haveSubmenu && item.submenu?.length) {
     return (
@@ -103,19 +102,27 @@ function ExpandedItem({
         <button
           type="button"
           onClick={onToggle}
-          className={cn(rowBase, "w-full", hasChildActive ? "text-foreground" : rowIdle)}
+          aria-expanded={open}
+          className={cn(
+            rowBase,
+            "w-full",
+            hasChildActive ? "text-foreground" : rowIdle,
+          )}
         >
           <Icon className="size-5 shrink-0" />
           <span className="grow text-start">{item.title}</span>
           <ChevronDown
-            className={cn("size-4 shrink-0 transition-transform duration-300", open && "rotate-180")}
+            className={cn(
+              "size-4 shrink-0 transition-transform duration-200",
+              open && "rotate-180",
+            )}
           />
         </button>
 
         {/* Smooth height reveal via grid-rows, no library */}
         <div
           className={cn(
-            "grid transition-[grid-template-rows] duration-300 ease-in-out",
+            "grid transition-[grid-template-rows] duration-200 ease-out",
             open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
           )}
         >
@@ -127,6 +134,7 @@ function ExpandedItem({
                   <Link
                     key={sub.path}
                     href={sub.path}
+                    aria-current={subActive ? "page" : undefined}
                     className={cn(
                       "flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                       subActive ? rowActive : rowIdle,
@@ -151,7 +159,11 @@ function ExpandedItem({
 
   return (
     <div className={cn(rowBase, active ? rowActive : rowIdle)}>
-      <Link href={item.path} className="flex min-w-0 grow items-center gap-2.5">
+      <Link
+        href={item.path}
+        aria-current={active ? "page" : undefined}
+        className="flex min-w-0 grow items-center gap-2.5"
+      >
         <Icon className="size-5 shrink-0" />
         <span className="truncate">{item.title}</span>
       </Link>
@@ -160,35 +172,64 @@ function ExpandedItem({
   );
 }
 
-export function SidebarMenu({ forceExpanded = false }: { forceExpanded?: boolean }) {
-  const { getSidebarNavItems, sidebarCollapse } = useLayout();
+interface SidebarMenuProps {
+  /** Render expanded regardless of the collapse preference (mobile sheet). */
+  forceExpanded?: boolean;
+  /** Render as an icon rail regardless of the collapse preference. */
+  forceCollapsed?: boolean;
+}
+
+export function SidebarMenu({
+  forceExpanded = false,
+  forceCollapsed = false,
+}: SidebarMenuProps) {
+  const { getSidebarNavSections, sidebarCollapse } = useLayout();
   const pathname = usePathname();
-  const navItems = getSidebarNavItems();
-  const collapsed = sidebarCollapse && !forceExpanded;
+  const sections = getSidebarNavSections();
+  const collapsed = forceCollapsed || (sidebarCollapse && !forceExpanded);
 
   // Which submenu is open (single-open accordion), seeded from the active route.
   const [openPath, setOpenPath] = useState<string | null>(() => {
-    const active = navItems.find((i) =>
-      i.submenu?.some((s) => isActivePath(s.path, pathname)),
-    );
+    const active = sections
+      .flatMap((section) => section.items)
+      .find((item) => item.submenu?.some((s) => isActivePath(s.path, pathname)));
     return active?.path ?? null;
   });
 
   return (
-    <nav className={cn("flex flex-col gap-1", collapsed ? "px-2" : "px-3")}>
-      {navItems.map((item) =>
-        collapsed ? (
-          <CollapsedItem key={item.path} item={item} pathname={pathname} />
-        ) : (
-          <ExpandedItem
-            key={item.path}
-            item={item}
-            pathname={pathname}
-            open={openPath === item.path}
-            onToggle={() => setOpenPath((p) => (p === item.path ? null : item.path))}
-          />
-        ),
-      )}
+    <nav
+      aria-label="Main"
+      className={cn("flex flex-col", collapsed ? "gap-3 px-2" : "gap-5 px-3")}
+    >
+      {sections.map((section) => (
+        <div key={section.title} className="flex flex-col gap-1">
+          {collapsed ? (
+            // A hairline stands in for the heading so the grouping survives
+            // the rail without a label to carry it.
+            <span aria-hidden className="mx-auto my-1 h-px w-6 bg-border" />
+          ) : (
+            <h2 className="px-3 pb-1 text-[11px] font-semibold tracking-wider text-sidebar-foreground/45 uppercase">
+              {section.title}
+            </h2>
+          )}
+
+          {section.items.map((item) =>
+            collapsed ? (
+              <CollapsedItem key={item.path} item={item} pathname={pathname} />
+            ) : (
+              <ExpandedItem
+                key={item.path}
+                item={item}
+                pathname={pathname}
+                open={openPath === item.path}
+                onToggle={() =>
+                  setOpenPath((p) => (p === item.path ? null : item.path))
+                }
+              />
+            ),
+          )}
+        </div>
+      ))}
     </nav>
   );
 }

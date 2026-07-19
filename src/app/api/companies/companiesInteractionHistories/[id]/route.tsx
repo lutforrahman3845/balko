@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CompanyInteractionHistory } from "@/mock/CompanyInteractionHistory";
 import { contactHistory } from "@/mock/contactHistory";
 import { COMPANIES } from "@/mock/companies";
@@ -38,7 +37,7 @@ export async function GET(
             })
 
         const historyMessage = [...companyHistory, ...contactInteractionHistory]
-            .sort((a: any, b: any) => new Date(b.lastInteractionAt).getTime() - new Date(a.lastInteractionAt).getTime());
+            .sort((a, b) => new Date(b.lastInteractionAt).getTime() - new Date(a.lastInteractionAt).getTime());
 
         const pageIndex = parseInt(searchParams.get("pageIndex") || "1");
         const pageSize = parseInt(searchParams.get("pageSize") || "10");
@@ -49,10 +48,10 @@ export async function GET(
         const paginatedSlice = historyMessage.slice(startIdx, startIdx + pageSize);
 
         const data = {
-            companyConatact: paginatedSlice.filter((item: any) => 'companyId' in item && !('contactId' in item)),
+            companyConatact: paginatedSlice.filter((item) => 'companyId' in item && !('contactId' in item)),
             conatactsHistory: paginatedSlice
-                .filter((item: any) => 'contactId' in item)
-                .map(({ ...rest }: any) => rest)
+                .filter((item) => 'contactId' in item)
+                .map((item) => ({ ...item }))
         };
 
         return NextResponse.json({

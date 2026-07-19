@@ -17,6 +17,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ErrorState } from "@/components/shared/ErrorState";
 
 import { useGetContactDetailsQuery } from "@/redux/apis/ContactApis";
+import { getErrorMessage } from "@/lib/errors";
 
 const Page = () => {
   const params = useParams();
@@ -108,11 +109,8 @@ const Page = () => {
       // In a real app: await fetch(`/api/contacts/${id}`, { method: 'PUT', ... })
       toast.success("Contact updated successfully");
       router.push(`/contacts`);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      toast.error(
-        err?.message || err?.data?.message || "Failed to update contact",
-      );
+    } catch (err: unknown) {
+      toast.error(getErrorMessage(err, "Failed to update contact"));
     }
   };
 

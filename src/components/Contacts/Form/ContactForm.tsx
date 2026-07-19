@@ -6,6 +6,7 @@ import {
   Controller,
   FieldErrors,
   UseFormSetValue,
+  UseFormUnregister,
 } from "react-hook-form";
 import ContactAvatar from "./ContactAvatar";
 import CompanyForm from "./CompanyForm";
@@ -25,8 +26,7 @@ const ContactForm = ({
   control: Control<ContactsCreateFormValues>;
   errors: FieldErrors<ContactsCreateFormValues>;
   setValue: UseFormSetValue<ContactsCreateFormValues>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  unregister: (name: any) => void;
+  unregister: UseFormUnregister<ContactsCreateFormValues>;
   companyId?: string | undefined;
 }) => {
   return (

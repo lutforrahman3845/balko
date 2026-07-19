@@ -1,4 +1,4 @@
-import { NavConfig } from "@/@types/NavItem";
+import { NavConfig, NavSectionConfig } from "@/@types/NavItem";
 import {
   Briefcase,
   CheckSquare,
@@ -7,6 +7,11 @@ import {
   Calendar,
   MessageSquare,
   Component,
+  Gauge,
+  KanbanSquare,
+  Contact,
+  Users,
+  Settings2,
 } from "lucide-react";
 import { IoPeopleCircle, IoSettingsOutline } from "react-icons/io5";
 import { LuBuilding2 } from "react-icons/lu";
@@ -14,12 +19,26 @@ import { LiaUserTieSolid } from "react-icons/lia";
 import { RiContactsBook3Line } from "react-icons/ri";
 import { FaFolderTree } from "react-icons/fa6";
 
-export const MAIN_NAV: NavConfig = [
+const NAV_ITEMS: NavConfig = [
   {
-    title: "Dashboard",
+    title: "Dashboards",
     icon: LayoutGrid,
     path: "/",
-    haveSubmenu: false,
+    haveSubmenu: true,
+    submenu: [
+      {
+        title: "Overview",
+        path: "/",
+      },
+      {
+        title: "Executive",
+        path: "/dashboards/executive",
+      },
+      {
+        title: "Operations",
+        path: "/dashboards/operations",
+      },
+    ],
   },
   {
     title: "Analytics",
@@ -125,3 +144,49 @@ export const MAIN_NAV: NavConfig = [
   },
 
 ];
+
+const byPath = (path: string): NavConfig[number] => {
+  const item = NAV_ITEMS.find((navItem) => navItem.path === path);
+  if (!item) {
+    throw new Error(`Nav item not found for path: ${path}`);
+  }
+  return item;
+};
+
+/**
+ * Grouped navigation. Sections describe what a page is *for* — the shells read
+ * this to render headings, rail groups, and the two-column page menu.
+ * Add a new page by adding it to NAV_ITEMS and listing its path in a section.
+ */
+export const MAIN_NAV_SECTIONS: NavSectionConfig = [
+  {
+    title: "Workspace",
+    icon: Gauge,
+    items: [byPath("/"), byPath("/analytics"), byPath("/calendar"), byPath("/chat")],
+  },
+  {
+    title: "Work",
+    icon: KanbanSquare,
+    items: [byPath("/tasks"), byPath("/projects"), byPath("/folders")],
+  },
+  {
+    title: "Customers",
+    icon: Contact,
+    items: [byPath("/contacts"), byPath("/companies")],
+  },
+  {
+    title: "People",
+    icon: Users,
+    items: [byPath("/employees"), byPath("/teams")],
+  },
+  {
+    title: "System",
+    icon: Settings2,
+    items: [byPath("/configuration"), byPath("/ui-kit")],
+  },
+];
+
+/** Flat view of the same items, for shells and search that ignore grouping. */
+export const MAIN_NAV: NavConfig = MAIN_NAV_SECTIONS.flatMap(
+  (section) => section.items,
+);

@@ -5,6 +5,7 @@ import {
   Controller,
   FieldErrors,
   UseFormSetValue,
+  UseFormUnregister,
 } from "react-hook-form";
 import CompaniesLogo from "./CompaniesLogo";
 import CompaniesSocialLinks from "./CompaniesSocialLinks";
@@ -27,8 +28,7 @@ const CompaniesForm = ({
   control: Control<CompanyCreateFormValues>;
   errors: FieldErrors<CompanyCreateFormValues>;
   setValue: UseFormSetValue<CompanyCreateFormValues>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  unregister: (name: any) => void;
+  unregister: UseFormUnregister<CompanyCreateFormValues>;
 }) => {
   const { data: companyTypes, isLoading: loading } = useGetCompanyTypeOptionsQuery(undefined);
 
