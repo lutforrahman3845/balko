@@ -69,18 +69,18 @@ export function Header() {
               <Image
                 width={200}
                 height={200}
-                src="/avatars/avatar-4.jpg"
-                alt="logo"
-                className="h-9 w-9 transition-transform group-hover:rotate-12"
+                src="/logo/balcowhite.svg"
+                alt="Balko"
+                className="h-9 w-9"
               />
             </div>
             <div className="hidden dark:flex items-center">
               <Image
                 width={200}
                 height={200}
-                src="/avatars/avatar-4.jpg"
-                alt="logo"
-                className="h-9 w-9  transition-transform group-hover:rotate-12"
+                src="/logo/balcoblack.svg"
+                alt="Balko"
+                className="h-9 w-9"
               />
             </div>
           </Link>
