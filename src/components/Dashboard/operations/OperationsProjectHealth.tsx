@@ -79,7 +79,7 @@ export function OperationsProjectHealth() {
                     <span className="flex items-center gap-2">
                       <span className="h-1.5 w-20 shrink-0 rounded-full bg-muted">
                         <span
-                          className="block h-full rounded-full bg-[var(--chart-1)]"
+                          className="block h-full rounded-full bg-chart-1"
                           style={{ width: `${project.progress}%` }}
                         />
                       </span>

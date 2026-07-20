@@ -197,7 +197,7 @@ const CountrySelect = ({
                 />
               </div>
 
-              <div className="overflow-y-auto custom-scrollbar flex-1">
+              <div className="overflow-y-auto   flex-1">
                 {filteredOptions.length > 0 ? (
                   filteredOptions.map((option) => (
                     <DropdownMenuItem

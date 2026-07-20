@@ -64,7 +64,7 @@ export function Header({ alwaysShowBrand = false, bottomRow }: HeaderProps) {
   }, [use12HourFormat]);
 
   return (
-    <header className="sticky top-0 z-20 flex shrink-0 flex-col border-b border-border bg-background pe-(--removed-body-scroll-bar-size,0px)">
+    <header className="sticky top-0 z-20 flex shrink-0 flex-col border-b border-border bg-background">
       <div className="flex h-16 w-full items-stretch justify-between px-4 lg:gap-4">
         <div className="flex items-center gap-2.5">
           <Link
@@ -91,8 +91,6 @@ export function Header({ alwaysShowBrand = false, bottomRow }: HeaderProps) {
             </span>
           </Link>
 
-          {/* Visibility is CSS-driven so the trigger is correct on first paint
-              rather than appearing after a viewport measurement. */}
           <Sheet open={isSidebarSheetOpen} onOpenChange={setIsSidebarSheetOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" className="lg:hidden" aria-label="Open navigation">

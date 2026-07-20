@@ -28,13 +28,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // next-themes writes the theme class and color-scheme onto <html> before
-  // React hydrates, so the server markup intentionally differs there and the
-  // mismatch warning is suppressed on that element only.
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} antialiased overflow-x-hidden custom-scrollbar`}
+        className={`${inter.variable} antialiased overflow-x-hidden`}
       >
         <StoreProvider>
             <ThemeProvider

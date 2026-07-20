@@ -255,7 +255,7 @@ const CustomSelect = ({
                       />
                     </div>
                   )}
-                  <div className="max-h-60 overflow-y-auto custom-scrollbar p-1">
+                  <div className="max-h-60 overflow-y-auto   p-1">
                     {sortedAndFilteredOptions.length > 0 ? (
                       sortedAndFilteredOptions.map((option) => (
                         <button

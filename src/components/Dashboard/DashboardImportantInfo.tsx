@@ -38,7 +38,7 @@ const recentActivities = [
 
 const DashboardImportantInfo = () => {
   return (
-    <div className="p-5 rounded-xl border bg-card text-card-foreground shadow-sm flex flex-col h-[400px]">
+    <div className="p-5 rounded-xl border bg-card text-card-foreground shadow-sm flex flex-col h-100">
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h3 className="text-lg font-semibold tracking-tight">Important Updates</h3>
