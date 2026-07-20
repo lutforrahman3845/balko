@@ -100,20 +100,27 @@ export default function SignUpPage() {
             onCheckedChange={(v) => setAgreed(v === true)}
             className="mt-0.5"
             disabled={isLoading}
+            aria-labelledby="terms-label"
           />
-          <Label
-            htmlFor="terms"
-            className="text-sm font-normal text-muted-foreground leading-snug"
+          <p
+            id="terms-label"
+            className="text-sm leading-snug text-pretty text-muted-foreground"
           >
             I agree to the{" "}
-            <Link href="#" className="text-blue-600 hover:text-blue-500">
+            <Link
+              href="#"
+              className="text-blue-600 hover:text-blue-500"
+            >
               Terms of Service
             </Link>{" "}
             and{" "}
-            <Link href="#" className="text-blue-600 hover:text-blue-500">
+            <Link
+              href="#"
+              className="text-blue-600 hover:text-blue-500"
+            >
               Privacy Policy
             </Link>
-          </Label>
+          </p>
         </div>
 
         <AuthSubmitButton loading={isLoading} loadingText="Creating account...">
